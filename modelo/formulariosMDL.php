@@ -82,9 +82,30 @@ class ModeloFormularios{
 		$stmt =null;
 	}
 
-	#------------------------- AGREGAR INSUMO -------------------------#
+	#------------------------- ACTUALIZAR STOCK DE INSUMO -------------------------#
 
-	#static public function mdlAgregarInsumo($datos){}
+static public function mdlActualizarInsumo($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgreagarMovInsumo( :id_insumo,:cantidad,:id_cuenta,:comentario,id_usuario);");
+		
+		$stmt -> bindparam (":id_insumo",$datos(idInsumo_),PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",$datos(cantidad_),PDO::PARAM_STR); #[TO DO] Cambiar a decimal
+		$stmt -> bindparam (":id_cuenta",$datos(idCuenta_),PDO::PARAM_INT);
+		$stmt -> bindparam (":comentario",$datos(comentario_),PDO::PARAM_STR); 
+		$stmt -> bindparam (":id_usuario",$datos(idUsuario_),PDO::PARAM_INT);
+
+		if ($stmt -> execute()){
+			return "OK"; #si se ejecutó correctamente le envío un OK
+
+		}else{
+			print_r(conexion::conectarBD());#Si se ejecutó con error le envío el error}
+		}
+		
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
+	}
+
+
 
 }
 

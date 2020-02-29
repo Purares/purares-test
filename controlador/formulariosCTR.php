@@ -69,12 +69,14 @@ class ControladorFormularios{
 			isset($_POST["cantidadActI"])||
 			isset($_POST["idCuentaActI"])) {
 
-				$datos= array(	'idInsumo' => $_POST["idInsumoActI"],
-								'cantidad' => $_POST["cantidadActI"],
-								'idCuenta' => $_POST["idCuentaActI"],
-								'comentario' => $_POST["comentarioActI"],
-								'idUsuario' => $idUsaruiO); #[TO DO] Lo tiene que traer del objeto login ubicado en loginMDL.PHP 
+				$datos= array(	'idInsumo_' => $_POST["idInsumoActI"],
+								'cantidad_' => $_POST["cantidadActI"],
+								'idCuenta_' => $_POST["idCuentaActI"],
+								'comentario_' => $_POST["comentarioActI"],
+								'idUsuario_' => $idUsaruiO); #[TO DO] Lo tiene que traer del objeto login ubicado en loginMDL.PHP 
 		}
+
+			$respuesta=ModeloFormularios::mdlActualizarInsumo();
 
 	}
 
