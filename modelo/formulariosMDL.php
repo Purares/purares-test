@@ -6,17 +6,6 @@ $conexion=Conexion::conectarBD();
 
 class ModeloFormularios{
 
-	#------------------------- VER INSUMOS -------------------------#
-
-	static public function mdlStockInsumo(){
- 
-		$stmt=conexion::conectarBD()->prepare("select * from v_stockinsumos;");
-		$stmt -> execute();
-		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
-		$stmt -> close(); #cierra la conexion
-		$stmt =null; 
-
-	}
 
 	#------------------------- Lista  DEPOSITOS -------------------------#
 
@@ -32,7 +21,7 @@ class ModeloFormularios{
 	}
 
 
-	#------------------------- Lista  Unidad De Medida -------------------------#
+	#------------------------- Lista UDM -------------------------#
 
 
 	static public function mdlListaUDM(){
@@ -43,6 +32,32 @@ class ModeloFormularios{
 		$stmt -> close(); #cierra la conexion
 		$stmt =null; 
 	}
+
+#------------------------- Lista CUENTAS -------------------------#
+
+
+	static public function mdlListaCuentas(){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT id_cuenta, nombre FROM cuentas_n");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+	#------------------------- Stock Insumos -------------------------#
+
+	static public function mdlStockInsumo(){
+ 
+		$stmt=conexion::conectarBD()->prepare("select * from v_stockinsumos;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+	}
+
 
 	#------------------------- AGREGAR INSUMO -------------------------#
 
@@ -66,6 +81,11 @@ class ModeloFormularios{
 		$stmt -> close(); #cierra la conexion
 		$stmt =null;
 	}
+
+	#------------------------- AGREGAR INSUMO -------------------------#
+
+	#static public function mdlAgregarInsumo($datos){}
+
 }
 
 ?>

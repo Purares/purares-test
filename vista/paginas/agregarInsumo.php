@@ -1,3 +1,8 @@
+
+
+
+
+
 <h1>Agregar Insumo</h1>
 
 <form method="post" >
