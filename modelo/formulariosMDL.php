@@ -8,9 +8,9 @@ class ModeloFormularios{
 
 	#------------------------- VER INSUMOS -------------------------#
 
-	static public function mdlVerInsumos(){
+	static public function mdlStockInsumo(){
  
-		$stmt=conexion::conectarBD()->prepare("select * from v_stock_insumos;");
+		$stmt=conexion::conectarBD()->prepare("select * from v_stockinsumos;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -46,9 +46,25 @@ class ModeloFormularios{
 
 	#------------------------- AGREGAR INSUMO -------------------------#
 
-	static public function mdlAgregarInsumo(){
+	static public function mdlAgregarInsumo($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumo( :nombreInsumo,:id_udn,:id_deposito,:alertaQmax );");
+		
+		$stmt -> bindparam (":nombreInsumo",$datos(nombreInsumo_),PDO::PARAM_STR);
+		$stmt -> bindparam (":idDeposito",$datos(idDeposito_),PDO::PARAM_INT);
+		$stmt -> bindparam (":idUm",$datos(idUm_),PDO::PARAM_INT);
+		$stmt -> bindparam (":alertaQmax",$datos(alertaQmax_),PDO::PARAM_STR);
 
 
+		if ($stmt -> execute()){
+			return "OK"; #si se ejecutó correctamente le envío un OK
+
+		}else{
+			print_r(conexion::conectarBD());#Si se ejecutó con error le envío el error}
+		}
+		
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
 	}
 }
 

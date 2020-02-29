@@ -5,9 +5,9 @@ class ControladorFormularios{
 
 #------------------------- VER INSUMOS -------------------------#
 
-	static public function ctrMostrarStockInsumos(){
+	static public function ctrStockInsumos(){
 
-		$respuesta= ModeloFormularios::mdlVerInsumos();
+		$respuesta= ModeloFormularios::mdlStockInsumo();
 		return $respuesta;
 		
 	}
@@ -30,14 +30,19 @@ class ControladorFormularios{
 #------------------------- DATOS DEL NUEVO INSUMO -------------------------#
 
 	static public function ctrNuevoInsumoDatos(){
-			$tabla="insumos_n";
-			$datos= array('nombre' => $_POST["nombreNUevoInsumo"],
-						  'udm' => $_POST["udmNuevoIsumo"],
-						  'deposito' => $_POST["depositoNuevoIsumo"],
-						  'alertaQmin' => $_POST["alertaQminNuevoInsumo"]);
+			
+		if (isset($_POST["nombreInsumo"])||
+			isset($_POST["idDeposito"])||
+			isset($_POST["Unidad"])) {
 
-			$respuesta=$datos;
-			#$respuesta= ModeloFormularios::mdlRegistro($tabla,$datos);
+				$datos= array(	'nombreInsumo_' => , $_POST["nombreInsumo"],
+								'idDeposito_' => , $_POST["idDeposito"]
+								'idUdm_' => , $_POST["idUdm"])
+								'alertaQmax_' => , $_POST["alertaQmax"];
+
+		}
+
+			$respuesta=ModeloFormularios::mdlAgregarInsumo($datos);
 
 			return $respuesta;
 	}

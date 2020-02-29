@@ -1,7 +1,18 @@
+
+
 <?php 
 
-$stock_insumos=ControladorFormularios::ctrMostrarStockInsumos();
-#var_dump($stock_insumos)
+#Stock de insumos
+$stock_insumos=ControladorFormularios::ctrStockInsumos();
+var_dump($stock_insumos)
+
+#Agregar Insumo 
+$agregar_insumo=ControladorFormularios::ctrAgregarInsumo();
+	#Ver las variables POST que me tiene que eviar
+	#El return es un OK o el error en su defecto
+
+#Actualizar stock del insumo seleccionado
+
 
  ?>
 
