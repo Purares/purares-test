@@ -52,12 +52,12 @@ class ControladorFormularios{
 								'idUdm' => $_POST["idUdm"],
 								'alertaQmax' => $_POST["alertaQmax"]);
 
+
+			$respuesta=ModeloFormularios::mdlAgregarInsumo($datos);
+			return $respuesta;
 		}
 
 
-			$respuesta=ModeloFormularios::mdlAgregarInsumo($datos);
-
-			return $respuesta;
 	}
 
 
@@ -74,13 +74,102 @@ class ControladorFormularios{
 								'idCuenta_' => $_POST["idCuentaActI"],
 								'comentario_' => $_POST["comentarioActI"],
 								'idUsuario_' => $idUsaruiO); #[TO DO] Lo tiene que traer del objeto login ubicado en loginMDL.PHP 
+		$respuesta=ModeloFormularios::mdlActualizarInsumo($datos);
+		return $respuesta;
 		}
 
-			$respuesta=ModeloFormularios::mdlActualizarInsumo();
+			
+	}	
+#------------------------- Lista de Recetas -------------------------#
+
+	static public function ctrListaRecetas(){
+
+		$respuesta= ModeloFormularios::mdlListaRecetas();
+		
+		return $respuesta;
+		
+	}
+
+
+
+#------------------------- Detalle de Receta -------------------------#
+
+	static public function ctrDetalleReceta(){
+
+		if (isset($_POST["idRecetaDetalle"])){
+
+			$id_receta= $_POST["idRecetaDetalle"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
+			$respuesta= ModeloFormularios::mdlDetalleReceta($id_receta);
+		
+			return $respuesta;	
+		}
 
 	}
 
 
+#------------------------- Detalle de Receta -------------------------#
+
+	static public function ctrInsumosReceta(){
+
+		if (isset($_POST["idRecetaDetalle"])){
+
+			$id_receta=$_POST["idRecetaDetalle"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
+			$respuesta= ModeloFormularios::mdlInsumosReceta($id_receta);
+	
+			return $respuesta;	
+		}
+
+	
+	}
+
+#------------------------- Desactivar Receta -------------------------#
+
+	static public function ctrDesactivarReceta(){
+
+		if (isset($_POST["idRecetaDetalle"])){
+
+			$id_receta=$_POST["idRecetaDetalle"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
+			$respuesta= ModeloFormularios::mdlDesactivarReceta($id_receta);
+	
+			return $respuesta;	
+		}
+
+	
+	}
+
+#------------------------- Activar Receta -------------------------#
+
+	static public function ctrActivarReceta(){
+
+		if (isset($_POST["idRecetaDetalle"])){
+
+			$id_receta=$_POST["idRecetaDetalle"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
+			$respuesta= ModeloFormularios::mdlActivarReceta($id_receta);
+	
+			return $respuesta;	
+		}
+
+	
+	}
+
+
+#------------------------- Crear Receta -------------------------#
+
+#################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	static public function ctrCrearReceta(){
+
+		if (isset($_POST["idRecetaDetalle"])||
+			isset($_POST["idRecetaDetalle"])||
+			isset($_POST["idRecetaDetalle"])){
+
+			$id_receta=$_POST["idRecetaDetalle"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
+			$respuesta= ModeloFormularios::mdlActivarReceta($id_receta);
+	
+			return $respuesta;	
+		}
+
+	
+	}
 
 
 

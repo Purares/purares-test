@@ -106,6 +106,69 @@ static public function mdlActualizarInsumo($datos){
 	}
 
 
+#------------------------- Lista RECETAS -------------------------#
+
+
+	static public function mdlListaRecetas(){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM recetas_n");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+#------------------------- Detalle de RECETA -------------------------#
+
+
+	static public function mdlDetalleReceta($id_receta){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM recetas_n where id_receta=$id_receta");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+#------------------------- Insumos de RECETA -------------------------#
+
+
+	static public function mdlInsumosReceta($id_receta){
+
+		$stmt=conexion::conectarBD()->prepare("call v_InsumosReceta($id_receta);");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+#------------------------- Inactivar RECETA -------------------------#
+
+
+	static public function mdlDesactivarReceta($id_receta){
+
+		$stmt=conexion::conectarBD()->prepare("call act_InactivarReceta($id_receta);");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+#------------------------- Activar RECETA -------------------------#
+
+
+	static public function mdlActivarReceta($id_receta){
+
+		$stmt=conexion::conectarBD()->prepare("call act_ActivarReceta($id_receta);");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
 
 }
 
