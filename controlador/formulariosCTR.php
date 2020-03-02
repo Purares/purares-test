@@ -175,13 +175,13 @@ class ControladorFormularios{
 								'porcentcarne_'	 => $_POST["porcentcarneCrearReceta"],
 								'descripcion_' => $_POST["descripcionCrearReceta"]);
 
-				$datos2= array(	'id_insumo_'=> $_POST"idinsumoCrearReceta"],
+				$datos2= array(	'id_insumo_'=> $_POST["idinsumoCrearReceta"],
 								'cantidad_insumo_'=> $_POST["cantidadinsumoCrearReceta"]);
 
 				$idReceta_nueva=ModeloFormularios::mdlCrearReceta($datos); #[To DO] No devuelve el id de la receta creada
 				
 
-				$respuesta=ControladorFormularios::ctrInsumosReceta($idReceta_nueva,$datos2)
+				$respuesta=ControladorFormularios::ctrInsumosReceta($idReceta_nueva,$datos2);
 
 
 
@@ -195,15 +195,15 @@ class ControladorFormularios{
 	#################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	static public function ctrAltaInsumosReceta($idReceta_nueva,$datos2){
 		
-		$logitud=count($datos2)
+		$logitud=count($datos2);
 
 		#Recorre todos los insumos para agregarlos a la BD
-		for ($i=0; $i <$logitud ; $i++) { 
+		for ( $i=0 ; $i < $logitud ; $i++) { 
 				
 			$datos3=$datos2[$i]; #[TO DO] Seleccionar la fila del array
 			$respuesta2=ModeloFormularios::mdlAltaInsumosReceta($idReceta_nueva,$datos3);
 
-			if ($respuesta2 != "ok"{
+			if ($respuesta2 != "ok"){
 				return $respuesta2;
 			}
 		}	
