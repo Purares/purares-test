@@ -158,21 +158,73 @@ class ControladorFormularios{
 #################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	static public function ctrCrearReceta(){
 
-		if (isset($_POST["idRecetaDetalle"])||
-			isset($_POST["idRecetaDetalle"])||
-			isset($_POST["idRecetaDetalle"])){
+		if (isset($_POST["nombreCrearReceta"])||
+			isset($_POST["mermaCrearReceta"])||
+			isset($_POST["diasprodCrearReceta"])||
+			isset($_POST["diasvencCrearReceta"])||
+			isset($_POST["largouniCrearReceta"])||
+			isset($_POST["pesouniCrearReceta"])||
+			isset($_POST["porcentcarneCrearReceta"])){
 
-			$id_receta=$_POST["idRecetaDetalle"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
-			$respuesta= ModeloFormularios::mdlActivarReceta($id_receta);
-	
-			return $respuesta;	
+				$datos= array(	'nombre_' => $_POST["nombreCrearReceta"],
+								'merma_' => $_POST["mermaCrearReceta"],
+								'diasprod_' => $_POST["diasprodCrearReceta"],
+								'diasvenc_' => $_POST["diasvencCrearReceta"],
+								'largouni_' => $_POST["largouniCrearReceta"],
+								'pesouni_' => $_POST["pesouniCrearReceta"],
+								'porcentcarne_'	 => $_POST["porcentcarneCrearReceta"],
+								'descripcion_' => $_POST["descripcionCrearReceta"]);
+
+				$datos2= array(	'id_insumo_'=> $_POST"idinsumoCrearReceta"],
+								'cantidad_insumo_'=> $_POST["cantidadinsumoCrearReceta"]);
+
+				$idReceta_nueva=ModeloFormularios::mdlCrearReceta($datos); #[To DO] No devuelve el id de la receta creada
+				
+
+				$respuesta=ControladorFormularios::ctrInsumosReceta($idReceta_nueva,$datos2)
+
+
+
+				return $respuesta;
 		}
 
 	
 	}
+	#------------------------- Alta Insumos por Receta -------------------------#
+
+	#################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	static public function ctrAltaInsumosReceta($idReceta_nueva,$datos2){
+		
+		$logitud=count($datos2)
+
+		for ($i=0; $i <$logitud ; $i++) { 
+				
+				$insumo_cantidad=$datos2[$i]; #[TO DO] Navegar el array
+				$respuesta2=ModeloFormularios::mdlAltaInsumosReceta($insumo_cantidad);
+
+			}	
+
+	}
 
 
+	#------------------------- ELIMINAR -------------------------#
 
+	#################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	static public function prueba1(){
+
+	$respuesta=ControladorFormularios::prueba2();
+
+	return $respuesta;
+
+	}
+
+
+	#################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	static public function prueba2(){
+
+		$traspaso=4;
+		return $traspaso;
+	}
 }
 
 

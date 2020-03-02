@@ -20,9 +20,11 @@
 
 	#Crear receta
 #   !!!DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		$crear_receta=ControladorFormularios::ctrCrearReceta();
-		$agregar_insumos_Receta=ControladorFormularios::ctrAgregarInsumosReceta();
+		#$crear_receta=ControladorFormularios::ctrCrearReceta();
+		#$agregar_insumos_Receta=ControladorFormularios::ctrAgregarInsumosReceta();
 		
+		$prueba=ControladorFormularios::prueba1();
+		var_dump($prueba)
 
 ?>
 
