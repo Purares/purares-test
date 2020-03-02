@@ -255,6 +255,12 @@ class ControladorFormularios{
 	}	
 	
 
+
+
+
+
+
+
 /*
 
 	#------------------------- ELIMINAR- SE UTILIZA PARA REALIZAR PRUEBAS -------------------------#
