@@ -184,7 +184,7 @@ class ModeloFormularios{
 
 	static public function mdlCrearReceta($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgreagarMovInsumo( :nombre,:merma,:diaspord,:diasvenc,largouni,porcentcarne,descripcion);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgreagarMovInsumo( :nombre,:merma,:diaspord,:diasvenc,:largouni,:porcentcarne,:descripcion);");
 		
 		$stmt -> bindparam (":nombre",$datos(nombre_),PDO::PARAM_INT);
 		$stmt -> bindparam (":merma",$datos(merma_),PDO::PARAM_STR);
@@ -208,11 +208,12 @@ class ModeloFormularios{
 
 #------------------------- Crear RECETA -------------------------#
 
-	static public function mdlAltaInsumosReceta($insumo_cantidad){
+	static public function mdlAltaInsumosReceta($idReceta_nueva,$datos3){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgreagarMovInsumo( :nombre,:merma,:diaspord,:diasvenc,largouni,porcentcarne,descripcion);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumosXReceta($idReceta_nueva,:id_insumo,:cantidad);");
 		
-		$stmt -> bindparam (":nombre",$datos(nombre_),PDO::PARAM_INT);
+		$stmt -> bindparam (":id_insumo",$datos(id_insumo_),PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",$datos(cantidad_insumo_),PDO::PARAM_INT);
 
 		if ($stmt -> execute()){
 			return "ok";
@@ -225,9 +226,59 @@ class ModeloFormularios{
 	}
 
 
+#------------------------- Lista CARNES -------------------------#
 
 
-#------------------------- ELIMINAR -------------------------#
+	static public function mdlListaCarnes(){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM carnes_n");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+#------------------------- Stock CARNES------------------------#
+
+	static public function mdlStockCarnes(){
+ 
+		$stmt=conexion::conectarBD()->prepare("select * from v_stockinsumos;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+	}
+
+
+	#------------------------- AGREGAR CARNE -------------------------#
+
+	static public function mdlAgregarCarne($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumo( :nombreInsumo,:id_udn,:id_deposito,:alertaQmax );");
+		
+		$stmt -> bindparam (":nombreInsumo",$datos(nombreInsumo_),PDO::PARAM_STR);
+		$stmt -> bindparam (":idDeposito",$datos(idDeposito_),PDO::PARAM_INT);
+		$stmt -> bindparam (":idUm",$datos(idUm_),PDO::PARAM_INT);
+		$stmt -> bindparam (":alertaQmax",$datos(alertaQmax_),PDO::PARAM_STR);
+
+
+		if ($stmt -> execute()){
+			return "OK"; #si se ejecutó correctamente le envío un OK
+
+		}else{
+			print_r(conexion::conectarBD());#Si se ejecutó con error le envío el error}
+		}
+		
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
+	}
+
+
+/*
+
+#------------------------- ELIMINAR SE UTILIZA PARA REALIZAR PRUEBAS! -------------------------#
 
 	static public function mdlprueba(){
 
@@ -254,7 +305,8 @@ class ModeloFormularios{
 		$stmt -> close(); #cierra la conexion
 		$stmt =null; 
 	}
+*/
 
-}
+} #Cierra la clase
 
 ?>

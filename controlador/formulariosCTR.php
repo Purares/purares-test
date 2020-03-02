@@ -197,17 +197,62 @@ class ControladorFormularios{
 		
 		$logitud=count($datos2)
 
+		#Recorre todos los insumos para agregarlos a la BD
 		for ($i=0; $i <$logitud ; $i++) { 
 				
-				$insumo_cantidad=$datos2[$i]; #[TO DO] Navegar el array
-				$respuesta2=ModeloFormularios::mdlAltaInsumosReceta($insumo_cantidad);
+			$datos3=$datos2[$i]; #[TO DO] Seleccionar la fila del array
+			$respuesta2=ModeloFormularios::mdlAltaInsumosReceta($idReceta_nueva,$datos3);
 
-			}	
+			if ($respuesta2 != "ok"{
+				return $respuesta2;
+			}
+		}	
 
 	}
 
+	#------------------------- Lista de carnes -------------------------#
 
-	#------------------------- ELIMINAR -------------------------#
+	static public function ctrListaCarnes(){
+	
+		$respuesta= ModeloFormularios::mdlListaCarnes();
+		return $respuesta;
+	}	
+	
+	#------------------------- Stock de Carnes -------------------------#
+
+	static public function ctrStockCarnes(){
+
+		$respuesta= ModeloFormularios::mdlStockCarne();
+		return $respuesta;
+		
+	}
+
+#------------------------- Agregar Carne -------------------------#
+
+	static public function ctrAgregarCarne(){
+		
+				
+		if (isset($_POST["nombreInsumo"])||
+			isset($_POST["idDeposito"])||
+			isset($_POST["Unidad"]))
+		{
+				$datos= array(	'nombreInsumo' => $_POST["nombreInsumo"],
+								'idDeposito' => $_POST["idDeposito"],
+								'idUdm' => $_POST["idUdm"],
+								'alertaQmax' => $_POST["alertaQmax"]);
+
+
+			$respuesta=ModeloFormularios::mdlAgregarCarne($datos);
+			return $respuesta;
+		}
+
+	}
+	
+
+
+/*
+
+	#------------------------- ELIMINAR- SE UTILIZA PARA REALIZAR PRUEBAS -------------------------#
 
 	#################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	static public function prueba1(){
@@ -225,7 +270,8 @@ class ControladorFormularios{
 		$traspaso=4;
 		return $traspaso;
 	}
-}
+*/
 
+}#cierra la clase
 
 ?>
