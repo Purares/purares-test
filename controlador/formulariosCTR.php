@@ -50,7 +50,7 @@ class ControladorFormularios{
 				$datos= array(	'nombreInsumo' => $_POST["nombreInsumo"],
 								'idDeposito' => $_POST["idDeposito"],
 								'idUdm' => $_POST["idUdm"],
-								'alertaQmax' => $_POST["alertaQmax"]);
+								'alertaQmin' => $_POST["alertaQmin"]);
 
 
 			$respuesta=ModeloFormularios::mdlAgregarInsumo($datos);
@@ -222,7 +222,7 @@ class ControladorFormularios{
 
 	static public function ctrStockCarnes(){
 
-		$respuesta= ModeloFormularios::mdlStockCarne();
+		$respuesta= ModeloFormularios::mdlStockCarnes();
 		return $respuesta;
 		
 	}
@@ -232,14 +232,12 @@ class ControladorFormularios{
 	static public function ctrAgregarCarne(){
 		
 				
-		if (isset($_POST["nombreInsumo"])||
-			isset($_POST["idDeposito"])||
-			isset($_POST["Unidad"]))
+		if (isset($_POST["nombreCarne"])||
+			isset($_POST["idUdmCarne"]))
 		{
-				$datos= array(	'nombreInsumo' => $_POST["nombreInsumo"],
-								'idDeposito' => $_POST["idDeposito"],
-								'idUdm' => $_POST["idUdm"],
-								'alertaQmax' => $_POST["alertaQmax"]);
+				$datos= array(	'nombreInsumo' => $_POST["nombreCarne"],
+								'idUdm' => $_POST["idUdmCarne"],
+								'alertaQmin' => $_POST["alertaQminCarne"]);
 
 
 			$respuesta=ModeloFormularios::mdlAgregarCarne($datos);
@@ -248,7 +246,14 @@ class ControladorFormularios{
 
 	}
 	
+	#------------------------- Lista de Desbaste -------------------------#
 
+	static public function ctrVerRegistroDesbaste(){
+	
+		$respuesta= ModeloFormularios::mdlVerRegistroDesbaste();
+		return $respuesta;
+	}	
+	
 
 /*
 

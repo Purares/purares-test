@@ -63,12 +63,12 @@ class ModeloFormularios{
 
 	static public function mdlAgregarInsumo($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumo( :nombreInsumo,:id_udn,:id_deposito,:alertaQmax );");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumo( :nombreInsumo,:id_udn,:id_deposito,:alertaQmim );");
 		
 		$stmt -> bindparam (":nombreInsumo",$datos(nombreInsumo_),PDO::PARAM_STR);
 		$stmt -> bindparam (":idDeposito",$datos(idDeposito_),PDO::PARAM_INT);
 		$stmt -> bindparam (":idUm",$datos(idUm_),PDO::PARAM_INT);
-		$stmt -> bindparam (":alertaQmax",$datos(alertaQmax_),PDO::PARAM_STR);
+		$stmt -> bindparam (":alertaQmin",$datos(alertaQmin_),PDO::PARAM_STR);
 
 
 		if ($stmt -> execute()){
@@ -243,7 +243,7 @@ class ModeloFormularios{
 
 	static public function mdlStockCarnes(){
  
-		$stmt=conexion::conectarBD()->prepare("select * from v_stockinsumos;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_stockinsumos;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -256,12 +256,11 @@ class ModeloFormularios{
 
 	static public function mdlAgregarCarne($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumo( :nombreInsumo,:id_udn,:id_deposito,:alertaQmax );");
+		$stmt=conexion::conectarBD()->prepare("call `purares-test`.ins_AgregarCarne(:nombreCarne, :idUDM, :alertaQmin);");
 		
-		$stmt -> bindparam (":nombreInsumo",$datos(nombreInsumo_),PDO::PARAM_STR);
-		$stmt -> bindparam (":idDeposito",$datos(idDeposito_),PDO::PARAM_INT);
-		$stmt -> bindparam (":idUm",$datos(idUm_),PDO::PARAM_INT);
-		$stmt -> bindparam (":alertaQmax",$datos(alertaQmax_),PDO::PARAM_STR);
+		$stmt -> bindparam (":nombreCarne",$datos(nombreCarne_),PDO::PARAM_STR);
+		$stmt -> bindparam (":idUDM",$datos(idUDM_),PDO::PARAM_INT);
+		$stmt -> bindparam (":alertaQmin",$datos(alertaQmin_),PDO::PARAM_INT);
 
 
 		if ($stmt -> execute()){
@@ -274,6 +273,24 @@ class ModeloFormularios{
 		$stmt -> close(); #cierra la conexion
 		$stmt =null;
 	}
+
+#------------------------- Registro de DESBASTE------------------------#
+
+	static public function mdlVerRegistroDesbaste(){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_desbastes;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+	}
+
+
+
+
+
+
 
 
 /*
