@@ -153,7 +153,7 @@ class ControladorFormularios{
 	}
 
 
-#------------------------- Crear Receta -------------------------#
+	#------------------------- Crear Receta -------------------------#
 
 #################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	static public function ctrCrearReceta(){
@@ -198,9 +198,9 @@ class ControladorFormularios{
 		$logitud=count($datos2);
 
 		#Recorre todos los insumos para agregarlos a la BD
-		for ( $i=0 ; $i < $logitud ; $i++) { 
+		foreach ($datos2 as $ingredientes) { 
 				
-			$datos3=$datos2[$i]; #[TO DO] Seleccionar la fila del array
+			$ingredientes=1; #[TO DO] Seleccionar la fila del array
 			$respuesta2=ModeloFormularios::mdlAltaInsumosReceta($idReceta_nueva,$datos3);
 
 			if ($respuesta2 != "ok"){
@@ -255,33 +255,44 @@ class ControladorFormularios{
 	}	
 	
 
+	
 
 
 
 
 
 
-/*
+
+#/*
 
 	#------------------------- ELIMINAR- SE UTILIZA PARA REALIZAR PRUEBAS -------------------------#
 
 	#################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	static public function prueba1(){
 
-	$respuesta=ControladorFormularios::prueba2();
+
+	$cadena1=["z","x","y","w"];
+	$cadena2=["a","b","c","d"];
+
+	$datos = array('uno' => $cadena1,'dos'=> $cadena2);
+
+	#for ($i=0 ; $i <3 ; $i++) { 
+		
+		$respuesta = $datos['uno'][1];
+
+	#}
 
 	return $respuesta;
-
 	}
 
 
 	#################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	static public function prueba2(){
 
-		$traspaso=4;
-		return $traspaso;
+		$respuesta= ModeloFormularios::mdlprueba();
+		return $respuesta;
 	}
-*/
+#*/
 
 }#cierra la clase
 

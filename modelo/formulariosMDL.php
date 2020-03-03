@@ -196,6 +196,7 @@ class ModeloFormularios{
 		$stmt -> bindparam (":descripcion",$datos(descripcion_),PDO::PARAM_INT);
 
 		if ($stmt -> execute()){
+
 			return "ok";
 		}else{ 
 			print_r(conexion::conectarBD()->errorInfo());
@@ -293,36 +294,36 @@ class ModeloFormularios{
 
 
 
-/*
+
 
 #------------------------- ELIMINAR SE UTILIZA PARA REALIZAR PRUEBAS! -------------------------#
 
 	static public function mdlprueba(){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarReceta('picadillo fino46', 0.23, 12, 43, 60, 300, 0.9, 'creando una nueva receta ');
+		$stmt=Conexion::conectarBD()->prepare("call ins_AgregarReceta('prueba202', 0.23, 12, 43, 60, 300, 0.9, 'creando una nueva receta ');
 ");
 
 		if ($stmt -> execute()){
 
-			$con = conexion::conectarBD()->mysqli_connect();
+			#$con = conexion::conectarBD()->mysqli_connect();
 
 		# [TO DO] NO FUNCIONA NINGUNA DE LAS OPCIONES!!!!!
 			#$id_insertado= mysqli_insert_id($con);
-			#$id_insertado= conexion::conectarBD()->lastInsertId();
+			$id_insertado= Conexion::conectarBD()->lastInsertId();
 			#$id_insertado=conexion::conectarBD()->prepare("SELECT LAST_INSERT_ID();");
-			$id_insertado=1
+			#$id_insertado=1;
 
 			return "$id_insertado";
 
 
 		}else{ 
-			print_r(conexion::conectarBD()->errorInfo());
+			print_r(Conexion::conectarBD()->errorInfo());
 		}
 
 		$stmt -> close(); #cierra la conexion
 		$stmt =null; 
 	}
-*/
+
 
 } #Cierra la clase
 
