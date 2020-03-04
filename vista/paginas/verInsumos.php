@@ -18,10 +18,6 @@
 	#$lista_cuentas=ControladorFormularios::ctrListaCuentas();
 	#var_dump($lista_cuentas)
 
- $mostrar=ControladorFormularios::prueba2();
- 	var_dump($mostrar)
-
-
 
 
  ?>

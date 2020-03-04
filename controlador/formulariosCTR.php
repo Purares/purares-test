@@ -79,7 +79,25 @@ class ControladorFormularios{
 		}
 
 			
-	}	
+	}
+
+
+#------------------------- InsuposXdeposito -------------------------#
+
+	static public function ctrInsumosDeposito(){
+
+		if (isset($_POST["idDepositoFiltroInsumo"])){
+
+			$id_receta=$_POST["idDepositoFiltroInsumo"];
+			$respuesta= ModeloFormularios::mdlInsumosDeposito($id_deposito);
+	
+			return $respuesta;	
+		}
+
+	
+	}
+
+
 #------------------------- Lista de Recetas -------------------------#
 
 	static public function ctrListaRecetas(){
@@ -107,7 +125,7 @@ class ControladorFormularios{
 	}
 
 
-#------------------------- Detalle de Receta -------------------------#
+#------------------------- Insumos de Receta -------------------------#
 
 	static public function ctrInsumosReceta(){
 
@@ -263,7 +281,7 @@ class ControladorFormularios{
 
 
 
-#/*
+/*
 
 	#------------------------- ELIMINAR- SE UTILIZA PARA REALIZAR PRUEBAS -------------------------#
 
@@ -292,7 +310,7 @@ class ControladorFormularios{
 		$respuesta= ModeloFormularios::mdlprueba();
 		return $respuesta;
 	}
-#*/
+*/
 
 }#cierra la clase
 

@@ -106,6 +106,18 @@ class ModeloFormularios{
 	}
 
 
+#------------------------- Insumos por Depositos -------------------------#
+
+
+	static public function mdlInsumosDeposito($id_deposito){
+
+		$stmt=conexion::conectarBD()->prepare("call v_insumosXdepo($id_deposito);");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
 
 #------------------------- Lista RECETAS -------------------------#
 
@@ -294,7 +306,7 @@ class ModeloFormularios{
 
 
 
-
+/*
 
 #------------------------- ELIMINAR SE UTILIZA PARA REALIZAR PRUEBAS! -------------------------#
 
@@ -323,6 +335,8 @@ class ModeloFormularios{
 		$stmt -> close(); #cierra la conexion
 		$stmt =null; 
 	}
+
+*/
 
 
 } #Cierra la clase
