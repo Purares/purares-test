@@ -65,10 +65,10 @@ class ModeloFormularios{
 
 		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumo( :nombreInsumo,:id_udn,:id_deposito,:alertaQmim );");
 		
-		$stmt -> bindparam (":nombreInsumo",$datos(nombreInsumo_),PDO::PARAM_STR);
-		$stmt -> bindparam (":idDeposito",$datos(idDeposito_),PDO::PARAM_INT);
-		$stmt -> bindparam (":idUm",$datos(idUm_),PDO::PARAM_INT);
-		$stmt -> bindparam (":alertaQmin",$datos(alertaQmin_),PDO::PARAM_STR);
+		$stmt -> bindparam (":nombreInsumo",$datos['nombreInsumo_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":idDeposito",$datos['idDeposito_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUm",$datos['idUm_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":alertaQmin",$datos ['alertaQmin_'],PDO::PARAM_STR);
 
 
 		if ($stmt -> execute()){
@@ -88,11 +88,11 @@ class ModeloFormularios{
 
 		$stmt=conexion::conectarBD()->prepare("call ins_AgreagarMovInsumo( :id_insumo,:cantidad,:id_cuenta,:comentario,id_usuario);");
 		
-		$stmt -> bindparam (":id_insumo",$datos(idInsumo_),PDO::PARAM_INT);
-		$stmt -> bindparam (":cantidad",$datos(cantidad_),PDO::PARAM_STR); #[TO DO] Cambiar a decimal
-		$stmt -> bindparam (":id_cuenta",$datos(idCuenta_),PDO::PARAM_INT);
-		$stmt -> bindparam (":comentario",$datos(comentario_),PDO::PARAM_STR); 
-		$stmt -> bindparam (":id_usuario",$datos(idUsuario_),PDO::PARAM_INT);
+		$stmt -> bindparam (":id_insumo",$datos['idInsumo_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",$datos['cantidad_'],PDO::PARAM_STR); #[TO DO] Cambiar a decimal
+		$stmt -> bindparam (":id_cuenta",$datos['idCuenta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":comentario",$datos['comentario_'],PDO::PARAM_STR); 
+		$stmt -> bindparam (":id_usuario",$datos['idUsuario_'],PDO::PARAM_INT);
 
 		if ($stmt -> execute()){
 			return "OK"; #si se ejecutó correctamente le envío un OK
@@ -198,14 +198,14 @@ class ModeloFormularios{
 
 		$stmt=conexion::conectarBD()->prepare("call ins_AgreagarMovInsumo( :nombre,:merma,:diaspord,:diasvenc,:largouni,:pesouni,:porcentcarne,:descripcion);");
 		
-		$stmt -> bindparam (":nombre",$datos(nombre_),PDO::PARAM_INT);
-		$stmt -> bindparam (":merma",$datos(merma_),PDO::PARAM_STR);
-		$stmt -> bindparam (":diaspord",$datos(diasprod_),PDO::PARAM_INT);
-		$stmt -> bindparam (":diasvenc",$datos(diasvenc_),PDO::PARAM_STR); 
-		$stmt -> bindparam (":largouni",$datos(largouni_),PDO::PARAM_INT);
-		$stmt -> bindparam (":pesouni",$datos(pesouni_),PDO::PARAM_INT);
-		$stmt -> bindparam (":porcentcarne",$datos(porcentcarne_),PDO::PARAM_INT);
-		$stmt -> bindparam (":descripcion",$datos(descripcion_),PDO::PARAM_INT);
+		$stmt -> bindparam (":nombre",$datos['nombre_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":merma",$datos['merma_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":diaspord",$datos['diasprod_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":diasvenc",$datos['diasvenc_'],PDO::PARAM_STR); 
+		$stmt -> bindparam (":largouni",$datos['largouni_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":pesouni",$datos['pesouni_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":porcentcarne",$datos['porcentcarne_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":descripcion",$datos['descripcion_'],PDO::PARAM_STR);
 
 		if ($stmt -> execute()){
 
@@ -225,8 +225,8 @@ class ModeloFormularios{
 
 		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumosXReceta($idReceta_nueva,:id_insumo,:cantidad);");
 		
-		$stmt -> bindparam (":id_insumo",$datos(id_insumo_),PDO::PARAM_INT);
-		$stmt -> bindparam (":cantidad",$datos(cantidad_insumo_),PDO::PARAM_INT);
+		$stmt -> bindparam (":id_insumo",$datos['id_insumo_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",$datos['cantidad_insumo_'],PDO::PARAM_STR);
 
 		if ($stmt -> execute()){
 			return "ok";
@@ -271,9 +271,9 @@ class ModeloFormularios{
 
 		$stmt=conexion::conectarBD()->prepare("call `purares-test`.ins_AgregarCarne(:nombreCarne, :idUDM, :alertaQmin);");
 		
-		$stmt -> bindparam (":nombreCarne",$datos(nombreCarne_),PDO::PARAM_STR);
-		$stmt -> bindparam (":idUDM",$datos(idUDM_),PDO::PARAM_INT);
-		$stmt -> bindparam (":alertaQmin",$datos(alertaQmin_),PDO::PARAM_INT);
+		$stmt -> bindparam (":nombreCarne",$datos['nombreCarne_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":idUDM",$datos['idUDM_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":alertaQmin",$datos['alertaQmin_'],PDO::PARAM_STR);
 
 
 		if ($stmt -> execute()){
