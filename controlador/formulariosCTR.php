@@ -1,5 +1,5 @@
 <?php
-#ACTUALIZADO 6/3-22hs
+#ACTUALIZADO 6/3-
 
 require_once"modelo/loginMDL.php";
 
@@ -83,7 +83,7 @@ class ControladorFormularios{
 	}
 
 
-#------------------------- InsuposXdeposito -------------------------#
+#------------------------- InsumosXdeposito -------------------------#
 
 	static public function ctrInsumosDeposito(){
 
@@ -230,16 +230,19 @@ class ControladorFormularios{
 		
 		$logitud=count($datos2);
 
-		#Recorre todos los insumos para agregarlos a la BD
-		foreach ($datos2 as $ingredientes) { 
-				
-			$ingredientes=1; #[TO DO] Seleccionar la fila del array
-			$respuesta2=ModeloFormularios::mdlAltaInsumosReceta($idReceta_nueva,$datos3);
+		for ($i=0; $i <$logitud ; $i++) { 
 
-			if ($respuesta2 != "ok"){
-				return $respuesta2;
-			}
+			#Le envía solo la fila por la cual se desplaza el loop
+			$idInsumoReceta=$datos2['id_insumo_'][$i];
+			$qInsumoReceta=$datos2['cantidad_insumo_'][$i];
+
+			#Inserta el campo en la Base de datos
+			$respuesta2=ModeloFormularios::mdlAltaInsumosReceta($idReceta_nueva,$idInsumoReceta,$qInsumoReceta);
+			#Si no dio error sigue el loop
+			if ($respuesta2 != "ok") { return $respuesta2;}
 		}	
+
+		return "ok";
 
 	}
 
