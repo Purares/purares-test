@@ -89,7 +89,7 @@ class ControladorFormularios{
 
 		if (isset($_POST["idDepositoFiltroInsumo"])){
 
-			$id_receta=$_POST["idDepositoFiltroInsumo"];
+			$id_deposito=$_POST["idDepositoFiltroInsumo"];
 			$respuesta= ModeloFormularios::mdlInsumosDeposito($id_deposito);
 	
 			return $respuesta;	
