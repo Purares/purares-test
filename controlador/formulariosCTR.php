@@ -97,6 +97,21 @@ class ControladorFormularios{
 	
 	}
 
+#------------------------- IUDM de Insumo -------------------------#
+
+	static public function ctrUdmInsumos(){
+
+		if (isset($_POST["idInsumoAgregarReceta"])){
+
+			$id_insumo=$_POST["idInsumoAgregarReceta"];
+			$respuesta= ModeloFormularios::mdlUdmInsumo($id_insumo);
+	
+			return $respuesta;	
+		}
+
+	
+	}
+
 
 #------------------------- Lista de Recetas -------------------------#
 
@@ -173,7 +188,6 @@ class ControladorFormularios{
 
 	#------------------------- Crear Receta -------------------------#
 
-#################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	static public function ctrCrearReceta(){
 
 		if (isset($_POST["nombreCrearReceta"])||
