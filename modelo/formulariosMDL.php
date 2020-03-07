@@ -205,7 +205,7 @@ class ModeloFormularios{
 	}
 
 
-#------------------------- Crear RECETA -------------------------#
+#------------------------- Crear RECETA agrga el encabezado-------------------------#
 
 	static public function mdlCrearReceta($datos){
 
@@ -222,7 +222,12 @@ class ModeloFormularios{
 
 		if ($stmt -> execute()){
 
-			return "ok";
+				#Busca el ultimo ID insertado en la tabla
+				$campo="id_receta";
+				$tabla="recetas_n";
+				$idReceta_nueva=ModeloFormularios::mdlUltimoId($campo,$tabla);
+			return $idReceta_nueva;
+
 		}else{ 
 			print_r(conexion::conectarBD()->errorInfo());
 		}
@@ -231,15 +236,11 @@ class ModeloFormularios{
 		$stmt =null; 
 	}
 
+#------------------------- Crear RECETA Agrega los insumos -------------------------#
 
-#------------------------- Crear RECETA -------------------------#
+	static public function mdlAltaInsumosReceta($idReceta_nueva,$idInsumoReceta,	$qInsumoReceta){
 
-	static public function mdlAltaInsumosReceta($idReceta_nueva,$datos3){
-
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumosXReceta($idReceta_nueva,:id_insumo,:cantidad);");
-		
-		$stmt -> bindparam (":id_insumo",$datos['id_insumo_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":cantidad",$datos['cantidad_insumo_'],PDO::PARAM_STR);
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumosXReceta($idReceta_nueva, $idInsumoReceta, $qInsumoReceta);");
 
 		if ($stmt -> execute()){
 			return "ok";
@@ -269,7 +270,7 @@ class ModeloFormularios{
 
 	static public function mdlStockCarnes(){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_stockinsumos;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_stockcarnes;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -314,8 +315,18 @@ class ModeloFormularios{
 
 
 
+#ESTA FUNCION DEBERIA SER REEMPLAZADA POR LA FUNCION DEL OBJETO!!!!!!!!!
 
+#------------------------- Ultimo id de la tabla -------------------------#
 
+	static public function mdlUltimoId($campo,$tabla){
+
+		$stmt=conexion::conectarBD()->prepare("select max($campo) from $tabla;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
+	}
 
 
 

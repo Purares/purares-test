@@ -118,21 +118,22 @@
 
 		<?php
 			if (isset($_GET["pagina"])) {
-				if($_GET["pagina"]=="agregarOrdenProd"||
-				   $_GET["pagina"]=="verInsumos"||
-				   $_GET["pagina"]=="verCarnes"||
-				   $_GET["pagina"]=="verRecetas"||
-				   $_GET["pagina"]=="agregarInsumo"){
+			#	if($_GET["pagina"]=="agregarOrdenProd"||
+			#	   $_GET["pagina"]=="verInsumos"||
+			#	   $_GET["pagina"]=="verCarnes"||
+			#	   $_GET["pagina"]=="verRecetas"||
+			#	   $_GET["pagina"]=="agregarInsumo"||
+			#		$_GET["pagina"]=="agregarReceta"){
 
 				   	#var_dump($_GET["pagina"]);
 
 					include "paginas/".$_GET["pagina"].".php";
 
-				}else{
-					include "paginas/error-404.php";
-				}
+#				}else{
+#					include "paginas/error-404.php";
+#				}
 
-			}else{
+#			}else{
 				include "paginas/agregarOrdenProd.php";	
 			}
 
