@@ -105,6 +105,7 @@ foreach($depositos as $deposito){
                           </select>
                         </td>
                         <td scope="col">
+                          <a class="idinsumoselec"></a>
                         </td>
                         <td scope="col">
                           <select class="custom-select nomingre" name="idinsumoCrearReceta[]">
@@ -112,23 +113,20 @@ foreach($depositos as $deposito){
                                          <option value="1">Insumo1</option>
                           </select>
                         </td>
-                        <td scope="col">
+                        <td scope="col" colspan="2">
                           <div class="input-group"> 
                           <input type="number" min=0 step=0.0001 name="cantidadinsumoCrearReceta[]" class="form-control text-right cantingre" placeholder="Cantidad">
+                              <div class="input-group-append">
+                  <span class="input-group-text"><a class="unitingre">Unidad</a></span>
+              </div>
                   </div>
                         </td>
-                                    <td scope="col">
-                                    <a class="unitingre" id="unidad"></a>
-                                    </td>
                                     <td scope="col">
                                     <button type="button" class="btn btn-danger btn-sm borrar">Borrar</button>
                                      </td>
                     </tr> 
                 </tbody>
             </table>
-                          <div class="container">
-                        <p style="color:#FF0000" id="errorinsumos"></p>
-                        </div>
             <button type="button" id="BotonAgregarInsumoReceta" class="btn btn-secondary btn-sm">Agregar Insumo</button>
           </div>
           <br>
@@ -360,7 +358,7 @@ foreach($depositos as $deposito){
            $('<td>').attr('scope','col')
           .append
           (
-            $('<a>idinusmo</a>')
+            $('<a class="idinsumoselec"></a>')
             ),
 
             $('<td>').attr('scope','col')
@@ -371,19 +369,14 @@ foreach($depositos as $deposito){
 
             ),
 
-           $('<td>').attr('scope','col')
+           $('<td>').attr('scope','col').attr('colspan','2')
           .append
           (
             
-              $("<div class='input-group'><input type='number' min=0 step=0.0001 name='cantidadinsumoCrearReceta[]' class='form-control text-right cantingre' id='cantidad1'></div>")
+              $("<div class='input-group'><input type='number' min=0 step=0.0001 name='cantidadinsumoCrearReceta[]' class='form-control text-right cantingre'><div class='input-group-append'><span class='input-group-text'><a class='unitingre'>Unidad</a></span></div></div>")
 
             ),
 
-             $('<td>').attr('scope','col')
-          .append
-          (
-            $('<a class="unitingre">unidad</a>')
-            ),
              $('<td>').attr('scope','col')
           .append
           (
@@ -425,32 +418,42 @@ foreach($depositos as $deposito){
   }, false);
 })();
 
-$('.depo').change(function(){
- 
-  $('.nomingre').empty();
-  $.getJSON('datos.php',{Accion:'getInsumos', IdDeposito:$('.depo option:selected').val()},function(insumos){
-    for (x=0;x<insumos.length;x++){
-
-      $('.nomingre').append(new Option(insumos[x].nombre,insumos[x].id_insumo));
-
-    }
-  })});
 
 $(document).ready(function(){
-    $('.depo').on('change',function(){
+    $('#TablaReceta').on('change', '.depo',function(){
         var depoID = $(this).val();
+        var depo=$(this);
         if(depoID){
             $.ajax({
                 type:'POST',
                 url:'datos.php',
-                data:'depo_id='+depoID,
+                data:'idDepositoFiltroInsumo='+depoID,
                 success:function(html){
-                    $('.nomingre').html(html); 
+                    $(depo).closest('tr').find('.nomingre').html(html); 
                 }
             }); 
         }else{
-            $('#nomingre').html('<option value="">Selecione el deposito1</option>');
-            $('#unitingre').html('<option value="">Seleccione inusmo antes</option>'); 
+            $(depo).closest('tr').find('.nomingre').html('<option value="">Selecione el deposito antes</option>');
+        }
+    });
+    
+});
+$(document).ready(function(){
+    $('#TablaReceta').on('change', '.nomingre',function(){
+        var insuID = $(this).val();
+        var insu=$(this);
+        if(insuID){
+            $.ajax({
+                type:'POST',
+                url:'datos.php',
+                data:'idInsumoAgregarReceta='+insuID,
+                success:function(html){
+                    $(insu).closest('tr').find('.unitingre').text(''+ html);
+                    $(insu).closest('tr').find('.idinsumoselec').text(''+ insuID); 
+                }
+            }); 
+        }else{
+            $(insu).closest('tr').find('.unitingre').html(""); 
         }
     });
     
