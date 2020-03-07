@@ -111,7 +111,19 @@ class ModeloFormularios{
 
 	static public function mdlInsumosDeposito($id_deposito){
 
-		$stmt=conexion::conectarBD()->prepare("call v_insumosXdepo($id_deposito);");
+		$stmt=conexion::conectarBD()->prepare("	Select id_insumo, nombre from insumos_n where id_deposito=$id_deposito order by nombre;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+#------------------------- UDM de Insumo  -------------------------#
+
+
+	static public function mdlUdmInsumo($id_insumo){
+
+		$stmt=conexion::conectarBD()->prepare("select * from v_udminsumo where id_insumo=$id_insumo;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -196,7 +208,7 @@ class ModeloFormularios{
 
 	static public function mdlCrearReceta($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgreagarMovInsumo( :nombre,:merma,:diaspord,:diasvenc,:largouni,:pesouni,:porcentcarne,:descripcion);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgreagarReceta( :nombre,:merma,:diaspord,:diasvenc,:largouni,:pesouni,:porcentcarne,:descripcion);");
 		
 		$stmt -> bindparam (":nombre",$datos['nombre_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":merma",$datos['merma_'],PDO::PARAM_STR);
