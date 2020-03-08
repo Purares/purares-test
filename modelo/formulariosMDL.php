@@ -209,7 +209,7 @@ class ModeloFormularios{
 
 	static public function mdlCrearReceta($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgreagarReceta( :nombre,:merma,:diaspord,:diasvenc,:largouni,:pesouni,:porcentcarne,:descripcion);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarReceta( :nombre,:merma,:diaspord,:diasvenc,:largouni,:pesouni,:porcentcarne,:descripcion);");
 		
 		$stmt -> bindparam (":nombre",$datos['nombre_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":merma",$datos['merma_'],PDO::PARAM_STR);
