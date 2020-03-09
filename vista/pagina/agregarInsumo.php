@@ -55,35 +55,10 @@
             </div>
         			<br>
               	<div class="row">
-              	<div class="input-group col-md-4">  
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Stock Inicial:</span>
-                  </div>
-                    <input type="number" min=0 step=0.0001 class="form-control text-right" id="stock" placeholder="Ingrese la cantidad inicial" required>
-                       <div class="invalid-feedback">
-                                    Ingrese un numero mayor a cero
-                                    </div>
-                </div>
 
-<div class="input-group col-md-3	">
-							 <div class="input-group-prepend">
-         						 <span class="input-group-text">Unidad:</span>
-         			  </div>
-        					 <select class="custom-select" name="idUm" id="unidad" required>
-    							 <?php 
- 	$listaUDM=ControladorFormularios::ctrListaUDM();
-		for ($i=0; $i <count($listaUDM); $i++) {
 
- 			echo "<option value=".$listaUDM[$i][0].">".$listaUDM[$i][1]."</option>";
-		}
- 	?>        
-          					 </select>
-                              <div class="invalid-feedback">
-                                    Seleccione la unidad para el insumo
-                                    </div>
-              			</div>
 
-	<div class="input-group col-md-5">  
+	<div class="input-group col-md-6">  
                     <div class="input-group-prepend">
                     <span class="input-group-text">Alerta cantidad minima:</span>
                   </div>
@@ -93,6 +68,25 @@
                                     </div>
                 </div>
         			
+<div class="input-group col-md-6  ">
+               <div class="input-group-prepend">
+                     <span class="input-group-text">Unidad:</span>
+                </div>
+                   <select class="custom-select" name="idUm" id="unidad" required>
+                   <?php 
+  $listaUDM=ControladorFormularios::ctrListaUDM();
+    for ($i=0; $i <count($listaUDM); $i++) {
+
+      echo "<option value=".$listaUDM[$i][0].">".$listaUDM[$i][1]."</option>";
+    }
+  ?>        
+                     </select>
+                              <div class="invalid-feedback">
+                                    Seleccione la unidad para el insumo
+                                    </div>
+                    </div>
+
+              
            		</div>
            		<br>               
                		<button type="button" class="btn btn-success" id="BotonAgregarInsumo"  data-toggle="modal" data-target="#ConfirmarInsumo">Agregar insumo</button>
@@ -113,7 +107,7 @@
 
           <p>Se medirá en <a class="unidad"></a> y pertenecerá al depósito <a class="deposito"></a>.</p>
 
-          <p>El stock unicial de este insumo será de <a class="stock"></a> <a class="unidad"></a> y la alerta de cantidad mínima sera de <a class="alerta"></a> <a class="unidad"></a>.</p>
+          <p>La alerta de cantidad mínima sera de <a class="alerta"></a> <a class="unidad"></a>.</p>
 
           <p>¿Confirma que desea CARGAR ESTE INSUMO?</p>
         </div>
@@ -154,8 +148,7 @@ var modal = $(this)
 completarmodalinsumo()
 function completarmodalinsumo(){             
                                   var nombreinsumo=$('#nombreinsumo').val()
-                                      deposito=$('#deposito option:selected').text(),
-                                      stock=$('#stock').val()
+                                      deposito=$('#deposito option:selected').text()
                                       unidad=$('#unidad option:selected').text()
                                       alerta=$('#alerta').val()            
                                       
@@ -163,7 +156,6 @@ function completarmodalinsumo(){
 modal.find('.nombre').text('' + nombreinsumo);
 modal.find('.unidad').text('' + unidad);
 modal.find('.deposito').text('' + deposito);
-modal.find('.stock').text('' + stock);
 modal.find('.alerta').text('' + alerta);
 
   }})
