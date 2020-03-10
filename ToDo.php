@@ -1,3 +1,4 @@
+<?php
 INSUMOS
 *Muestra el stock con un icono a la derecha para realizar un movimiento
 	ctrStockInsumos
@@ -20,3 +21,5 @@ Recetas
 *Lista de receta con botón para inspeccionarla(debe existir un filtro de activas e inactivas)
 *Agregar receta
 OP
+
+?>
