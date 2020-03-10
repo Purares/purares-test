@@ -1,25 +1,54 @@
 <?php
-INSUMOS
+
+!RECETAS
+*Agregar Receta 'LISTO'
+
+*Lista de Recetas -> tiene que tener un botón para insepecionarla
+	Activas
+	Todas
+*Inspeccionar receta
+	Encabezado de receta :ctrDetalleReceta
+	Insumos de la receta :ctrInsumosReceta
+		*Desactivar receta
+			:ctrDesactivarReceta
+
+		*Activar receta
+			:ctrActivarReceta
+
+!INSUMOS
 *Muestra el stock con un icono a la derecha para realizar un movimiento
-	ctrStockInsumos
+	:ctrStockInsumos
 
 *Agregar insumo
-	ctrAgregarInsumo
+	:ctrAgregarInsumo
 
 *Actualiar stock de insumo
-	ctrActualizarInsumo	
+	:ctrActualizarInsumo	
 
-
-Carnes
+--------------------------------------------
+!CARNES
 *muestra el stock
-	
-*Agregar Carne
-Desbastes
-*Muestra los desbaste con un botón para abrirlo
-*Agregar desbaste
-Recetas
-*Lista de receta con botón para inspeccionarla(debe existir un filtro de activas e inactivas)
-*Agregar receta
-OP
+	:ctrStockCarnes
 
+*Agregar Carne
+	:ctrAgregarCarne
+
+-------------------------------------------
+!DESBASTES
+*Muestra los desbaste con un botón para abrirlo
+	:ctrVerRegistroDesbaste
+
+*Agregar desbaste  #Tiene que cargar una tabla con todos los cortes de carne activos
+	Cortes de carne activos :ctrListaCarnes
+
+	Detalle del debast :ctrCrearDesbaste
+	Insertar lista de carnes :ctrMovCarnesDesbaste #lo llama automaticamente el controlador de crear receta
+-------------------------------------------
+!ORDEN PROD
+*Ver OP 
+	*Abiertas
+		*Eliminar
+	*Todas
+*Crear OP
+*Cerrar OP
 ?>

@@ -1,9 +1,9 @@
 <?php
-		$campo='id_receta';
-		$tabla='recetas_n';
-$respuesta1= ModeloFormularios::mdlUltimoId($campo,$tabla);
-$respuesta2=$respuesta1[0][0];
-var_dump($respuesta2);
+
+$prueba=ControladorFormularios::prueba1();
+var_dump($prueba)
+
+
 ?>
 
 <h1>pruebas</h1>

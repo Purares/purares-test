@@ -225,7 +225,6 @@ class ControladorFormularios{
 	}
 	#------------------------- Alta Insumos por Receta -------------------------#
 
-	#################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	static public function ctrAltaInsumosReceta($idReceta_nueva,$datos2){
 		
 		$logitud=count($datos2);
@@ -291,6 +290,69 @@ class ControladorFormularios{
 	}	
 	
 
+	#------------------------- Registrar un nuevo DESBASTE -------------------------#
+
+	static public function ctrCrearDesbaste(){
+
+		if (isset($_POST["nombreCrearReceta"])||
+			isset($_POST["mermaCrearReceta"])||
+			isset($_POST["diasprodCrearReceta"])||
+			isset($_POST["diasvencCrearReceta"])||
+			isset($_POST["largouniCrearReceta"])||
+			isset($_POST["pesouniCrearReceta"])||
+			isset($_POST["porcentcarneCrearReceta"])){
+
+				$datos= array(	'nro_remito_' => $_POST["nroRemitoAltaDesbaste"],
+								'proveedor_' => $_POST["proveedorAltaDesbaste"],
+								'unidades_' => $_POST["unidadesAltaDesbaste"],
+								'peso_total_' => $_POST["pesoTotalAltaDesbaste"],
+								'fecha_desbaste_' => $_POST["fechaDesbasteAltaDesbaste"],
+								'usuario_alta_'	 => '1', #[TO DO] Deberia tomar el usuario que ingreso
+								'descripcion_' => $_POST["descripcionAltaDesbaste"]);
+
+				$idDesbaste_nuevo=ModeloFormularios::mdlCrearDesbaste($datos); 
+
+				$datos2= array(	'id_carne_'=> $_POST["idCarneAltaDesbaste"],
+								'id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
+								'id_desbaste_'=> $idDesbaste_nuevo,
+								'cantidad_'=> $_POST["cantidadAltaDesbaste"],
+								'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
+								'descripcion_'=>'', #El procedure es generico, por lo que espera todos
+								'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
+
+				
+				
+
+				$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos2);
+
+
+
+				return $respuesta;
+		}
+
+	
+	}
+	#------------------------- Agregar registro de DESBASTE, agrega los cortes -------------------------#
+
+	static public function ctrMovCarnesDesbaste($datos){
+		
+		$logitud=count($datos);
+
+		for ($i=0; $i <$logitud ; $i++) { 
+
+			#Le envía solo la fila por la cual se desplaza el loop
+			$datos3=array_column($datos, $i);
+
+			#Inserta el campo en la Base de datos
+			$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
+			#Si no dio error sigue el loop
+			if ($respuesta != "ok") { return $respuesta;}
+		}	
+
+		return "ok";
+
+	}
+
 	
 
 
@@ -303,18 +365,19 @@ class ControladorFormularios{
 
 	#------------------------- ELIMINAR- SE UTILIZA PARA REALIZAR PRUEBAS -------------------------#
 
-	#################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	static public function prueba1(){
 
 
 	$cadena1=["z","x","y","w"];
 	$cadena2=["a","b","c","d"];
 
-	$datos = array('uno' => $cadena1,'dos'=> $cadena2);
+	$datos = array(	'uno' => $cadena1,
+					'dos'=> $cadena2);
 
 	#for ($i=0 ; $i <3 ; $i++) { 
 		
-		$respuesta = $datos['uno'][1];
+		$respuesta = array_column($datos, 0);
+		#$respuesta = $arrayName = array('' => , );$datos=>0;
 
 	#}
 

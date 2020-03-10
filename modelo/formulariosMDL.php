@@ -259,7 +259,7 @@ class ModeloFormularios{
 
 	static public function mdlListaCarnes(){
 
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM carnes_n");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_carnes ");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -302,7 +302,7 @@ class ModeloFormularios{
 		$stmt =null;
 	}
 
-#------------------------- Registro de DESBASTE------------------------#
+#------------------------- Registros de DESBASTE------------------------#
 
 	static public function mdlVerRegistroDesbaste(){
  
@@ -313,6 +313,63 @@ class ModeloFormularios{
 		$stmt =null; 
 
 	}
+#------------------------- Registrar un nuevo DESBASTE------------------------#
+
+static public function mdlCrearDesbaste($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesbaste('nro_remito', 'proveedor', unidad, peso total, 'fecha del desbaste', usuario que realizó el alta);;");
+		
+		$stmt -> bindparam (":nro_remito",$datos['nro_remito_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":proveedor",$datos['proveedor_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":unidades",$datos['unidades_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":peso_total",$datos['peso_total_'],PDO::PARAM_STR); 
+		$stmt -> bindparam (":fecha_desbaste",$datos['fecha_desbaste_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":usuario_alta",$datos['usuario_alta_'],PDO::PARAM_INT);
+
+
+		if ($stmt -> execute()){
+
+				#Busca el ultimo ID insertado en la tabla
+				$campo='id_desbaste';
+				$tabla='desbaste_reg';
+				$idReceta_nuevaArray=ModeloFormularios::mdlUltimoId($campo,$tabla);
+				$idReceta_nueva=$idReceta_nuevaArray[0][0];#De el array solo me quedo con el valor
+			return $idReceta_nueva;
+
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+#-------------------------Agregar registro de DESBASTE, agrega los cortes -------------------------#
+
+	static public function mdlMovimientoCarne($datos){
+
+		$stmt=conexion::conectarBD()->prepare("ccall `purares-test`.ins_AgregarMovCarne(:id_carne, :id_cuenta, :id_desbaste, :cantidad, :id_ordenprod, :id_usuario, :descripcion);
+");
+
+		$stmt -> bindparam (":id_carne",$datos['id_Carne_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":id_cuenta",$datos['id_cuenta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":id_desbaste",$datos['id_desbaste_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",$datos['cantidad_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":id_ordenprod",$datos['id_ordenprod_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":id_usuario",$datos['id_usuario_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":descripcion",$datos['descripcion_'],PDO::PARAM_STR);
+
+		if ($stmt -> execute()){
+			return "ok";
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
 
 
 
