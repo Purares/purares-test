@@ -86,7 +86,7 @@
 		<li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Carnes</a>
     <div class="dropdown-menu">
-      <a class="dropdown-item" href="index.php">Nueva carne</a>
+      <a class="dropdown-item" href="index.php?pagina=agregarCorte">Nueva carne</a>
       <a class="dropdown-item" href="index.php?pagina=verCarnes">Ver carnes</a>
     </div>
 		</li>
@@ -123,7 +123,8 @@
 			   $_GET["pagina"]=="verCarnes"||
 				   $_GET["pagina"]=="verRecetas"||
 				   $_GET["pagina"]=="agregarInsumo"||
-					$_GET["pagina"]=="agregarReceta"){
+					$_GET["pagina"]=="agregarReceta"||
+					$_GET["pagina"]=="agregarCorte"){
 
 				   	#var_dump($_GET["pagina"]);
 

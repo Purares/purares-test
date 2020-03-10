@@ -214,7 +214,7 @@ class ControladorFormularios{
 				$idReceta_nueva=ModeloFormularios::mdlCrearReceta($datos); #[To DO] No devuelve el id de la receta creada
 				
 
-				$respuesta=ControladorFormularios::ctrInsumosReceta($idReceta_nueva,$datos2);
+				$respuesta=ControladorFormularios::ctrAltaInsumosReceta($idReceta_nueva,$datos2);
 
 
 
@@ -271,8 +271,8 @@ class ControladorFormularios{
 		if (isset($_POST["nombreCarne"])||
 			isset($_POST["idUdmCarne"]))
 		{
-				$datos= array(	'nombreInsumo' => $_POST["nombreCarne"],
-								'idUdm' => $_POST["idUdmCarne"],
+				$datos= array(	'nombreCarne' => $_POST["nombreCarne"],
+								'idUDM' => $_POST["idUdmCarne"],
 								'alertaQmin' => $_POST["alertaQminCarne"]);
 
 

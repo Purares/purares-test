@@ -223,8 +223,8 @@ class ModeloFormularios{
 		if ($stmt -> execute()){
 
 				#Busca el ultimo ID insertado en la tabla
-				$campo="id_receta";
-				$tabla="recetas_n";
+				$campo='id_receta';
+				$tabla='recetas_n';
 				$idReceta_nueva=ModeloFormularios::mdlUltimoId($campo,$tabla);
 			return $idReceta_nueva;
 
@@ -238,7 +238,7 @@ class ModeloFormularios{
 
 #------------------------- Crear RECETA Agrega los insumos -------------------------#
 
-	static public function mdlAltaInsumosReceta($idReceta_nueva,$idInsumoReceta,	$qInsumoReceta){
+	static public function mdlAltaInsumosReceta($idReceta_nueva,$idInsumoReceta,$qInsumoReceta){
 
 		$stmt=conexion::conectarBD()->prepare("call ins_AgregarInsumosXReceta($idReceta_nueva, $idInsumoReceta, $qInsumoReceta);");
 
@@ -283,11 +283,11 @@ class ModeloFormularios{
 
 	static public function mdlAgregarCarne($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call `purares-test`.ins_AgregarCarne(:nombreCarne, :idUDM, :alertaQmin);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarCarne(:nombreCarne, :idUDM, :alertaQmin);");
 		
-		$stmt -> bindparam (":nombreCarne",$datos['nombreCarne_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":idUDM",$datos['idUDM_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":alertaQmin",$datos['alertaQmin_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":nombreCarne",$datos['nombreCarne'],PDO::PARAM_STR);
+		$stmt -> bindparam (":idUDM",$datos['idUDM'],PDO::PARAM_INT);
+		$stmt -> bindparam (":alertaQmin",$datos['alertaQmin'],PDO::PARAM_INT);
 
 
 		if ($stmt -> execute()){
