@@ -120,11 +120,12 @@
 			if (isset($_GET["pagina"])) {
 				if($_GET["pagina"]=="agregarOrdenProd"||
 				   $_GET["pagina"]=="verInsumos"||
-			   $_GET["pagina"]=="verCarnes"||
+			   		$_GET["pagina"]=="verCarnes"||
 				   $_GET["pagina"]=="verRecetas"||
 				   $_GET["pagina"]=="agregarInsumo"||
 					$_GET["pagina"]=="agregarReceta"||
-					$_GET["pagina"]=="agregarCorte"){
+					$_GET["pagina"]=="agregarCorte"||
+					$_GET["pagina"]=="pruebas"){
 
 				   	#var_dump($_GET["pagina"]);
 

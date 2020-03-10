@@ -225,7 +225,8 @@ class ModeloFormularios{
 				#Busca el ultimo ID insertado en la tabla
 				$campo='id_receta';
 				$tabla='recetas_n';
-				$idReceta_nueva=ModeloFormularios::mdlUltimoId($campo,$tabla);
+				$idReceta_nuevaArray=ModeloFormularios::mdlUltimoId($campo,$tabla);
+				$idReceta_nueva=$idReceta_nuevaArray[0][0];
 			return $idReceta_nueva;
 
 		}else{ 
@@ -320,6 +321,8 @@ class ModeloFormularios{
 #------------------------- Ultimo id de la tabla -------------------------#
 
 	static public function mdlUltimoId($campo,$tabla){
+
+
 
 		$stmt=conexion::conectarBD()->prepare("select max($campo) from $tabla;");
 		$stmt -> execute();
