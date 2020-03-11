@@ -25,7 +25,7 @@
 
 *!SOLUCIONADO!#La tabla v_stockinsumos de la BBDD es llamada en la linea 54 de formulariosMDL, pero no contine informacion sobre la unidad de medida de los insumos, esto hace que no se pueda mostrar la unidad de los insumos en la pagina "ver insumos". 
 		
-		Lo ideal seria almacenar en esa tabla el id de la unidad de medida del insumo en cuestion, y que la call de la linea 54 compare el id de la unidad de medida con los de la tabla de unidad de medida y devuelva el nombre de la unidad de medida para poder mostrarlo en pantalla
+		#Lo ideal seria almacenar en esa tabla el id de la unidad de medida del insumo en cuestion, y que la call de la linea 54 compare el id de la unidad de medida con los de la tabla de unidad de medida y devuelva el nombre de la unidad de medida para poder mostrarlo en pantalla
 
 *Agregar insumo
 	:ctrAgregarInsumo
@@ -33,7 +33,7 @@
 *Actualiar stock de insumo
 	:ctrActualizarInsumo
 
-*Hay que revisar toda el procedure de agregarMovInsumo(), desde el nombre (tiene una a demás) hasta la cantidad de variables (6 en el procedure y 5 cuando se lo llama en la linea 103 de formulariosMDL). En esa linea a id_usuario le faltan los dos puntos. Estimo que pasa algo similar con movimiento carnes
+*!SOLUCIONADO!#Hay que revisar toda el procedure de agregarMovInsumo(), desde el nombre (tiene una a demás) hasta la cantidad de variables (6 en el procedure y 5 cuando se lo llama en la linea 103 de formulariosMDL). En esa linea a id_usuario le faltan los dos puntos. Estimo que pasa algo similar con movimiento carnes
 
 --------------------------------------------
 !CARNES

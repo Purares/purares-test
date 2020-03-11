@@ -82,7 +82,8 @@ class ControladorFormularios{
 								'cantidad_' => $_POST["cantidadActI"],
 								'idCuenta_' => $_POST["idCuentaActI"],
 								'comentario_' => $_POST["comentarioActI"],
-								'idUsuario_' => $idUsaruiO); #[TO DO] Lo tiene que traer del objeto login ubicado en loginMDL.PHP 
+								'idUsuario_' => 1); #[TO DO]
+			
 		$respuesta=ModeloFormularios::mdlActualizarInsumo($datos);
 		return $respuesta;
 		}
@@ -315,7 +316,7 @@ class ControladorFormularios{
 								'unidades_' => $_POST["unidadesAltaDesbaste"],
 								'peso_total_' => $_POST["pesoTotalAltaDesbaste"],
 								'fecha_desbaste_' => $_POST["fechaDesbasteAltaDesbaste"],
-								'usuario_alta_'	 => '1', #[TO DO] Deberia tomar el usuario que ingreso
+								'usuario_alta_'	 => '1', #[TO DO]
 								'descripcion_' => $_POST["descripcionAltaDesbaste"]);
 
 				$idDesbaste_nuevo=ModeloFormularios::mdlCrearDesbaste($datos); 

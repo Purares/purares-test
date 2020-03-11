@@ -100,10 +100,10 @@ class ModeloFormularios{
 
 	static public function mdlActualizarInsumo($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgreagarMovInsumo( :id_insumo,:cantidad,:id_cuenta,:comentario,id_usuario);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovInsumo( :id_insumo,:cantidad,:id_cuenta, null,:id_usuario,:comentario);");
 		
 		$stmt -> bindparam (":id_insumo",$datos['idInsumo_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":cantidad",$datos['cantidad_'],PDO::PARAM_STR); #[TO DO] Cambiar a decimal
+		$stmt -> bindparam (":cantidad",$datos['cantidad_'],PDO::PARAM_STR); 
 		$stmt -> bindparam (":id_cuenta",$datos['idCuenta_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":comentario",$datos['comentario_'],PDO::PARAM_STR); 
 		$stmt -> bindparam (":id_usuario",$datos['idUsuario_'],PDO::PARAM_INT);
@@ -150,7 +150,7 @@ class ModeloFormularios{
 
 	static public function mdlListaRecetas(){
 
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM recetas_n");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_lista_recetas");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -330,7 +330,7 @@ class ModeloFormularios{
 
 static public function mdlCrearDesbaste($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesbaste('nro_remito', 'proveedor', unidad, peso total, 'fecha del desbaste', usuario que realizó el alta);;");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesbaste(':nro_remito', ':proveedor', :unidades, :peso_total, :fecha_desbaste, :usuario_alta);");
 		
 		$stmt -> bindparam (":nro_remito",$datos['nro_remito_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":proveedor",$datos['proveedor_'],PDO::PARAM_STR);
@@ -361,7 +361,7 @@ static public function mdlCrearDesbaste($datos){
 
 	static public function mdlMovimientoCarne($datos){
 
-		$stmt=conexion::conectarBD()->prepare("ccall `purares-test`.ins_AgregarMovCarne(:id_carne, :id_cuenta, :id_desbaste, :cantidad, :id_ordenprod, :id_usuario, :descripcion);
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovCarne(:id_carne, :id_cuenta, :id_desbaste, :cantidad, :id_ordenprod, :id_usuario, :descripcion);
 ");
 
 		$stmt -> bindparam (":id_carne",$datos['id_Carne_'],PDO::PARAM_INT);
