@@ -26,7 +26,7 @@
                                     <th scope="col">Corte</th>
                                     <th scope="col" class="text-right">Stock Actual</th>
                                     <th scope="col">Unidad</th>
-           							<th scope="col">Movimiento</th>
+           							<th scope="col">Ver más</th>
         						</tr>
       						</thead>
   							<tbody>
@@ -34,7 +34,7 @@
 
 foreach($stockcarnes as $stockcorte){
 
-  echo '<tr><td scope="col">' . $stockcorte["id_carne"] . '</td><td scope="col">' . $stockcorte["nombre"] . '</td><td scope="col" class="text-right">' . $stockcorte["Stock"] . '</td><td scope="col">???</td><td scope="col"><a class="btn btn-secondary btn-sm" href="movimiento carne.html">Nuevo movimiento</a></td></tr>';
+  echo '<tr><td scope="col">' . $stockcorte["id_carne"] . '</td><td scope="col">' . $stockcorte["nombre"] . '</td><td scope="col" class="text-right">' . $stockcorte["Stock"] . '</td><td scope="col">' . $stockcorte["udm"] . '</td><td scope="col"><a class="btn btn-secondary btn-sm" href="#">Ver más</a></td></tr>';
 
 };
 

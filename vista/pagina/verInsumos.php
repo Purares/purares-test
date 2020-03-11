@@ -35,7 +35,7 @@
 
 foreach($stockinsumos as $stockinsumo){
 
-  echo '<tr><td scope="col">' . $stockinsumo["id_insumo"] . '</td><td scope="col">' . $stockinsumo["Insumo"] . '</td><td scope="col">' . $stockinsumo["Deposito"] . '</td><td scope="col" class="text-right">' . $stockinsumo["Stock"] . '</td><td scope="col">???</td><td scope="col"><a class="btn btn-secondary btn-sm" href="movimiento insumo.html">Nuevo movimiento</a></td></tr>';
+  echo '<tr><td scope="col">' . $stockinsumo["id_insumo"] . '</td><td scope="col">' . $stockinsumo["Insumo"] . '</td><td scope="col">' . $stockinsumo["Deposito"] . '</td><td scope="col" class="text-right">' . $stockinsumo["Stock"] . '</td><td scope="col">' . $stockinsumo["udm"] . '</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=movimientoInsumo&idInsumoActI='. $stockinsumo["id_insumo"] .'&nombreinsumo=' . $stockinsumo["Insumo"] . '&unidad=' .  $stockinsumo["udm"] . '">Nuevo movimiento</a></td></tr>';
 
 };
 

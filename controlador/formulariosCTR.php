@@ -78,7 +78,7 @@ class ControladorFormularios{
 			isset($_POST["cantidadActI"])||
 			isset($_POST["idCuentaActI"])) {
 
-				$datos= array(	'idInsumo_' => $_POST["idInsumoActI"],
+				$datos= array(	'idInsumo_' => $_GET["idInsumoActI"],
 								'cantidad_' => $_POST["cantidadActI"],
 								'idCuenta_' => $_POST["idCuentaActI"],
 								'comentario_' => $_POST["comentarioActI"],

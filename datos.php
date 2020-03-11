@@ -35,8 +35,10 @@ if(isset($_POST["idInsumoAgregarReceta"]) && !empty($_POST["idInsumoAgregarRecet
     
     //Display states list
     if($unidaddeinsumo){
-        return $unidaddeinsumo;
-        }
+        foreach ($unidaddeinsumo as $unidad) {
+            echo $unidad['nombre'];
+        }}
+
     else{
         echo 'error unidad';
     }
