@@ -17,6 +17,8 @@
 		*Activar receta
 			:ctrActivarReceta
 
+*Preguntar a Mariano idea para eficientizar la consulta de lista de recetas porque es muy largo de escribir.
+
 !INSUMOS
 *Muestra el stock con un icono a la derecha para realizar un movimiento
 	:ctrStockInsumos
@@ -29,7 +31,9 @@
 	:ctrAgregarInsumo
 
 *Actualiar stock de insumo
-	:ctrActualizarInsumo	
+	:ctrActualizarInsumo
+
+*Hay que revisar toda el procedure de agregarMovInsumo(), desde el nombre (tiene una a demás) hasta la cantidad de variables (6 en el procedure y 5 cuando se lo llama en la linea 103 de formulariosMDL). En esa linea a id_usuario le faltan los dos puntos. Estimo que pasa algo similar con movimiento carnes
 
 --------------------------------------------
 !CARNES
