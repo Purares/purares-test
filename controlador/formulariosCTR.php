@@ -30,6 +30,14 @@ class ControladorFormularios{
 	}	
 
 
+#------------------------- Lista desplegable INSUMOS -------------------------#
+
+	static public function ctrListaInsumos(){
+		$respuesta= ModeloFormularios::mdlListaInsumos();
+		return $respuesta;
+	}	
+
+
 #------------------------- Stock de Insumos -------------------------#
 
 	static public function ctrStockInsumos(){

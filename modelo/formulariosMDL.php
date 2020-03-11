@@ -46,6 +46,19 @@ class ModeloFormularios{
 		$stmt =null; 
 	}
 
+#------------------------- Lista INSUMOS -------------------------#
+
+
+	static public function mdlListaInsumos(){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM insumos_n where activo=1");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
 
 	#------------------------- Stock Insumos -------------------------#
 
@@ -124,7 +137,7 @@ class ModeloFormularios{
 
 	static public function mdlUdmInsumo($id_insumo){
 
-		$stmt=conexion::conectarBD()->prepare("SELECT * from v_udminsumo where id_insumo=$id_insumo;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * from v_udminsumo;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
