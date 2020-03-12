@@ -292,6 +292,18 @@ class ModeloFormularios{
 
 	}
 
+#------------------------- Composicion Stock de CARNES------------------------#
+
+	static public function mdlComposicionStockCarnes($id_carne){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_composicionstockcarne where id_carne=$id_carne;");
+
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+	}
 
 	#------------------------- AGREGAR CARNE -------------------------#
 
@@ -315,17 +327,31 @@ class ModeloFormularios{
 		$stmt =null;
 	}
 
-#------------------------- Registros de DESBASTE------------------------#
+#------------------------- Lista de DESBASTE------------------------#
 
-	static public function mdlVerRegistroDesbaste(){
+	static public function mdlListaDesbaste($cantidadFilas){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_desbastes;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_listadesbaste LIMIT $cantidadFilas;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
 		$stmt =null; 
 
 	}
+
+
+#------------------------- Detalle de DESBASTE------------------------#
+
+	static public function dlDetalleDesbaste($id_desbaste){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalledesbastes where id_desbaste=$id_desbaste;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+	}
+
 #------------------------- Registrar un nuevo DESBASTE------------------------#
 
 static public function mdlCrearDesbaste($datos){

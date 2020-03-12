@@ -271,6 +271,19 @@ class ControladorFormularios{
 		
 	}
 
+#------------------------- Stock de Carnes -------------------------#
+
+	static public function ctrComposicionStockCarnes(){
+
+		if (isset($_POST["idCarneVerComposicion"])){
+
+			$id_carne=$_POST["idCarneVerComposicion"];
+			$respuesta= ModeloFormularios::mdlComposicionStockCarnes($id_carne);
+			
+			return $respuesta;
+		}		
+	}
+
 #------------------------- Agregar Carne -------------------------#
 
 	static public function ctrAgregarCarne(){
@@ -292,11 +305,29 @@ class ControladorFormularios{
 	
 	#------------------------- Lista de Desbaste -------------------------#
 
-	static public function ctrVerRegistroDesbaste(){
+	static public function ctrListaDesbaste(){
 	
-		$respuesta= ModeloFormularios::mdlVerRegistroDesbaste();
-		return $respuesta;
+		if (isset($_POST["CantidadFilasDesbastes"])){
+
+			$cantidadFilas=$_POST["CantidadFilasDesbastes"]; #Debe enviar la cantidad de registro que quiere que le envie. La query envía los registros mas nuevos.
+
+			$respuesta= ModeloFormularios::mdlListaDesbaste($cantidadFilas);
+	
+			return $respuesta;	
 	}	
+
+	#------------------------- Lista de Desbaste -------------------------#
+
+	static public function ctrDetalleDesbaste(){
+	
+		if (isset($_POST["idDesbasteVerDetalles"])){
+
+			$id_desbaste=$_POST["idDesbasteVerDetalles"]; #Debe enviar la cantidad de registro que quiere que le envie. La query envía los registros mas nuevos.
+
+			$respuesta= ModeloFormularios::mdlDetalleDesbaste($id_desbaste);
+	
+			return $respuesta;	
+	}
 	
 
 	#------------------------- Registrar un nuevo DESBASTE -------------------------#
