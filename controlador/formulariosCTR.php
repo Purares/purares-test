@@ -118,8 +118,6 @@ class ControladorFormularios{
 	
 			return $respuesta;	
 		}
-
-	
 	}
 
 
@@ -141,7 +139,7 @@ class ControladorFormularios{
 
 		if (isset($_GET["idReceta"])){
 
-			$id_receta= $_GET["idReceta"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
+			$id_receta= $_GET["idReceta"];
 			$respuesta= ModeloFormularios::mdlDetalleReceta($id_receta);
 		
 			return $respuesta;	
@@ -156,7 +154,7 @@ class ControladorFormularios{
 
 		if (isset($_GET["idReceta"])){
 
-			$id_receta=$_GET["idReceta"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
+			$id_receta=$_GET["idReceta"];
 			$respuesta= ModeloFormularios::mdlInsumosReceta($id_receta);
 	
 			return $respuesta;	
@@ -171,7 +169,8 @@ class ControladorFormularios{
 
 		if (isset($_POST["idRecetaDetalle"])){
 
-			$id_receta=$_POST["idRecetaDetalle"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
+			$id_receta=$_POST["idRecetaDetalle"]; 
+
 			$respuesta= ModeloFormularios::mdlDesactivarReceta($id_receta);
 	
 			return $respuesta;	
@@ -186,7 +185,8 @@ class ControladorFormularios{
 
 		if (isset($_POST["idRecetaDetalle"])){
 
-			$id_receta=$_POST["idRecetaDetalle"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
+			$id_receta=$_POST["idRecetaDetalle"]; 
+
 			$respuesta= ModeloFormularios::mdlActivarReceta($id_receta);
 	
 			return $respuesta;	
@@ -221,11 +221,8 @@ class ControladorFormularios{
 								'cantidad_insumo_'=> $_POST["cantidadinsumoCrearReceta"]);
 
 				$idReceta_nueva=ModeloFormularios::mdlCrearReceta($datos); #[To DO] No devuelve el id de la receta creada
-				
 
 				$respuesta=ControladorFormularios::ctrAltaInsumosReceta($idReceta_nueva,$datos2);
-
-
 
 				return $respuesta;
 		}
@@ -313,7 +310,8 @@ class ControladorFormularios{
 
 			$respuesta= ModeloFormularios::mdlListaDesbaste($cantidadFilas);
 	
-			return $respuesta;	
+			return $respuesta;
+		}	
 	}	
 
 	#------------------------- Lista de Desbaste -------------------------#
@@ -322,13 +320,28 @@ class ControladorFormularios{
 	
 		if (isset($_POST["idDesbasteVerDetalles"])){
 
-			$id_desbaste=$_POST["idDesbasteVerDetalles"]; #Debe enviar la cantidad de registro que quiere que le envie. La query envía los registros mas nuevos.
+			$id_desbaste=$_POST["idDesbasteVerDetalles"];
 
 			$respuesta= ModeloFormularios::mdlDetalleDesbaste($id_desbaste);
 	
-			return $respuesta;	
+		}	
 	}
 	
+
+	#------------------------- Carnes de Desbaste -------------------------#
+
+	static public function ctrCarnesDesbaste(){
+	
+		if (isset($_POST["idDesbasteVerDetalles"])){
+
+			$id_desbaste=$_POST["idDesbasteVerDetalles"];
+
+			$respuesta= ModeloFormularios::mdlDetalleDesbaste($id_desbaste);
+	
+			return $respuesta;
+		}	
+	}
+
 
 	#------------------------- Registrar un nuevo DESBASTE -------------------------#
 
@@ -359,20 +372,14 @@ class ControladorFormularios{
 								'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
 								'descripcion_'=>'', #El procedure es generico, por lo que espera todos
 								'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
-
 				
-				
-
 				$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos2);
-
-
 
 				return $respuesta;
 		}
 
-	
 	}
-	#------------------------- Agregar registro de DESBASTE, agrega los cortes -------------------------#
+	#--------- Agregar registro de DESBASTE, agrega los cortes ---------#
 
 	static public function ctrMovCarnesDesbaste($datos){
 		
@@ -394,6 +401,7 @@ class ControladorFormularios{
 	}
 
 	
+	#-------------PROCEO PARA ANULAR DESBASTES----------------
 
 
 
@@ -433,6 +441,6 @@ class ControladorFormularios{
 	}
 */
 
-}#cierra la clase
+}	#cierra la clase
 
 ?>

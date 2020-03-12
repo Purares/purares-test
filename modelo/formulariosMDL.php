@@ -342,7 +342,7 @@ class ModeloFormularios{
 
 #------------------------- Detalle de DESBASTE------------------------#
 
-	static public function dlDetalleDesbaste($id_desbaste){
+	static public function mdlDetalleDesbaste($id_desbaste){
  
 		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalledesbastes where id_desbaste=$id_desbaste;");
 		$stmt -> execute();
@@ -351,6 +351,20 @@ class ModeloFormularios{
 		$stmt =null; 
 
 	}
+
+
+#-------------------------Carnes de DESBASTE------------------------#
+
+	static public function mdlCarnesDesbaste($id_desbaste){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_qcaresdesbaste where id_desbaste=$id_desbaste;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+	}
+
 
 #------------------------- Registrar un nuevo DESBASTE------------------------#
 
