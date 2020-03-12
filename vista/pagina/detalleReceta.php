@@ -58,7 +58,7 @@ foreach ($detalleReceta as $receta) {
 
 foreach ($detalleinsumos as $insumo) {
 
-echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] . '</td><td scope="col" class="text-right">' . $insumo[3] . '</td><td scope="col" class="text-right">??</td></tr>';
+echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] . '</td><td scope="col" class="text-right">' . $insumo[3] . '</td><td scope="col" class="text-right">' . $insumo[4] . '</td></tr>';
 
 };
 ?>
