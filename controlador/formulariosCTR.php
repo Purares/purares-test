@@ -139,9 +139,9 @@ class ControladorFormularios{
 
 	static public function ctrDetalleReceta(){
 
-		if (isset($_POST["idRecetaDetalle"])){
+		if (isset($_GET["idReceta"])){
 
-			$id_receta= $_POST["idRecetaDetalle"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
+			$id_receta= $_GET["idReceta"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
 			$respuesta= ModeloFormularios::mdlDetalleReceta($id_receta);
 		
 			return $respuesta;	
@@ -154,9 +154,9 @@ class ControladorFormularios{
 
 	static public function ctrInsumosReceta(){
 
-		if (isset($_POST["idRecetaDetalle"])){
+		if (isset($_GET["idReceta"])){
 
-			$id_receta=$_POST["idRecetaDetalle"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
+			$id_receta=$_GET["idReceta"]; #[TO DO] Me debe enviar el id de la receta que se quiere ver
 			$respuesta= ModeloFormularios::mdlInsumosReceta($id_receta);
 	
 			return $respuesta;	

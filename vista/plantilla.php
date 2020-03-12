@@ -126,6 +126,7 @@
 					$_GET["pagina"]=="agregarReceta"||
 					$_GET["pagina"]=="agregarCorte"||
 					$_GET["pagina"]=="movimientoInsumo"||
+					$_GET["pagina"]=="detalleReceta"||
 					$_GET["pagina"]=="pruebas"){
 
 				   	#var_dump($_GET["pagina"]);
