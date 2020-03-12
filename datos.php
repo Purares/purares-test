@@ -44,7 +44,35 @@ if(isset($_POST["idInsumoAgregarReceta"]) && !empty($_POST["idInsumoAgregarRecet
     }
 }
 
+if(isset($_POST["chequeado"])){
 
+ $recetas=ControladorFormularios::ctrListaRecetas();
+
+    if($_POST["chequeado"]==1){
+        
+    foreach($recetas as $receta){
+
+        if ($receta["activo"]==1) {
+    
+            echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="#">Ver detalles</a></td></tr>';
+        }else{
+
+            echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col">Inactiva</td><td scope="col"><a class="btn btn-secondary btn-sm" href="#">Ver detalles</a></td></tr>';
+
+        }
+    }
+    }else{
+       
+    foreach($recetas as $receta){
+
+
+        if ($receta["activo"]==1) {
+    
+        echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="#">Ver detalles</a></td></tr>';
+   }
+}
+}
+}
 
 
 ?>
