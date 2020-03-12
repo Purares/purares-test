@@ -176,7 +176,7 @@ class ModeloFormularios{
 
 	static public function mdlInsumosReceta($id_receta){
 
-		$stmt=conexion::conectarBD()->prepare("call v_InsumosReceta($id_receta);");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_InsumosReceta where id_receta = $id_receta;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
