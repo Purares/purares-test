@@ -54,10 +54,10 @@ if(isset($_POST["chequeado"])){
 
         if ($receta["activo"]==1) {
     
-            echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleReceta&idReceta=' . $receta["id_receta"] . '&nombrereceta=' .  $receta["nombre"]  . '">Ver detalles</a></td></tr>';
+            echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleReceta&idReceta=' . $receta["id_receta"] . '&nombrereceta=' .  $receta["nombre"]  . '&estado=' .  $receta["activo"] . '">Ver detalles</a></td></tr>';
         }else{
 
-            echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col">Inactiva</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleReceta&idReceta=' . $receta["id_receta"] . '&nombrereceta=' .  $receta["nombre"]  . '">Ver detalles</a></td></tr>';
+            echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col">Desactivada</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleReceta&idReceta=' . $receta["id_receta"] . '&nombrereceta=' .  $receta["nombre"]  . '&estado=' .  $receta["activo"] . '">Ver detalles</a></td></tr>';
         }
     }
     }else{
@@ -67,11 +67,25 @@ if(isset($_POST["chequeado"])){
 
         if ($receta["activo"]==1) {
     
-        echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleReceta&idReceta=' . $receta["id_receta"] . '&nombrereceta=' .  $receta["nombre"]  . '">Ver detalles</a></td></tr>';
+        echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleReceta&idReceta=' . $receta["id_receta"] . '&nombrereceta=' .  $receta["nombre"]  . '&estado=' .  $receta["activo"] . '">Ver detalles</a></td></tr>';
    }
 }
 }
 }
+
+if (isset($_POST["idRecetaDetalle"])){
+
+    if ($_POST['estado']==0) {
+        
+        $activar=ControladorFormularios::ctrActivarReceta();
+        return $activar;
+    }
+    if ($_POST['estado']==1) {
+    
+        $desactivar=ControladorFormularios::ctrDesactivarReceta();
+        return $desactivar;
+
+}}
 
 
 ?>
