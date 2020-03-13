@@ -349,33 +349,31 @@ class ControladorFormularios{
 
 		if (isset($_POST["nroRemitoAltaDesbaste"])||
 			isset($_POST["proveedorAltaDesbaste"])||
-			isset($_POST["diasprodCrearReceta"])||
 			isset($_POST["unidadesAltaDesbaste"])||
 			isset($_POST["pesoTotalAltaDesbaste"])||
 			isset($_POST["fechaDesbasteAltaDesbaste"])) {
 
-				$datos= array(	'nro_remito_' => $_POST["nroRemitoAltaDesbaste"],
+				$datosAD= array('nro_remito_' => $_POST["nroRemitoAltaDesbaste"],
 								'proveedor_' => $_POST["proveedorAltaDesbaste"],
 								'unidades_' => $_POST["unidadesAltaDesbaste"],
 								'peso_total_' => $_POST["pesoTotalAltaDesbaste"],
-								#'fecha_desbaste_' => $_POST["fechaDesbasteAltaDesbaste"],
 								'fecha_desbaste_' => date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"])),
-								'usuario_alta_'	 => '1', #[TO DO]
+								'usuario_alta_'	 => 1, #[TO DO]
 								'descripcion_' => $_POST["descripcionAltaDesbaste"]);
 
 
 
-				$idDesbaste_nuevo=ModeloFormularios::mdlCrearDesbaste($datos); 
+				$idDesbaste_nuevo=ModeloFormularios::mdlCrearDesbaste($datosAD); 
 
-				$datos2= array(	'id_carne_'=> $_POST["idCarneAltaDesbaste"],
-								'id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
-								'id_desbaste_'=> $idDesbaste_nuevo,
-								'cantidad_'=> $_POST["cantidadAltaDesbaste"],
-								'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
-								'descripcion_'=>'', #El procedure es generico, por lo que espera todos
-								'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
+				#$datos2= array(	'id_carne_'=> $_POST["idCarneAltaDesbaste"],
+				#				'id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
+				#				'id_desbaste_'=> $idDesbaste_nuevo,
+				#				'cantidad_'=> $_POST["cantidadAltaDesbaste"],
+				#				'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
+				#				'descripcion_'=>'', #El procedure es generico, por lo que espera todos
+				#				'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
 				
-				$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos2);
+				#$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos2);
 
 				return $respuesta;
 		}

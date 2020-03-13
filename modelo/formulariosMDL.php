@@ -368,17 +368,19 @@ class ModeloFormularios{
 
 #------------------------- Registrar un nuevo DESBASTE------------------------#
 
-static public function mdlCrearDesbaste($datos){
+static public function mdlCrearDesbaste($datosAD){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesbaste(:nro_remito, :proveedor, :unidades, :peso_total, ':fecha_desbaste', :usuario_alta,:descripcion);");
+		#$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesbaste(:nro_remito, :proveedor, :unidades, :peso_total, ':fecha_desbaste', :usuario_alta,:descripcion);");
 		
-		$stmt -> bindparam (":nro_remito",$datos['nro_remito_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":proveedor",$datos['proveedor_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":unidades",$datos['unidades_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":peso_total",$datos['peso_total_'],PDO::PARAM_STR); 
-		$stmt -> bindparam (":fecha_desbaste",$datos['fecha_desbaste_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":usuario_alta",$datos['usuario_alta_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":descripcion",$datos['descripcion_'],PDO::PARAM_STR);
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesbaste( :nro_remito, :proveedor, :unidades , :peso_total, '2020-01-01', :usuario_alta ,:descripcion);");
+
+		$stmt -> bindparam (":nro_remito",$datosAD['nro_remito_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":proveedor",$datosAD['proveedor_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":unidades",$datosAD['unidades_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":peso_total",$datosAD['peso_total_'],PDO::PARAM_STR); 
+		#$stmt -> bindparam (":fecha_desbaste",$datosAD['fecha_desbaste_'],PDO::PARAM_STR); #date
+		$stmt -> bindparam (":usuario_alta",$datosAD['usuario_alta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":descripcion",$datosAD['descripcion_'],PDO::PARAM_STR);
 
 
 		if ($stmt -> execute()){
