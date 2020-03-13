@@ -417,12 +417,13 @@ class ControladorFormularios{
 		#if (isset($_POST["idDesbasteVerDetalles"])){
 
 			#$id_desbaste=$_POST["idDesbasteVerDetalles"];
-			$id_desbaste=2;
+			$id_desbaste=1;
 			
 			$respuesta=ModeloFormularios::mdlValidacionAnularDesbaste1($id_desbaste);
 			$longitud=count($respuesta);
-	
-			if ($longitud>0) { #si tien OP se fija cuales son
+			
+			#el primer if valida que no exista una OP cargada que consuma las carnes de este desbate
+			if ($longitud>10) { #si tien OP se fija cuales son
 				$opAeliminar= array_column($respuesta,1);#me quedo solo con la columan OP
 				$cadena= 'Debe anular la op: ';
 
@@ -433,18 +434,27 @@ class ControladorFormularios{
 				$respuesta= substr($cadena,0,strlen($cadena)-2);
 				return $respuesta;				
 			}
+			#En caso de que no existan OP, validará que mediante otra operación no se halla consumido carnes de este desbaste
 			else{
 				$respuesta2= ModeloFormularios::mdlValidacionAnularDesbaste2($id_desbaste);
 				$longitud2=count($respuesta2);
-				$cadena2= 'Debe corregir el stock de las siguientes carnes: ';
+				$cadena2= 'Debe corregir el stock de las siguientes carnes: <br>';
 					for ($i=0; $i < $longitud2 ; $i++) { 
-						$carne= $respuesta2[1][1];
-						$cantidad= $respuesta2[0][0];
-						$cadena2= $cadena2.$carne.' ('.$cantidad.') ';
+						$carne= $respuesta2[$i][1];
+						$cantidad= $respuesta2[$i][2];
+						$cadena2= $cadena2.$carne.' ('.$cantidad.'),<br>';
 					}
+				$respuesta2=substr($cadena2,0,strlen($cadena2)-5);
 				return $cadena2;
 			}				
-			#}
+		#Si llegamos a este punto es porque no tiene OP asociada, ni se consumio de la carne, ahora se ejecutar un group by, el cual anula el desbaste, y un trigger debera realizar el contrasiento
+
+
+			$datos= array(	'id_desbaste_'=> $id_desbaste,
+							'id_usuario_'=>'1');#[TO DO] Deberia tomar el usuario que ingreso
+							
+
+			$respuesta3=ModeloFormularios::mdlAnularDesbaste($datos);
 
 
 

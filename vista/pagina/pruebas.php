@@ -5,8 +5,9 @@
 <?php
 
 $prueba=ControladorFormularios::ctrValidacionAnularDesbaste1();
-var_dump($prueba)
+var_dump($prueba);
 
+echo "$prueba";
 
 ?>
 

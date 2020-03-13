@@ -370,7 +370,7 @@ class ModeloFormularios{
 
 static public function mdlCrearDesbaste($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesbaste(':nro_remito', ':proveedor', :unidades, :peso_total, :fecha_desbaste, :usuario_alta);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesbaste(:nro_remito, :proveedor, :unidades, :peso_total, ':fecha_desbaste', :usuario_alta,:descripcion);");
 		
 		$stmt -> bindparam (":nro_remito",$datos['nro_remito_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":proveedor",$datos['proveedor_'],PDO::PARAM_STR);
@@ -378,6 +378,7 @@ static public function mdlCrearDesbaste($datos){
 		$stmt -> bindparam (":peso_total",$datos['peso_total_'],PDO::PARAM_STR); 
 		$stmt -> bindparam (":fecha_desbaste",$datos['fecha_desbaste_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":usuario_alta",$datos['usuario_alta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":descripcion",$datos['descripcion_'],PDO::PARAM_STR);
 
 
 		if ($stmt -> execute()){
@@ -444,12 +445,37 @@ static public function mdlCrearDesbaste($datos){
 		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_validacion_carne_difstock0 WHERE id_desbaste= $id_desbaste;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
-		$stmt -> close(); #cierra la conexion
+		$stmt -> close(); #cierra la 	conexion
 		$stmt =null; 
 
 
 	}
 
+
+#-------------------------Anular DESBASTE -------------------------#
+
+	static public function mdlAnularDesbaste($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovCarne(:id_carne, :id_cuenta, :id_desbaste, :cantidad, :id_ordenprod, :id_usuario, :descripcion);
+");
+
+		$stmt -> bindparam (":id_carne",$datos['id_Carne_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":id_cuenta",$datos['id_cuenta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":id_desbaste",$datos['id_desbaste_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",$datos['cantidad_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":id_ordenprod",$datos['id_ordenprod_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":id_usuario",$datos['id_usuario_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":descripcion",$datos['descripcion_'],PDO::PARAM_STR);
+
+		if ($stmt -> execute()){
+			return "ok";
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
 
 
 
