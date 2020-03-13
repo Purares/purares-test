@@ -403,8 +403,16 @@ class ControladorFormularios{
 	
 	#-------------PROCEO PARA ANULAR DESBASTES----------------
 
+#1) Ver que no tenga ningun Movimiento y en caso de que exista un movimiento de carne debe estár anulado.
+	#No deben existir OP Sin anular que tengan asociado ese stock
+		#QUERY->v_validacion_op-desbaste
+
+	#Chequear que el stock desbaste - stock actual sea cero
+		#QUERY-> v_validacion_carne_si-sa
 
 
+
+#2)Al completar el campo Anulado, deberá disparse un trigger en la tabla movimeinto de carnes que haga el contrasiento 	 
 
 
 
