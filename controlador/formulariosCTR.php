@@ -399,6 +399,34 @@ class ControladorFormularios{
 
 	}
 
+
+
+	#------------------------- Registrar un nuevo DESBASTE -------------------------#
+
+	static public function ctrMovCarne(){
+
+		if (isset($_POST["idCarneMovimientoCarne"])||
+			isset($_POST["idCuentaMovimientoCarne"])||
+			isset($_POST["idDesbasteMovimientoCarne"])||
+			isset($_POST["cantidadMovimientoCarne"])) {
+
+				$datos= array(	'id_carne_'=> $_POST["idCarneMovimientoCarne"],
+								'id_cuenta_'=>$_POST["idCuentaMovimientoCarne"],
+								'id_desbaste_'=> $_POST["idDesbasteMovimientoCarne"],
+								'cantidad_'=> $_POST["cantidadMovimientoCarne"],
+								'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
+								'descripcion_'=> $_POST["descripcionMovimientoCarne"],
+								'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
+				
+				$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos);
+
+				return $respuesta;
+		}
+
+	}
+
+
+
 	
 	#-------------PROCEO PARA ANULAR DESBASTES----------------
 
