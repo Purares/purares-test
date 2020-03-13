@@ -4,10 +4,9 @@
 
 <?php
 
-$prueba=ControladorFormularios::ctrValidacionAnularDesbaste1();
+$prueba=ControladorFormularios::prueba();
 var_dump($prueba);
 
-echo "$prueba";
 
 ?>
 

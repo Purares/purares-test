@@ -358,9 +358,13 @@ class ControladorFormularios{
 								'proveedor_' => $_POST["proveedorAltaDesbaste"],
 								'unidades_' => $_POST["unidadesAltaDesbaste"],
 								'peso_total_' => $_POST["pesoTotalAltaDesbaste"],
-								'fecha_desbaste_' => $_POST["fechaDesbasteAltaDesbaste"],
+								#'fecha_desbaste_' => $_POST["fechaDesbasteAltaDesbaste"],
+								'fecha_desbaste_' => date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
+
 								'usuario_alta_'	 => '1', #[TO DO]
 								'descripcion_' => $_POST["descripcionAltaDesbaste"]);
+
+
 
 				$idDesbaste_nuevo=ModeloFormularios::mdlCrearDesbaste($datos); 
 
@@ -490,6 +494,14 @@ class ControladorFormularios{
 	}
 
 
+	static public function prueba(){
+
+		$fecha=date('YYYY-mm-dd');
+		$fecha='2020-01-02';#getdate();
+		$respuesta=date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
+
+		return $respuesta;
+	}
 
 
 
