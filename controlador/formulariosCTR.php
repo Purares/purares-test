@@ -347,13 +347,12 @@ class ControladorFormularios{
 
 	static public function ctrCrearDesbaste(){
 
-		if (isset($_POST["nombreCrearReceta"])||
-			isset($_POST["mermaCrearReceta"])||
+		if (isset($_POST["nroRemitoAltaDesbaste"])||
+			isset($_POST["proveedorAltaDesbaste"])||
 			isset($_POST["diasprodCrearReceta"])||
-			isset($_POST["diasvencCrearReceta"])||
-			isset($_POST["largouniCrearReceta"])||
-			isset($_POST["pesouniCrearReceta"])||
-			isset($_POST["porcentcarneCrearReceta"])){
+			isset($_POST["unidadesAltaDesbaste"])||
+			isset($_POST["pesoTotalAltaDesbaste"])||
+			isset($_POST["fechaDesbasteAltaDesbaste"])) {
 
 				$datos= array(	'nro_remito_' => $_POST["nroRemitoAltaDesbaste"],
 								'proveedor_' => $_POST["proveedorAltaDesbaste"],
@@ -409,6 +408,42 @@ class ControladorFormularios{
 
 	#Chequear que el stock desbaste - stock actual sea cero
 		#QUERY-> v_validacion_carne_si-sa
+
+
+	#-------- Validar que no exista OP sin anular --------#
+
+	static public function ctrValidacionAnularDesbaste1(){
+
+		#if (isset($_POST["idDesbasteVerDetalles"])){
+
+			#$id_desbaste=$_POST["idDesbasteVerDetalles"];
+			$id_desbaste=1;
+			
+			$respuesta=ModeloFormularios::mdlValidacionAnularDesbaste1($id_desbaste);
+			$longitud=count($respuesta);
+	
+			if ($longitud>0) {
+				$opAeliminar= array_column($respuesta,1);	
+				$cadena= 'Debe anular la op: ';
+
+					for ($i=0; $i <$longitud ; $i++) { 
+						$id_opAeliminar = $opAeliminar[$i];
+						$cadena=$cadena.$opAeliminar[$i].', ';
+					}
+				$respuesta= substr($cadena,0,strlen($cadena)-2);
+				return $respuesta;				
+			}
+			#else{
+			#	$respuesta2= ModeloFormularios::mdlValidacionAnularDesbaste2($id_desbaste);
+			#	$longitud=count($respuesta2);
+			#}
+
+
+
+		#}	
+	}
+
+
 
 
 
