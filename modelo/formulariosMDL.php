@@ -357,7 +357,7 @@ class ModeloFormularios{
 
 	static public function mdlCarnesDesbaste($id_desbaste){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_qcaresdesbaste where id_desbaste=$id_desbaste;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_qcarnesdesbaste where id_desbaste=$id_desbaste;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
