@@ -359,8 +359,7 @@ class ControladorFormularios{
 								'unidades_' => $_POST["unidadesAltaDesbaste"],
 								'peso_total_' => $_POST["pesoTotalAltaDesbaste"],
 								#'fecha_desbaste_' => $_POST["fechaDesbasteAltaDesbaste"],
-								'fecha_desbaste_' => date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
-
+								'fecha_desbaste_' => date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"])),
 								'usuario_alta_'	 => '1', #[TO DO]
 								'descripcion_' => $_POST["descripcionAltaDesbaste"]);
 
@@ -459,10 +458,11 @@ class ControladorFormularios{
 				$opAeliminar= array_column($respuesta,1);#me quedo solo con la columan OP
 				$cadena= 'Debe anular la op: ';
 
-					for ($i=0; $i <$longitud ; $i++) { 
-						$id_opAeliminar = $opAeliminar[$i];
+					for ($i=0; $i <$longitud ; $i++) {
+
 						$cadena=$cadena.$opAeliminar[$i].', ';
 					}
+				
 				$respuesta= substr($cadena,0,strlen($cadena)-2);
 				return $respuesta;				
 			}
