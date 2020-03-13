@@ -87,5 +87,38 @@ if (isset($_POST["idRecetaDetalle"])){
 
 }}
 
+if(isset($_POST["chequeadoDesbaste"])){
+
+  $desbastes=ControladorFormularios::ctrListaDesbaste();
+
+    if($_POST["chequeadoDesbaste"]==0){
+        
+    foreach($desbastes as $desbaste){
+
+        if ($desbaste["anulado"]==0) {
+    
+    echo '<tr><td scope="col">' . $desbaste["id_desbaste"] . '</td><td scope="col">' . $desbaste["nro_remito"] . '</td><td scope="col">' . $desbaste["proveedor"] . '</td><td scope="col">' . $desbaste["unidades"] . '</td><td scope="col">' . $desbaste["peso_total"] . '</td><td scope="col">' . $desbaste["fecha_desbaste"] . '</td><td scope="col">Activo</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=inspeccionarDesbaste&idDesbaste=' . $desbaste["id_desbaste"] . '&estado=' .  $desbaste["anulado"] . '">Inspeccionar Desbaste</a></td></tr>';
+
+}          else{
+    
+         echo '<tr><td scope="col">' . $desbaste["id_desbaste"] . '</td><td scope="col">' . $desbaste["nro_remito"] . '</td><td scope="col">' . $desbaste["proveedor"] . '</td><td scope="col">' . $desbaste["unidades"] . '</td><td scope="col">' . $desbaste["peso_total"] . '</td><td scope="col">' . $desbaste["fecha_desbaste"] . '</td><td scope="col">Anulado</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=inspeccionarDesbaste&idDesbaste=' . $desbaste["id_desbaste"] . '&estado=' .  $desbaste["anulado"] . '">Inspeccionar Desbaste</a></td></tr>';
+
+
+        }
+    }
+    }else{
+       
+    foreach($desbastes as $desbaste){
+
+
+     if ($desbaste["anulado"]==0) {
+    
+    echo '<tr><td scope="col">' . $desbaste["id_desbaste"] . '</td><td scope="col">' . $desbaste["nro_remito"] . '</td><td scope="col">' . $desbaste["proveedor"] . '</td><td scope="col">' . $desbaste["unidades"] . '</td><td scope="col">' . $desbaste["peso_total"] . '</td><td scope="col">' . $desbaste["fecha_desbaste"] . '</td><td scope="col">Activo</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=inspeccionarDesbaste&idDesbaste=' . $desbaste["id_desbaste"] . '&estado=' .  $desbaste["anulado"] . '">Inspeccionar Desbaste</a></td></tr>';
+
+}
+}
+}
+}
+
 
 ?>
