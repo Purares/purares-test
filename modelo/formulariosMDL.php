@@ -423,6 +423,39 @@ static public function mdlCrearDesbaste($datos){
 	}
 
 
+	#-------------PROCEO PARA ANULAR DESBASTES----------------#
+
+	#-------- Validar que no exista OP sin anular --------#
+	static public function mdlValidacionAnularDesbaste1($id_desbaste){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_validacion_op_desbaste WHERE id_desbaste= $id_desbaste;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+
+	}
+
+
+	#-------- Validar que la diferencia de Stock sea  cero --------#
+	static public function mdlValidacionAnularDesbaste2($id_desbaste){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_validacion_carne_difstock0 WHERE id_desbaste= $id_desbaste;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+
+	}
+
+
+
+
+
+
+
 
 
 
@@ -433,13 +466,13 @@ static public function mdlCrearDesbaste($datos){
 	static public function mdlUltimoId($campo,$tabla){
 
 
-
 		$stmt=conexion::conectarBD()->prepare("SELECT max($campo) from $tabla;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
 		$stmt =null;
 	}
+
 
 
 
