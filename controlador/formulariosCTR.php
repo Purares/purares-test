@@ -272,9 +272,9 @@ class ControladorFormularios{
 
 	static public function ctrComposicionStockCarnes(){
 
-		if (isset($_POST["idCarneVerComposicion"])){
+		if (isset($_GET["idCarneVerComposicion"])){
 
-			$id_carne=$_POST["idCarneVerComposicion"];
+			$id_carne=$_GET["idCarneVerComposicion"];
 			$respuesta= ModeloFormularios::mdlComposicionStockCarnes($id_carne);
 			
 			return $respuesta;
