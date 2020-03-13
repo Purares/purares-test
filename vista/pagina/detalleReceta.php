@@ -19,9 +19,19 @@ foreach ($detalleReceta as $receta) {
 
 <div class="container">
 	<br>
-  					<h4>Receta ID <a class="idreceta"><?php echo $_GET['idReceta'] ?></a> "<a class="nombrereceta"><?php echo $_GET['nombrereceta'] ?></a>"<?php if ($_GET['estado']==1) {echo '     <span class="badge badge-success">Activa</span>';}else{echo '<span class="badge badge-danger">Desactivada</span>';}?></h4>
+  				<div class="d-flex">
+  					<div class="mr-auto">
+  					<h4>Receta ID <a class="idreceta"><?php echo $_GET['idReceta'] ?></a> "<a class="nombrereceta"><?php echo $_GET['nombrereceta'] ?></a>" <span class="medalla"><?php if ($_GET['estado']==1) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Desactivada</span>';}?>
+					</span>
+  				</h4>
+  					</div>
+  					<div>
+  						<div class="boton">
+  						<?php if ($_GET['estado']==1) {echo '<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoReceta" data-accion="desactivar" id="botonCambiarEstado">Desactivar Receta</button>';}else{echo '<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoReceta" data-accion="activar" id="botonCambiarEstado">Activar Receta</button>';}?>
+  						</div>
+  					</div>	
   					<br>
-          
+              </div>
                   <div class="row">
                             <div class="form-group col-6">
                          <label for="spanrecetanombre">Nombre de la receta:</label>
@@ -58,7 +68,7 @@ foreach ($detalleReceta as $receta) {
 
 foreach ($detalleinsumos as $insumo) {
 
-echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] . '</td><td scope="col" class="text-right">' . $insumo[3] . '</td><td scope="col" class="text-right">??</td></tr>';
+echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] . '</td><td scope="col" class="text-right">' . $insumo[3] . '</td><td scope="col">' . $insumo[4] . '</td></tr>';
 
 };
 ?>
@@ -87,25 +97,49 @@ echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] 
                                 </div>
         				</div>
      		<br>
-<div class="container">
-<div class="d-flex flex-column">
-        <div class="form-check p-2">
-  <input class="form-check-input check" type="checkbox" value="" id="ActivarReceta">
-  <label class="form-check-label" for="defaultCheck1">
-    Activar Receta
-  </label>
-</div>
-<div class="form-check p-2">
-  <input class="form-check-input check" type="checkbox" value="" id="DesactivarReceta">
-  <label class="form-check-label" for="defaultCheck1">
-    Desactivar Receta
-  </label>
-</div>
- </div>
- </div>
-<br>
                		<button type="button" class="btn btn-warning" id="Imprimirreceta">Imprimir receta</button> 
       			</div>
+
+
+
+  <div class="modal fade" id="ConfirmarEstadoReceta" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar estado</h5>
+        </div>
+        <div class="modal-body">
+		
+		  <p>Usted está a punto de <a class="accion"></a> esta receta.</p>
+
+          <p>¿Confirma que desea <a class="accion"></a> esta receta?</p>
+
+        </div>
+        <div class="modal-footer">
+   			<button type="button" class="btn btn-success btn-lg" id="confirmar">Sí</button>
+          <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <div class="modal fade" id="Confirmada" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+    	</div>
+        <div class="modal-body">
+        		<div class="alert alert-success" role="alert">
+          <h5 class="modal-title">Receta <a class="confirmacion"></a></h5>
+        </div>
+        </div>
+        <div class="modal-footer">
+   			<button type="button" class="btn btn-secondary btn-lg" id="aceptar">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 <?php
 
@@ -115,61 +149,49 @@ echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] 
 
 <script>
   
-$(document).ready(function(){
-   
-  var estado=<?php echo $_GET['estado'] ?>;
+var accion;
 
-  if (estado==1){
+var url;
 
-             $('#ActivarReceta').prop("checked", false);
-             $('#ActivarReceta').prop("disabled", true); 
-             $('#DesactivarReceta').prop("checked", false); 
-             $('#DesactivarReceta').prop("disabled", false);  
+var url1;
 
-  }else{
+$("#botonCambiarEstado").on( "click", function() {
 
-       $('#DesactivarReceta').prop("checked", false);
-       $('#DesactivarReceta').prop("disabled", true); 
-       $('#ActivarReceta').prop("checked", false);
-       $('#ActivarReceta').prop("disabled", false); 
+$('#ConfirmarEstadoReceta').modal('show')});
 
-  }
+$('#ConfirmarEstadoReceta').on('show.bs.modal', function (event) {
+var button = $('#botonCambiarEstado'); // Button that triggered the modal
+accion = button.data('accion')
+var modal = $(this)
+modal.find('.accion').text('' + accion);
 
-   });
+$("#confirmar").on( "click", function() {
 
+	//alert (accion)
 
-
-
-
-
-
-
-
-
-$("#ActivarReceta").on( "click", function() {
-  
-if ($(this).prop('checked')==true) {
+if (accion=='activar') {
 
    $.ajax({
                 type:'POST',
                 url:'datos.php',
                 data:{idRecetaDetalle: $('.idreceta').text(), estado: 0},
                 success:function(html){
-                $(this).prop("disabled", true);
-                $('#DesactivarReceta').prop("disabled", false);
-                alert('activo'+html);
-                }})}});
+                //alert('activo'+html);
+                $('#ConfirmarEstadoReceta').modal('hide')
+                var modalconfir = $('#Confirmada').modal('show')
+                modalconfir.find('.confirmacion').text('activada')
+                url=$(location).attr('href')
+                url1=url.replace("estado=0", "estado=1")
+               
+                //$('#botonCambiarEstado').remove();
+          		//$('.boton').html('<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoReceta" data-accion="desactivar" id="botonCambiarEstado">Desactivar Receta</button>')
+          		//$('.medal').remove()
+          		//$('.medalla').html('<span class="badge badge-success medal">Activa</span>')
+
+                }})};
 
 
-
-
-
-
-
-
-$("#DesactivarReceta").on( "click", function() {
-
-if ($(this).prop('checked')==true) {
+if (accion=='desactivar') {
 
    $.ajax({
                 type:'POST',
@@ -178,11 +200,28 @@ if ($(this).prop('checked')==true) {
                 success:function(html){
                 $(this).prop("disabled", true);
                 $('#ActivarReceta').prop("disabled", false);
-                alert('desactivo ' + html);
-                }})}});
+                //alert('desactivo ' + html);
+                $('#ConfirmarEstadoReceta').modal('hide')
+                var modalconfir = $('#Confirmada').modal('show')
+                modalconfir.find('.confirmacion').text('desactivada')
+                url=$(location).attr('href')
+                url1=url.replace("estado=1", "estado=0")
+               
+          		//$('#botonCambiarEstado').remove();
+          		//$('.boton').html('<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoReceta" data-accion="activar" id="botonCambiarEstado">Activar Receta</button>')
+          		//$('.medal').remove()
+          		//$('.medalla').html('<span class="badge badge-danger medal">Desactivada</span>')
+                }})}})});
+
+
+
+$("#aceptar").on( "click", function() {
+
+ $(location).attr('href',url1)
+
+})
 
 </script>
-
 
 </body>
 </html>
