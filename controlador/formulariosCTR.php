@@ -417,13 +417,13 @@ class ControladorFormularios{
 		#if (isset($_POST["idDesbasteVerDetalles"])){
 
 			#$id_desbaste=$_POST["idDesbasteVerDetalles"];
-			$id_desbaste=1;
+			$id_desbaste=2;
 			
 			$respuesta=ModeloFormularios::mdlValidacionAnularDesbaste1($id_desbaste);
 			$longitud=count($respuesta);
 	
-			if ($longitud>0) {
-				$opAeliminar= array_column($respuesta,1);	
+			if ($longitud>0) { #si tien OP se fija cuales son
+				$opAeliminar= array_column($respuesta,1);#me quedo solo con la columan OP
 				$cadena= 'Debe anular la op: ';
 
 					for ($i=0; $i <$longitud ; $i++) { 
@@ -433,9 +433,17 @@ class ControladorFormularios{
 				$respuesta= substr($cadena,0,strlen($cadena)-2);
 				return $respuesta;				
 			}
-			#else{
-			#	$respuesta2= ModeloFormularios::mdlValidacionAnularDesbaste2($id_desbaste);
-			#	$longitud=count($respuesta2);
+			else{
+				$respuesta2= ModeloFormularios::mdlValidacionAnularDesbaste2($id_desbaste);
+				$longitud2=count($respuesta2);
+				$cadena2= 'Debe corregir el stock de las siguientes carnes: ';
+					for ($i=0; $i < $longitud2 ; $i++) { 
+						$carne= $respuesta2[1][1];
+						$cantidad= $respuesta2[0][0];
+						$cadena2= $cadena2.$carne.' ('.$cantidad.') ';
+					}
+				return $cadena2;
+			}				
 			#}
 
 
