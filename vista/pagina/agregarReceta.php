@@ -220,7 +220,8 @@ foreach($depositos as $deposito){
 
           <p>La receta tendrá los siguientes ingredientes:</p>
 
-          <table>
+          <div class="container">
+          <table class="table table-hover">
             <thead>
             <tr><th scope="col">Ingredientes</th><th scope="col">Cantidad</th><th scope="col">Unidad</th></tr>
             </thead>
@@ -228,6 +229,7 @@ foreach($depositos as $deposito){
               
             </tbody>
           </table>
+          </div>
             <br>
           <p>¿Confirma que desea CARGAR ESTA RECETA?</p>
         </div>
@@ -299,7 +301,7 @@ modal.find('.peso').text('' + cmxunidad);
 
 for (var i=0; i<=nombreingredientes.length-1;i++){
   
-  modal.find('#tablaconfirmar').append($('<tr class="tringre"><td scope="col">' + nombreingredientes[i] +'</td><td scope="col">'+ cantidadingredientes[i] + '</td><td scope="col">' + unidadingredientes[i]+ '</tr>'))
+  modal.find('#tablaconfirmar').append($('<tr class="tringre"><td scope="col">' + nombreingredientes[i] +'</td><td scope="col" class="text-right">'+ cantidadingredientes[i] + '</td><td scope="col">' + unidadingredientes[i]+ '</tr>'))
 
   }}})
 
