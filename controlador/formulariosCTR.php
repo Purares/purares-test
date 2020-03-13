@@ -446,9 +446,9 @@ class ControladorFormularios{
 
 	static public function ctrValidacionAnularDesbaste1(){
 
-		#if (isset($_POST["idDesbasteVerDetalles"])){
+		if (isset($_POST["idDesbasteVerDetalles"])){
 
-			#$id_desbaste=$_POST["idDesbasteVerDetalles"];
+			$id_desbaste=$_POST["idDesbasteVerDetalles"];
 			$id_desbaste=1;
 			
 			$respuesta=ModeloFormularios::mdlValidacionAnularDesbaste1($id_desbaste);
@@ -479,19 +479,21 @@ class ControladorFormularios{
 				$respuesta2=substr($cadena2,0,strlen($cadena2)-5);
 				return $cadena2;
 			}				
+		
 		#Si llegamos a este punto es porque no tiene OP asociada, ni se consumio de la carne, ahora se ejecutar un group by, el cual anula el desbaste, y un trigger debera realizar el contrasiento
 
 
 			$datos= array(	'id_desbaste_'=> $id_desbaste,
 							'id_usuario_'=>'1');#[TO DO] Deberia tomar el usuario que ingreso
-							
 
 			$respuesta3=ModeloFormularios::mdlAnularDesbaste($datos);
 
 
 
-		#}	
+		}	
 	}
+
+
 
 
 	static public function prueba(){
