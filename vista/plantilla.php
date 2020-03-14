@@ -130,7 +130,7 @@
 					$_GET["pagina"]=="agregarDesbaste"||
 					$_GET["pagina"]=="verMasCarnes"||
 					$_GET["pagina"]=="verDesbastes"||
-					$_GET["pagina"]=="inspeccionarDesbaste"||
+					$_GET["pagina"]=="detalleDesbaste"||
 					$_GET["pagina"]=="pruebas"){
 
 				   	#var_dump($_GET["pagina"]);
