@@ -336,7 +336,7 @@ class ControladorFormularios{
 
 			$id_desbaste=$_POST["idDesbasteVerDetalles"];
 
-			$respuesta= ModeloFormularios::mdlDetalleDesbaste($id_desbaste);
+			$respuesta= ModeloFormularios::mdlCarnesDesbaste($id_desbaste);
 	
 			return $respuesta;
 		}	
@@ -366,15 +366,17 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 
 				$idDesbaste_nuevo=ModeloFormularios::mdlCrearDesbaste($datosAD,$fecha_desbasteV); 
 
-				$datos2= array(	'id_carne_'=> $_POST["idCarneAltaDesbaste"],
-								'id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
-								'id_desbaste_'=> $idDesbaste_nuevo,
-								'cantidad_'=> $_POST["cantidadAltaDesbaste"],
-								'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
-								'descripcion_'=>'', #El procedure es generico, por lo que espera todos
-								'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
+				$datosMCV= array('id_carne_'=> $_POST["idCarneAltaDesbaste"],
+								'cantidad_'=> $_POST["cantidadAltaDesbaste"]);
 				
-				$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos2);
+
+				#$datosMCF= array('id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
+				#				'id_desbaste_'=> $idDesbaste_nuevo,
+				#				'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
+				#				'descripcion_'=>'', #El procedure es generico, por lo que espera todos
+				#				'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
+
+				$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datosMCV,$idDesbaste_nuevo);
 
 				return $respuesta;
 		}
@@ -382,17 +384,29 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 	}
 	#--------- Agregar registro de DESBASTE, agrega los cortes ---------#
 
-	static public function ctrMovCarnesDesbaste($datos2){
+	static public function ctrMovCarnesDesbaste($datosMCV,$idDesbaste_nuevo){
 		
-		$logitud=count($datos2);
+		$logitud=count($datosMCV)+1;
 
 		for ($i=0; $i <$logitud ; $i++) { 
 
 			#Le envía solo la fila por la cual se desplaza el loop
-			$datos3=array_column($datos2, $i);
+			$idCarneDesbaste=$datosMCV['id_carne_'][$i];
+			$qCarneDesbaste=$datosMCV['cantidad_'][$i];
+
+			#crear el Array para enviar
+
+			$datos= array('id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
+							'id_desbaste_'=> $idDesbaste_nuevo,
+							'id_ordenprod_'=> null, #El procedure es generico, por lo que espera todos
+							'descripcion_'=> null, #El procedure es generico, por lo que espera todos
+							'id_usuario_'=> '1',
+							'id_carne_'=> $idCarneDesbaste,
+							'cantidad_'=> $qCarneDesbaste);#[TO DO] Deberia tomar el usuario que ingreso
+
 
 			#Inserta el campo en la Base de datos
-			$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
+			$respuesta=ModeloFormularios::mdlMovimientoCarne($datos);
 			#Si no dio error sigue el loop
 			if ($respuesta != "ok") { return $respuesta;}
 		}	
@@ -403,7 +417,7 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 
 
 
-	#------------------------- Registrar un nuevo DESBASTE -------------------------#
+	#------------------------- Movimientos de Carne -------------------------#
 
 	static public function ctrMovCarne(){
 
@@ -524,7 +538,7 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 
 	$datosA= array(	'id_carne_'=> $idCarneAltaDesbaste,
 					'cantidad_'=> $cantidadAltaDesbaste);
-	
+
 
 	$datosB= array(	'id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
 					'id_desbaste_'=> 33,

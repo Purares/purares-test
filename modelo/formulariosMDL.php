@@ -402,16 +402,19 @@ static public function mdlCrearDesbaste($datosAD,$fecha_desbasteV){
 
 	static public function mdlMovimientoCarne($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovCarne(:id_carne, :id_cuenta, :id_desbaste, :cantidad, :id_ordenprod, :id_usuario, :descripcion);
-");
+	#	$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovCarne(:id_carne, :id_cuenta, :id_desbaste, :cantidad, :id_ordenprod, :id_usuario, :descripcion);");
 
-		$stmt -> bindparam (":id_carne",$datos['id_Carne_'],PDO::PARAM_INT);
+
+	$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovCarne(:id_carne, :id_cuenta, :id_desbaste, :cantidad, :id_ordenprod, :id_usuario, :descripcion);");
+
+		$stmt -> bindparam (":id_carne",$datos['id_carne_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":id_cuenta",$datos['id_cuenta_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":id_desbaste",$datos['id_desbaste_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":cantidad",$datos['cantidad_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":id_ordenprod",$datos['id_ordenprod_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":id_usuario",$datos['id_usuario_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":descripcion",$datos['descripcion_'],PDO::PARAM_STR);
+
 
 		if ($stmt -> execute()){
 			return "ok";
