@@ -306,7 +306,7 @@ class ControladorFormularios{
 	
 		if (isset($_POST["CantidadFilasDesbastes"])){
 
-			$cantidadFilas=$_POST["CantidadFilasDesbastes"]; #Debe enviar la cantidad de registro que quiere que le envie. La query envía los registros mas nuevos.
+			$cantidadFilas=100;#$_POST["CantidadFilasDesbastes"]; #Debe enviar la cantidad de registro que quiere que le envie. La query envía los registros mas nuevos. [TO DO] PAGINACION
 
 			$respuesta= ModeloFormularios::mdlListaDesbaste($cantidadFilas);
 	
@@ -353,6 +353,8 @@ class ControladorFormularios{
 			isset($_POST["pesoTotalAltaDesbaste"])||
 			isset($_POST["fechaDesbasteAltaDesbaste"])) {
 
+$fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
+
 				$datosAD= array('nro_remito_' => $_POST["nroRemitoAltaDesbaste"],
 								'proveedor_' => $_POST["proveedorAltaDesbaste"],
 								'unidades_' => $_POST["unidadesAltaDesbaste"],
@@ -362,18 +364,17 @@ class ControladorFormularios{
 								'descripcion_' => $_POST["descripcionAltaDesbaste"]);
 
 
+				$idDesbaste_nuevo=ModeloFormularios::mdlCrearDesbaste($datosAD,$fecha_desbasteV); 
 
-				$idDesbaste_nuevo=ModeloFormularios::mdlCrearDesbaste($datosAD); 
-
-				#$datos2= array(	'id_carne_'=> $_POST["idCarneAltaDesbaste"],
-				#				'id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
-				#				'id_desbaste_'=> $idDesbaste_nuevo,
-				#				'cantidad_'=> $_POST["cantidadAltaDesbaste"],
-				#				'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
-				#				'descripcion_'=>'', #El procedure es generico, por lo que espera todos
-				#				'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
+				$datos2= array(	'id_carne_'=> $_POST["idCarneAltaDesbaste"],
+								'id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
+								'id_desbaste_'=> $idDesbaste_nuevo,
+								'cantidad_'=> $_POST["cantidadAltaDesbaste"],
+								'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
+								'descripcion_'=>'', #El procedure es generico, por lo que espera todos
+								'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
 				
-				#$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos2);
+				$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos2);
 
 				return $respuesta;
 		}
@@ -381,14 +382,14 @@ class ControladorFormularios{
 	}
 	#--------- Agregar registro de DESBASTE, agrega los cortes ---------#
 
-	static public function ctrMovCarnesDesbaste($datos){
+	static public function ctrMovCarnesDesbaste($datos2){
 		
-		$logitud=count($datos);
+		$logitud=count($datos2);
 
 		for ($i=0; $i <$logitud ; $i++) { 
 
 			#Le envía solo la fila por la cual se desplaza el loop
-			$datos3=array_column($datos, $i);
+			$datos3=array_column($datos2, $i);
 
 			#Inserta el campo en la Base de datos
 			$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
@@ -510,37 +511,39 @@ class ControladorFormularios{
 
 
 
-/*
+
 
 	#------------------------- ELIMINAR- SE UTILIZA PARA REALIZAR PRUEBAS -------------------------#
 
 	static public function prueba1(){
 
 
-	$cadena1=["z","x","y","w"];
-	$cadena2=["a","b","c","d"];
+	$idCarneAltaDesbaste=[8,9,10,11];
+	$cantidadAltaDesbaste=[100,12,312,97];
 
-	$datos = array(	'uno' => $cadena1,
-					'dos'=> $cadena2);
 
-	#for ($i=0 ; $i <3 ; $i++) { 
-		
-		$respuesta = array_column($datos, 0);
-		#$respuesta = $arrayName = array('' => , );$datos=>0;
+	$datosA= array(	'id_carne_'=> $idCarneAltaDesbaste,
+					'cantidad_'=> $cantidadAltaDesbaste);
+	
 
-	#}
+	$datosB= array(	'id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
+					'id_desbaste_'=> 33,
+					'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
+					'descripcion_'=>'', #El procedure es generico, por lo que espera todos
+					'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
 
+
+	
+	#$respuesta=$datos2;
+	$respuesta= array_column($datos2,1);
+
+	#$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos2);
 	return $respuesta;
+
+
+
 	}
 
-
-	#################DOING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	static public function prueba2(){
-
-		$respuesta= ModeloFormularios::mdlprueba();
-		return $respuesta;
-	}
-*/
 
 }	#cierra la clase
 

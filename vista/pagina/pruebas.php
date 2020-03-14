@@ -4,7 +4,7 @@
 
 <?php
 
-$prueba=ControladorFormularios::prueba();
+$prueba=ControladorFormularios::prueba1();
 var_dump($prueba);
 
 
