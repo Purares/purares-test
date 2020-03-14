@@ -304,14 +304,14 @@ class ControladorFormularios{
 
 	static public function ctrListaDesbaste(){
 	
-		if (isset($_POST["CantidadFilasDesbastes"])){
+		#if (isset($_POST["CantidadFilasDesbastes"])){
 
 			$cantidadFilas=100;#$_POST["CantidadFilasDesbastes"]; #Debe enviar la cantidad de registro que quiere que le envie. La query envía los registros mas nuevos. [TO DO] PAGINACION
 
 			$respuesta= ModeloFormularios::mdlListaDesbaste($cantidadFilas);
-	
 			return $respuesta;
-		}	
+			
+		#}	
 	}	
 
 	#------------------------- Lista de Desbaste -------------------------#
