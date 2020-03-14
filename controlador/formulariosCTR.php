@@ -318,12 +318,13 @@ class ControladorFormularios{
 
 	static public function ctrDetalleDesbaste(){
 	
-		if (isset($_POST["idDesbasteVerDetalles"])){
+		if (isset($_GET["idDesbasteVerDetalles"])){
 
-			$id_desbaste=$_POST["idDesbasteVerDetalles"];
+			$id_desbaste=$_GET["idDesbasteVerDetalles"];
 
 			$respuesta= ModeloFormularios::mdlDetalleDesbaste($id_desbaste);
-	
+
+			return $respuesta;
 		}	
 	}
 	
@@ -332,9 +333,9 @@ class ControladorFormularios{
 
 	static public function ctrCarnesDesbaste(){
 	
-		if (isset($_POST["idDesbasteVerDetalles"])){
+		if (isset($_GET["idDesbasteVerDetalles"])){
 
-			$id_desbaste=$_POST["idDesbasteVerDetalles"];
+			$id_desbaste=$_GET["idDesbasteVerDetalles"];
 
 			$respuesta= ModeloFormularios::mdlCarnesDesbaste($id_desbaste);
 	
