@@ -477,12 +477,6 @@ static public function mdlCrearDesbaste($datosAD,$fecha_desbasteV){
 
 
 
-
-
-
-
-
-
 #ESTA FUNCION DEBERIA SER REEMPLAZADA POR LA FUNCION DEL OBJETO!!!!!!!!!
 
 #------------------------- Ultimo id de la tabla -------------------------#

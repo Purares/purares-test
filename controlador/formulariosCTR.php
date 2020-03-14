@@ -416,7 +416,6 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 	}
 
 
-
 	#------------------------- Movimientos de Carne -------------------------#
 
 	static public function ctrMovCarne(){
@@ -440,7 +439,6 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 		}
 
 	}
-
 
 
 	
