@@ -71,7 +71,7 @@ foreach ($detalleDesbastes as $detalleDesbaste) {
 
 foreach ($detallecarnesdesbaste as $detallecarnedesbaste) {
 
-echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scope="col">' . $detallecarnedesbaste["insumo"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["qObtenido"] . '</td><td scope="col">??????</td><td scope="col" class="text-right">' . $detallecarnedesbaste["stockactual"] . '</td><td scope="col">??????</td></tr>';
+echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scope="col">' . $detallecarnedesbaste["carne"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["qObtenido"] . '</td><td scope="col">' . $detallecarnedesbaste["udm"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["stockactual"] . '</td><td scope="col">' . $detallecarnedesbaste["udm"] . '</td></tr>';
 
 }
 ?>
