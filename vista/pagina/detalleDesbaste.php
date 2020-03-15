@@ -26,7 +26,7 @@ foreach ($detalleDesbastes as $detalleDesbaste) {
   					</div>
   					<div>
   						<div class="boton">
-  						<?php if ($_GET['estado']==0) {echo '<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoDesbaste" data-accion="anular" id="botonCambiarEstadoDesbaste">Anular Desbaste</button>';}else{echo '<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoDesbaste" data-accion="activar" id="botonCambiarEstadoDesbaste">Activar desbaste</button>';}?>
+  						<?php if ($_GET['estado']==0) {echo '<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#ConfirmarAnularDesbaste" data-accion="anular" id="botonAnularDesbaste">Anular Desbaste</button>';};?>
   						</div>
   					</div>	
   					<br>
@@ -62,6 +62,7 @@ foreach ($detalleDesbastes as $detalleDesbaste) {
            							<th scope="col">Unidad</th>
                         <th scope="col" class="text-right">Stock Actual</th>
                         <th scope="col">Unidad</th>
+                         <th scope="col">Movimiento</th>
         						</tr>
       						</thead>
   							<tbody>
@@ -71,7 +72,7 @@ foreach ($detalleDesbastes as $detalleDesbaste) {
 
 foreach ($detallecarnesdesbaste as $detallecarnedesbaste) {
 
-echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scope="col">' . $detallecarnedesbaste["carne"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["qObtenido"] . '</td><td scope="col">' . $detallecarnedesbaste["udm"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["stockactual"] . '</td><td scope="col">' . $detallecarnedesbaste["udm"] . '</td></tr>';
+echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scope="col">' . $detallecarnedesbaste["carne"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["qObtenido"] . '</td><td scope="col">' . $detallecarnedesbaste["udm"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["stockactual"] . '</td><td scope="col">' . $detallecarnedesbaste["udm"] . '</td><td scope="col"><button class="btn btn-secondary btn-sm">Nuevo movimiento</button></td></tr>';
 
 }
 ?>
@@ -84,22 +85,16 @@ echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scop
 
 
 
-  <div class="modal fade" id="ConfirmarEstadoReceta" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal fade" id="AnularDesbaste" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Confirmar estado</h5>
+          <h5 class="modal-title">Anulacion</h5>
         </div>
         <div class="modal-body">
-		
-		  <p>Usted está a punto de <a class="accion"></a> esta receta.</p>
-
-          <p>¿Confirma que desea <a class="accion"></a> esta receta?</p>
 
         </div>
         <div class="modal-footer">
-   			<button type="button" class="btn btn-success btn-lg" id="confirmar">Sí</button>
-          <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">No</button>
         </div>
       </div>
     </div>
@@ -130,9 +125,25 @@ var url;
 
 var url1;
 
-$("#botonCambiarEstado").on( "click", function() {
+$("#botonAnularDesbaste").on( "click", function() {
 
-$('#ConfirmarEstadoReceta').modal('show')});
+    $.ajax({
+                type:'POST',
+                url:'datos.php',
+                data:{idDesbasteVerDetalles: $('.iddesbaste').text()},
+                success:function(anulacion){
+                //alert('activo'+html);
+                $('#AnularDesbaste').modal('show')
+                var modal = $('#AnularDesbaste')
+                modal.find('.modal-body').html(anulacion)
+      
+}})})
+
+
+/*
+
+
+$('#ConfirmarAnularDesbaste').modal('show')});
 
 $('#ConfirmarEstadoReceta').on('show.bs.modal', function (event) {
 var button = $('#botonCambiarEstado'); // Button that triggered the modal
@@ -194,7 +205,7 @@ $("#aceptar").on( "click", function() {
 
  $(location).attr('href',url1)
 
-})
+})*/
 
 </script>
 
