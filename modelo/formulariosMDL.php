@@ -459,7 +459,7 @@ static public function mdlCrearDesbaste($datosAD,$fecha_desbasteV){
 
 	static public function mdlAnularDesbaste($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AnularDesbaste(:id_desbaste, :id_usuario);
+		$stmt=conexion::conectarBD()->prepare("call act_AnularDesbaste(:id_desbaste, :id_usuario);
 ");
 
 		$stmt -> bindparam (":id_desbaste",$datos['id_desbaste_'],PDO::PARAM_INT);

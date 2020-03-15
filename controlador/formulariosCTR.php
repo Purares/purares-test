@@ -310,7 +310,7 @@ class ControladorFormularios{
 
 			$respuesta= ModeloFormularios::mdlListaDesbaste($cantidadFilas);
 			return $respuesta;
-			
+
 		#}	
 	}	
 
@@ -460,13 +460,13 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 		if (isset($_POST["idDesbasteVerDetalles"])){
 
 			$id_desbaste=$_POST["idDesbasteVerDetalles"];
-			$id_desbaste=1;
+			#$id_desbaste=1;
 			
 			$respuesta=ModeloFormularios::mdlValidacionAnularDesbaste1($id_desbaste);
 			$longitud=count($respuesta);
 			
 			#el primer if valida que no exista una OP cargada que consuma las carnes de este desbate
-			if ($longitud>10) { #si tien OP se fija cuales son
+			if ($longitud>0) { #si tien OP se fija cuales son
 				$opAeliminar= array_column($respuesta,1);#me quedo solo con la columan OP
 				$cadena= 'Debe anular la op: ';
 
@@ -482,15 +482,18 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 			else{
 				$respuesta2= ModeloFormularios::mdlValidacionAnularDesbaste2($id_desbaste);
 				$longitud2=count($respuesta2);
-				$cadena2= 'Debe corregir el stock de las siguientes carnes: <br>';
-					for ($i=0; $i < $longitud2 ; $i++) { 
-						$carne= $respuesta2[$i][1];
-						$cantidad= $respuesta2[$i][2];
-						$cadena2= $cadena2.$carne.' ('.$cantidad.'),<br>';
-					}
-				$respuesta2=substr($cadena2,0,strlen($cadena2)-5);
-				return $cadena2;
-			}				
+				
+				if ($longitud>0) {	
+					$cadena2= 'Debe corregir el stock de las siguientes carnes: <br>';
+						for ($i=0; $i < $longitud2 ; $i++) { 
+							$carne= $respuesta2[$i][1];
+							$cantidad= $respuesta2[$i][2];
+							$cadena2= $cadena2.$carne.' ('.$cantidad.'),<br>';
+						}
+					$respuesta2=substr($cadena2,0,strlen($cadena2)-5);
+					return $cadena2;
+				}
+			}	
 		
 		#Si llegamos a este punto es porque no tiene OP asociada, ni se consumio de la carne, ahora se ejecutar un group by, el cual anula el desbaste, y un trigger debera realizar el contrasiento
 
@@ -500,7 +503,7 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 
 			$respuesta3=ModeloFormularios::mdlAnularDesbaste($datos);
 
-
+			return $respuesta3;
 
 		}	
 	}
