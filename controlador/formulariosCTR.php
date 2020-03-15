@@ -483,7 +483,7 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 				$respuesta2= ModeloFormularios::mdlValidacionAnularDesbaste2($id_desbaste);
 				$longitud2=count($respuesta2);
 				
-				if ($longitud>0) {	
+				if ($longitud2>0) {	
 					$cadena2= 'Debe corregir el stock de las siguientes carnes: <br>';
 						for ($i=0; $i < $longitud2 ; $i++) { 
 							$carne= $respuesta2[$i][1];
