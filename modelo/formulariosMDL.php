@@ -69,7 +69,6 @@ class ModeloFormularios{
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
 		$stmt =null; 
-
 	}
 
 
@@ -95,6 +94,7 @@ class ModeloFormularios{
 		$stmt -> close(); #cierra la conexion
 		$stmt =null;
 	}
+
 
 	#------------------------- ACTUALIZAR STOCK DE INSUMO -------------------------#
 
@@ -222,7 +222,7 @@ class ModeloFormularios{
 
 	static public function mdlCrearReceta($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarReceta( :nombre,:merma,:diaspord,:diasvenc,:largouni,:pesouni,:porcentcarne,:descripcion);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarReceta( :nombre,:merma,:diaspord,:diasvenc,:largouni,:pesouni,:unidadesFinalXunidad,:porcentcarne,:descripcion);");
 		
 		$stmt -> bindparam (":nombre",$datos['nombre_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":merma",$datos['merma_'],PDO::PARAM_STR);
@@ -230,6 +230,7 @@ class ModeloFormularios{
 		$stmt -> bindparam (":diasvenc",$datos['diasvenc_'],PDO::PARAM_STR); 
 		$stmt -> bindparam (":largouni",$datos['largouni_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":pesouni",$datos['pesouni_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":unidadesFinalXunidad",$datos['unidadesFinalXunidad_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":porcentcarne",$datos['porcentcarne_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":descripcion",$datos['descripcion_'],PDO::PARAM_STR);
 
@@ -314,6 +315,7 @@ class ModeloFormularios{
 		$stmt -> bindparam (":nombreCarne",$datos['nombreCarne'],PDO::PARAM_STR);
 		$stmt -> bindparam (":idUDM",$datos['idUDM'],PDO::PARAM_INT);
 		$stmt -> bindparam (":alertaQmin",$datos['alertaQmin'],PDO::PARAM_INT);
+		$stmt -> bindparam (":vencimientoDias",$datos['vencimientoDias'],PDO::PARAM_INT);
 
 
 		if ($stmt -> execute()){
@@ -457,9 +459,9 @@ static public function mdlCrearDesbaste($datosAD,$fecha_desbasteV){
 
 #-------------------------Anular DESBASTE -------------------------#
 
-	static public function mdlAnularDesbaste($datos){
+	static public function mdlAnularDesbaste($datos,$motivo){
 
-		$stmt=conexion::conectarBD()->prepare("call act_AnularDesbaste(:id_desbaste, :id_usuario);
+		$stmt=conexion::conectarBD()->prepare("call act_AnularDesbaste(:id_desbaste, :id_usuario, $motivo);
 ");
 
 		$stmt -> bindparam (":id_desbaste",$datos['id_desbaste_'],PDO::PARAM_INT);

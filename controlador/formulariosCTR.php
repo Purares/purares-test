@@ -92,6 +92,9 @@ class ControladorFormularios{
 	}
 
 
+
+
+
 #------------------------- InsumosXdeposito -------------------------#
 
 	static public function ctrInsumosDeposito(){
@@ -206,6 +209,7 @@ class ControladorFormularios{
 			isset($_POST["diasvencCrearReceta"])||
 			isset($_POST["largouniCrearReceta"])||
 			isset($_POST["pesouniCrearReceta"])||
+			isset($_POST["uFinalXuCrearReceta"])|| #unidades_final_xunidad
 			isset($_POST["porcentcarneCrearReceta"])){
 
 				$datos= array(	'nombre_' => $_POST["nombreCrearReceta"],
@@ -214,6 +218,7 @@ class ControladorFormularios{
 								'diasvenc_' => $_POST["diasvencCrearReceta"],
 								'largouni_' => $_POST["largouniCrearReceta"],
 								'pesouni_' => $_POST["pesouniCrearReceta"],
+								'unidadesFinalXunidad_' => $_POST["uFinalXuCrearReceta"],
 								'porcentcarne_'	 => $_POST["porcentcarneCrearReceta"],
 								'descripcion_' => $_POST["descripcionCrearReceta"]);
 
@@ -291,7 +296,8 @@ class ControladorFormularios{
 		{
 				$datos= array(	'nombreCarne' => $_POST["nombreCarne"],
 								'idUDM' => $_POST["idUdmCarne"],
-								'alertaQmin' => $_POST["alertaQminCarne"]);
+								'alertaQmin' => $_POST["alertaQminCarne"],
+								'vencimientoDias' => $_POST["vencimientoDiasCarne"]);
 
 
 			$respuesta=ModeloFormularios::mdlAgregarCarne($datos);
@@ -490,26 +496,64 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 							$cantidad= $respuesta2[$i][2];
 							$cadena2= $cadena2.$carne.' ('.$cantidad.'),<br>';
 						}
-					$respuesta2=substr($cadena2,0,strlen($cadena2)-5);
-					return $cadena2;
+					$respuesta=substr($cadena2,0,strlen($cadena2)-5);
+					#return $cadena2;
 				}
 			}	
 		
 		#Si llegamos a este punto es porque no tiene OP asociada, ni se consumio de la carne, ahora se ejecutar un group by, el cual anula el desbaste, y un trigger debera realizar el contrasiento
 
 
-			$datos= array(	'id_desbaste_'=> $id_desbaste,
-							'id_usuario_'=>'1');#[TO DO] Deberia tomar el usuario que ingreso
+			if (isset($_POST["motivoAnulacionDesposte"])){
+				#$motivo=$_POST["motivoAnulacionDesposte"]
+				
 
-			$respuesta3=ModeloFormularios::mdlAnularDesbaste($datos);
+				$datos= array(	'id_desbaste_'=> $id_desbaste,
+								'id_usuario_'=>'1');#[TO DO] Deberia tomar el usuario que ingreso
 
-			return $respuesta3;
+				$respuesta=ModeloFormularios::mdlAnularDesbaste($datos,$motivo);
 
+				#return $respuesta3;
+			}else{
+				$respuesta='Por favor indique el motivo de la anulación.';
+			}
+		
+
+		return $respuesta;
+		}	
+	}
+
+	#------------------------- Lista de Desbaste -------------------------#
+
+	static public function ctrCompraInsumo(){
+	
+		if (isset($_GET["id_insumo_compraI"])||
+			isset($_GET["cantidad_compraI"])||
+			isset($_GET["proveedor_compraI"])||
+			isset($_GET["fecha_compraI"])){
+
+			$id_compraI=$_GET["idDesbasteVerDetalles"];
+
+
+		$datos= array(	'id_carne_'=> $_POST["idCarneMovimientoCarne"],
+						'id_cuenta_'=>$_POST["idCuentaMovimientoCarne"],
+						'id_desbaste_'=> $_POST["idDesbasteMovimientoCarne"],
+						'cantidad_'=> $_POST["cantidadMovimientoCarne"],
+						'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
+						'descripcion_'=> $_POST["descripcionMovimientoCarne"],
+						'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
+
+
+
+			$respuesta= ModeloFormularios::mdlDetalleDesbaste($id_desbaste);
+
+			return $respuesta;
 		}	
 	}
 
 
 
+ #---------------------------------------------------------------------
 
 	static public function prueba(){
 
@@ -524,11 +568,6 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 
 #2)Al completar el campo Anulado, deberá disparse un trigger en la tabla movimeinto de carnes que haga el contrasiento 	 
 
-
-
-
-
-
 	#------------------------- ELIMINAR- SE UTILIZA PARA REALIZAR PRUEBAS -------------------------#
 
 	static public function prueba1(){
@@ -536,7 +575,8 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 
 	$idCarneAltaDesbaste=[8,9,10,11];
 	$cantidadAltaDesbaste=[100,12,312,97];
-
+	$param1='hola';
+	$param2='chau';
 
 	$datosA= array(	'id_carne_'=> $idCarneAltaDesbaste,
 					'cantidad_'=> $cantidadAltaDesbaste);
@@ -549,9 +589,14 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 					'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
 
 
+ $logitud=cout($idCarneAltaDesbaste);
+
+	$datosC = array('id_carne_'=> $idCarneAltaDesbaste,
+					'cantidad_'=> $cantidadAltaDesbaste,
+					'param1_'=> $param,);
 	
 	#$respuesta=$datos2;
-	$respuesta= array_column($datos2,1);
+	#$respuesta= array_column($datos2,1);
 
 	#$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos2);
 	return $respuesta;
