@@ -101,10 +101,6 @@ class ControladorFormularios{
 			
 	}
 
-
-
-
-
 #------------------------- InsumosXdeposito -------------------------#
 
 	static public function ctrInsumosDeposito(){
@@ -183,13 +179,9 @@ class ControladorFormularios{
 		if (isset($_POST["idRecetaDetalle"])){
 
 			$id_receta=$_POST["idRecetaDetalle"]; 
-
 			$respuesta= ModeloFormularios::mdlDesactivarReceta($id_receta);
-	
 			return $respuesta;	
 		}
-
-	
 	}
 
 #------------------------- Activar Receta -------------------------#
@@ -199,15 +191,10 @@ class ControladorFormularios{
 		if (isset($_POST["idRecetaDetalle"])){
 
 			$id_receta=$_POST["idRecetaDetalle"]; 
-
 			$respuesta= ModeloFormularios::mdlActivarReceta($id_receta);
-	
 			return $respuesta;	
-		}
-
-	
+		}	
 	}
-
 
 	#------------------------- Crear Receta -------------------------#
 
@@ -222,48 +209,38 @@ class ControladorFormularios{
 			isset($_POST["uFinalXuCrearReceta"])|| #unidades_final_xunidad
 			isset($_POST["porcentcarneCrearReceta"])){
 
-				$datos= array(	'nombre_' => $_POST["nombreCrearReceta"],
-								'merma_' => $_POST["mermaCrearReceta"],
-								'diasprod_' => $_POST["diasprodCrearReceta"],
-								'diasvenc_' => $_POST["diasvencCrearReceta"],
-								'largouni_' => $_POST["largouniCrearReceta"],
-								'pesouni_' => $_POST["pesouniCrearReceta"],
-								'unidadesFinalXunidad_' => $_POST["uFinalXuCrearReceta"],
-								'porcentcarne_'	 => $_POST["porcentcarneCrearReceta"],
-								'descripcion_' => $_POST["descripcionCrearReceta"]);
+			#COMPLETAR EN LA BD:
+					$datos= array(	'nombre_' => $_POST["nombreCrearReceta"],
+									'merma_' => $_POST["mermaCrearReceta"],
+									'diasprod_' => $_POST["diasprodCrearReceta"],
+									'diasvenc_' => $_POST["diasvencCrearReceta"],
+									'largouni_' => $_POST["largouniCrearReceta"],
+									'pesouni_' => $_POST["pesouniCrearReceta"],
+									'unidadesFinalXunidad_' => $_POST["uFinalXuCrearReceta"],
+									'porcentcarne_'	 => $_POST["porcentcarneCrearReceta"],
+									'descripcion_' => $_POST["descripcionCrearReceta"]);
 
-				$datos2= array(	'id_insumo_'=> $_POST["idinsumoCrearReceta"],
-								'cantidad_insumo_'=> $_POST["cantidadinsumoCrearReceta"]);
+				#Agrega la Receta y obtiene el ID de la mism
+					$idReceta_nueva=ModeloFormularios::mdlCrearReceta($datos);
 
-				$idReceta_nueva=ModeloFormularios::mdlCrearReceta($datos); #[To DO] No devuelve el id de la receta creada
+				#Crea el Array de insumos por receta
+					$longitud=count( $_POST["idinsumoCrearReceta"]);	
+					$datos2= array(	'idInsumo_'=> $_POST["idinsumoCrearReceta"],
+									'cantidadInsumo_'=> $_POST["cantidadinsumoCrearReceta"],
+									'idReceta_'=>array_fill(0,$longitud,$idReceta_nueva));
 
-				$respuesta=ControladorFormularios::ctrAltaInsumosReceta($idReceta_nueva,$datos2);
+				#Recorre el Array de insumos agregandolos en la BD
+					for ($i=0; $i <$longitud ; $i++) { 
+					
+						$datos3= array_column($datos2,$i);
+						$respuesta=ModeloFormularios::mdlAltaInsumosReceta($datos3);
+						
+					#Si no dio error sigue el loop
+						if ($respuesta != "ok") { return $respuesta2;}
+					} #exit for
 
-				return $respuesta;
+			return $respuesta;
 		}
-
-	
-
-	}
-	#------------------------- Alta Insumos por Receta -------------------------#
-
-	static public function ctrAltaInsumosReceta($idReceta_nueva,$datos2){
-		
-		$logitud=count($datos2);
-
-		for ($i=0; $i <$logitud ; $i++) { 
-
-			#Le envía solo la fila por la cual se desplaza el loop
-			$idInsumoReceta=$datos2['id_insumo_'][$i];
-			$qInsumoReceta=$datos2['cantidad_insumo_'][$i];
-
-			#Inserta el campo en la Base de datos
-			$respuesta2=ModeloFormularios::mdlAltaInsumosReceta($idReceta_nueva,$idInsumoReceta,$qInsumoReceta);
-			#Si no dio error sigue el loop
-			if ($respuesta2 != "ok") { return $respuesta2;}
-		}	
-
-		return "ok";
 
 	}
 
@@ -323,7 +300,7 @@ class ControladorFormularios{
 	
 		#if (isset($_POST["CantidadFilasDesbastes"])){
 
-			$cantidadFilas=100;#$_POST["CantidadFilasDesbastes"]; #Debe enviar la cantidad de registro que quiere que le envie. La query envía los registros mas nuevos. [TO DO] PAGINACION
+			$cantidadFilas=100; #[TO DO] PAGINACION
 
 			$respuesta= ModeloFormularios::mdlListaDesbaste($cantidadFilas);
 			return $respuesta;
@@ -361,78 +338,52 @@ class ControladorFormularios{
 	}
 
 
-	#------------------------- Registrar un nuevo DESBASTE -------------------------#
+	#------------------------- Registrar un nuevo DESPOSTE -------------------------#
 
-	static public function ctrCrearDesbaste(){
+	static public function ctrCrearDesposte(){
 
-		if (isset($_POST["nroRemitoAltaDesbaste"])||
-			isset($_POST["proveedorAltaDesbaste"])||
-			isset($_POST["unidadesAltaDesbaste"])||
-			isset($_POST["pesoTotalAltaDesbaste"])||
-			isset($_POST["fechaDesbasteAltaDesbaste"])) {
+		if (isset($_POST["nroRemitoAltaDesposte"])||
+			isset($_POST["proveedorAltaDesposte"])||
+			isset($_POST["unidadesAltaDesposte"])||
+			isset($_POST["pesoTotalAltaDesposte"])||
+			isset($_POST["fechaDesposteAltaDesposte"])) {
 
-$fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
+			#COMPLETAR LA BD
+			$datos= array(	'nroRemito_' => $_POST["nroRemitoAltaDesposte"],
+							'proveedor_' => $_POST["proveedorAltaDesposte"],
+							'unidades_' => $_POST["unidadesAltaDesposte"],
+							'pesoTotal_' => $_POST["pesoTotalAltaDesposte"],
+							'fechaDesposte_' => strval(date("y-m-d",strtotime($_POST["fechaDesposteAltaDesposte"]))),
+							'usuarioAlta_'	 => 1, #[TO DO]
+							'descripcion_' => $_POST["descripcionAltaDesposte"]);
 
-				$datosAD= array('nro_remito_' => $_POST["nroRemitoAltaDesbaste"],
-								'proveedor_' => $_POST["proveedorAltaDesbaste"],
-								'unidades_' => $_POST["unidadesAltaDesbaste"],
-								'peso_total_' => $_POST["pesoTotalAltaDesbaste"],
-								'fecha_desbaste_' => date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"])),
-								'usuario_alta_'	 => 1, #[TO DO]
-								'descripcion_' => $_POST["descripcionAltaDesbaste"]);
+			#Introduce el registro en la BD y recupera el ID
+			$idDesposte_nuevo=ModeloFormularios::mdlCrearDesposte($datos); 
 
+			#Crea el Array para realizar los movimiento de Carnes
+			$longitud=count($_POST["idCarneAltaDesbaste"]);
+			
+			$datos2= array(	'idCarne_'		=> $_POST["idCarneAltaDesbaste"],
+							'idCuenta_'		=> array_fill(0,$longitud,1), #VariableFIJA!
+							'idDesposte_'	=> array_fill(0,$longitud,$idDesposte_nuevo),
+							'cantidad_'		=> $_POST["cantidadAltaDesbaste"],
+							'idOrenProd_'	=> array_fill(0,$longitud,null),
+							'idUsuario_'	=> array_fill(0,$longitud,1),#[TO DO]
+							'descripcion_'	=> array_fill(0,$longitud,null));
 
-				$idDesbaste_nuevo=ModeloFormularios::mdlCrearDesbaste($datosAD,$fecha_desbasteV); 
-
-				$datosMCV= array('id_carne_'=> $_POST["idCarneAltaDesbaste"],
-								'cantidad_'=> $_POST["cantidadAltaDesbaste"]);
+			#Recorre el Array de insumos agregandolos en la BD
+			for ($i=0; $i <$longitud ; $i++) { 
+			
+				$datos3= array_column($datos2,$i);
+				$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
 				
+				#Si no dio error sigue el loop
+				if ($respuesta != "ok") { return $respuesta2;}
+			} #exit for
 
-				#$datosMCF= array('id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
-				#				'id_desbaste_'=> $idDesbaste_nuevo,
-				#				'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
-				#				'descripcion_'=>'', #El procedure es generico, por lo que espera todos
-				#				'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
-
-				$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datosMCV,$idDesbaste_nuevo);
-
-				return $respuesta;
+			return $respuesta;
 		}
-
 	}
-	#--------- Agregar registro de DESBASTE, agrega los cortes ---------#
-
-	static public function ctrMovCarnesDesbaste($datosMCV,$idDesbaste_nuevo){
-		
-		$logitud=count($datosMCV)+1;
-
-		for ($i=0; $i <$logitud ; $i++) { 
-
-			#Le envía solo la fila por la cual se desplaza el loop
-			$idCarneDesbaste=$datosMCV['id_carne_'][$i];
-			$qCarneDesbaste=$datosMCV['cantidad_'][$i];
-
-			#crear el Array para enviar
-
-			$datos= array('id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
-							'id_desbaste_'=> $idDesbaste_nuevo,
-							'id_ordenprod_'=> null, #El procedure es generico, por lo que espera todos
-							'descripcion_'=> null, #El procedure es generico, por lo que espera todos
-							'id_usuario_'=> '1',
-							'id_carne_'=> $idCarneDesbaste,
-							'cantidad_'=> $qCarneDesbaste);#[TO DO] Deberia tomar el usuario que ingreso
-
-
-			#Inserta el campo en la Base de datos
-			$respuesta=ModeloFormularios::mdlMovimientoCarne($datos);
-			#Si no dio error sigue el loop
-			if ($respuesta != "ok") { return $respuesta;}
-		}	
-
-		return "ok";
-
-	}
-
 
 	#------------------------- Movimientos de Carne -------------------------#
 
@@ -440,26 +391,26 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 
 		if (isset($_POST["idCarneMovimientoCarne"])||
 			isset($_POST["idCuentaMovimientoCarne"])||
-			isset($_POST["idDesbasteMovimientoCarne"])||
 			isset($_POST["cantidadMovimientoCarne"])) {
 
-				$datos= array(	'id_carne_'=> $_POST["idCarneMovimientoCarne"],
-								'id_cuenta_'=>$_POST["idCuentaMovimientoCarne"],
-								'id_desbaste_'=> $_POST["idDesbasteMovimientoCarne"],
-								'cantidad_'=> $_POST["cantidadMovimientoCarne"],
-								'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
-								'descripcion_'=> $_POST["descripcionMovimientoCarne"],
-								'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
+			$longitud=1;
+
+			$datos2= array(	'idCarne_'		=> $_POST["idCarneMovimientoCarne"],
+							'idCuenta_'		=> $_POST["idCuentaMovimientoCarne"], #VariableFIJA!
+							'idDesposte_'	=> array_fill(0,$longitud,null),
+							'cantidad_'		=> $_POST["cantidadAltaDesbaste"],
+							'idOrenProd_'	=> array_fill(0,$longitud,null),
+							'idUsuario_'	=> array_fill(0,$longitud,1),#[TO DO]
+							'descripcion_'	=> $_POST["idCarneMovimientoCarne"])
 				
-				$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos);
+			$datos3= array_column($datos2,0);
+			$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos);
 
-				return $respuesta;
+			return $respuesta;
 		}
-
 	}
 
 
-	
 	#-------------PROCEO PARA ANULAR DESBASTES----------------
 
 #1) Ver que no tenga ningun Movimiento y en caso de que exista un movimiento de carne debe estár anulado.
@@ -472,60 +423,53 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 
 	#-------- Validar que no exista OP sin anular --------#
 
-	static public function ctrValidacionAnularDesbaste1(){
+	static public function ctrValidacionAnularDesbaste(){
 
-		if (isset($_POST["idDesbasteVerDetalles"])){
+		if (isset($_POST["idDespoteVerDetalles"])){
 
-			$id_desbaste=$_POST["idDesbasteVerDetalles"];
-			#$id_desbaste=1;
+			$id_desposte=$_POST["idDespoteVerDetalles"];
 			
-			$respuesta=ModeloFormularios::mdlValidacionAnularDesbaste1($id_desbaste);
+			#Validar que no exista ninguna OP(no anulada) que consuma las carnes del desposte a anulr
+			$respuesta=ModeloFormularios::mdlValidacionAnularDesposte1($id_desposte);
 			$longitud=count($respuesta);
-			
-			#el primer if valida que no exista una OP cargada que consuma las carnes de este desbate
-			if ($longitud>0) { #si tien OP se fija cuales son
-				$opAeliminar= array_column($respuesta,1);#me quedo solo con la columan OP
+			if ($longitud>0) { 
+				#En caso de que existan OP cargadas, informará cuales son
+				$opAeliminar= array_column($respuesta,1);#Columan de ID_OP
 				$cadena= 'Debe anular la op: ';
 
 					for ($i=0; $i <$longitud ; $i++) {
-
 						$cadena=$cadena.$opAeliminar[$i].', ';
 					}
-				
 				$respuesta= substr($cadena,0,strlen($cadena)-2);
-				#return $respuesta;				
-			}
-			#En caso de que no existan OP, validará que mediante otra operación no se halla consumido carnes de este desbaste
-			else{
-				$respuesta2= ModeloFormularios::mdlValidacionAnularDesbaste2($id_desbaste);
-				$longitud2=count($respuesta2);
+				return $respuesta;					
+			}#Exit 1ra validacion
+			
+			#Validar que la cuenta de carnes del $desbaste este en cero. 
+			$respuesta2= ModeloFormularios::mdlValidacionAnularDesposte2($id_desposte);
+			$longitud2=count($respuesta2);
+			if ($longitud2>0) {	
+				#En caso de que las cuentas no estén balanceadas le informara que carnes tiene que corregir
+				$cadena2= 'Debe corregir el stock de las siguientes carnes: <br>';
+					for ($i=0; $i < $longitud2 ; $i++) { 
+						$carne= $respuesta2[$i][1];
+						$cantidad= $respuesta2[$i][2];
+						$cadena2= $cadena2.$carne.' ('.$cantidad.'),<br>';
+					}
+				$respuesta=substr($cadena2,0,strlen($cadena2)-5);
+				return $respuesta;
+			}#Exit 2da Validacion
 				
-				if ($longitud2>0) {	
-					$cadena2= 'Debe corregir el stock de las siguientes carnes: <br>';
-						for ($i=0; $i < $longitud2 ; $i++) { 
-							$carne= $respuesta2[$i][1];
-							$cantidad= $respuesta2[$i][2];
-							$cadena2= $cadena2.$carne.' ('.$cantidad.'),<br>';
-						}
-					$respuesta=substr($cadena2,0,strlen($cadena2)-5);
-					#return $respuesta;
-				}
-			}	
-		
-		#Si llegamos a este punto es porque no tiene OP asociada, ni se consumio de la carne, ahora se ejecutar un group by, el cual anula el desbaste, y un trigger debera realizar el contrasiento
-		#Al completar el campo Anulado, deberá disparse un trigger en la tabla movimeinto de carnes que haga el contrasiento 	 
-
+			#Si cumple con las dos validaciones pedira que informe porque lo anula
 			if (isset($_POST["motivoAnulacionDesposte"])){
-				#$motivo=$_POST["motivoAnulacionDesposte"]
 				
-
-				$datos= array(	'id_desbaste_'=> $id_desbaste,
-								'id_usuario_'=>'1');#[TO DO] Deberia tomar el usuario que ingreso
-
-				$respuesta=ModeloFormularios::mdlAnularDesbaste($datos,$motivo);
-
+				#1)Ejecuta un Procedure(act) para anular el desposte.
+				#2)Se ejecuta un trigger para realizar el contra-asiente.
+				$datos= array(	'idDesposte_'=> $id_desposte,
+								'idUsuario_'=>'1',
+								'motivoAnulacion_'=> $_POST["motivoAnulacionDesposte"]);#[TO DO]
+				$respuesta=ModeloFormularios::mdlAnularDesposte($datos);
 			}else{
-				$respuesta=0;
+				$respuesta=0; #[TO DO] #Envía esta variable para que complete el motivo 
 			}
 		
 
@@ -556,7 +500,7 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 
 			$datosMI= array('idInsumo_'=> $_POST["idInsumoCompraInsumo"],
 							'cantidad_'=>$_POST["cantidadCompraInsumo"],
-							'idCuenta_'=>$array_fill(0,$logitud,), #Número fijo para la cuenta compra
+							'idCuenta_'=>$array_fill(0,$logitud,10), #Número fijo para la cuenta compra
 							'idOrdenProd_'=>$array_fill(0,$logitud,null),
 							'idCompra_'=>$array_fill(0,$logitud,$id_compra_nueva),
 							'idUsuario_'=>$array_fill(0,$logitud,'1'),
@@ -577,6 +521,58 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 			return $respuesta;
 		}	
 	}
+
+
+# !!!ORDENES DE PRODUCCION !!!#
+
+#------------------------- Compra de INSUMOS -------------------------#
+
+	static public function ctrAgregrarOP(){
+
+
+		#Validar que disponga de los insmos necesarios para crear la OP
+
+		#La misma Query (que es una vista) deberia de mostrar los insumos que se demandarán
+
+		#Cacluclo automatico de los campos con el input de Receta (unidades peso y largo)
+
+		#Crear OP
+
+		#Movimiento de Inmsumos
+
+		#Movimiento de Carnes
+
+		if (isset($_POST["idCarneMovimientoCarne"])||
+			isset($_POST["idCuentaMovimientoCarne"])||
+			isset($_POST["idDesbasteMovimientoCarne"])||
+			isset($_POST["cantidadMovimientoCarne"])) {
+
+				$datos= array(	'id_carne_'=> $_POST["idCarneMovimientoCarne"],
+								'id_cuenta_'=>$_POST["idCuentaMovimientoCarne"],
+								'id_desbaste_'=> $_POST["idDesbasteMovimientoCarne"],
+								'cantidad_'=> $_POST["cantidadMovimientoCarne"],
+								'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
+								'descripcion_'=> $_POST["descripcionMovimientoCarne"],
+								'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
+				
+				$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos);
+
+				return $respuesta;
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -620,8 +616,13 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 	
 
 
-	$respuesta=array_column($datosC,1);
-	#$respuesta= array_column($datos2,1);
+	#$respuesta=array_sum(array_column($datosC,'cantidad_'));
+
+	#$respuesta=array_sum($cantidadAltaDesbaste);
+
+	$respuesta= array_column($datosC,0);
+
+	$respuesta=$datosC;
 
 	#$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos2);
 	return $respuesta;
