@@ -122,6 +122,15 @@ if(isset($_POST["chequeadoDesbaste"])){
 
 if (isset($_POST["idDesbasteVerDetalles"])){
 
+   if (isset($_POST["motivoAnulacionDesposte"])){
+
+    $anulacion=ControladorFormularios::ctrValidacionAnularDesbaste1();
+
+    return $anulacion;
+
+   }
+
+
    $anulacion=ControladorFormularios::ctrValidacionAnularDesbaste1();
 
     return $anulacion;
