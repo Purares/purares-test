@@ -46,6 +46,21 @@ class ModeloFormularios{
 		$stmt =null; 
 	}
 
+#------------------------- Lista PROVEEDORES -------------------------#
+
+
+	static public function mdlListaProveedor($tipoProveedor){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT id_proveedor, nombre FROM proveedores_n where activo=1 and tipo=$tipoProveedor");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+
+
 #------------------------- Lista INSUMOS -------------------------#
 
 

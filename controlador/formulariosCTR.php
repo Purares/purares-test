@@ -29,6 +29,12 @@ class ControladorFormularios{
 		return $respuesta;
 	}	
 
+#------------------------- Lista desplegable PROVEEDORES -------------------------#
+
+	static public function ctrListaProveedores(){
+		$respuesta= ModeloFormularios::mdlListaProveedor($tipoProveedor); #Tipo: Carnes, Insumos. 
+		return $respuesta;
+	}
 
 #------------------------- Lista desplegable INSUMOS -------------------------#
 
