@@ -25,35 +25,14 @@ $nueva_receta=ControladorFormularios::ctrCrearReceta();
                           <br>
       <form method="post" class="needs-validation">
                      <div class="row">
-                            <div class="form-group col-6">
+                            <div class="form-group col-12">
                          <label for="NombreReceta">Nombre de la nueva receta:</label>
                     <input type="text" class="form-control text-center" id="NombreReceta" name="nombreCrearReceta" placeholder="Ingrese el nombre de la nueva receta" required>
                                    <div class="invalid-feedback">
                                    Ingrese el nombre de la nueva receta
                                     </div>
                                 </div>
-                             <div class="form-group col-6">
-                         <label for="ReemplazaReceta">¿Reemplaza a alguna receta ya cargada?</label>
-                    <select class="custom-select" id="ReemplazaReceta" required>
-                  <option value="">Seleccione la receta que reemplazaría</option>
-
-<?php
-
-foreach($recetas as $receta){
-
-  echo '<option value="' . $receta["id_receta"] . '">' . $receta["nombre"] . '</option>';
-
-};
-
-?>
-
-                  <option value="0">No reemplaza a ninguna</option>
-                    </select>
-                       <div class="invalid-feedback">
-                                    Seleccione si reemplaza a alguna receta
-                                    </div>
-                                </div>
-                </div>
+                  </div>
               <p>Complete los insumos necesarios para fabricar 100 kg de producto fresco:</p>
               <div class="container">
                   <table class="table table-sm">
@@ -164,39 +143,53 @@ foreach($depositos as $deposito){
               <br>
                     <div class="row">
                             <div class="form-group col-6">
-                         <label for="LargoUnidad">Largo por unidad en centímetros/unidad:</label>
+                         <label for="largouniCrearReceta">Largo por unidad de producto fresco en centímetros/unidad:</label>
                      <div class="input-group">
                                 <input type="number" min=0 step=0.01 class="form-control text-right" name="largouniCrearReceta" id="cmxunidad" placeholder="centímetros por unidad" required>
                                   <div class="input-group-append">
                   <span class="input-group-text">cm/unidad</span>
                             </div>
                              <div class="invalid-feedback">
-                                    Ingrese el largo por unidad en centímetros
+                                    Ingrese el largo por unidad de producto fresco en centímetros
                                     </div>
                        </div>         
                       </div>
                          <div class="form-group col-6">
-                         <label for="PesoUnidad">Peso por unidad en gramos/unidad:</label>
+                         <label for="pesouniCrearReceta">Peso por unidad de producto fresco en gramos/unidad:</label>
                      <div class="input-group">
                     <input type="number" min=0 step=0.01 class="form-control text-right" name="pesouniCrearReceta" id="gramosxunidad" placeholder="gramos por unidad" required>
                                   <div class="input-group-append">
                   <span class="input-group-text">gramos/unidad</span>
                             </div>
                                <div class="invalid-feedback">
-                                    Ingrese el peso por unidad en gramos
+                                    Ingrese el peso por unidad de producto fresco en gramos 
                                     </div>
                        </div>         
                       </div>
                         </div>
-                           <div class="input-group"> 
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Descripción:</span>
-                  </div>
-                    <input type="text" class="form-control text-right" name="descripcionCrearReceta" placeholder="Describa" required>
-                     <div class="invalid-feedback">
+                          <div class="row">
+                                <div class="form-group col-6">
+                         <label for="uFinalXuCrearReceta">Unidades finales por unidad producida:</label>
+                     <div class="input-group">
+                    <input type="number" min=0 step=1 class="form-control text-right" name="uFinalXuCrearReceta" id="unidadesfinalesxunidad" placeholder="Unidades finales" required>
+                                  <div class="input-group-append">
+                  <span class="input-group-text">Unidades</span>
+                            </div>
+                               <div class="invalid-feedback">
+                                    Ingrese la cantidad de unidades finales por unidad producida 
+                                    </div>
+                       </div>         
+                      </div>
+                           <div class="input-group col-6"> 
+                     <label for="descripcionCrearReceta">Descripción:</label>
+                     <div class="input-group">
+                    <input type="text" class="form-control text-right" name="descripcionCrearReceta" id="descripcionreceta" placeholder="Describa" required>
+                               <div class="invalid-feedback">
                                     Ingrese una descripción
                                     </div>
+                       </div>  
                 </div>
+              </div>
   
                      <br>
                   <button type="button" class="btn btn-success" id="BotonAgregarReceta" data-toggle="modal" data-target="#ConfirmarNuevaReceta">Agregar receta</button>
@@ -210,13 +203,17 @@ foreach($depositos as $deposito){
           <h5 class="modal-title">Confirmar Nueva receta</h5>
         </div>
         <div class="modal-body">
-          <p>Usted está a punto de cargar la receta <a class="nombre"></a>, que <a class="reemplaza"></a>.</p>
+          <p>Usted está a punto de cargar la receta <a class="nombre"></a>.</p>
 
           <p>Utilizará <a class="kilos"></a> kilos de carne cada 100 kilos de pastón, con <a class="merma"></a>% de merma esperada.</p>
 
           <p>Requerirá <a class="diasprodu"></a> días de producción y <a class="diasvenc"></a> días para su vencimiento.</p>
 
-          <p>Tiene un largo por unidad de <a class="largo"></a> centímetros y un peso por unidad de <a class="peso"></a> kilos.</p>
+          <p>Tiene un largo por unidad de producto fresco de <a class="largo"></a> centímetros y un peso por unidad de producto fresco de <a class="peso"></a> kilos.</p>
+
+          <p>Tendrá la siguiente descripción:</p> 
+
+          <p><a class="descripcion"></a>.</p>
 
           <p>La receta tendrá los siguientes ingredientes:</p>
 
@@ -252,9 +249,9 @@ var modal = $(this)
 completarmodalrecetas()
 function completarmodalrecetas(){             
                                   var nombrereceta=$('#NombreReceta').val()
-                                      reemplazareceta=$('#ReemplazaReceta option:selected').text(),
-                                      noreemplaza=$('#ReemplazaReceta').val()
+                                      unidadesfinalesxunidad=$('#unidadesfinalesxunidad').val()
                                       kiloscarne=$('#KilosCarne').val()
+                                      descripcion=$('#descripcionreceta').val()
                                       mermaesperada=$('#MermaEsperada').val()
                                       diasproduccion=$('#DiasProduccion').val()
                                       diasvencimiento=$('#DiasVencimiento').val()
@@ -281,23 +278,15 @@ function completarmodalrecetas(){
 
                                        
 modal.find('.nombre').text('' + nombrereceta);
-
-if (noreemplaza==0) {
-
-modal.find('.reemplaza').text('no reemplazará a ninguna receta anteriormente cargada');
-
-}else{
-
-modal.find('.reemplaza').text('reemplazará a la receta: ' + reemplazareceta);
-
-}
-modal.find('.nombre1').text('' + reemplazareceta);
 modal.find('.kilos').text('' + kiloscarne);
 modal.find('.merma').text('' + mermaesperada);
 modal.find('.diasprodu').text('' + diasproduccion);
 modal.find('.diasvenc').text('' + diasvencimiento);
 modal.find('.largo').text('' + gramosxunidad);
 modal.find('.peso').text('' + cmxunidad);
+modal.find('.descripcion').text('' + descripcion);
+modal.find('.unidades finales').text('' + unidadesfinalesxunidad);
+
 
 for (var i=0; i<=nombreingredientes.length-1;i++){
   
