@@ -489,7 +489,7 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 					}
 				
 				$respuesta= substr($cadena,0,strlen($cadena)-2);
-				return $respuesta;				
+				#return $respuesta;				
 			}
 			#En caso de que no existan OP, validará que mediante otra operación no se halla consumido carnes de este desbaste
 			else{
@@ -504,12 +504,12 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 							$cadena2= $cadena2.$carne.' ('.$cantidad.'),<br>';
 						}
 					$respuesta=substr($cadena2,0,strlen($cadena2)-5);
-					#return $cadena2;
+					#return $respuesta;
 				}
 			}	
 		
 		#Si llegamos a este punto es porque no tiene OP asociada, ni se consumio de la carne, ahora se ejecutar un group by, el cual anula el desbaste, y un trigger debera realizar el contrasiento
-
+		#Al completar el campo Anulado, deberá disparse un trigger en la tabla movimeinto de carnes que haga el contrasiento 	 
 
 			if (isset($_POST["motivoAnulacionDesposte"])){
 				#$motivo=$_POST["motivoAnulacionDesposte"]
@@ -520,7 +520,6 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 
 				$respuesta=ModeloFormularios::mdlAnularDesbaste($datos,$motivo);
 
-				#return $respuesta3;
 			}else{
 				$respuesta=0;
 			}
@@ -587,10 +586,6 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 
 		return $respuesta;
 	}
-
-
-
-#2)Al completar el campo Anulado, deberá disparse un trigger en la tabla movimeinto de carnes que haga el contrasiento 	 
 
 	#------------------------- ELIMINAR- SE UTILIZA PARA REALIZAR PRUEBAS -------------------------#
 
