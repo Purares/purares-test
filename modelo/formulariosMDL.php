@@ -98,15 +98,17 @@ class ModeloFormularios{
 
 	#------------------------- ACTUALIZAR STOCK DE INSUMO -------------------------#
 
-	static public function mdlActualizarInsumo($datos){
+	static public function mdlMovimientoInsumo($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovInsumo( :id_insumo,:cantidad,:id_cuenta, null,:id_usuario,:comentario);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovInsumo( :id_insumo,:cantidad,:id_cuenta, :id_orden,:id_compra,:id_usuario,:comentario);");
 		
 		$stmt -> bindparam (":id_insumo",$datos['idInsumo_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":cantidad",$datos['cantidad_'],PDO::PARAM_STR); 
 		$stmt -> bindparam (":id_cuenta",$datos['idCuenta_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":comentario",$datos['comentario_'],PDO::PARAM_STR); 
+		$stmt -> bindparam (":id_orden",$datos['idOrdenProd_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":id_compra",$datos['idCompra_'],PDO::PARAM_STR); 
 		$stmt -> bindparam (":id_usuario",$datos['idUsuario_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":comentario",$datos['comentario_'],PDO::PARAM_STR);
 
 		if ($stmt -> execute()){
 			return "OK"; #si se ejecutó correctamente le envío un OK
@@ -476,6 +478,40 @@ static public function mdlCrearDesbaste($datosAD,$fecha_desbasteV){
 		$stmt -> close(); #cierra la conexion
 		$stmt =null; 
 	}
+
+
+ #COMPRA DE INSUMOS
+
+
+#------------------------- Generar Compra de Insumo-------------------------#
+
+	static public function mdlCompraInsumo($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarCompra(:id_proveedor, :fecha_compra, :descripcion, :id_usuario_alta);");
+		
+		$stmt -> bindparam (":id_proveedor",$datos['id_proveedor_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":fecha_compra",$datos['fecha_compra_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":descripcion",$datos['descripcion_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":id_usuario_alta",$datos['id_usuario_alta_'],PDO::PARAM_STR);
+
+		if ($stmt -> execute()){
+
+				#Busca el ultimo ID insertado en la tabla
+				$campo='id_compra';
+				$tabla='compras_reg';
+				$idCompra_nuevaArray=ModeloFormularios::mdlUltimoId($campo,$tabla);
+				$id_compra_nueva=$idCompra_nuevaArray[0][0];
+			return $id_compra_nueva;
+
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
 
 
 

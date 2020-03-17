@@ -233,6 +233,7 @@ class ControladorFormularios{
 		}
 
 	
+
 	}
 	#------------------------- Alta Insumos por Receta -------------------------#
 
@@ -515,7 +516,7 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 
 				#return $respuesta3;
 			}else{
-				$respuesta='Por favor indique el motivo de la anulación.';
+				$respuesta=0;
 			}
 		
 
@@ -523,7 +524,7 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 		}	
 	}
 
-	#------------------------- Lista de Desbaste -------------------------#
+	#------------------------- Compra de INSUMOS -------------------------#
 
 	static public function ctrCompraInsumo(){
 	
@@ -532,20 +533,37 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 			isset($_GET["proveedor_compraI"])||
 			isset($_GET["fecha_compraI"])){
 
-			$id_compraI=$_GET["idDesbasteVerDetalles"];
+
+			$datosC= array(	'id_proveedor_'=> $_POST["idProvedorCompraInsumo"],
+							'nro_remito_'=>$_POST["nroRemitoCompraInsumo"],
+							'fecha_compra_'=> strval(date("y-m-d",strtotime($_POST["fechaCompraInsumo"]))),
+							'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
 
 
-		$datos= array(	'id_carne_'=> $_POST["idCarneMovimientoCarne"],
-						'id_cuenta_'=>$_POST["idCuentaMovimientoCarne"],
-						'id_desbaste_'=> $_POST["idDesbasteMovimientoCarne"],
-						'cantidad_'=> $_POST["cantidadMovimientoCarne"],
-						'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
-						'descripcion_'=> $_POST["descripcionMovimientoCarne"],
-						'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
+			$id_compra_nueva= ModeloFormularios::mdlCompraInsumo($datosF);
 
 
+			$longitud= count($_POST["idInsumoCompraInsumo"]);
 
-			$respuesta= ModeloFormularios::mdlDetalleDesbaste($id_desbaste);
+			$datosMI= array('idInsumo_'=> $_POST["idInsumoCompraInsumo"],
+							'cantidad_'=>$_POST["cantidadCompraInsumo"],
+							'idCuenta_'=>$array_fill(0,$logitud,), #Número fijo para la cuenta compra
+							'idOrdenProd_'=>$array_fill(0,$logitud,null),
+							'idCompra_'=>$array_fill(0,$logitud,$id_compra_nueva),
+							'idUsuario_'=>$array_fill(0,$logitud,'1'),
+							'descripcion_'=>$_POST["descripcionCompraInsumo"]);
+
+			
+			for ($i=0; $i < $longitud ; $i++) { 
+
+				$datos=array_column($datosMI,$i);
+				$respuesta=ModeloFormularios::mdlMovimientoInsumo($datos);
+
+				if ($respuesta != "ok") { return $respuesta;}
+
+			}
+
+
 
 			return $respuesta;
 		}	
@@ -589,13 +607,15 @@ $fecha_desbasteV = date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
 					'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
 
 
- $logitud=cout($idCarneAltaDesbaste);
+ $logitud=count($idCarneAltaDesbaste);
 
 	$datosC = array('id_carne_'=> $idCarneAltaDesbaste,
 					'cantidad_'=> $cantidadAltaDesbaste,
-					'param1_'=> $param,);
+					'param1_'=> array_fill(0,$logitud,$param1));
 	
-	#$respuesta=$datos2;
+
+
+	$respuesta=array_column($datosC,1);
 	#$respuesta= array_column($datos2,1);
 
 	#$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos2);
