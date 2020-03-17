@@ -32,8 +32,12 @@ class ControladorFormularios{
 #------------------------- Lista desplegable PROVEEDORES -------------------------#
 
 	static public function ctrListaProveedores(){
-		$respuesta= ModeloFormularios::mdlListaProveedor($tipoProveedor); #Tipo: Carnes, Insumos. 
-		return $respuesta;
+
+		if (isset($_POST["tipoProveedor_NuevaCompra"])){
+			$tipoProveedor=$_POST["tipoProveedor_NuevaCompra"];
+			$respuesta= ModeloFormularios::mdlListaProveedor($tipoProveedor); #Tipo: Carnes, Insumos. 
+			return $respuesta;
+		}
 	}
 
 #------------------------- Lista desplegable INSUMOS -------------------------#
