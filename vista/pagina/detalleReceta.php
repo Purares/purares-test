@@ -43,13 +43,17 @@ foreach ($detalleReceta as $receta) {
                                 </div>
         				</div>
                     <div class="row">
-                     <div class="form-group col-6">
+                     <div class="form-group col-4">
                          <label for="spanrecetaporcenpaston">Porcentaje de carne:</label>
                                 <span class="input-group-text recetaporcentajecarne" id="spanrecetaporcenpaston"><?php echo $receta['porcent_carne'] ?> %</span>
                                 </div>
-                            <div class="form-group col-6">
+                            <div class="form-group col-4">
                          <label for="spanrecetamermaesp">Merma esperada:</label>
                                 <span class="input-group-text recetamermaesperada" id="spanrecetamermaesp"><?php echo $receta['merma_esperada'] ?> %</span>
+                                </div>
+                        <div class="form-group col-4">
+                         <label for="spanrecetaporcenpaston">Unidades finales por unidad producida:</label>
+                                <span class="input-group-text unidadesfinales" id="unidadesfinales"><?php echo $receta['unidades_final_xunidad'] ?> unidades</span>
                                 </div>
         				</div>
                     <br>
@@ -88,11 +92,11 @@ echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] 
         				</div>
                            <div class="row">
                      <div class="form-group col-6">
-                         <label for="spanrecetalargouni">Largo por unidad:</label>
+                         <label for="spanrecetalargouni">Largo por unidad de producto fresco:</label>
                                 <span class="input-group-text recetalargoporunidad" id="spanrecetalargouni"><?php echo $receta['largo_unidad'] ?> cm/unidad</span>
                                 </div>
                             <div class="form-group col-6">
-                         <label for="spanrecetapesouni">Peso por unidad:</label>
+                         <label for="spanrecetapesouni">Peso por unidad de producto fresco:</label>
                                 <span class="input-group-text recetapesoporunidad" id="spanrecetapesouni"><?php echo $receta['peso_unidad'] ?> gramos/unidad</span>
                                 </div>
         				</div>
