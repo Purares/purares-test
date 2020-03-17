@@ -24,7 +24,13 @@
 </div>
 <div class="p-2">
 <div class="container">
-   <input type="text" id="buscar" onkeyup="buscardesbaste()" placeholder="Buscar desbaste">
+   <input type="text" id="buscarId" onkeyup="buscardesbasteporId()" placeholder="Buscar por ID">
+</div>
+</div>
+
+<div class="p-2">
+<div class="container">
+   <input type="text" id="buscarpalabra" onkeyup="buscardesbaste()" placeholder="Buscar por palabra">
 </div>
 </div>
 
@@ -106,7 +112,7 @@ else{
                   function buscardesbaste() {
                         // Declare variables 
                         var input, filter, table, tr, td, i, j, visible;
-                        input = document.getElementById("buscar");
+                        input = document.getElementById("buscarpalabra");
                         filter = input.value.toUpperCase();
                         table = document.getElementById("tabladesbastes");
                         tr = table.getElementsByTagName("tr");
@@ -120,6 +126,32 @@ else{
                             if (td[j] && td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
                               visible = true;
                             }
+                          }
+                          if (visible === true) {
+                            tr[i].style.display = "";
+                          } else {
+                            tr[i].style.display = "none";
+                          }
+                        }
+                      };
+
+                              function buscardesbasteporId() {
+                        // Declare variables 
+                        var input, filter, table, tr, td, i, j, visible;
+                        input = document.getElementById("buscarId");
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("tabladesbastes");
+                        tr = table.getElementsByTagName("tr");
+
+                        // Loop through all table rows, and hide those who don't match the search query
+                        for (i = 0; i < tr.length; i++) {
+                          visible = false;
+                          /* Obtenemos todas las celdas de la fila, no sólo la primera */
+                          td = tr[i].getElementsByTagName("td");
+                         
+                            if (td[0] && td[0].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                              visible = true;
+                            
                           }
                           if (visible === true) {
                             tr[i].style.display = "";

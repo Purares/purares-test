@@ -108,10 +108,10 @@ echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scop
         <div class="modal-body">
         		<div class="alert alert-success" role="alert">
           <h5 class="modal-title">Receta <a class="confirmacion"></a></h5>
+
         </div>
         </div>
         <div class="modal-footer">
-   			<button type="button" class="btn btn-secondary btn-lg" id="aceptar">Aceptar</button>
         </div>
       </div>
     </div>
@@ -132,12 +132,41 @@ $("#botonAnularDesbaste").on( "click", function() {
                 url:'datos.php',
                 data:{idDesbasteVerDetalles: $('.iddesbaste').text()},
                 success:function(anulacion){
+
+
+                      if (anulacion==0) {                
+
+                         $('#AnularDesbaste').modal('show')
+                          var modal = $('#AnularDesbaste')
+                          modal.find('.modal-body').html('<form method="post"><div class="form-group"><label for="spanrecetanombre">Describa el motivo de anulación del desposte:</label><div class="input-group"><input type="text" class="form-control text-right" name="motivoAnulacionDesposte" id="descripcionanulacion" placeholder="Describa" required><div class="invalid-feedback">Debe escribir un motivo de anulación del desposte.</div></div><br><button type="submit" id="botonanularventana" class="btn btn-danger" onclick=enviamotivo()>Anular desbaste</button></form>')
+                  }
                 //alert('activo'+html);
-                $('#AnularDesbaste').modal('show')
-                var modal = $('#AnularDesbaste')
-                modal.find('.modal-body').html(anulacion)
+                //$('#AnularDesbaste').modal('show')
+               // var modal = $('#AnularDesbaste')
+               // modal.find('.modal-body').html(anulacion)
       
 }})})
+
+
+function enviamotivo(){
+
+      $('#AnularDesbaste').modal('hide')
+     $.ajax({
+                type:'POST',
+                url:'datos.php',
+                data:{idDesbasteVerDetalles: $('.iddesbaste').text(),motivoAnulacionDesposte: $('#descripcionanulacion').val()},
+                success:function(respuesta){
+
+                  $('#AnularDesbaste').modal('show')
+                  var modal = $('#AnularDesbaste')
+                  modal.find('.modal-body').html(respuesta)
+                }})
+
+
+    //$('#descripcionanulacion').val();
+    //$('.iddesbaste').text():
+
+}
 
 
 /*

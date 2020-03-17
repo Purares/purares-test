@@ -122,11 +122,17 @@ if(isset($_POST["chequeadoDesbaste"])){
 
 if (isset($_POST["idDesbasteVerDetalles"])){
 
-    $anulacion=ControladorFormularios::ctrValidacionAnularDesbaste1();
+   $anulacion=ControladorFormularios::ctrValidacionAnularDesbaste1();
 
-    echo $anulacion;
+    return $anulacion;
 
 }
+
+ //   }
+
+ //   echo $anulacion;
+
+
 
 
 

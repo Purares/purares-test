@@ -107,6 +107,13 @@
     </div>
 		</li>
 
+     <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="index.php?pagina=agregarCompra">Agregar compra</a>
+    </div>
+		</li>
+
    </ul>
 </nav>
 	
@@ -128,6 +135,7 @@
 					$_GET["pagina"]=="movimientoInsumo"||
 					$_GET["pagina"]=="detalleReceta"||
 					$_GET["pagina"]=="agregarDesbaste"||
+					$_GET["pagina"]=="agregarCompra"||
 					$_GET["pagina"]=="verMasCarnes"||
 					$_GET["pagina"]=="verDesbastes"||
 					$_GET["pagina"]=="detalleDesbaste"||
