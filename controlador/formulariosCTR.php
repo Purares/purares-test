@@ -419,9 +419,9 @@ class ControladorFormularios{
 
 	static public function ctrValidacionAnularDesposte(){
 
-		if (isset($_POST["idDespoteVerDetalles"])){
+#		if (isset($_POST["idDespoteVerDetalles"])){
 
-			$id_desposte=$_POST["idDespoteVerDetalles"];
+#			$id_desposte=$_POST["idDespoteVerDetalles"];
 			$id_desposte=3;
 
 			#Validar que no exista ninguna OP(no anulada) que consuma las carnes del desposte a anulr
@@ -453,22 +453,23 @@ class ControladorFormularios{
 				$respuesta=substr($cadena2,0,strlen($cadena2)-5);
 				return $respuesta;
 			}#Exit 2da Validacion
-				
+
 			#Si cumple con las dos validaciones pedira que informe porque lo anula
-			if (isset($_POST["motivoAnulacionDesposte"])){
+#			if (isset($_POST["motivoAnulacionDesposte"])){
 				
 				#1)Ejecuta un Procedure(act) para anular el desposte.
 				#2)Se ejecuta un trigger para realizar el contra-asiente.
 				$datos= array(	'idDesposte_'=> $id_desposte,
 								'idUsuario_'=>'1',
-								'motivoAnulacion_'=> $_POST["motivoAnulacionDesposte"]);#[TO DO]
+#								'motivoAnulacion_'=> $_POST["motivoAnulacionDesposte"]);
+								'motivoAnulacion_'=> "prueba");
 				$respuesta=ModeloFormularios::mdlAnularDesposte($datos);
-			}else{
-				$respuesta=0; #[TO DO] #Envía esta variable para que complete el motivo 
-			}
+#			}else{
+#				$respuesta=0; #[TO DO] #Envía esta variable para que complete el motivo 
+#			}
 
 		return $respuesta;
-		}	
+#		}	
 	}
 
 	#------------------------- Compra de INSUMOS -------------------------#

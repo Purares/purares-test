@@ -4,7 +4,9 @@
 
 <?php
 
-$prueba=ControladorFormularios::prueba1();
+#$prueba=ControladorFormularios::prueba1();
+$prueba=ControladorFormularios::ctrValidacionAnularDesposte();
+
 var_dump($prueba);
 
 
