@@ -122,18 +122,9 @@ if(isset($_POST["chequeadoDesposte"])){
 
 if (isset($_POST["idDesposteVerDetalles"])){
 
-   if (isset($_POST["motivoAnulacionDesposte"])){
+   $anulacion=ControladorFormularios::ctrValidacionAnularDesposte();
 
-    $anulacion=ControladorFormularios::ctrValidacionAnularDesposte1();
-
-    return $anulacion;
-
-   }
-
-
-   $anulacion=ControladorFormularios::ctrValidacionAnularDesposte1();
-
-    return $anulacion;
+   echo $anulacion;
 
 }
 
@@ -141,7 +132,25 @@ if (isset($_POST["idDesposteVerDetalles"])){
 
  //   echo $anulacion;
 
+if(isset($_POST["funcion"])){
+    //Get all state data
 
+    $cuentas=ControladorFormularios::ctrListaCuentas();
+
+   // $query = $db->query("SELECT * FROM states WHERE country_id = ".$_POST['country_id']." AND status = 1 ORDER BY state_name ASC");
+    
+    //Count total number of rows
+    
+    //Display states list
+    if($cuentas){
+        foreach ($cuentas as $cuenta) {
+            echo '<option value="'.$cuenta["id_cuenta"].'">'.$cuenta["nombre"].'</option>';
+        }}
+
+    else{
+        echo 'Error en la base de datos';
+    }
+}
 
 
 
