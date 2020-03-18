@@ -90,7 +90,7 @@ foreach($cuentas as $cuenta){
           <p>¿Confirma que desea CARGAR ESTE MOVIMIENTO DE INSUMO?</p>
         </div>
         <div class="modal-footer">
-           <button type="submit"  class="btn btn-success">Sí, cargar movimiento de insumo/button>
+           <button type="submit"  class="btn btn-success">Sí, cargar movimiento de insumo</button>
              <button type="button" class="btn btn-danger" data-dismiss="modal">No, descartar movimiento</button>
       </div>
     </div>

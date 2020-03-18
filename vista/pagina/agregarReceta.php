@@ -183,10 +183,7 @@ foreach($depositos as $deposito){
                            <div class="input-group col-6"> 
                      <label for="descripcionCrearReceta">Descripción:</label>
                      <div class="input-group">
-                    <input type="text" class="form-control text-right" name="descripcionCrearReceta" id="descripcionreceta" placeholder="Describa" required>
-                               <div class="invalid-feedback">
-                                    Ingrese una descripción
-                                    </div>
+                    <input type="text" class="form-control text-right" name="descripcionCrearReceta" id="descripcionreceta" placeholder="Describa">
                        </div>  
                 </div>
               </div>

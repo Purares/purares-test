@@ -87,51 +87,51 @@ if (isset($_POST["idRecetaDetalle"])){
 
 }}
 
-if(isset($_POST["chequeadoDesbaste"])){
+if(isset($_POST["chequeadoDesposte"])){
 
-  $desbastes=ControladorFormularios::ctrListaDesbaste();
+  $despostes=ControladorFormularios::ctrListaDesposte();
 
-    if($_POST["chequeadoDesbaste"]==0){
+    if($_POST["chequeadoDesposte"]==0){
         
-    foreach($desbastes as $desbaste){
+    foreach($despostes as $desposte){
 
-        if ($desbaste["anulado"]==0) {
+        if ($desposte["anulado"]==0) {
     
-    echo '<tr><td scope="col">' . $desbaste["id_desbaste"] . '</td><td scope="col">' . $desbaste["nro_remito"] . '</td><td scope="col">' . $desbaste["proveedor"] . '</td><td scope="col">' . $desbaste["unidades"] . '</td><td scope="col">' . $desbaste["peso_total"] . '</td><td scope="col">' . $desbaste["fecha_desbaste"] . '</td><td scope="col">Activo</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleDesbaste&idDesbasteVerDetalles=' . $desbaste["id_desbaste"] . '&estado=' .  $desbaste["anulado"] . '">Inspeccionar Desbaste</a></td></tr>';
+    echo '<tr><td scope="col">' . $desposte["id_desposte"] . '</td><td scope="col">' . $desposte["nro_remito"] . '</td><td scope="col">' . $desposte["proveedor"] . '</td><td scope="col">' . $desposte["unidades"] . '</td><td scope="col">' . $desposte["peso_total"] . '</td><td scope="col">' . $desposte["fecha_desposte"] . '</td><td scope="col">Activo</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleDesposte&idDesposteVerDetalles=' . $desposte["id_desposte"] . '&estado=' .  $desposte["anulado"] . '">Inspeccionar Desposte</a></td></tr>';
 
 }          else{
     
-         echo '<tr><td scope="col">' . $desbaste["id_desbaste"] . '</td><td scope="col">' . $desbaste["nro_remito"] . '</td><td scope="col">' . $desbaste["proveedor"] . '</td><td scope="col">' . $desbaste["unidades"] . '</td><td scope="col">' . $desbaste["peso_total"] . '</td><td scope="col">' . $desbaste["fecha_desbaste"] . '</td><td scope="col">Anulado</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleDesbaste&idDesbasteVerDetalles=' . $desbaste["id_desbaste"] . '&estado=' .  $desbaste["anulado"] . '">Inspeccionar Desbaste</a></td></tr>';
+         echo '<tr><td scope="col">' . $desposte["id_desposte"] . '</td><td scope="col">' . $desposte["nro_remito"] . '</td><td scope="col">' . $desposte["proveedor"] . '</td><td scope="col">' . $desposte["unidades"] . '</td><td scope="col">' . $desposte["peso_total"] . '</td><td scope="col">' . $desposte["fecha_desposte"] . '</td><td scope="col">Anulado</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleDesposte&idDesposteVerDetalles=' . $desposte["id_desposte"] . '&estado=' .  $desposte["anulado"] . '">Inspeccionar Desposte</a></td></tr>';
 
 
         }
     }
     }else{
        
-    foreach($desbastes as $desbaste){
+    foreach($despostes as $desposte){
 
 
-     if ($desbaste["anulado"]==0) {
+     if ($desposte["anulado"]==0) {
     
-    echo '<tr><td scope="col">' . $desbaste["id_desbaste"] . '</td><td scope="col">' . $desbaste["nro_remito"] . '</td><td scope="col">' . $desbaste["proveedor"] . '</td><td scope="col">' . $desbaste["unidades"] . '</td><td scope="col">' . $desbaste["peso_total"] . '</td><td scope="col">' . $desbaste["fecha_desbaste"] . '</td><td scope="col">Activo</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleDesbaste&idDesbasteVerDetalles=' . $desbaste["id_desbaste"] . '&estado=' .  $desbaste["anulado"] . '">Inspeccionar Desbaste</a></td></tr>';
+    echo '<tr><td scope="col">' . $desposte["id_desposte"] . '</td><td scope="col">' . $desposte["nro_remito"] . '</td><td scope="col">' . $desposte["proveedor"] . '</td><td scope="col">' . $desposte["unidades"] . '</td><td scope="col">' . $desposte["peso_total"] . '</td><td scope="col">' . $desposte["fecha_desposte"] . '</td><td scope="col">Activo</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleDesposte&idDesposteVerDetalles=' . $desposte["id_desposte"] . '&estado=' .  $desposte["anulado"] . '">Inspeccionar Desposte</a></td></tr>';
 
 }
 }
 }
 }
 
-if (isset($_POST["idDesbasteVerDetalles"])){
+if (isset($_POST["idDesposteVerDetalles"])){
 
    if (isset($_POST["motivoAnulacionDesposte"])){
 
-    $anulacion=ControladorFormularios::ctrValidacionAnularDesbaste1();
+    $anulacion=ControladorFormularios::ctrValidacionAnularDesposte1();
 
     return $anulacion;
 
    }
 
 
-   $anulacion=ControladorFormularios::ctrValidacionAnularDesbaste1();
+   $anulacion=ControladorFormularios::ctrValidacionAnularDesposte1();
 
     return $anulacion;
 

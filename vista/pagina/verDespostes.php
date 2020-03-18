@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ver Desabastes</title>
+	<title>Ver Despostes</title>
 </head>
 <body>
 
   <?php
 
-  $desbastes=ControladorFormularios::ctrListaDesbaste();
+  $despostes=ControladorFormularios::ctrListaDesposte();
 
 
   ?>
@@ -19,25 +19,25 @@
 
 <div class="mr-auto p-2">
 
-	<h4>Listado de desbastes actual:</h4>
+	<h4>Listado de despostes actual:</h4>
 
 </div>
 <div class="p-2">
 <div class="container">
-   <input type="text" id="buscarId" onkeyup="buscardesbasteporId()" placeholder="Buscar por ID">
+   <input type="text" id="buscarId" onkeyup="buscardesposteporId()" placeholder="Buscar por ID">
 </div>
 </div>
 
 <div class="p-2">
 <div class="container">
-   <input type="text" id="buscarpalabra" onkeyup="buscardesbaste()" placeholder="Buscar por palabra">
+   <input type="text" id="buscarpalabra" onkeyup="buscardesposte()" placeholder="Buscar por palabra">
 </div>
 </div>
 
 <div class="form-check p-2">
-  <input class="form-check-input" type="checkbox" value="" id="defaultCheckDesbaste">
-  <label class="form-check-label" for="defaultCheckDesbaste">
-    Mostrar desbastes anulados
+  <input class="form-check-input" type="checkbox" value="" id="defaultCheckDesposte">
+  <label class="form-check-label" for="defaultCheckDesposte">
+    Mostrar despostes anulados
   </label>
 </div>
 </div>
@@ -46,24 +46,24 @@
                         <table class="table table-hover">
     						<thead class="thead-light">
         						<tr>
-           							<th scope="col">ID Desbaste</th>
+           							<th scope="col">ID Desposte</th>
                                     <th scope="col">Número de remito</th>
                                     <th scope="col">Proveedor</th>
                                     <th scope="col">Unidades</th>
            							<th scope="col">Peso Total</th>
-           							<th scope="col">Fecha Desbaste</th>
+           							<th scope="col">Fecha Desposte</th>
            							<th scope="col">Estado</th>
            							<th scope="col">Inspeccionar</th>
         						</tr>
       						</thead>
-  							<tbody id="tabladesbastes">
+  							<tbody id="tabladespostes">
 <?php
 
-foreach($desbastes as $desbaste){
+foreach($despostes as $desposte){
 
-if ($desbaste["anulado"]==0) {
+if ($desposte["anulado"]==0) {
 	
-	echo '<tr><td scope="col">' . $desbaste["id_desbaste"] . '</td><td scope="col">' . $desbaste["nro_remito"] . '</td><td scope="col">' . $desbaste["proveedor"] . '</td><td scope="col">' . $desbaste["unidades"] . '</td><td scope="col">' . $desbaste["peso_total"] . '</td><td scope="col">' . $desbaste["fecha_desbaste"] . '</td><td scope="col">Activo</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleDesbaste&idDesbasteVerDetalles=' . $desbaste["id_desbaste"] . '&estado=' .  $desbaste["anulado"] . '">Inspeccionar Desbaste</a></td></tr>';
+	echo '<tr><td scope="col">' . $desposte["id_desposte"] . '</td><td scope="col">' . $desposte["nro_remito"] . '</td><td scope="col">' . $desposte["proveedor"] . '</td><td scope="col">' . $desposte["unidades"] . '</td><td scope="col">' . $desposte["peso_total"] . '</td><td scope="col">' . $desposte["fecha_desposte"] . '</td><td scope="col">Activo</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleDesposte&idDesposteVerDetalles=' . $desposte["id_desposte"] . '&estado=' .  $desposte["anulado"] . '">Inspeccionar Desposte</a></td></tr>';
 
 }
 
@@ -80,15 +80,15 @@ if ($desbaste["anulado"]==0) {
 
 $( "input" ).on( "click", function() {
 	
-if ($('#defaultCheckDesbaste').prop('checked')==true) {
+if ($('#defaultCheckDesposte').prop('checked')==true) {
 
    $.ajax({
                 type:'POST',
                 url:'datos.php',
-                data:'chequeadoDesbaste='+ 0,
+                data:'chequeadoDesposte='+ 0,
                 success:function(html){
-                $('#tabladesbastes').children().detach();
-                    $('#tabladesbastes').html(html); 
+                $('#tabladespostes').children().detach();
+                    $('#tabladespostes').html(html); 
                 }})}
             
 else{
@@ -96,10 +96,10 @@ else{
 	$.ajax({
                type:'POST',
               url:'datos.php',
-               data:'chequeadoDesbaste='+ 1,
+               data:'chequeadoDesposte='+ 1,
                success:function(html){
-                	$('#tabladesbastes').children().detach();
-                   $('#tabladesbastes').html(html); 
+                	$('#tabladespostes').children().detach();
+                   $('#tabladespostes').html(html); 
             }
         });
 
@@ -109,12 +109,12 @@ else{
 
 });
 
-                  function buscardesbaste() {
+                  function buscardesposte() {
                         // Declare variables 
                         var input, filter, table, tr, td, i, j, visible;
                         input = document.getElementById("buscarpalabra");
                         filter = input.value.toUpperCase();
-                        table = document.getElementById("tabladesbastes");
+                        table = document.getElementById("tabladespostes");
                         tr = table.getElementsByTagName("tr");
 
                         // Loop through all table rows, and hide those who don't match the search query
@@ -135,12 +135,12 @@ else{
                         }
                       };
 
-                              function buscardesbasteporId() {
+                              function buscardesposteporId() {
                         // Declare variables 
                         var input, filter, table, tr, td, i, j, visible;
                         input = document.getElementById("buscarId");
                         filter = input.value.toUpperCase();
-                        table = document.getElementById("tabladesbastes");
+                        table = document.getElementById("tabladespostes");
                         tr = table.getElementsByTagName("tr");
 
                         // Loop through all table rows, and hide those who don't match the search query

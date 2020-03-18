@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Nueva Desbaste</title>
+  <title>Nueva Desposte</title>
 </head>
 <body>
 
@@ -10,40 +10,40 @@
 
 $carnes=ControladorFormularios::ctrListaCarnes();
 
-$nuevodesbaste=ControladorFormularios::ctrCrearDesbaste();
+$nuevodesposte=ControladorFormularios::ctrCrearDesposte();
 
 
 ?>
 
 <div class="container">
            <br>
-            <h4>Nuevo Desbaste</h4>
+            <h4>Nuevo Desposte</h4>
             <br>  
-                          <h6>Complete los datos del nuevo desbaste que desea agregar:</h6>
+                          <h6>Complete los datos del nuevo desposte que desea agregar:</h6>
                           <br>
       <form method="post" class="needs-validation">
                      <div class="row">
                             <div class="form-group col-4">
                          <label for="NumeroRemito">Número de remito:</label>
-                    <input type="text" class="form-control text-center" id="NumeroRemito" name="nroRemitoAltaDesbaste" placeholder="Ingrese el número de remito" required>
+                    <input type="text" class="form-control text-center" id="NumeroRemito" name="nroRemitoAltaDesposte" placeholder="Ingrese el número de remito" required>
                                    <div class="invalid-feedback">
                                    Ingrese el número de remito
                                     </div>
                                 </div>
                              <div class="form-group col-4">
                            <label for="NombreProveedor">Proveedor:</label>
-                    <input type="text" class="form-control text-center" id="NombreProveedor" name="proveedorAltaDesbaste" placeholder="Ingrese el nombre del proveedor" required>
+                    <input type="text" class="form-control text-center" id="NombreProveedor" name="proveedorAltaDesposte" placeholder="Ingrese el nombre del proveedor" required>
                                    <div class="invalid-feedback">
-                                   Ingrese el nombre del proveedor del desbaste
+                                   Ingrese el nombre del proveedor del desposte
                                     </div>
 
                                 </div>
                                     <div class="input-group col-4"> 
-                  <label for="fechaDesbaste">Fecha de desbaste:</label>
+                  <label for="fechaDesbasteAltaDesposte">Fecha de desposte:</label>
                           <div class="input-group">
-                <input type="date" id="fechaDesbaste" name="fechaDesbasteAltaDesbaste" required>
+                <input type="date" id="fechaDesposte" name="fechaDesposteAltaDesposte" required>
                              <div class="invalid-feedback">
-                                    Ingresa la fecha de debaste
+                                    Ingresa la fecha de deposte
                                     </div>
                 </div>
                  </div>
@@ -51,9 +51,9 @@ $nuevodesbaste=ControladorFormularios::ctrCrearDesbaste();
          <div class="row">
               <div class="input-group col-6"> 
 
-                  <label for="unidadesAltaDesbaste">Cantidad de medias reses:</label>
+                  <label for="unidadesAltaDesposte">Cantidad de medias reses:</label>
                      <div class="input-group">
-                                <input type="number" min=0 step=1 class="form-control text-right" name="unidadesAltaDesbaste" id="unidadesDesbaste" placeholder="Ingrese la cantidad" required>
+                                <input type="number" min=0 step=1 class="form-control text-right" name="unidadesAltaDesposte" id="unidadesDesposte" placeholder="Ingrese la cantidad" required>
                                   <div class="input-group-append">
                   <span class="input-group-text">Medias reses</span>
                             </div>
@@ -66,9 +66,9 @@ $nuevodesbaste=ControladorFormularios::ctrCrearDesbaste();
                 </div>
             <div class="input-group col-6"> 
 
-               <label for="pesoTotalAltaDesbaste">Peso total:</label>
+               <label for="pesoTotalAltaDesposte">Peso total:</label>
                      <div class="input-group">
-                                <input type="number" min=0 step=0.01  class="form-control text-right" name="pesoTotalAltaDesbaste" id="pesoTotalDesabaste" placeholder="Peso total" required>
+                                <input type="number" min=0 step=0.01  class="form-control text-right" name="pesoTotalAltaDesposte" id="pesoTotalDesposte" placeholder="Peso total" required>
                                   <div class="input-group-append">
                   <span class="input-group-text">Kilos</span>
                             </div>
@@ -80,7 +80,7 @@ $nuevodesbaste=ControladorFormularios::ctrCrearDesbaste();
           </div>
               <br>
                 
-              <p>Complete la cantidad de carnes desbastadas:</p>
+              <p>Complete la cantidad de carnes despostadas:</p>
               <div class="container">
                   <table class="table table-sm">
                 <thead>
@@ -90,13 +90,13 @@ $nuevodesbaste=ControladorFormularios::ctrCrearDesbaste();
                       <th scope="col">Cantidad</th>
                     </tr> 
                   </thead>
-                <tbody id="TablaCarnesDesbaste">
+                <tbody id="TablaCarnesDesposte">
               
 <?php
 
 foreach($carnes as $carne){
 
-  echo '<tr><td scope="col">' . $carne[0] . '<input type="hidden" name="idCarneAltaDesbaste[]" value="' . $carne[0] . '"></td><td scope="col">' . $carne[1] . '<input type="hidden" class="nomcarne" value="' . $carne[1] . '"></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.0001 name="cantidadAltaDesbaste[]" class="form-control cantcarne" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[2] . '</a></span></div></div></td></tr>';
+  echo '<tr><td scope="col">' . $carne[0] . '<input type="hidden" name="idCarneAltaDesposte[]" value="' . $carne[0] . '"></td><td scope="col">' . $carne[1] . '<input type="hidden" class="nomcarne" value="' . $carne[1] . '"></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.0001 name="cantidadAltaDesposte[]" class="form-control cantcarne" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[2] . '</a></span></div></div></td></tr>';
 
 }
 
@@ -107,9 +107,9 @@ foreach($carnes as $carne){
           <br>
               <div class="row">
                  <div class="form-group col-12">
-                     <label for="descripcionAltaDesbaste">Descripción:</label>
+                     <label for="descripcionAltaDesposte">Descripción:</label>
                      <div class="input-group">
-                                <input type="text" class="form-control text-right" name="descripcionAltaDesbaste" id="descripcionDesbaste" placeholder="Describa" required>
+                                <input type="text" class="form-control text-right" name="descripcionAltaDesposte" id="descripcionDesposte" placeholder="Describa" required>
                              <div class="invalid-feedback">
                                     Ingrese una descripción
                                     </div>
@@ -118,19 +118,19 @@ foreach($carnes as $carne){
              </div>
             
               <br>
-                  <button type="button" class="btn btn-success" id="BotonAgregarDesbaste" data-toggle="modal" data-target="#ConfirmarNuevoDesbaste">Agregar desbaste</button>
+                  <button type="button" class="btn btn-success" id="BotonAgregarDesposte" data-toggle="modal" data-target="#ConfirmarNuevoDesposte">Agregar desposte</button>
             </div>
 
 
   <!-- ConfirmarNuevaReceta -->
-  <div class="modal fade" id="ConfirmarNuevoDesbaste" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal fade" id="ConfirmarNuevoDesposte" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Confirmar Nuevo desbaste</h5>
+          <h5 class="modal-title">Confirmar Nuevo desposte</h5>
         </div>
         <div class="modal-body">
-          <p>Usted está a punto de cargar el desbaste con numero de remito <a class="numero"></a> del proveedor <a class="proveedor"></a>, con fecha <a class="fecha"></a>.</p>
+          <p>Usted está a punto de cargar el desposte con numero de remito <a class="numero"></a> del proveedor <a class="proveedor"></a>, con fecha <a class="fecha"></a>.</p>
 
           <p>Son <a class="mediasreses"></a> medias reses con un peso total de <a class="pesototal"></a> kilos.</p>
 
@@ -138,7 +138,7 @@ foreach($carnes as $carne){
 
           <p><a class="descripcion"></a>.</p>
 
-          <p>La cantidad de carne del desbaste será:</p>
+          <p>La cantidad de carne del desposte será:</p>
 
            <div class="container">
           <table class="table table-hover">
@@ -151,10 +151,10 @@ foreach($carnes as $carne){
           </table>
         </div>
             <br>
-          <p>¿Confirma que desea CARGAR ESTE DESBASTE?</p>
+          <p>¿Confirma que desea CARGAR ESTE DESPOSTE?</p>
         </div>
         <div class="modal-footer">
-          <button type="submit"  class="btn btn-success">Sí, cargar desbaste</button>
+          <button type="submit"  class="btn btn-success">Sí, cargar desposte</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">No, volver a atrás</button>
         </div>
       </div>
@@ -167,17 +167,17 @@ foreach($carnes as $carne){
 
 <script>
 
-  $('#ConfirmarNuevoDesbaste').on('show.bs.modal', function (event) {
+  $('#ConfirmarNuevoDesposte').on('show.bs.modal', function (event) {
 var button = $(event.relatedTarget);
 var modal = $(this)
-completarmodaldesbaste()
-function completarmodaldesbaste(){             
+completarmodaldesposte()
+function completarmodaldesposte(){             
                                   var numeroremito=$('#NumeroRemito').val()
                                       nombreproveedor=$('#NombreProveedor').val(),
-                                      fechadesbaste=$('#fechaDesbaste').val()
-                                      unidades=$('#unidadesDesbaste').val()
-                                      pesototal=$('#pesoTotalDesabaste').val()
-                                      descripcion=$('#descripcionDesbaste').val()
+                                      fechadesbaste=$('#fechaDesposte').val()
+                                      unidades=$('#unidadesDesposte').val()
+                                      pesototal=$('#pesoTotalDesposte').val()
+                                      descripcion=$('#descripcionDesposte').val()
 
                                       var nombrecarnes = [];
                                       cantidadcarnes=[];
@@ -225,7 +225,7 @@ for (var i=0; i<=nombrecarnes.length-1;i++){
     var forms = document.getElementsByClassName('needs-validation');
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function(form) {
-      var button= document.getElementById('BotonAgregarDesbaste');
+      var button= document.getElementById('BotonAgregarDesposte');
       button.addEventListener('click', function(event) {
         if (form.checkValidity() === false) {
           event.preventDefault();

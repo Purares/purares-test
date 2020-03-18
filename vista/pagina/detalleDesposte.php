@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Detalle desbaste</title>
+	<title>Detalle desposte</title>
 </head>
 <body>
 
 <?php
 
-$detalleDesbastes=ControladorFormularios::ctrDetalleDesbaste();
+$detalleDesbastes=ControladorFormularios::ctrDetalleDesposte();
 
-$detallecarnesdesbaste=ControladorFormularios::ctrCarnesDesbaste();
+$detallecarnesdesbaste=ControladorFormularios::ctrCarnesDesposte();
 
 foreach ($detalleDesbastes as $detalleDesbaste) {
 
@@ -20,13 +20,13 @@ foreach ($detalleDesbastes as $detalleDesbaste) {
 	<br>
   				<div class="d-flex">
   					<div class="mr-auto">
-  					<h4>Desbaste ID <a class="iddesbaste"><?php echo $_GET['idDesbasteVerDetalles'] ?></a> <span class="medalla"><?php if ($_GET['estado']==0) {echo '     <span class="badge badge-success medal">Activo</span>';}else{echo '<span class="badge badge-danger medal">Anulado</span>';}?>
+  					<h4>Desposte ID <a class="iddesbaste"><?php echo $_GET['idDesposteVerDetalles'] ?></a> <span class="medalla"><?php if ($_GET['estado']==0) {echo '     <span class="badge badge-success medal">Activo</span>';}else{echo '<span class="badge badge-danger medal">Anulado</span>';}?>
 					</span>
   				</h4>
   					</div>
   					<div>
   						<div class="boton">
-  						<?php if ($_GET['estado']==0) {echo '<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#ConfirmarAnularDesbaste" data-accion="anular" id="botonAnularDesbaste">Anular Desbaste</button>';};?>
+  						<?php if ($_GET['estado']==0) {echo '<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#ConfirmarAnularDesbaste" data-accion="anular" id="botonAnularDesbaste">Anular Desposte</button>';};?>
   						</div>
   					</div>	
   					<br>
@@ -52,7 +52,7 @@ foreach ($detalleDesbastes as $detalleDesbaste) {
                                 </div>
         				</div>
                     <br>
-                    <p>Carnes obtenidas en el desbaste:</p>
+                    <p>Carnes obtenidas en el desposte:</p>
                         <table class="table table-hover table-bordered table-sm">
     						<thead class="thead-light">
         						<tr>
@@ -80,7 +80,7 @@ echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scop
   							</tbody>
 					</table>
      		<br>
-               		<button type="button" class="btn btn-warning" id="Imprimirdesbaste">Imprimir desbaste</button> 
+               		<button type="button" class="btn btn-warning" id="Imprimirdesbaste">Imprimir desposte</button> 
       			</div>
 
 
@@ -138,7 +138,7 @@ $("#botonAnularDesbaste").on( "click", function() {
 
                          $('#AnularDesbaste').modal('show')
                           var modal = $('#AnularDesbaste')
-                          modal.find('.modal-body').html('<form method="post"><div class="form-group"><label for="spanrecetanombre">Describa el motivo de anulación del desposte:</label><div class="input-group"><input type="text" class="form-control text-right" name="motivoAnulacionDesposte" id="descripcionanulacion" placeholder="Describa" required><div class="invalid-feedback">Debe escribir un motivo de anulación del desposte.</div></div><br><button type="button" id="botonanularventana" class="btn btn-danger" onclick=enviamotivo()>Anular desbaste</button></form>')
+                          modal.find('.modal-body').html('<form method="post"><div class="form-group"><label for="spanrecetanombre">Describa el motivo de anulación del desposte:</label><div class="input-group"><input type="text" class="form-control text-right" name="motivoAnulacionDesposte" id="descripcionanulacion" placeholder="Describa" required><div class="invalid-feedback">Debe escribir un motivo de anulación del desposte.</div></div><br><button type="button" id="botonanularventana" class="btn btn-danger" onclick=enviamotivo()>Anular desposte</button></form>')
                   }else{
 
 
