@@ -530,6 +530,52 @@ static public function mdlCrearDesposte($datos){
 
 
 
+#ORDENES DE PRODUCCION
+
+#------------------------- Tabla de Insumo-------------------------#
+	static public function mdlListaInsumosOP($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call v_insumosAltaOP(:idReceta, :pesoPaston);");
+
+		$stmt -> bindparam (":idReceta",$datos['idReceta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":pesoPaston",$datos['pesoPaston_'],PDO::PARAM_INT);
+		
+		if ($stmt -> execute()){
+			return "ok";
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+#------------------------- Validacion de Insumo-------------------------#
+	static public function mdlValidacionStockInsumosOP($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call v_insumosAltaOP(:idReceta, :pesoPaston);");
+
+		$stmt -> bindparam (":idReceta",$datos['idReceta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":pesoPaston",$datos['pesoPaston_'],PDO::PARAM_INT);
+		
+		if ($stmt -> execute()){
+			return "ok";
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+
+
+#------------------------- Validacion stock de Insumo-------------------------#
+
+
+
+
 
 
 #ESTA FUNCION DEBERIA SER REEMPLAZADA POR LA FUNCION DEL OBJETO!!!!!!!!!
@@ -545,42 +591,6 @@ static public function mdlCrearDesposte($datos){
 		$stmt -> close(); #cierra la conexion
 		$stmt =null;
 	}
-
-
-
-
-/*
-
-#------------------------- ELIMINAR SE UTILIZA PARA REALIZAR PRUEBAS! -------------------------#
-
-	static public function mdlprueba(){
-
-		$stmt=Conexion::conectarBD()->prepare("call ins_AgregarReceta('prueba202', 0.23, 12, 43, 60, 300, 0.9, 'creando una nueva receta ');
-");
-
-		if ($stmt -> execute()){
-
-			#$con = conexion::conectarBD()->mysqli_connect();
-
-		# [TO DO] NO FUNCIONA NINGUNA DE LAS OPCIONES!!!!!
-			#$id_insertado= mysqli_insert_id($con);
-			$id_insertado= Conexion::conectarBD()->lastInsertId();
-			#$id_insertado=conexion::conectarBD()->prepare("SELECT LAST_INSERT_ID();");
-			#$id_insertado=1;
-
-			return "$id_insertado";
-
-
-		}else{ 
-			print_r(Conexion::conectarBD()->errorInfo());
-		}
-
-		$stmt -> close(); #cierra la conexion
-		$stmt =null; 
-	}
-
-*/
-
 
 } #Cierra la clase
 

@@ -402,10 +402,10 @@ class ControladorFormularios{
 			$datos2= array(	'idCarne_'		=> $_POST["idCarneMovimientoCarne"],
 							'idCuenta_'		=> $_POST["idCuentaMovimientoCarne"], #VariableFIJA!
 							'idDesposte_'	=> array_fill(0,$longitud,null),
-							'cantidad_'		=> $_POST["cantidadAltaDesposte"],
+							'cantidad_'		=> $_POST["cantidadMovimientoCarne"],
 							'idOrenProd_'	=> array_fill(0,$longitud,null),
 							'idUsuario_'	=> array_fill(0,$longitud,1),#[TO DO]
-							'descripcion_'	=> $_POST["idCarneMovimientoCarne"]);
+							'descripcion_'	=> $_POST["descripcionMovimientoCarne"]);
 				
 			$datos3 = array_column($datos2,0);
 			$respuesta=ControladorFormularios::ctrMovCarnesDesposte($datos);
@@ -419,10 +419,9 @@ class ControladorFormularios{
 
 	static public function ctrValidacionAnularDesposte(){
 
-#		if (isset($_POST["idDespoteVerDetalles"])){
+		if (isset($_POST["idDesposteVerDetalles"])){
 
-#			$id_desposte=$_POST["idDespoteVerDetalles"];
-			$id_desposte=3;
+			$id_desposte=$_POST["idDespoteVerDetalles"];
 
 			#Validar que no exista ninguna OP(no anulada) que consuma las carnes del desposte a anulr
 			$respuesta=ModeloFormularios::mdlValidacionAnularDesposte1($id_desposte);
@@ -455,21 +454,21 @@ class ControladorFormularios{
 			}#Exit 2da Validacion
 
 			#Si cumple con las dos validaciones pedira que informe porque lo anula
-#			if (isset($_POST["motivoAnulacionDesposte"])){
+			if (isset($_POST["motivoAnulacionDesposte"])){
 				
 				#1)Ejecuta un Procedure(act) para anular el desposte.
 				#2)Se ejecuta un trigger para realizar el contra-asiente.
 				$datos= array(	'idDesposte_'=> $id_desposte,
 								'idUsuario_'=>'1',
-#								'motivoAnulacion_'=> $_POST["motivoAnulacionDesposte"]);
-								'motivoAnulacion_'=> "prueba");
+								'motivoAnulacion_'=> $_POST["motivoAnulacionDesposte"]);
+								
 				$respuesta=ModeloFormularios::mdlAnularDesposte($datos);
-#			}else{
-#				$respuesta=0; #[TO DO] #Envía esta variable para que complete el motivo 
-#			}
+			}else{
+				$respuesta=0; #[TO DO] #Envía esta variable para que complete el motivo 
+			}
 
 		return $respuesta;
-#		}	
+		}	
 	}
 
 	#------------------------- Compra de INSUMOS -------------------------#
@@ -481,38 +480,31 @@ class ControladorFormularios{
 			isset($_GET["proveedor_compraI"])||
 			isset($_GET["fecha_compraI"])){
 
-
-			$datosC= array(	'id_proveedor_'=> $_POST["idProvedorCompraInsumo"],
-							'nro_remito_'=>$_POST["nroRemitoCompraInsumo"],
-							'fecha_compra_'=> strval(date("y-m-d",strtotime($_POST["fechaCompraInsumo"]))),
-							'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
-
+			#Datos de la compra
+			$datosC= array(	'id_proveedor_'	=> $_POST["idProvedorCompraInsumo"],
+							'nro_remito_'	=>$_POST["nroRemitoCompraInsumo"],
+							'fecha_compra_'	=> strval(date("y-m-d",strtotime($_POST["fechaCompraInsumo"]))),
+							'id_usuario_'	=> '1');#[TO DO] Deberia tomar el usuario que ingreso
 
 			$id_compra_nueva= ModeloFormularios::mdlCompraInsumo($datosF);
 
-
+			#Datos de los Movimiento de Insumo
 			$longitud= count($_POST["idInsumoCompraInsumo"]);
+			$datosMI= array('idInsumo_'		=> $_POST["idInsumoCompraInsumo"],
+							'cantidad_'		=>$_POST["cantidadCompraInsumo"],
+							'idCuenta_'		=>$array_fill(0,$logitud,10), #Número fijo para la cuenta compra
+							'idOrdenProd_'	=>$array_fill(0,$logitud,null),
+							'idCompra_'		=>$array_fill(0,$logitud,$id_compra_nueva),
+							'idUsuario_'	=>$array_fill(0,$logitud,'1'),
+							'descripcion_'	=>$_POST["descripcionCompraInsumo"]);
 
-			$datosMI= array('idInsumo_'=> $_POST["idInsumoCompraInsumo"],
-							'cantidad_'=>$_POST["cantidadCompraInsumo"],
-							'idCuenta_'=>$array_fill(0,$logitud,10), #Número fijo para la cuenta compra
-							'idOrdenProd_'=>$array_fill(0,$logitud,null),
-							'idCompra_'=>$array_fill(0,$logitud,$id_compra_nueva),
-							'idUsuario_'=>$array_fill(0,$logitud,'1'),
-							'descripcion_'=>$_POST["descripcionCompraInsumo"]);
-
-			
+			#Cargar los Movimientos de Insumo
 			for ($i=0; $i < $longitud ; $i++) { 
-
 				$datos=array_column($datosMI,$i);
 				$respuesta=ModeloFormularios::mdlMovimientoInsumo($datos);
-
 				if ($respuesta != "ok") { return $respuesta;}
-
 			}
-
-
-
+			
 			return $respuesta;
 		}	
 	}
@@ -520,13 +512,16 @@ class ControladorFormularios{
 
 # !!!ORDENES DE PRODUCCION !!!#
 
-#------------------------- Compra de INSUMOS -------------------------#
+#------------------------- Calculo de Insumos -------------------------#
 
-	static public function ctrAgregrarOP(){
+	static public function ctrCalculoInsumos(){
 
 
-		if (isset($_POST["idCarneMovimientoCarne"])){
+		if (isset($_POST["idRecetaAltaOP"])||
+			isset($_POST["pesoPastonAltaOP"])){
 
+		$datos= array(	'id_proveedor_'	=> $_POST["idRecetaAltaOP"],
+						'nro_remito_'	=>$_POST["pesoPastonAltaOP"]);
 
 		}
 
@@ -542,22 +537,7 @@ class ControladorFormularios{
 
 		#Movimiento de Carnes
 
-		if (isset($_POST["idCarneMovimientoCarne"])||
-			isset($_POST["idCuentaMovimientoCarne"])||
-			isset($_POST["idDesposteMovimientoCarne"])||
-			isset($_POST["cantidadMovimientoCarne"])) {
-
-				$datos= array(	'id_carne_'=> $_POST["idCarneMovimientoCarne"],
-								'id_cuenta_'=>$_POST["idCuentaMovimientoCarne"],
-								'id_desposte_'=> $_POST["idDesposteMovimientoCarne"],
-								'cantidad_'=> $_POST["cantidadMovimientoCarne"],
-								'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
-								'descripcion_'=> $_POST["descripcionMovimientoCarne"],
-								'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
-				
-				$respuesta=ControladorFormularios::ctrMovCarnesDesposte($datos);
-
-				return $respuesta;
+		
 		}
 
 	}
