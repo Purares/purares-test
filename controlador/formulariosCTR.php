@@ -25,8 +25,12 @@ class ControladorFormularios{
 #------------------------- Lista desplegable CUENTA -------------------------#
 
 	static public function ctrListaCuentas(){
-		$respuesta= ModeloFormularios::mdlListaCuentas();
-		return $respuesta;
+		#La función que se está realizando en el front(ej:Actualizar insumo)
+		if (isset($_POST["funcion"])){
+			$funcion=isset($_POST["funcion"]);
+			$respuesta= ModeloFormularios::mdlListaCuentas($funcion);
+			return $respuesta;
+		}
 	}	
 
 #------------------------- Lista desplegable PROVEEDORES -------------------------#
@@ -71,14 +75,10 @@ class ControladorFormularios{
 								'idUm_' => $_POST["idUm"],
 								'alertaQmin_' => $_POST["alertaQmin"]);
 
-
 			$respuesta=ModeloFormularios::mdlAgregarInsumo($datos);
 			return $respuesta;
 		}
-
-
 	}
-
 
 #------------------------- Actualizar stock de Insumo -------------------------#
 
@@ -87,18 +87,22 @@ class ControladorFormularios{
 		if (isset($_POST["idInsumoActI"])||
 			isset($_POST["cantidadActI"])||
 			isset($_POST["idCuentaActI"])) {
+	
+	$longitud=1
 
-				$datos= array(	'idInsumo_' => $_GET["idInsumoActI"],
-								'cantidad_' => $_POST["cantidadActI"],
-								'idCuenta_' => $_POST["idCuentaActI"],
-								'comentario_' => $_POST["comentarioActI"],
-								'idUsuario_' => 1); #[TO DO]
-			
-		$respuesta=ModeloFormularios::mdlActualizarInsumo($datos);
+			$datos= array(	'idInsumo_'=> $_POST["idInsumoActI"],
+							'cantidad_'=>$_POST["cantidadActI"],
+							'idCuenta_'=>$_POST["idCuentaActI"], #Número fijo para la cuenta compra
+							'idOrdenProd_'=>$array_fill(0,$logitud,null),
+							'idCompra_'=>$array_fill(0,$logitud,null),
+							'idUsuario_'=>$array_fill(0,$logitud,'1'),
+							'descripcion_'=>$_POST["descripcionActI"]);
+
+		$datos2=array_column($datos,0);
+		$respuesta=ModeloFormularios::mdlMovimientoInsumo($datos);
+
 		return $respuesta;
 		}
-
-			
 	}
 
 #------------------------- InsumosXdeposito -------------------------#

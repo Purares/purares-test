@@ -37,9 +37,9 @@ class ModeloFormularios{
 #------------------------- Lista CUENTAS -------------------------#
 
 
-	static public function mdlListaCuentas(){
+	static public function mdlListaCuentas($funcion){
 
-		$stmt=conexion::conectarBD()->prepare("SELECT id_cuenta, nombre FROM cuentas_n where activo=1");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_cuentasfunciones where funcion=$funcion");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -117,13 +117,13 @@ class ModeloFormularios{
 
 		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMovInsumo( :id_insumo,:cantidad,:id_cuenta, :id_orden,:id_compra,:id_usuario,:comentario);");
 		
-		$stmt -> bindparam (":id_insumo",$datos['idInsumo_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":cantidad",$datos['cantidad_'],PDO::PARAM_STR); 
-		$stmt -> bindparam (":id_cuenta",$datos['idCuenta_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":id_orden",$datos['idOrdenProd_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":id_compra",$datos['idCompra_'],PDO::PARAM_STR); 
-		$stmt -> bindparam (":id_usuario",$datos['idUsuario_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":comentario",$datos['comentario_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":id_insumo",$datos[0],PDO::PARAM_INT);
+		$stmt -> bindparam (":cantidad",$datos[1],PDO::PARAM_STR); 
+		$stmt -> bindparam (":id_cuenta",$datos[2],PDO::PARAM_INT);
+		$stmt -> bindparam (":id_orden",$datos[3],PDO::PARAM_STR);
+		$stmt -> bindparam (":id_compra",$datos[4],PDO::PARAM_STR); 
+		$stmt -> bindparam (":id_usuario",$datos[5],PDO::PARAM_INT);
+		$stmt -> bindparam (":comentario",$datos[6],PDO::PARAM_STR);
 
 		if ($stmt -> execute()){
 			return "OK"; #si se ejecutó correctamente le envío un OK
