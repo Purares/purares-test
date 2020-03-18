@@ -88,7 +88,7 @@ class ControladorFormularios{
 			isset($_POST["cantidadActI"])||
 			isset($_POST["idCuentaActI"])) {
 	
-	$longitud=1
+	$longitud=1;
 
 			$datos= array(	'idInsumo_'=> $_POST["idInsumoActI"],
 							'cantidad_'=>$_POST["cantidadActI"],
@@ -522,6 +522,11 @@ class ControladorFormularios{
 
 	static public function ctrAgregrarOP(){
 
+
+		if (isset($_POST["idCarneMovimientoCarne"])){
+
+
+		}
 
 		#Validar que disponga de los insmos necesarios para crear la OP
 
