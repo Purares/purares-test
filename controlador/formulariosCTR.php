@@ -294,21 +294,21 @@ class ControladorFormularios{
 
 	}
 	
-	#------------------------- Lista de Desbaste -------------------------#
+	#------------------------- Lista de DESPOSTE -------------------------#
 
-	static public function ctrListaDesbaste(){
+	static public function ctrListaDesposte(){
 	
-		#if (isset($_POST["CantidadFilasDesbastes"])){
+		#if (isset($_POST["CantidadFilasDespostes"])){
 
 			$cantidadFilas=100; #[TO DO] PAGINACION
 
-			$respuesta= ModeloFormularios::mdlListaDesbaste($cantidadFilas);
+			$respuesta= ModeloFormularios::mdlListaDesposte($cantidadFilas);
 			return $respuesta;
 
 		#}	
 	}	
 
-	#------------------------- Lista de Desbaste -------------------------#
+	#------------------------- Lista de DESPOSTE -------------------------#
 
 	static public function ctrDetalleDesbaste(){
 	
@@ -401,9 +401,9 @@ class ControladorFormularios{
 							'cantidad_'		=> $_POST["cantidadAltaDesbaste"],
 							'idOrenProd_'	=> array_fill(0,$longitud,null),
 							'idUsuario_'	=> array_fill(0,$longitud,1),#[TO DO]
-							'descripcion_'	=> $_POST["idCarneMovimientoCarne"])
+							'descripcion_'	=> $_POST["idCarneMovimientoCarne"]);
 				
-			$datos3= array_column($datos2,0);
+			$datos3 = array_column($datos2,0);
 			$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos);
 
 			return $respuesta;
@@ -412,16 +412,6 @@ class ControladorFormularios{
 
 
 	#-------------PROCEO PARA ANULAR DESBASTES----------------
-
-#1) Ver que no tenga ningun Movimiento y en caso de que exista un movimiento de carne debe estár anulado.
-	#No deben existir OP Sin anular que tengan asociado ese stock
-		#QUERY->v_validacion_op-desbaste
-
-	#Chequear que el stock desbaste - stock actual sea cero
-		#QUERY-> v_validacion_carne_si-sa
-
-
-	#-------- Validar que no exista OP sin anular --------#
 
 	static public function ctrValidacionAnularDesbaste(){
 
@@ -471,7 +461,6 @@ class ControladorFormularios{
 			}else{
 				$respuesta=0; #[TO DO] #Envía esta variable para que complete el motivo 
 			}
-		
 
 		return $respuesta;
 		}	
