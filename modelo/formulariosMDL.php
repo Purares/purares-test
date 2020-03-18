@@ -356,7 +356,7 @@ class ModeloFormularios{
 
 	static public function mdlListaDesposte($cantidadFilas){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_listadesbaste LIMIT $cantidadFilas;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_listadesposte LIMIT $cantidadFilas;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -369,7 +369,7 @@ class ModeloFormularios{
 
 	static public function mdlDetalleDesposte($id_desposte){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalledesbastes where id_desbaste=$id_desposte;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalledespostes where id_desposte=$id_desposte;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -382,7 +382,7 @@ class ModeloFormularios{
 
 	static public function mdlCarnesDesposte($id_desposte){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_qcarnesdesbaste where id_desbaste=$id_desposte;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_qcarnesdesposte where id_desposte=$id_desposte;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -396,7 +396,7 @@ class ModeloFormularios{
 static public function mdlCrearDesposte($datos){
 
 		
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesbaste( :nroRemito, :proveedor, :unidades , :pesoTotal, :fechaDesposte , :usuarioAlta ,:descripcion);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesposte( :nroRemito, :proveedor, :unidades , :pesoTotal, :fechaDesposte , :usuarioAlta ,:descripcion);");
 
 		$stmt -> bindparam (":nroRemito",$datos['nroRemito_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":proveedor",$datos['proveedor_'],PDO::PARAM_STR);
@@ -410,8 +410,8 @@ static public function mdlCrearDesposte($datos){
 		if ($stmt -> execute()){
 
 				#Busca el ultimo ID insertado en la tabla
-				$campo='id_desbaste';
-				$tabla='desbaste_reg';
+				$campo='id_desposte';
+				$tabla='desposte_reg';
 				$idReceta_nuevaArray=ModeloFormularios::mdlUltimoId($campo,$tabla);
 				$idReceta_nueva=$idReceta_nuevaArray[0][0];#De el array solo me quedo con el valor
 			return $idReceta_nueva;
@@ -455,7 +455,7 @@ static public function mdlCrearDesposte($datos){
 	#-------- Validar que no exista OP sin anular --------#
 	static public function mdlValidacionAnularDesposte1($id_desposte){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_validacion_op_desbaste WHERE id_desbaste= $id_desposte;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_validacion_op_desposte WHERE id_desposte= $id_desposte;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -466,7 +466,7 @@ static public function mdlCrearDesposte($datos){
 	#-------- Validar que la diferencia de Stock sea  cero --------#
 	static public function mdlValidacionAnularDesposte2($id_desposte){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_validacion_carne_difstock0 WHERE id_desbaste= $id_desposte;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_validacion_carne_difstock0 WHERE id_desposte= $id_desposte;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la 	conexion
@@ -479,7 +479,7 @@ static public function mdlCrearDesposte($datos){
 
 	static public function mdlAnularDesposte($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call act_AnularDesbaste(:idDesposte,:idUsuario, $motivoAnulacion);
+		$stmt=conexion::conectarBD()->prepare("call act_AnularDesposte(:idDesposte,:idUsuario, $motivoAnulacion);
 ");
 
 		$stmt -> bindparam (":idDesposte",$datos['idDesposte_'],PDO::PARAM_INT);

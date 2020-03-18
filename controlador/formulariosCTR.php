@@ -310,28 +310,28 @@ class ControladorFormularios{
 
 	#------------------------- Lista de DESPOSTE -------------------------#
 
-	static public function ctrDetalleDesbaste(){
+	static public function ctrDetalleDesposte(){
 	
-		if (isset($_GET["idDesbasteVerDetalles"])){
+		if (isset($_GET["idDesposteVerDetalles"])){
 
-			$id_desbaste=$_GET["idDesbasteVerDetalles"];
+			$id_desposte=$_GET["idDesposteVerDetalles"];
 
-			$respuesta= ModeloFormularios::mdlDetalleDesbaste($id_desbaste);
+			$respuesta= ModeloFormularios::mdlDetalleDesposte($id_desposte);
 
 			return $respuesta;
 		}	
 	}
 	
 
-	#------------------------- Carnes de Desbaste -------------------------#
+	#------------------------- Carnes de DESPOSTE -------------------------#
 
-	static public function ctrCarnesDesbaste(){
+	static public function ctrCarnesDesposte(){
 	
-		if (isset($_GET["idDesbasteVerDetalles"])){
+		if (isset($_GET["idDesposteVerDetalles"])){
 
-			$id_desbaste=$_GET["idDesbasteVerDetalles"];
+			$id_desposte=$_GET["idDesposteVerDetalles"];
 
-			$respuesta= ModeloFormularios::mdlCarnesDesbaste($id_desbaste);
+			$respuesta= ModeloFormularios::mdlCarnesDesposte($id_desposte);
 	
 			return $respuesta;
 		}	
@@ -361,12 +361,12 @@ class ControladorFormularios{
 			$idDesposte_nuevo=ModeloFormularios::mdlCrearDesposte($datos); 
 
 			#Crea el Array para realizar los movimiento de Carnes
-			$longitud=count($_POST["idCarneAltaDesbaste"]);
+			$longitud=count($_POST["idCarneAltaDesposte"]);
 			
-			$datos2= array(	'idCarne_'		=> $_POST["idCarneAltaDesbaste"],
+			$datos2= array(	'idCarne_'		=> $_POST["idCarneAltaDesposte"],
 							'idCuenta_'		=> array_fill(0,$longitud,1), #VariableFIJA!
 							'idDesposte_'	=> array_fill(0,$longitud,$idDesposte_nuevo),
-							'cantidad_'		=> $_POST["cantidadAltaDesbaste"],
+							'cantidad_'		=> $_POST["cantidadAltaDesposte"],
 							'idOrenProd_'	=> array_fill(0,$longitud,null),
 							'idUsuario_'	=> array_fill(0,$longitud,1),#[TO DO]
 							'descripcion_'	=> array_fill(0,$longitud,null));
@@ -398,22 +398,22 @@ class ControladorFormularios{
 			$datos2= array(	'idCarne_'		=> $_POST["idCarneMovimientoCarne"],
 							'idCuenta_'		=> $_POST["idCuentaMovimientoCarne"], #VariableFIJA!
 							'idDesposte_'	=> array_fill(0,$longitud,null),
-							'cantidad_'		=> $_POST["cantidadAltaDesbaste"],
+							'cantidad_'		=> $_POST["cantidadAltaDesposte"],
 							'idOrenProd_'	=> array_fill(0,$longitud,null),
 							'idUsuario_'	=> array_fill(0,$longitud,1),#[TO DO]
 							'descripcion_'	=> $_POST["idCarneMovimientoCarne"]);
 				
 			$datos3 = array_column($datos2,0);
-			$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos);
+			$respuesta=ControladorFormularios::ctrMovCarnesDesposte($datos);
 
 			return $respuesta;
 		}
 	}
 
 
-	#-------------PROCEO PARA ANULAR DESBASTES----------------
+	#-------------PROCEO PARA ANULAR DESPOSTES----------------
 
-	static public function ctrValidacionAnularDesbaste(){
+	static public function ctrValidacionAnularDesposte(){
 
 		if (isset($_POST["idDespoteVerDetalles"])){
 
@@ -434,7 +434,7 @@ class ControladorFormularios{
 				return $respuesta;					
 			}#Exit 1ra validacion
 			
-			#Validar que la cuenta de carnes del $desbaste este en cero. 
+			#Validar que la cuenta de carnes del $desposte este en cero. 
 			$respuesta2= ModeloFormularios::mdlValidacionAnularDesposte2($id_desposte);
 			$longitud2=count($respuesta2);
 			if ($longitud2>0) {	
@@ -533,18 +533,18 @@ class ControladorFormularios{
 
 		if (isset($_POST["idCarneMovimientoCarne"])||
 			isset($_POST["idCuentaMovimientoCarne"])||
-			isset($_POST["idDesbasteMovimientoCarne"])||
+			isset($_POST["idDesposteMovimientoCarne"])||
 			isset($_POST["cantidadMovimientoCarne"])) {
 
 				$datos= array(	'id_carne_'=> $_POST["idCarneMovimientoCarne"],
 								'id_cuenta_'=>$_POST["idCuentaMovimientoCarne"],
-								'id_desbaste_'=> $_POST["idDesbasteMovimientoCarne"],
+								'id_desposte_'=> $_POST["idDesposteMovimientoCarne"],
 								'cantidad_'=> $_POST["cantidadMovimientoCarne"],
 								'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
 								'descripcion_'=> $_POST["descripcionMovimientoCarne"],
 								'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
 				
-				$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos);
+				$respuesta=ControladorFormularios::ctrMovCarnesDesposte($datos);
 
 				return $respuesta;
 		}
@@ -571,7 +571,7 @@ class ControladorFormularios{
 
 		$fecha=date('YYYY-mm-dd');
 		$fecha='2020-01-02';#getdate();
-		$respuesta=date("y-m-d",strtotime($_POST["fechaDesbasteAltaDesbaste"]));
+		$respuesta=date("y-m-d",strtotime($_POST["fechaDesposteAltaDesposte"]));
 
 		return $respuesta;
 	}
@@ -581,39 +581,39 @@ class ControladorFormularios{
 	static public function prueba1(){
 
 
-	$idCarneAltaDesbaste=[8,9,10,11];
-	$cantidadAltaDesbaste=[100,12,312,97];
+	$idCarneAltaDesposte=[8,9,10,11];
+	$cantidadAltaDesposte=[100,12,312,97];
 	$param1='hola';
 	$param2='chau';
 
-	$datosA= array(	'id_carne_'=> $idCarneAltaDesbaste,
-					'cantidad_'=> $cantidadAltaDesbaste);
+	$datosA= array(	'id_carne_'=> $idCarneAltaDesposte,
+					'cantidad_'=> $cantidadAltaDesposte);
 
 
-	$datosB= array(	'id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESBASTE
-					'id_desbaste_'=> 33,
+	$datosB= array(	'id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESPOSTE
+					'id_desposte_'=> 33,
 					'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
 					'descripcion_'=>'', #El procedure es generico, por lo que espera todos
 					'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
 
 
- $logitud=count($idCarneAltaDesbaste);
+ $logitud=count($idCarneAltaDesposte);
 
-	$datosC = array('id_carne_'=> $idCarneAltaDesbaste,
-					'cantidad_'=> $cantidadAltaDesbaste,
+	$datosC = array('id_carne_'=> $idCarneAltaDesposte,
+					'cantidad_'=> $cantidadAltaDesposte,
 					'param1_'=> array_fill(0,$logitud,$param1));
 	
 
 
 	#$respuesta=array_sum(array_column($datosC,'cantidad_'));
 
-	#$respuesta=array_sum($cantidadAltaDesbaste);
+	#$respuesta=array_sum($cantidadAltaDesposte);
 
 	$respuesta= array_column($datosC,0);
 
 	$respuesta=$datosC;
 
-	#$respuesta=ControladorFormularios::ctrMovCarnesDesbaste($datos2);
+	#$respuesta=ControladorFormularios::ctrMovCarnesDesposte($datos2);
 	return $respuesta;
 
 
