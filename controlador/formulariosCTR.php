@@ -422,7 +422,8 @@ class ControladorFormularios{
 		if (isset($_POST["idDespoteVerDetalles"])){
 
 			$id_desposte=$_POST["idDespoteVerDetalles"];
-			
+			$id_desposte=3;
+
 			#Validar que no exista ninguna OP(no anulada) que consuma las carnes del desposte a anulr
 			$respuesta=ModeloFormularios::mdlValidacionAnularDesposte1($id_desposte);
 			$longitud=count($respuesta);

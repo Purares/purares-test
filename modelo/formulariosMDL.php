@@ -402,7 +402,7 @@ static public function mdlCrearDesposte($datos){
 		$stmt -> bindparam (":proveedor",$datos['proveedor_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":unidades",$datos['unidades_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":pesoTotal",$datos['pesoTotal_'],PDO::PARAM_STR); 
-		$stmt -> bindparam (":fechaDesposte",$datos['fechaDespoeste_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":fechaDesposte",$datos['fechaDesposte_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":usuarioAlta",$datos['usuarioAlta_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":descripcion",$datos['descripcion_'],PDO::PARAM_STR);
 
