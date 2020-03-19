@@ -148,7 +148,7 @@ if(isset($_POST["funcion"])){
         }}
 
     else{
-        echo 'Error en la base de datos';
+        echo $cuentas . $_POST["funcion"];
     }
 }
 
