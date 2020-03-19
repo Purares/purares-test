@@ -11,6 +11,9 @@ $detalleDesbastes=ControladorFormularios::ctrDetalleDesposte();
 
 $detallecarnesdesbaste=ControladorFormularios::ctrCarnesDesposte();
 
+$nuevo_movcarne=ControladorFormularios::ctrMovCarne();
+
+
 foreach ($detalleDesbastes as $detalleDesbaste) {
 
 ?>
@@ -282,10 +285,12 @@ modal.find('.unidadMovimimientoCarne').text('' + unidadcarne);
 $.ajax({
                 type:'POST',
                 url:'datos.php',
-                data:"funcion=ActualizarCarne",
+                data:{funcion:"'ActualizarCarne'"},
                 success:function(html){
 
-                $('#cuentasmovimientoCarne').html('<option value="">Seleccione el tipo de movimiento</option>'+html)
+                  alert(html)
+
+                $('#cuentasmovimientoCarne').append('<option value="">Seleccione el tipo de movimiento</option>'+html)
 
                 }
 
