@@ -14,7 +14,6 @@ $proveedores=ControladorFormularios::ctrListaProveedores();
 
 $compra_insumo=ControladorFormularios::ctrCompraInsumo();
 
-
 ?>
 
 <div class="container">
@@ -39,9 +38,15 @@ $compra_insumo=ControladorFormularios::ctrCompraInsumo();
     
     <?php
 
+    if ($proveedores) {
+
 foreach($proveedores as $proveedor){
 
   echo '<option value="' . $proveedor["id_proveedor"] . '">' . $proveedor["nombre"] . '</option>';
+}}
+else{
+
+echo $proveedores;
 
 };?>
                                </select>
@@ -275,7 +280,7 @@ foreach($depositos as $deposito){
 
              $('<td>').attr('scope','col')
           .append
-          ($('<div class="input-group"><input type="date" id="fechaVencimientoinsumo" name="fechaVencimientoinsumo" required>'
+          ($('<div class="input-group"><input type="date" id="fechaVencimientoinsumo" name="fecha_compraI[]" required>'
 
             )),
             $('<td>').attr('scope','col')
