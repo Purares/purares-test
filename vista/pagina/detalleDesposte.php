@@ -75,7 +75,7 @@ foreach ($detalleDesbastes as $detalleDesbaste) {
 
 foreach ($detallecarnesdesbaste as $detallecarnedesbaste) {
 
-echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scope="col">' . $detallecarnedesbaste["carne"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["qObtenido"] . '</td><td scope="col">' . $detallecarnedesbaste["udm"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["stockactual"] . '</td><td scope="col">' . $detallecarnedesbaste["udm"] . '</td><td scope="col"><button class="btn btn-secondary btn-sm botonmovimiento" data-toggle="modal" data-target="#NuevoMovimientoCarne" data-idcarne="'. $detallecarnedesbaste["id_carne"] .'" data-nombrecarne="'.$detallecarnedesbaste["carne"].'" data-unidadcarne="'.$detallecarnedesbaste["udm"] .'">Nuevo movimiento</button></td></tr>';
+echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scope="col">' . $detallecarnedesbaste["carne"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["qObtenido"] . '</td><td scope="col">' . $detallecarnedesbaste["udm"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["stockactual"] . '</td><td scope="col">' . $detallecarnedesbaste["udm"] . '</td><td scope="col"><button class="btn btn-secondary btn-sm botonmovimiento" data-toggle="modal" data-target="#NuevoMovimientoCarne" data-idcarne="'. $detallecarnedesbaste["id_carne"] .'" data-nombrecarne="'.$detallecarnedesbaste["carne"].'" data-unidadcarne="'.$detallecarnedesbaste["udm"] .'" data-iddesposteventana="'. $_GET["idDesposteVerDetalles"]. '">Nuevo movimiento</button></td></tr>';
 
 }
 ?>
@@ -120,6 +120,7 @@ echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scop
                <div class="input-group-prepend">
                      <span class="input-group-text">Movimiento:</span>
                 </div>
+                <input type="hidden" name="idDesposteMovimientoCarne" id="id_desposte_ventana">
                     <select class="custom-select" id="cuentasmovimientoCarne" name="idCuentaMovimientoCarne" required>
                     </select>
                      <div class="invalid-feedback">
@@ -274,11 +275,13 @@ alert($('.iddesbaste').text())
 $('#NuevoMovimientoCarne').on('show.bs.modal', function (event) {
 var button = $(event.relatedTarget);// Button that triggered the modal
 var idcarne = button.data('idcarne')
+var iddesposte=button.data('iddesposteventana')
 var nombrecarne= button.data('nombrecarne')
 var unidadcarne= button.data('unidadcarne')
 var modal = $(this)
 modal.find('.id_carne_movimiento').text('' + idcarne);
 $('#input_id_carne').val(idcarne);
+$('#id_desposte_ventana').val(iddesposte);
 modal.find('.nombre_carne_movimiento').text('' + nombrecarne);
 modal.find('.unidadMovimimientoCarne').text('' + unidadcarne);
 
