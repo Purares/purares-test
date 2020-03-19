@@ -516,55 +516,100 @@ class ControladorFormularios{
 
 	static public function ctrCalculoInsumos(){
 
-
+	#Al seleccionar una Receta, e introducir una Q deberia de ejecutarse esta función
+		
 		if (isset($_POST["idRecetaAltaOP"])||
 			isset($_POST["pesoPastonAltaOP"])){
 
-		$datos= array(	'id_proveedor_'	=> $_POST["idRecetaAltaOP"],
-						'nro_remito_'	=>$_POST["pesoPastonAltaOP"]);
-
-		}
-
-		#Validar que disponga de los insmos necesarios para crear la OP
-
-		#La misma Query (que es una vista) deberia de mostrar los insumos que se demandarán
-
-		#Cacluclo automatico de los campos con el input de Receta (unidades peso y largo)
-
-		#Crear OP
-
-		#Movimiento de Inmsumos
-
-		#Movimiento de Carnes
+		$datos= array(	'idRecetaAltaOP_'	=> $_POST["idRecetaAltaOP"],
+						'pesoPastonAltaOP_'	=>$_POST["pesoPastonAltaOP"]);
 
 		
-		}
+		$respuesta1=ModeloFormularios::mdlListaInsumosOP($datos);
+		$respuesta2=ModeloFormularios::mdlValidacionStockInsumosOP($datos);
 
+			#Valida si alcanza el stock actual de insumo
+			if (count($respuesta2)>0) {
+				$validacion="NO";
+			}else{
+				$validacion="SI";
+			}
+
+		$respuesta= array(	'tablaInsumos_' => $respuesta1,
+							'validadacion_' => $respuesta2);
+		
+		}
 	}
 
+	#------------------------- Agregar OP -------------------------#
 
+	#0) Variables post que debe ingresar
+	#$$idRecetaAgregarOP=111;
+	#$pesoPastonAgregarOP=150;
+	#$idCarnesAgregarOP=[1];
+	#$catidadCarnesAgregarOP[100];
 
+	#1)Validación de Insumos
+	#$Validacion_Insumos=ControladorFormularios::ctrCalculoInsumos();
 
+	#if ($Validacion_Insumos) {
+		# code...
+	#}
 
+	#2)Validación de Carnes
 
+	#3) Copia los datos de la receta en la OP(es una redundancia de INFO), además agrega el Nro OP,PesoPaston,Fecha
 
+	#4)Movimiento de Insumos (trigger)
 
-
-
-
-
-
+	#5)Movimiento de Carnes (Procedure)
 
 
  #---------------------------------------------------------------------
 
 	static public function prueba(){
 
-		$fecha=date('YYYY-mm-dd');
-		$fecha='2020-01-02';#getdate();
-		$respuesta=date("y-m-d",strtotime($_POST["fechaDesposteAltaDesposte"]));
+		$id_receta=111;
+		$peso_paston=150;
 
-		return $respuesta;
+		$datos= ModeloFormularios::mdlDetalleReceta($id_receta);
+
+		
+		$datos = array(
+			#Lote de produccion
+			'largoUnidad_Lote'		=>$datos[0]['largo_unidad'],#Dato receta #Lote de produccion
+			'pesoUnidad_Lote'		=>$datos[0]['peso_unidad'],
+			#Esperado
+			'merma_Esperado'		=>$datos[0]['merma_esperada'], #Dato Receta
+			'largoUnidad_Esperado'	=>$datos[0]['largo_unidad']/$datos[0]['unidades_final_xunidad'],#Producto final
+			'pesoUnidad_Esperado'	=>$datos[0]['peso_unidad']/$datos[0]['unidades_final_xunidad']);
+
+
+		return $datos;
+	}
+
+
+	static public function pruebab(){
+
+		
+
+		$datos= array(	'id_proveedor_'	=> 111,
+						'nro_remito_'	=>$_POST["pesoPastonAltaOP"]);
+
+		
+		$respuesta1=ModeloFormularios::mdlListaInsumosOP($datos);
+		$respuesta2=ModeloFormularios::mdlValidacionStockInsumosOP($datos);
+
+			#Valida si alcanza el stock actual de insumo
+			if (count($respuesta2)>0) {
+				$validacion="NO";
+			}else{
+				$validacion="SI";
+			}
+
+		$respuesta= array(	'tablaInsumos_' => $respuesta1,
+							'validadacion_' => $respuesta2);
+
 	}
 
 	#------------------------- ELIMINAR- SE UTILIZA PARA REALIZAR PRUEBAS -------------------------#

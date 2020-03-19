@@ -5,7 +5,7 @@
 <?php
 
 #$prueba=ControladorFormularios::prueba1();
-$prueba=ControladorFormularios::ctrValidacionAnularDesposte();
+$prueba=ControladorFormularios::prueba();
 
 var_dump($prueba);
 
