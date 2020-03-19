@@ -148,7 +148,7 @@ foreach($depositos as $deposito){
           <h5 class="modal-title">Confirmar Nueva compra</h5>
         </div>
         <div class="modal-body">
-          <p>Usted está a punto de cargar la compra del remito numero <a class="numero remito"></a>, del proveedor <a class="proveedor compra"></a>, con fecha <a class="fechacompra"></a></p>
+          <p>Usted está a punto de cargar la compra del remito numero <a class="numero_remito"></a>, del proveedor <a class="proveedor_compra"></a>, con fecha <a class="fechacompra"></a></p>
 
           <p>Tendrá la siguiente descripción:</p> 
 
@@ -211,8 +211,8 @@ function completarmodalcomprainsumos(){
 
 
                                        
-modal.find('.numero remito').text('' + numeroremitocompra);
-modal.find('.proveedor compra').text('' + proveedor);
+modal.find('.numero_remito').text('' + numeroremitocompra);
+modal.find('.proveedor_compra').text('' + proveedor);
 modal.find('.fechacompra').text('' + fechacompra);
 modal.find('.descripcion').text('' + descripcion);
 
