@@ -5,7 +5,7 @@
 <?php
 
 #$prueba=ControladorFormularios::prueba1();
-$prueba=ControladorFormularios::prueba();
+$prueba=ControladorFormularios::ctrMovCarnePRUEBA();
 
 var_dump($prueba);
 

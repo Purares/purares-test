@@ -27,7 +27,7 @@ class ControladorFormularios{
 	static public function ctrListaCuentas(){
 		#La función que se está realizando en el front(ej:Actualizar insumo)
 		if (isset($_POST["funcion"])){
-			$funcion=isset($_POST["funcion"]);
+			$funcion=$_POST["funcion"];
 			$respuesta= ModeloFormularios::mdlListaCuentas($funcion);
 			return $respuesta;
 		}
@@ -35,12 +35,18 @@ class ControladorFormularios{
 
 #------------------------- Lista desplegable PROVEEDORES -------------------------#
 
-	static public function ctrListaProveedores(){
+ static public function ctrListaProveedores(){
 
-		if (isset($_POST["tipoProveedor_NuevaCompra"])){
+		if (isset($_POST["tipoProveedor_NuevaCompra"])or(isset($_GET["tipoProveedor_NuevaCompra"]))){
+			
+			if($_GET["tipoProveedor_NuevaCompra"]){
+			$tipoProveedor=$_GET["tipoProveedor_NuevaCompra"];
+			}
+			else{
 			$tipoProveedor=$_POST["tipoProveedor_NuevaCompra"];
-			$respuesta= ModeloFormularios::mdlListaProveedor($tipoProveedor); #Tipo: Carnes, Insumos. 
-			return $respuesta;
+			}
+		$respuesta= ModeloFormularios::mdlListaProveedor($tipoProveedor); #Tipo: Carnes, Insumos. 
+		return $respuesta;
 		}
 	}
 
@@ -90,13 +96,14 @@ class ControladorFormularios{
 	
 	$longitud=1;
 
-			$datos= array(	'idInsumo_'=> $_POST["idInsumoActI"],
-							'cantidad_'=>$_POST["cantidadActI"],
-							'idCuenta_'=>$_POST["idCuentaActI"], #Número fijo para la cuenta compra
-							'idOrdenProd_'=>$array_fill(0,$logitud,null),
-							'idCompra_'=>$array_fill(0,$logitud,null),
-							'idUsuario_'=>$array_fill(0,$logitud,'1'),
-							'descripcion_'=>$_POST["descripcionActI"]);
+			$datos= array(	'idInsumo_'		=>$_POST["idInsumoActI"],
+							'cantidad_'		=>$_POST["cantidadActI"],
+							'idCuenta_'		=>$_POST["idCuentaActI"], #Número fijo para la cuenta compra
+							'idOrdenProd_'	=>$array_fill(0,$logitud,null),
+							'idCompra_'		=>$array_fill(0,$logitud,null),
+							'idUsuario_'	=>$array_fill(0,$logitud,'1'),
+							'descripcion_'	=>$_POST["descripcionActI"],
+							'funcion_'		=>array_fill(0,$longitud,'ActualizarInsumo'));
 
 		$datos2=array_column($datos,0);
 		$respuesta=ModeloFormularios::mdlMovimientoInsumo($datos);
@@ -215,13 +222,13 @@ class ControladorFormularios{
 
 			#COMPLETAR EN LA BD:
 					$datos= array(	'nombre_' => $_POST["nombreCrearReceta"],
-									'merma_' => $_POST["mermaCrearReceta"],
 									'diasprod_' => $_POST["diasprodCrearReceta"],
 									'diasvenc_' => $_POST["diasvencCrearReceta"],
+									'porcentcarne_'	 => $_POST["porcentcarneCrearReceta"],
 									'largouni_' => $_POST["largouniCrearReceta"],
 									'pesouni_' => $_POST["pesouniCrearReceta"],
+									'merma_' => ($_POST["mermaCrearReceta"]/100),
 									'unidadesFinalXunidad_' => $_POST["uFinalXuCrearReceta"],
-									'porcentcarne_'	 => $_POST["porcentcarneCrearReceta"],
 									'descripcion_' => $_POST["descripcionCrearReceta"]);
 
 				#Agrega la Receta y obtiene el ID de la mism
@@ -395,22 +402,34 @@ class ControladorFormularios{
 
 		if (isset($_POST["idCarneMovimientoCarne"])||
 			isset($_POST["idCuentaMovimientoCarne"])||
+			isset($_POST["idDesposteMovimientoCarne"])||
 			isset($_POST["cantidadMovimientoCarne"])) {
 
+			#Crear el Array con todos los datos que se necesitarán
 			$longitud=1;
-
-			$datos2= array(	'idCarne_'		=> $_POST["idCarneMovimientoCarne"],
-							'idCuenta_'		=> $_POST["idCuentaMovimientoCarne"], #VariableFIJA!
-							'idDesposte_'	=> array_fill(0,$longitud,null),
-							'cantidad_'		=> $_POST["cantidadMovimientoCarne"],
+			$datos2= array(	'idCarne_'		=> [$_POST["idCarneMovimientoCarne"]],
+							'idCuenta_'		=> [$_POST["idCuentaMovimientoCarne"]], #VariableFIJA!
+							'idDesposte_'	=> [$_POST["idDesposteMovimientoCarne"]],
+							'cantidad_'		=> [$_POST["cantidadMovimientoCarne"]],
 							'idOrenProd_'	=> array_fill(0,$longitud,null),
 							'idUsuario_'	=> array_fill(0,$longitud,1),#[TO DO]
-							'descripcion_'	=> $_POST["descripcionMovimientoCarne"]);
+							'descripcion_'	=> [$_POST["descripcionMovimientoCarne"]]);
 				
 			$datos3 = array_column($datos2,0);
-			$respuesta=ControladorFormularios::ctrMovCarnesDesposte($datos);
+			
+			#Validar que exista el stock suficiente para realizar el movimiento
+			$respuesta1=ModeloFormularios::mdlValidacionMovCarne($datos3);
+		
+			$stockActual=$respuesta1[0]['stock'];
 
+				if ($stockActual>=$_POST["cantidadMovimientoCarne"]) {
+					#$respuesta='ok';
+					$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
+				}else{
+					$respuesta='Stock insuficiente.';
+				}
 			return $respuesta;
+
 		}
 	}
 
@@ -419,10 +438,10 @@ class ControladorFormularios{
 
 	static public function ctrValidacionAnularDesposte(){
 
-		if (isset($_POST["idDesposteVerDetalles"])){
+			if (isset($_POST["idDesposteVerDetalles"])&&empty($_POST["motivoAnulacionDesposte"])){
 
-			$id_desposte=$_POST["idDespoteVerDetalles"];
-
+			$id_desposte=$_POST["idDesposteVerDetalles"];
+			
 			#Validar que no exista ninguna OP(no anulada) que consuma las carnes del desposte a anulr
 			$respuesta=ModeloFormularios::mdlValidacionAnularDesposte1($id_desposte);
 			$longitud=count($respuesta);
@@ -451,58 +470,64 @@ class ControladorFormularios{
 					}
 				$respuesta=substr($cadena2,0,strlen($cadena2)-5);
 				return $respuesta;
-			}#Exit 2da Validacion
+			}else{
+			$respuesta=0;#Exit 2da Validacion
+		return $respuesta;
+		}	}
 
 			#Si cumple con las dos validaciones pedira que informe porque lo anula
-			if (isset($_POST["motivoAnulacionDesposte"])){
+     if (isset($_POST["idDesposteVerDetalles"])&&!empty($_POST["motivoAnulacionDesposte"])){
+
+     			$id_desposte=$_POST["idDesposteVerDetalles"];
 				
 				#1)Ejecuta un Procedure(act) para anular el desposte.
 				#2)Se ejecuta un trigger para realizar el contra-asiente.
 				$datos= array(	'idDesposte_'=> $id_desposte,
 								'idUsuario_'=>'1',
-								'motivoAnulacion_'=> $_POST["motivoAnulacionDesposte"]);
-								
+								'motivoAnulacion_'=> $_POST["motivoAnulacionDesposte"]);#[TO DO]
 				$respuesta=ModeloFormularios::mdlAnularDesposte($datos);
+				return $respuesta;
 			}else{
-				$respuesta=0; #[TO DO] #Envía esta variable para que complete el motivo 
+				$respuesta="error al intentar anular"; #[TO DO] #Envía esta variable para que complete el motivo 
 			}
-
-		return $respuesta;
-		}	
 	}
 
 	#------------------------- Compra de INSUMOS -------------------------#
 
 	static public function ctrCompraInsumo(){
 	
-		if (isset($_GET["id_insumo_compraI"])||
-			isset($_GET["cantidad_compraI"])||
-			isset($_GET["proveedor_compraI"])||
-			isset($_GET["fecha_compraI"])){
+		if (isset($_POST["idInsumoCompraInsumo"])||
+			isset($_POST["cantidadCompraInsumo"])||
+			isset($_POST["idProvedorCompraInsumo"])||
+			isset($_POST["fechaCompraInsumo"])){
 
 			#Datos de la compra
-			$datosC= array(	'id_proveedor_'	=> $_POST["idProvedorCompraInsumo"],
-							'nro_remito_'	=>$_POST["nroRemitoCompraInsumo"],
-							'fecha_compra_'	=> strval(date("y-m-d",strtotime($_POST["fechaCompraInsumo"]))),
-							'id_usuario_'	=> '1');#[TO DO] Deberia tomar el usuario que ingreso
+			$datosC= array(	'idProveedor_'	=> $_POST["idProvedorCompraInsumo"],
+							'nroRemito_'	=>$_POST["nroRemitoCompraInsumo"],
+							'fechaCompra_'	=> strval(date("y-m-d",strtotime($_POST["fechaCompraInsumo"]))),
+							'descripcion_'	=>$_POST["descripcionCompraInsumo"],
+							'idUsuario_'	=> '1');#[TO DO] Deberia tomar el usuario que ingreso
 
-			$id_compra_nueva= ModeloFormularios::mdlCompraInsumo($datosF);
+			$id_compra_nueva= ModeloFormularios::mdlCompraInsumo($datosC);
 
 			#Datos de los Movimiento de Insumo
 			$longitud= count($_POST["idInsumoCompraInsumo"]);
-			$datosMI= array('idInsumo_'		=> $_POST["idInsumoCompraInsumo"],
+
+			$datosMI= array('idInsumo_'		=>$_POST["idInsumoCompraInsumo"],
 							'cantidad_'		=>$_POST["cantidadCompraInsumo"],
-							'idCuenta_'		=>$array_fill(0,$logitud,10), #Número fijo para la cuenta compra
-							'idOrdenProd_'	=>$array_fill(0,$logitud,null),
-							'idCompra_'		=>$array_fill(0,$logitud,$id_compra_nueva),
-							'idUsuario_'	=>$array_fill(0,$logitud,'1'),
-							'descripcion_'	=>$_POST["descripcionCompraInsumo"]);
+							'idCuenta_'		=>array_fill(0,$longitud,10), #Número fijo para la cuenta compra
+							'idOrdenProd_'	=>array_fill(0,$longitud,null),
+							'idCompra_'		=>array_fill(0,$longitud,$id_compra_nueva),
+							'idUsuario_'	=>array_fill(0,$longitud,'1'),
+							'descripcion_'	=>array_fill(0,$longitud,null),
+							'funcion_'		=>array_fill(0,$longitud,'CompraInsumo'));
 
 			#Cargar los Movimientos de Insumo
 			for ($i=0; $i < $longitud ; $i++) { 
 				$datos=array_column($datosMI,$i);
+				
 				$respuesta=ModeloFormularios::mdlMovimientoInsumo($datos);
-				if ($respuesta != "ok") { return $respuesta;}
+				if ($respuesta != "OK") { return $respuesta;}
 			}
 			
 			return $respuesta;
@@ -543,6 +568,7 @@ class ControladorFormularios{
 
 	#------------------------- Agregar OP -------------------------#
 
+	#static public function ctrCalculoInsumos(){
 	#0) Variables post que debe ingresar
 	#$$idRecetaAgregarOP=111;
 	#$pesoPastonAgregarOP=150;
@@ -564,6 +590,7 @@ class ControladorFormularios{
 
 	#5)Movimiento de Carnes (Procedure)
 
+	#}
 
  #---------------------------------------------------------------------
 
@@ -651,10 +678,52 @@ class ControladorFormularios{
 
 	#$respuesta=ControladorFormularios::ctrMovCarnesDesposte($datos2);
 	return $respuesta;
-
-
-
 	}
+
+	static public function ctrMovCarnePRUEBA(){
+
+		$idCarneMovimientoCarne=8;
+		$idCuentaMovimientoCarne=7;
+		$idDesposteMovimientoCarne=9;
+		$cantidadMovimientoCarne=99;
+		$descripcionMovimientoCarne="HC";
+
+			$longitud=1;
+
+			$datos2= array(	'idCarne_'		=> [$idCarneMovimientoCarne],
+							'idCuenta_'		=> [$idCuentaMovimientoCarne], #VariableFIJA!
+							'idDesposte_'	=> [$idDesposteMovimientoCarne],
+							'cantidad_'		=> [$cantidadMovimientoCarne],
+							'idOrenProd_'	=> array_fill(0,$longitud,null),
+							'idUsuario_'	=> array_fill(0,$longitud,1),#[TO DO]
+							'descripcion_'	=> [$descripcionMovimientoCarne]);
+				
+			$datos3 = array_column($datos2,0);
+
+			#VALIDACIÓN
+
+
+			#$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
+			
+			$respuesta1=ModeloFormularios::mdlValidacionMovCarne($datos3);
+		
+			$stockActual=$respuesta1[0]['stock'];
+
+			if ($stockActual>=$cantidadMovimientoCarne) {
+				$respuesta='ok';
+			}else{
+				$respuesta='no';
+			}
+			
+
+			return $respuesta;
+
+		
+	}
+
+
+
+
 
 
 }	#cierra la clase
