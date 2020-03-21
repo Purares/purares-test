@@ -152,7 +152,15 @@ if(isset($_POST["funcion"])){
     }
 }
 
+ if (isset($_POST["idCarneMovimientoCarne"])||
+    isset($_POST["idCuentaMovimientoCarne"])||
+    isset($_POST["idDesposteMovimientoCarne"])||
+    isset($_POST["cantidadMovimientoCarne"])) {
 
+$respuesta=ControladorFormularios::ctrMovCarne();
 
+echo $respuesta;
+
+}
 
 ?>

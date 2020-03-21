@@ -11,7 +11,7 @@ $detalleDesbastes=ControladorFormularios::ctrDetalleDesposte();
 
 $detallecarnesdesbaste=ControladorFormularios::ctrCarnesDesposte();
 
-$nuevo_movcarne=ControladorFormularios::ctrMovCarne();
+//$nuevo_movcarne=ControladorFormularios::ctrMovCarne();
 
 
 foreach ($detalleDesbastes as $detalleDesbaste) {
@@ -112,8 +112,6 @@ echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scop
         <div class="modal-body">
 
 
- <form method="post" class="needs-validation">
-
         			<input type="hidden" id="input_id_carne" name="idCarneMovimientoCarne">
 		
 		              <div class="input-group">
@@ -155,7 +153,7 @@ echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scop
         </div>
         <div class="modal-footer">
         
-	      <button type="button" class="btn btn-success" data-toggle="modal" id="botonAgregarMovCarne" data-target="#ConfirmarMovCarne">Cargar Movimiento</button> 
+	      <button type="submit" class="btn btn-success" data-toggle="modal" id="botonAgregarMovCarne" data-target="#ConfirmarMovCarne">Cargar Movimiento</button> 
 
         </div>
       </div>
@@ -177,8 +175,21 @@ echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scop
           <p>¿Confirma que desea CARGAR ESTE MOVIMIENTO DE CARNE?</p>
         </div>
         <div class="modal-footer">
-           <button type="submit"  class="btn btn-success">Sí, cargar movimiento de carne</button>
+           <button type="button"  class="btn btn-success" id="botonconfirmacioncargamovcarne">Sí, cargar movimiento de carne</button>
              <button type="button" class="btn btn-danger" data-dismiss="modal">No, descartar movimiento</button>
+      </div>
+    </div>
+
+      <div class="modal fade" id="Mensaje" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+             <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
 
@@ -291,7 +302,7 @@ $.ajax({
                 data:{funcion:"'ActualizarCarne'"},
                 success:function(html){
 
-                  alert(html)
+    //              alert(html)
 
                 $('#cuentasmovimientoCarne').append('<option value="">Seleccione el tipo de movimiento</option>'+html)
 
@@ -330,6 +341,23 @@ modal.find('.descripcion').text('' + descripcion);
 modal.find('.nombremodal').text('' + nombre);
 
   }})
+
+$("#botonconfirmacioncargamovcarne").on( "click", function() {
+
+	alert($('#input_id_carne').val()+','+$('#cuentasmovimientoCarne option:selected').val()+','+$('#id_desposte_ventana').val()+','+$('#cantidadMovCarne').val()+','+$('#descripcionMovCarne').val())
+
+    $.ajax({
+                type:'POST',
+                url:'datos.php',
+       			data:{idCarneMovimientoCarne:$('#input_id_carne').val(), idCuentaMovimientoCarne:$('#cuentasmovimientoCarne option:selected').val(),idDesposteMovimientoCarne:$('#id_desposte_ventana').val(),cantidadMovimientoCarne:$('#cantidadMovCarne').val(),descripcionMovimientoCarne:$('#descripcionMovCarne').val()},
+                success:function(respuesta){
+ 
+$('#ConfirmarMovCarne').modal('hide')
+$('#Mensaje').modal('show')
+var modal=$('#Mensaje')
+modal.find('.modal-body').html(respuesta)
+
+}})})
 /*
 
 
