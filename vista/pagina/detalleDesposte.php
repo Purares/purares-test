@@ -154,6 +154,7 @@ echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scop
         <div class="modal-footer">
         
 	      <button type="submit" class="btn btn-success" data-toggle="modal" id="botonAgregarMovCarne" data-target="#ConfirmarMovCarne">Cargar Movimiento</button> 
+         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 
         </div>
       </div>
@@ -260,8 +261,8 @@ $("#botonAnularDesbaste").on( "click", function() {
 function enviamotivo(){
 
 
-alert($('#descripcionanulacion').val())
-alert($('.iddesbaste').text())
+//alert($('#descripcionanulacion').val())
+//alert($('.iddesbaste').text())
 
         //       $('#AnularDesbaste').modal('hide')
 
@@ -344,15 +345,13 @@ modal.find('.nombremodal').text('' + nombre);
 
 $("#botonconfirmacioncargamovcarne").on( "click", function() {
 
-	alert($('#input_id_carne').val()+','+$('#cuentasmovimientoCarne option:selected').val()+','+$('#id_desposte_ventana').val()+','+$('#cantidadMovCarne').val()+','+$('#descripcionMovCarne').val())
+//	alert($('#input_id_carne').val()+','+$('#cuentasmovimientoCarne option:selected').val()+','+$('#id_desposte_ventana').val()+','+$('#cantidadMovCarne').val()+','+$('#descripcionMovCarne').val())
 
     $.ajax({
                 type:'POST',
                 url:'datos.php',
        			data:{idCarneMovimientoCarne:$('#input_id_carne').val(), idCuentaMovimientoCarne:$('#cuentasmovimientoCarne option:selected').val(),idDesposteMovimientoCarne:$('#id_desposte_ventana').val(),cantidadMovimientoCarne:$('#cantidadMovCarne').val(),descripcionMovimientoCarne:$('#descripcionMovCarne').val()},
-                success:function(respuesta){
- 
-$('#ConfirmarMovCarne').modal('hide')
+                success:function(respuesta){                                
 $('#Mensaje').modal('show')
 var modal=$('#Mensaje')
 modal.find('.modal-body').html(respuesta)
