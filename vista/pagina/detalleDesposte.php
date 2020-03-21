@@ -190,7 +190,7 @@ echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scop
         <div class="modal-body">
         </div>
         <div class="modal-footer">
-             <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+             <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="location.reload();">Cerrar</button>
       </div>
     </div>
 
@@ -304,7 +304,7 @@ $.ajax({
                 success:function(html){
 
     //              alert(html)
-
+                $('#cuentasmovimientoCarne').empty()
                 $('#cuentasmovimientoCarne').append('<option value="">Seleccione el tipo de movimiento</option>'+html)
 
                 }
@@ -351,7 +351,8 @@ $("#botonconfirmacioncargamovcarne").on( "click", function() {
                 type:'POST',
                 url:'datos.php',
        			data:{idCarneMovimientoCarne:$('#input_id_carne').val(), idCuentaMovimientoCarne:$('#cuentasmovimientoCarne option:selected').val(),idDesposteMovimientoCarne:$('#id_desposte_ventana').val(),cantidadMovimientoCarne:$('#cantidadMovCarne').val(),descripcionMovimientoCarne:$('#descripcionMovCarne').val()},
-                success:function(respuesta){                                
+                success:function(respuesta){    
+                           
 $('#Mensaje').modal('show')
 var modal=$('#Mensaje')
 modal.find('.modal-body').html(respuesta)

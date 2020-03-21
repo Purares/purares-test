@@ -93,11 +93,11 @@ echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] 
                            <div class="row">
                      <div class="form-group col-6">
                          <label for="spanrecetalargouni">Largo por unidad de producto fresco:</label>
-                                <span class="input-group-text recetalargoporunidad" id="spanrecetalargouni"><?php echo $receta['largo_unidad'] ?> cm/unidad</span>
+                                <span class="input-group-text recetalargoporunidad" id="spanrecetalargouni"><?php echo $receta['largo_unidad_lote'] ?> cm/unidad</span>
                                 </div>
                             <div class="form-group col-6">
                          <label for="spanrecetapesouni">Peso por unidad de producto fresco:</label>
-                                <span class="input-group-text recetapesoporunidad" id="spanrecetapesouni"><?php echo $receta['peso_unidad'] ?> gramos/unidad</span>
+                                <span class="input-group-text recetapesoporunidad" id="spanrecetapesouni"><?php echo $receta['peso_unidad_lote'] ?> gramos/unidad</span>
                                 </div>
         				</div>
      		<br>
