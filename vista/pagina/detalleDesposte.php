@@ -97,7 +97,7 @@ echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scop
         <div class="modal-body">
 
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer anular">
         </div>
       </div>
     </div>
@@ -245,10 +245,10 @@ $("#botonAnularDesbaste").on( "click", function() {
                   }else{
 
 
-                         $('#AnularDesbaste').modal('show')
+                      $('#AnularDesbaste').modal('show')
                           var modal = $('#AnularDesbaste')
                           modal.find('.modal-body').html(anulacion)
-
+                          modal.find('.modal-footer').html('<button type="button" class="btn btn-danger">Cerrar</button>')
                   }
                 //alert('activo'+html);
                 //$('#AnularDesbaste').modal('show')
@@ -273,9 +273,24 @@ function enviamotivo(){
                 data:{idDesposteVerDetalles: id_desbaste, motivoAnulacionDesposte:$('#descripcionanulacion').val()},
                 success:function(respuesta){
 
+                	if(respuesta=="ok"){
+
                   $('#AnularDesbaste').modal('show')
                   var modal = $('#AnularDesbaste')
                   modal.find('.modal-body').html(respuesta)
+                  modal.find('.anular').html('<button type="button" class="btn btn-danger" id="cerraranular">Cerrar</button>')
+
+                  $("#cerraranular").on( "click", function() {
+
+var url2=$(location).attr('href')
+var url3=url2.replace("estado=0", "estado=1")
+
+ $(location).attr('href',url3)
+$('#Mensaje').modal('hide')
+})
+
+                        
+}
                 }})
  //     alert("ajax no falló")
 
@@ -357,7 +372,11 @@ $('#Mensaje').modal('show')
 var modal=$('#Mensaje')
 modal.find('.modal-body').html(respuesta)
 
+
 }})})
+
+
+
 /*
 
 
