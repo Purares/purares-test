@@ -8,6 +8,8 @@
 
 $recetas=ControladorFormularios::ctrListaRecetas();
 
+$carnes=ControladorFormularios::ctrListaCarnes();
+
 ?>
 
 
@@ -53,51 +55,34 @@ foreach($recetas as $receta){
                                       </div>
           				</div>
                           </div>
-                            	<br>    
-                      <p>Complete los kilos de carne requeridos </p>
-            				<table class="table table-sm">
-      						<thead>
-          						<tr>
-             						<th scope="col">ID Carne</th>
-                                  <th scope="col">Nombre</th>
-             						<th scope="col-1">Cantidad</th>
-             						<th scope="col">Unidad</th>
-                                  <th scope="col">Stock actual</th>
-             						<th scope="col">Borrar</th>
-          						</tr>
-        						</thead>
-    							<tbody id="TablaCarnes">
-                              <tr id="seleccioncarnes">
-             							<td scope="col">
-            							</td>
-                          <td scope="col">
-                          <select class="custom-select" id="nombreCarnes">
-                                          <option value="0">Seleccione la carne</option>
-            								</select>
-                          </td>
-            							<td scope="col-1">	
-             								<input type="number" min=0 step=0.0001 id="CantidadCarne" class="form-control text-right" placeholder="Cantidad">
-            							</td>
-                                      <td scope="col">
-                                      <span class="input-group-text" id="unidadcarnes"></span>
-                                      </td>
-                                      <td scope="col">
-                                       <div class="input-group-prepend">
-                                      <span class="input-group-text" id="stockcarnes"></span><span class="input-group-text" id="stockcarnesunidad"></span>
-                                      </div>
-                                      </td>
-           						</tr>  
-    							</tbody>
-  						</table>
-      
-                          <p style="color:#FF0000" id="errorcarnesinvalidas"></p>
-  						<button type="button" id="BotonAgregarCarne" class="btn btn-secondary btn-sm">Agregar Carne</button>
-                
                           <br>
-                          <p style="color:#FF0000" id="errorcarnes"></p>
+                           <p>Se requeriran estas cantidades de insumos:</p>
+                           <br>
+              <h6>Ingrese la cantidad de carnes que utilazará la receta:</h6>
+              <br>
+              <div class="container">
+                  <table class="table table-sm">
+                <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                                <th scope="col">Carne</th>
+                      <th scope="col">Cantidad</th>
+                    </tr> 
+                  </thead>
+                <tbody id="TablaCarnesDesposte">
               
-                          <span class="input-group-text"><span id="kilosnecesarios"></span>&nbsp;kilos de carne requeridos</span> 
+<?php
 
+foreach($carnes as $carne){
+
+  echo '<tr><td scope="col">' . $carne[0] . '<input type="hidden" name="idCarneAltaDesposte[]" value="' . $carne[0] . '"></td><td scope="col">' . $carne[1] . '<input type="hidden" class="nomcarne" value="' . $carne[1] . '"></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.0001 name="cantidadAltaDesposte[]" class="form-control cantcarne" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[2] . '</a></span></div></div></td></tr>';
+
+}
+
+?>
+                </tbody>
+            </table>
+          </div>      
                           <br>
                  		<button type="button" class="btn btn-success" id="EstablecerOrden"  data-toggle="modal" data-target="#ConfirmarOrden">Establecer orden</button> 
 
