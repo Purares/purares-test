@@ -570,12 +570,12 @@ class ControladorFormularios{
 
 	static public function ctrAgregarOP(){
 
-		#AGREGAR IF ISSET	
+			
 		#0) Variables post que debe ingresar
-		$idRecetaAgregarOP=111;
-		$pesoPastonAgregarOP=150;
-		$idCarnesAgregarOP=[8,9,10];
-		$catidadCarnesAgregarOP=[100,200,300];
+		#$idRecetaAgregarOP=111;
+		#$pesoPastonAgregarOP=150;
+		#$idCarnesAgregarOP=[8,9,10];
+		#$catidadCarnesAgregarOP=[100,200,300];
 
 		if (isset($_POST["idRecetaAltaOP"])||
 			isset($_POST["pesoPastonAltaOP"])||
@@ -722,7 +722,27 @@ class ControladorFormularios{
 	}#Cierra la funcion
 
 
+#------------------------- Lista Orden de produccion -------------------------#
 
+	static public function ctrListaOP(){
+		$respuesta= ModeloFormularios::mdlListaOP();
+		return $respuesta;
+	}	
+
+#------------------------- InsumosXdeposito -------------------------#
+
+	static public function ctrDetalleOP(){
+
+		if (isset($_GET["idDepositoFiltroInsumo"])){
+
+			$id_deposito=$_POST["idOrdenProdDetalle"];
+			$respuesta= ModeloFormularios::mdlDetalleOP($id_OrdenProd);
+	
+			return $respuesta;	
+		}
+
+	
+	}
 
 
 

@@ -564,20 +564,6 @@ static public function mdlCrearDesposte($datos){
 
 #ORDENES DE PRODUCCION
 
-	#------------------------- Lista OP -------------------------#
-
-
-	static public function mdlListaOP(){
-
-		$stmt=conexion::conectarBD()->prepare("SELECT id_udm, nombre FROM udm_n where activo=1");
-		$stmt -> execute();
-		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
-		$stmt -> close(); #cierra la conexion
-		$stmt =null; 
-	}
-
-
-
 #------------------------- Tabla de Insumo-------------------------#
 	static public function mdlListaInsumosOP($datos){
 
@@ -647,6 +633,30 @@ static public function mdlAltaOP($datosOP){
 
 
 
+#-------------------------Lista de Oredenes de Produccion------------------------#
+
+	static public function mdlListaOP(){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_lista_op;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+
+	}
+
+#-------------------------Detalle de Oredenes de Produccion------------------------#
+
+	static public function mdlDetalleOP($id_OrdenProd){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_op where id_ordenprod=$id_OrdenProd;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
 
 
 
@@ -663,25 +673,6 @@ static public function mdlAltaOP($datosOP){
 		$stmt -> close(); #cierra la conexion
 		$stmt =null;
 	}
-
-
-static public function mdlPrueba(){
-
-		$stmt=conexion::conectarBD()->prepare("call v_insumosAltaOP(7, 200);");
-		
-		if ($stmt -> execute()){
-			return $stmt -> fetchAll();
-		}else{ 
-			print_r(conexion::conectarBD()->errorInfo());
-		}
-
-		$stmt -> close(); #cierra la conexion
-		$stmt =null; 
-	}
-
-
-
-
 
 
 } #Cierra la clase
