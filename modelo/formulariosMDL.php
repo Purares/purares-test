@@ -1,5 +1,5 @@
 <?php
-#ACTUALIZADO 13/3-1.43hs
+#ACTUALIZADO 25/3-1.43hs
 
 require_once"modelo/conexion.php";
 
@@ -564,6 +564,20 @@ static public function mdlCrearDesposte($datos){
 
 #ORDENES DE PRODUCCION
 
+	#------------------------- Lista OP -------------------------#
+
+
+	static public function mdlListaOP(){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT id_udm, nombre FROM udm_n where activo=1");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+
 #------------------------- Tabla de Insumo-------------------------#
 	static public function mdlListaInsumosOP($datos){
 
@@ -629,6 +643,8 @@ static public function mdlAltaOP($datosOP){
 		$stmt -> close(); #cierra la conexion
 		$stmt =null; 
 	}
+
+
 
 
 
