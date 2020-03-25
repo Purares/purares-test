@@ -561,39 +561,178 @@ class ControladorFormularios{
 			}
 
 		$respuesta= array(	'tablaInsumos_' => $respuesta1,
-							'validadacion_' => $respuesta2);
+							'validacion_' => $validacion);
 		
 		}
 	}
 
 	#------------------------- Agregar OP -------------------------#
 
-	#static public function ctrCalculoInsumos(){
-	#0) Variables post que debe ingresar
-	#$$idRecetaAgregarOP=111;
-	#$pesoPastonAgregarOP=150;
-	#$idCarnesAgregarOP=[1];
-	#$catidadCarnesAgregarOP[100];
+	static public function ctrAgregarOP(){
 
-	#1)Validación de Insumos
-	#$Validacion_Insumos=ControladorFormularios::ctrCalculoInsumos();
+		#AGREGAR IF ISSET	
+		#0) Variables post que debe ingresar
+		$idRecetaAgregarOP=111;
+		$pesoPastonAgregarOP=150;
+		$idCarnesAgregarOP=[8,9,10];
+		$catidadCarnesAgregarOP=[100,200,300];
 
-	#if ($Validacion_Insumos) {
-		# code...
-	#}
+		if (isset($_POST["idRecetaAltaOP"])||
+			isset($_POST["pesoPastonAltaOP"])||
+			isset($_POST["idCarnesAgregarOP"])||
+			isset($_POST["catidadCarnesAgregarOP"])){
 
-	#2)Validación de Carnes
 
-	#3) Copia los datos de la receta en la OP(es una redundancia de INFO), además agrega el Nro OP,PesoPaston,Fecha
+			$carnesOP = array(	'idCarnes' =>$idCarnesAgregarOP ,
+								'cantidad' =>$catidadCarnesAgregarOP);
 
-	#4)Movimiento de Insumos (trigger)
 
-	#5)Movimiento de Carnes (Procedure)
+			#1)Validación de Insumos
+			$calculo_Insumos=ControladorFormularios::ctrCalculoInsumos();
+			$validacion_Insumos=$calculo_Insumos['validacion_'];
 
-	#}
+				if ($validacion_Insumos="SI") {
+					
+				#2)Validacion de Carnes
+					$validacion_Carnes= ControladorFormularios::ctrValidarStockCarnesOP($carnesOP);
+					if ($validacion_Carnes='OK') {
+						
+						#Crear Alta de OP
+						$datosOP = array(	'idReceta_' 	=> $idRecetaAgregarOP,
+											'pesoPaston_' 	=> $pesoPastonAgregarOP, 
+											'id_usuario_' 	=> 1 ); #[TO DO]
+
+						$idOrdenProd=ModeloFormularios::mdlAltaOP($datosOP);
+
+						#3)Movimiento de Insumos
+							$respuesta=ctrMovInsumoAltaOP($calculo_Insumos,$idOrdenProd);
+							if ($respuesta != "OK") { return $respuesta;}
+
+						#4)Movimiento de Carne
+							$respuesta=ControladorFormularios::ctrMovCarneAltaOP($carnesOP,$idOrdenProd);
+							if ($respuesta != "OK") { return $respuesta;}
+
+					}else{
+						$respuesta=$validacion_Carnes;
+					}
+								
+				}else{$respuesta="Stock de Insumos insuficientes";}#cierre de la validación de insumos
+			
+			return $respuesta;
+		}		
+	}
 
  #---------------------------------------------------------------------
 
+	static public function ctrValidarStockCarnesOP($carnesOP){
+
+
+		$longitud=count($carnesOP['idCarnes']);
+		$cadena=null;
+			for ($i=0; $i <$longitud ; $i++) { 
+				
+				$respuestaVC=ModeloFormularios::mdlValidacionStockCarnes($carnesOP['idCarnes'][$i]);
+				
+				#Valida si hay stock de carnes
+				if ($respuestaVC[0]['Stock']<$carnesOP['cantidad'][$i]) {
+					$cadena=$cadena.$respuestaVC[0]['nombre'].", ";
+				}
+			}
+			#Si Cadena tiene datos envía el mensaje
+			if (strlen($cadena)== null) {
+				$respuesta="OK";
+			}else{
+				$respuesta= "Stock insuficiente de las siguientes carnes: ".substr($cadena,0,strlen($cadena)-2).".";}
+	return $respuesta;
+
+	}
+
+#--------------------------MOVIMIENTO DE INSUMO PARA ALTA DE OP-------------------------------------------
+
+	static public function ctrMovInsumoAltaOP($calculo_Insumos,$idOrdenProd){
+
+		$tablaInsumos_receta=$calculo_Insumos['tablaInsumos_'];#del array solo me quedo con la tabla de insumos
+		$longitud=count($tablaInsumos_receta);#cuento los registros
+		
+			#Armo el array
+			$datosMI= array('idInsumo_'		=>array_column($i_r, 'id_insumo'),
+							'cantidad_'		=>array_column($i_r, 'cantidad'),
+							'idCuenta_'		=>array_fill(0,$longitud,2), #Número fijo para la cuenta compra
+							'idOrdenProd_'	=>array_fill(0,$longitud,$idOrdenProd),
+							'idCompra_'		=>array_fill(0,$longitud,null),
+							'idUsuario_'	=>array_fill(0,$longitud,'1'),#[To Do]
+							'descripcion_'	=>array_fill(0,$longitud,null),
+							'funcion_'		=>array_fill(0,$longitud,'OrdenProd'));
+		#Recorro el Array 
+		for ($i=0; $i <$longitud ; $i++) { 
+			# Inserto insumo por insumo
+			$datos=array_column($datosMI,$i);
+			$respuesta=ModeloFormularios::mdlMovimientoInsumo($datos);
+
+			if ($respuesta != "OK") { return $respuesta;}
+		}
+
+	return "OK";
+	}
+
+
+#--------------------------MOVIMIENTO DE CARNE PARA ALTA DE OP-------------------------------------------
+
+	static public function ctrMovCarneAltaOP($carnesOP,$idOrdenProd){
+
+		$longitud=count($carnesOP['idCarnes']);
+		for ($i=0; $i <$longitud ; $i++) { 
+		
+			$stockCarnes_composicion=ModeloFormularios::mdlComposicionStockCarnes($carnesOP['idCarnes'][$i]);
+
+			$resta=$carnesOP['cantidad'][$i];
+			$cadena="cadena: ";
+
+			$i=0;
+			while ( $resta != 0) {
+
+				#IF el stock de ese desposte en menor a lo que resta, descuento toda la carne de ese desposte, ELSE solo lo que resta
+				if ($resta>$stockCarnes_composicion[$i]['stock']) {
+					$cantidad=$stockCarnes_composicion[$i]['stock'];
+				}else{
+					$cantidad=$resta;
+				}
+					#Armo el array
+					$datosMC= array(	'idCarne_'		=> [$stockCarnes_composicion[$i]['id_carne']],
+										'idCuenta_'		=> [2], #VariableFIJA!
+										'idDesposte_'	=> [$stockCarnes_composicion[$i]['id_desposte']],
+										'cantidad_'		=> [$cantidad],
+										'idOrenProd_'	=> [$idOrdenProd],
+										'idUsuario_'	=> [1],#[TO DO]
+										'descripcion_'	=> [null],
+										'funcion_'		=> ['OrdenProd']);
+
+					#Agregar el registro en la BD
+					$respuesta=ModeloFormularios::mdlMovimientoCarne(array_column($datosMC,0));
+					if ($respuesta != "OK") { return $respuesta;}
+
+				#A lo que falta repartir le resto la cantidad del desposte anterior
+				$resta=$resta-$cantidad;
+				$i++;#siguiente desposte
+
+			}#cierra el while de despostes
+		}#cierra el for de carnes
+
+	return "OK";
+	}#Cierra la funcion
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 	static public function prueba(){
 
 		$id_receta=111;
@@ -720,7 +859,7 @@ class ControladorFormularios{
 
 		
 	}
-
+*/
 
 
 
