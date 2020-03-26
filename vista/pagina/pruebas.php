@@ -6,7 +6,6 @@
 	
 
 
-$prueba=ControladorFormularios::ctrCalculoInsumos();
 
 	var_dump($prueba);
 
