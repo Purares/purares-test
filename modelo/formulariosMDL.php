@@ -530,6 +530,29 @@ static public function mdlCrearDesposte($datos){
 
  #COMPRA DE INSUMOS
 
+#-------------------Lista de compra-----------------------------------------
+
+	static public function mdlListaCompras(){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_lista_compras;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
+	}
+
+#-------------------Detalle de compra-----------------------------------------
+
+	static public function mdlDetalleCompra($id_compra){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_compra where id_compra=$id_compra;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
+
+	}
+
 
 #------------------------- Generar Compra de Insumo-------------------------#
 
@@ -585,13 +608,13 @@ static public function mdlCrearDesposte($datos){
 #------------------------- Validacion stock de Insumo para OP-------------------------#
 	static public function mdlValidacionStockInsumosOP($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call v_insumosAltaOP(:idReceta, :pesoPaston);");
+		$stmt=conexion::conectarBD()->prepare("call v_ValidacionInsumosAltaOP(:idReceta, :pesoPaston);");
 
 		$stmt -> bindparam (":idReceta",$datos['idReceta_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":pesoPaston",$datos['pesoPaston_'],PDO::PARAM_INT);
 		
 		if ($stmt -> execute()){
-			return "ok";
+			return $stmt -> fetchAll();
 		}else{ 
 			print_r(conexion::conectarBD()->errorInfo());
 		}
@@ -630,9 +653,6 @@ static public function mdlAltaOP($datosOP){
 		$stmt =null; 
 	}
 
-
-
-
 #-------------------------Lista de Oredenes de Produccion------------------------#
 
 	static public function mdlListaOP(){
@@ -655,6 +675,59 @@ static public function mdlAltaOP($datosOP){
 		$stmt -> close(); #cierra la conexion
 		$stmt =null; 
 	}
+
+#------------------------- Finalizacion de OP -------------------------#
+
+static public function mdlFinOP($datosOP){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_Fin_OrdenProd(:idOrdenProdAlta, :productoObtenido, :unidadesObtenidas, idUsuarioAlta);");
+
+		$stmt -> bindparam (":idOrdenProdAlta",	$datosOP['idOrdenProdAlta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":productoObtenido",$datosOP['productoObtenido_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":unidadesObtenidas",$datosOP['unidadesObtenidas_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUsuarioAlta",	$datosOP['idUsuarioAlta_'],PDO::PARAM_INT);
+
+		if ($stmt -> execute()){
+			#Busca el ultimo ID insertado en la tabla
+				$campo='id_ordenprod_fin';
+				$tabla='orden_produccion_fin';
+				$idReceta_nuevaArray=ModeloFormularios::mdlUltimoId($campo,$tabla);
+				$idReceta_nueva=$idReceta_nuevaArray[0][0];
+			return $nuevoID;
+
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
+#------------------------- Agregar Mediciones a la Fin De OP -------------------------#
+
+	static public function mdlAgregarMedicionFinOP($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call ins_MedicionFinOP( :idOrdenProdFin,:Peso,:MedicionesResponsable, :Responsable,:FechaMedicion,);");
+		
+		$stmt -> bindparam (":idOrdenProdFin",	$datos[0],PDO::PARAM_INT);
+		$stmt -> bindparam (":Peso",			$datos[1],PDO::PARAM_STR); 
+		$stmt -> bindparam (":Responsable",		$datos[2],PDO::PARAM_STR);
+		$stmt -> bindparam (":FechaMedicion",	$datos[3],PDO::PARAM_STR);
+		
+		if ($stmt -> execute()){
+			return "OK"; #si se ejecutó correctamente le envío un OK
+
+		}else{
+			print_r(conexion::conectarBD());#Si se ejecutó con error le envío el error}
+		}
+		
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
+	}
+
+
+
 
 
 

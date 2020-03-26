@@ -4,8 +4,8 @@
 
 <?php
 	
-
-	$respuesta=ControladorFormularios::ctrAgregarOP();
+	$id_OrdenProd=1;
+	$respuesta=ModeloFormularios::mdlDetalleOP($id_OrdenProd);
 	
 	var_dump($respuesta);
 

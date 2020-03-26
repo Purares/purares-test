@@ -380,7 +380,8 @@ class ControladorFormularios{
 							'cantidad_'		=> $_POST["cantidadAltaDesposte"],
 							'idOrenProd_'	=> array_fill(0,$longitud,null),
 							'idUsuario_'	=> array_fill(0,$longitud,1),#[TO DO]
-							'descripcion_'	=> array_fill(0,$longitud,null));
+							'descripcion_'	=> array_fill(0,$longitud,null),
+							'funcion_'		=> array_fill(0,$longitud,'Desposte'));
 
 			#Recorre el Array de insumos agregandolos en la BD
 			for ($i=0; $i <$longitud ; $i++) { 
@@ -491,6 +492,36 @@ class ControladorFormularios{
 				$respuesta="error al intentar anular"; #[TO DO] #Envía esta variable para que complete el motivo 
 			}
 	}
+
+#------------------------- Lista de Compras -------------------------#
+
+	static public function ctrListaRCompras(){
+
+		$respuesta= ModeloFormularios::mdlListaCompras();
+		
+		return $respuesta;
+		
+	}
+
+
+
+#------------------------- Detalle de Compra -------------------------#
+
+	static public function ctrDetalleCompra(){
+
+		if (isset($_GET["idCompra"])){
+
+			$id_compra= $_GET["idCompra"];
+			$respuesta= ModeloFormularios::mdlDetallecompras($id_compra);
+		
+			return $respuesta;	
+		}
+
+	}
+
+
+
+
 
 	#------------------------- Compra de INSUMOS -------------------------#
 
@@ -721,7 +752,6 @@ class ControladorFormularios{
 	return "OK";
 	}#Cierra la funcion
 
-
 #------------------------- Lista Orden de produccion -------------------------#
 
 	static public function ctrListaOP(){
@@ -745,6 +775,43 @@ class ControladorFormularios{
 	}
 
 
+#------------------------- Finalizar Orden de produccion -------------------------#
+
+	static public function ctrFinalizarOP(){
+		
+		#if is set
+
+		#valida que la OP Alta no esté anulada
+		
+		#valida que ya nose encuentre una finalización de OP que no esté anulada
+
+		#Insertar los campos en la finalización de OP
+		$datosOP= array('idOrdenProdAlta_'	=> $_POST["idOrdenProdAlta_FinOP"],
+						'productoObtenido_'	=> $_POST["productoObtenido_FinOp"],
+						'unidadesObtenidas_'=> $_POST["unidades_FinOP"],
+						'idUsuarioAlta_'	=> $_POST["1"]); #[TO DO]
+
+			$id_ordenprod_fin=ModeloFormularios::mdlFinOP($datosOP);
+
+		#insertar Datos de Mediciones
+		$longitud=count($_POST["MedicionesPeso_FinOP"]);
+		
+		$datosMediciones=array(
+						'idOrdenProdFin_'			=> array_fill(0,$longitud,$id_ordenprod_fin),
+						'MedicionesPeso_'			=> $_POST["MedicionesPeso_FinOP"],
+						'MedicionesResponsable_'	=> $_POST["MedicionesResponsable_FinOP"],
+						'MedicionesFechaMedicion_'	=> strval(date("y-m-d",strtotime($_POST["MedicionesFechaMedicion_FinOP"]))));
+
+		for ($i=0; $i <$longitud ; $i++) {
+
+			$datosM=array_column($datosMediciones,$i);
+			$respuesta=ModeloFormularios::mdlAgregarMedicionFinOP($datosM);
+			if ($respuesta != "OK") { return $respuesta;}
+		}
+
+
+	return $respuesta;
+	}	
 
 
 
