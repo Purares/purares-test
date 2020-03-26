@@ -4,10 +4,12 @@
 
 <?php
 	
-	$id_OrdenProd=1;
-	$respuesta=ModeloFormularios::mdlDetalleOP($id_OrdenProd);
+	$id_ordenprod_alta=2;
+	$datos=ModeloFormularios::mdlDetalleOpFin($id_ordenprod_alta);
 	
-	var_dump($respuesta);
+	$longitud=count($datos);
+
+	var_dump($longitud);
 
 
 

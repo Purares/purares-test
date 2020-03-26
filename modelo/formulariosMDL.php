@@ -667,7 +667,7 @@ static public function mdlAltaOP($datosOP){
 
 #-------------------------Detalle de Oredenes de Produccion------------------------#
 
-	static public function mdlDetalleOP($id_OrdenProd){
+	static public function mdlDetalleOpAlta($id_OrdenProd){
  
 		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_op where id_ordenprod=$id_OrdenProd;");
 		$stmt -> execute();
@@ -675,6 +675,19 @@ static public function mdlAltaOP($datosOP){
 		$stmt -> close(); #cierra la conexion
 		$stmt =null; 
 	}
+
+
+#-------------------------Detalle de Oredenes de Produccion------------------------#
+
+	static public function mdlDetalleOpFin($id_ordenprod_alta){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_fin_op where id_ordenprod_alta=$id_ordenprod_alta and anulado=0;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
 
 #------------------------- Finalizacion de OP -------------------------#
 
