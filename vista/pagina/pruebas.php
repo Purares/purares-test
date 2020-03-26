@@ -5,13 +5,35 @@
 <?php
 	
 
+		$datos= array(	'idRecetaAltaOP_'	=>117,
+						'pesoPastonAltaOP_'	=>200);
+		
+		$tablaInsumosOP=ModeloFormularios::mdlListaInsumosOP($datos);
+		$respuesta2=ModeloFormularios::mdlValidacionStockInsumosOP($datos);
+
+			#Valida si alcanza el stock actual de insumo
+			if (count($respuesta2)>0) {
+				$validacion="NO";
+			}else{
+				$validacion="SI";
+			}
 
 
-	var_dump($prueba);
+		$tablaInsumos=array();
+		
+		foreach ($tablaInsumosOP as $insumo) {
+			$tablaInsumos[]=$insumo;
+			# code...
+		}
+
+		$respuesta= array(	'tablaInsumos_'	 => $tablaInsumos,
+							'validacion_'	 => $validacion);
 
 
+	var_dump($respuesta);
 
 
+	var_dump($tablaInsumosOP);
 
 
 
