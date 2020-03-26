@@ -4,17 +4,11 @@
 
 <?php
 	
-	$id_ordenprod_alta=2;
-	$datos=ModeloFormularios::mdlDetalleOpFin($id_ordenprod_alta);
-	
-	$longitud=count($datos);
-
-	var_dump($longitud);
 
 
+$prueba=ControladorFormularios::ctrCalculoInsumos();
 
-
-
+	var_dump($prueba);
 
 
 

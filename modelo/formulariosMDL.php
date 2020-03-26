@@ -592,8 +592,8 @@ static public function mdlCrearDesposte($datos){
 
 		$stmt=conexion::conectarBD()->prepare("call v_insumosAltaOP(:idReceta, :pesoPaston);");
 
-		$stmt -> bindparam (":idReceta",$datos['idReceta_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":pesoPaston",$datos['pesoPaston_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":idReceta",	$datos['idRecetaAltaOP_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":pesoPaston",	$datos['pesoPastonAltaOP_'],PDO::PARAM_STR);
 		
 		if ($stmt -> execute()){
 			return $stmt -> fetchAll();
