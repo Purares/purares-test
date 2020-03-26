@@ -163,4 +163,10 @@ echo $respuesta;
 
 }
 
+if(isset($_POST["idRecetaAltaOP"])&&isset($_POST["pesoPastonAltaOP"])){
+
+$calculoinsumos=ControladorFormularios::ctrCalculoInsumos();
+
+    }
+
 ?>

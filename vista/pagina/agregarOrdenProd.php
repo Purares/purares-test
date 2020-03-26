@@ -19,13 +19,14 @@ $carnes=ControladorFormularios::ctrListaCarnes();
               <br>
             	<h6>Complete los datos de la nueva orden de producción:</h6>
           			<br>
+<form method="post" class="needs-validation">
                       <div class="row">
           				<div class="input-group col-6">
   							<div class="input-group-prepend">
            						<span class="input-group-text">Receta:</span>
            					</div>
-          					<select class="custom-select" id="Receta" required>
-                                         <option value="">Seleccione una receta</option>
+          					<select class="custom-select" id="idReceta" name="idRecetaAltaOP" required>
+                    <option value="">Seleccione una receta</option>
 <?php
 
 foreach($recetas as $receta){
@@ -46,7 +47,7 @@ foreach($recetas as $receta){
             					<div class="input-group-prepend">
            						<span class="input-group-text">Peso del pastón:</span>
            					</div>
-          						<input type="number" min=0 step=0.01 class="form-control text-right" id="PesoPaston" placeholder="Ingrese el peso" required>
+          						<input type="number" min=0 step=0.01 class="form-control text-right" id="PesoPaston" name="pesoPastonAltaOP" placeholder="Ingrese el peso" required>
                               <div class="input-group-append">
       							<span class="input-group-text">kilos</span>
    							</div>
@@ -57,6 +58,7 @@ foreach($recetas as $receta){
                           </div>
                           <br>
                            <p>Se requeriran estas cantidades de insumos:</p>
+                           <div class="calculo"></div>
                            <br>
               <h6>Ingrese la cantidad de carnes que utilazará la receta:</h6>
               <br>
@@ -75,7 +77,7 @@ foreach($recetas as $receta){
 
 foreach($carnes as $carne){
 
-  echo '<tr><td scope="col">' . $carne[0] . '<input type="hidden" name="idCarneAltaDesposte[]" value="' . $carne[0] . '"></td><td scope="col">' . $carne[1] . '<input type="hidden" class="nomcarne" value="' . $carne[1] . '"></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.0001 name="cantidadAltaDesposte[]" class="form-control cantcarne" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[2] . '</a></span></div></div></td></tr>';
+  echo '<tr><td scope="col">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col">' . $carne[1] . '<input type="hidden" class="nomcarne" value="' . $carne[1] . '"></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.0001 name="catidadCarnesAgregarOP[]" class="form-control cantcarne" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[2] . '</a></span></div></div></td></tr>';
 
 }
 
@@ -84,7 +86,7 @@ foreach($carnes as $carne){
             </table>
           </div>      
                           <br>
-                 		<button type="button" class="btn btn-success" id="EstablecerOrden"  data-toggle="modal" data-target="#ConfirmarOrden">Establecer orden</button> 
+   <button type="button" class="btn btn-success" id="BotonEstablecerOrden" data-toggle="modal" data-target="#ConfirmarOrden">Establecer orden</button>
 
                   </div>
 
@@ -99,12 +101,67 @@ foreach($carnes as $carne){
           Usted ha cargado una orden de [RECETA] [CANTIDAD] [EL DATO QUE QUERAMOS] ¿Confirma que desea CARGAR ESTA ORDEN?
         </div>
         <div class="modal-footer">
-          <a class="btn btn-success" href="orden cargada.html">SÍ, ESTABLECER ORDEN</a>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">NO, DESCARTAR ORDEN</button>
+           <button type="submit"  class="btn btn-success">Sí, establecer orden</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">No, descartar orden</button>
         </div>
       </div>
     </div>
   </div>
+
+</form>
+
+<script>
+
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      var button= document.getElementById('BotonEstablecerOrden');
+      button.addEventListener('click', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+  
+$('#PesoPaston').keyup(function(){
+
+$.ajax({
+                type:'POST',
+                url:'datos.php',
+                data:{idRecetaAltaOP: $('#idReceta').val(),pesoPastonAltaOP:$('#PesoPaston').val()},
+                dataType: "json",
+                success:function(respuestacod){
+
+                    alert('esto anda')
+
+                    if (respuestacod.validacion_=="SI") {
+
+                         alert('alcanza')
+                        alert(respuestacod.tablaInsumos_)
+
+                    }else{
+
+                             alert('no alcanza')
+                      $('.calculo').html("no alcanzan los inusumos")
+
+
+                    }
+                      
+                    
+
+}})}) 
+
+</script>
 
 
 </body>
