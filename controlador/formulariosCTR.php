@@ -495,7 +495,7 @@ class ControladorFormularios{
 
 #------------------------- Lista de Compras -------------------------#
 
-	static public function ctrListaRCompras(){
+	static public function ctrListaCompras(){
 
 		$respuesta= ModeloFormularios::mdlListaCompras();
 		
@@ -579,9 +579,8 @@ class ControladorFormularios{
 
 		$datos= array(	'idRecetaAltaOP_'	=> $_POST["idRecetaAltaOP"],
 						'pesoPastonAltaOP_'	=>$_POST["pesoPastonAltaOP"]);
-
 		
-		$respuesta1=ModeloFormularios::mdlListaInsumosOP($datos);
+		$tablaInsumosOP=ModeloFormularios::mdlListaInsumosOP($datos);
 		$respuesta2=ModeloFormularios::mdlValidacionStockInsumosOP($datos);
 
 			#Valida si alcanza el stock actual de insumo
@@ -591,10 +590,12 @@ class ControladorFormularios{
 				$validacion="SI";
 			}
 
-		$respuesta= array(	'tablaInsumos_' => $respuesta1,
+		$respuesta= array(	'tablaInsumos_' => $tablaInsumosOP,
 							'validacion_' => $validacion);
+
+		return $respuesta;
 		
-		}
+#		}
 	}
 
 	#------------------------- Agregar OP -------------------------#
