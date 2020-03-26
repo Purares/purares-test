@@ -590,12 +590,12 @@ class ControladorFormularios{
 				$validacion="SI";
 			}
 
-		$respuesta= array(	'tablaInsumos_' => $tablaInsumosOP,
-							'validacion_' => $validacion);
+		$respuesta= array(	'tablaInsumos_'	 => $tablaInsumosOP,
+							'validacion_'	 => $validacion);
 
 		return $respuesta;
 		
-#		}
+		}
 	}
 
 	#------------------------- Agregar OP -------------------------#
@@ -769,9 +769,13 @@ class ControladorFormularios{
 			$id_OrdenProd=$_POST["idOrdenProdDetalle"];
 			$detalleAltaOP= ModeloFormularios::mdlDetalleOpAlta($id_OrdenProd);
 			$detalleFinOP=ModeloFormularios::mdlDetalleOpFin($id_OrdenProd);
+			$detalleInsumosOP=ModeloFormularios::mdlDetalleOpInsumos($id_OrdenProd);
+			$detalleCarnesOP=ModeloFormularios::mdlDetalleOpCarnes($id_OrdenProd);
 			
 			$respuesta = array(	'detalleAltaOP_' 	=> $detalleAltaOP,
-								'detalleFinOP_' 	=> $detalleFinOP);
+								'detalleFinOP_' 	=> $detalleFinOP,
+								'detalleInsumosOP_' => $detalleInsumosOP,
+								'detalleCarnesOP_' 	=> $detalleCarnesOP);
 
 			return $respuesta;	
 		}
