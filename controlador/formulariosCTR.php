@@ -772,11 +772,13 @@ class ControladorFormularios{
 			$detalleInsumosOP=ModeloFormularios::mdlDetalleOpInsumos($id_OrdenProd);
 			$detalleCarnesOP=ModeloFormularios::mdlDetalleOpCarnes($id_OrdenProd);
 			
+			
 			$respuesta = array(	'detalleAltaOP_' 	=> $detalleAltaOP,
 								'detalleFinOP_' 	=> $detalleFinOP,
 								'detalleInsumosOP_' => $detalleInsumosOP,
 								'detalleCarnesOP_' 	=> $detalleCarnesOP);
 
+			
 			return $respuesta;	
 		}
 
