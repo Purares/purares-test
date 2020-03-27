@@ -70,9 +70,9 @@ $detalleAltaOp=$detalleOrden['detalleAltaOP_'];
 
 $insumoop=$detalleOrden['detalleInsumosOP_'];
 
-for ($i = 0; $i <= count($insumoop); $i++) {
+for ($i = 0; $i <= count($insumoop)-1; $i++) {
 
-echo '<tr><td scope="col">' . $insumoop['insumo'][$i] . '</td><td scope="col" class="text-right">' . $insumoop['cantidad'][$i] .' '. $insumoop['udm'][$i] . '</td></tr>';
+echo '<tr><td scope="col">' . $insumoop[$i]['insumo'] . '</td><td scope="col" class="text-right">' . $insumoop[$i]['cantidad'] .' '. $insumoop[$i]['udm'] . '</td></tr>';
 
 };
 ?>
@@ -95,9 +95,9 @@ echo '<tr><td scope="col">' . $insumoop['insumo'][$i] . '</td><td scope="col" cl
 
 $carneop=$detalleOrden['detalleCarnesOP_'];
 
-for ($j = 0; $j <= count($carneop); $j++)  {
+for ($j = 0; $j <= count($carneop)-1; $j++)  {
 
-echo '<tr><td scope="col">' . $carneop['id_desposte'][$j] . '</td><td scope="col">' . $carneop['fecha_desposte'][$j] . '</td><td scope="col">' . $carneop['carne'][$j] . '</td></td><td scope="col">' . $carneop['cantidad'][$j] .' '.$carneop['udm'][$j].'</td></tr>';
+echo '<tr><td scope="col">' . $carneop[$j]['id_desposte'] . '</td><td scope="col">' . $carneop[$j]['fecha_desposte'] . '</td><td scope="col">' . $carneop[$j]['carne'] . '</td></td><td scope="col">' . $carneop[$j]['cantidad'] .' '.$carneop[$j]['udm'].'</td></tr>';
 
 };
 ?>
@@ -107,9 +107,9 @@ echo '<tr><td scope="col">' . $carneop['id_desposte'][$j] . '</td><td scope="col
      		<br>
 <?php
 
-$detallesfinop=$detalleOrden['detalleFinOP_'];
+$detallesfinop=$detalleOrden[0]['detalleFinOP_'];
 
-if ($detallesfinop['fecha_finalizacion']!=NULL){
+if ($detallesfinop[0]['fecha_finalizacion']!=NULL){
 
     echo '<div class="row">
                      <div class="form-group col-6">
@@ -164,9 +164,9 @@ echo '<div class="row">
 
 <?php
 
-$detallesmediciones=$detalleOrden['detalleMedicionesesOP_'];
+$detallesmediciones=$detalleOrden[0]['detalleMedicionesesOP_'];
 
-if ($detallesmediciones['peso']!=NULL){
+if ($detallesmediciones[0]['peso']!=NULL){
 
 echo '<div class="row">
                      <div class="form-group col-4">
