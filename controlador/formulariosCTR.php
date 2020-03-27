@@ -568,7 +568,7 @@ class ControladorFormularios{
 
 # !!!ORDENES DE PRODUCCION !!!#
 
-#------------------------- Calculo de Insumos -------------------------#
+#------------------------- Calculo de Insumos 	FRONT!-------------------------#
 
 	static public function ctrCalculoInsumos(){
 
@@ -589,12 +589,51 @@ class ControladorFormularios{
 			}else{
 				$validacion="SI";
 			}
+		#Transformado la tabla para JSON
+		$tablaInsumos=array();
+			foreach ($tablaInsumosOP as $insumo) {
+				
+				$tablaInsumos[]=$insumo;
+			}
 
 		$respuesta= array(	'tablaInsumos_'	 => $tablaInsumosOP,
 							'validacion_'	 => $validacion);
 
-		return $respuesta;
+		#Transformado la tabla para JSON
+		$respuestacod=json_encode($respuesta);
+		echo $respuestacod;
+
+
+		}
+	}
+
+
+#------------------------- Calculo de Insumos 	FRONT!-------------------------#
+
+	static public function ctrCalculoInsumosBack(){
+
+	#Al seleccionar una Receta, e introducir una Q deberia de ejecutarse esta función
 		
+		if (isset($_POST["idRecetaAltaOP"])||
+			isset($_POST["pesoPastonAltaOP"])){
+
+			$datos= array(	'idRecetaAltaOP_'	=> $_POST["idRecetaAltaOP"],
+							'pesoPastonAltaOP_'	=>$_POST["pesoPastonAltaOP"]);
+			
+			$tablaInsumosOP=ModeloFormularios::mdlListaInsumosOP($datos);
+			$respuesta2=ModeloFormularios::mdlValidacionStockInsumosOP($datos);
+
+				#Valida si alcanza el stock actual de insumo
+				if (count($respuesta2)>0) {
+					$validacion="NO";
+				}else{
+					$validacion="SI";
+				}
+			
+			$respuesta= array(	'tablaInsumos_'	 => $tablaInsumosOP,
+								'validacion_'	 => $validacion);
+
+		return $respuesta;
 		}
 	}
 
@@ -615,12 +654,12 @@ class ControladorFormularios{
 			isset($_POST["catidadCarnesAgregarOP"])){
 
 
-			$carnesOP = array(	'idCarnes' =>$idCarnesAgregarOP ,
-								'cantidad' =>$catidadCarnesAgregarOP);
+			$carnesOP = array(	'idCarnes' =>$_POST["idCarnesAgregarOP"] ,
+								'cantidad' =>$_POST["catidadCarnesAgregarOP"]);
 
 
 			#1)Validación de Insumos
-			$calculo_Insumos=ControladorFormularios::ctrCalculoInsumos();
+			$calculo_Insumos=ControladorFormularios::ctrCalculoInsumosBack();
 			$validacion_Insumos=$calculo_Insumos['validacion_'];
 
 				if ($validacion_Insumos="SI") {
@@ -630,14 +669,15 @@ class ControladorFormularios{
 					if ($validacion_Carnes='OK') {
 						
 						#Crear Alta de OP
-						$datosOP = array(	'idReceta_' 	=> $idRecetaAgregarOP,
-											'pesoPaston_' 	=> $pesoPastonAgregarOP, 
-											'id_usuario_' 	=> 1 ); #[TO DO]
+						$datosOP = array(	'idReceta_' 	=> $_POST["idRecetaAltaOP"],
+											'pesoPaston_' 	=> $_POST["pesoPastonAltaOP"], 
+											'idUsuario_' 	=> 1 ); #[TO DO]
 
 						$idOrdenProd=ModeloFormularios::mdlAltaOP($datosOP);
 
 						#3)Movimiento de Insumos
-							$respuesta=ctrMovInsumoAltaOP($calculo_Insumos,$idOrdenProd);
+
+							$respuesta=ControladorFormularios::ctrMovInsumoAltaOP($calculo_Insumos,$idOrdenProd);
 							if ($respuesta != "OK") { return $respuesta;}
 
 						#4)Movimiento de Carne
@@ -687,8 +727,8 @@ class ControladorFormularios{
 		$longitud=count($tablaInsumos_receta);#cuento los registros
 		
 			#Armo el array
-			$datosMI= array('idInsumo_'		=>array_column($i_r, 'id_insumo'),
-							'cantidad_'		=>array_column($i_r, 'cantidad'),
+			$datosMI= array('idInsumo_'		=>array_column($tablaInsumos_receta, 'id_insumo'),
+							'cantidad_'		=>array_column($tablaInsumos_receta, 'cantidad_op'),
 							'idCuenta_'		=>array_fill(0,$longitud,2), #Número fijo para la cuenta compra
 							'idOrdenProd_'	=>array_fill(0,$longitud,$idOrdenProd),
 							'idCompra_'		=>array_fill(0,$longitud,null),
@@ -713,41 +753,44 @@ class ControladorFormularios{
 	static public function ctrMovCarneAltaOP($carnesOP,$idOrdenProd){
 
 		$longitud=count($carnesOP['idCarnes']);
-		for ($i=0; $i <$longitud ; $i++) { 
+		#Con este for navego las carnes que componene a la op
+		for ($z=0; $z <$longitud ; $z++) { 
 		
-			$stockCarnes_composicion=ModeloFormularios::mdlComposicionStockCarnes($carnesOP['idCarnes'][$i]);
+			$stockCarnes_composicion=ModeloFormularios::mdlComposicionStockCarnes($carnesOP['idCarnes'][$z]);
 
-			$resta=$carnesOP['cantidad'][$i];
-			$cadena="cadena: ";
+			$resta=$carnesOP['cantidad'][$z];
+			
+			if ($resta>0) {
+				$i=0;
+				#Navego los desposte para descontarle la carne
+				while ( $resta != 0) {
 
-			$i=0;
-			while ( $resta != 0) {
+					#IF el stock de ese desposte en menor a lo que resta, descuento toda la carne de ese desposte, ELSE solo lo que resta
+					if ($resta>$stockCarnes_composicion[$i]['stock']) {
+						$cantidad=$stockCarnes_composicion[$i]['stock'];
+					}else{
+						$cantidad=$resta;
+					}
+						#Armo el array
+						$datosMC= array(	'idCarne_'		=> [$stockCarnes_composicion[$i]['id_carne']],
+											'idCuenta_'		=> [2], #VariableFIJA!
+											'idDesposte_'	=> [$stockCarnes_composicion[$i]['id_desposte']],
+											'cantidad_'		=> [$cantidad],
+											'idOrenProd_'	=> [$idOrdenProd],
+											'idUsuario_'	=> [1],#[TO DO]
+											'descripcion_'	=> [null],
+											'funcion_'		=> ['OrdenProd']);
 
-				#IF el stock de ese desposte en menor a lo que resta, descuento toda la carne de ese desposte, ELSE solo lo que resta
-				if ($resta>$stockCarnes_composicion[$i]['stock']) {
-					$cantidad=$stockCarnes_composicion[$i]['stock'];
-				}else{
-					$cantidad=$resta;
-				}
-					#Armo el array
-					$datosMC= array(	'idCarne_'		=> [$stockCarnes_composicion[$i]['id_carne']],
-										'idCuenta_'		=> [2], #VariableFIJA!
-										'idDesposte_'	=> [$stockCarnes_composicion[$i]['id_desposte']],
-										'cantidad_'		=> [$cantidad],
-										'idOrenProd_'	=> [$idOrdenProd],
-										'idUsuario_'	=> [1],#[TO DO]
-										'descripcion_'	=> [null],
-										'funcion_'		=> ['OrdenProd']);
+						#Agregar el registro en la BD
+						$respuesta=ModeloFormularios::mdlMovimientoCarne(array_column($datosMC,0));
+						if ($respuesta != "OK") { return $respuesta;}
 
-					#Agregar el registro en la BD
-					$respuesta=ModeloFormularios::mdlMovimientoCarne(array_column($datosMC,0));
-					if ($respuesta != "OK") { return $respuesta;}
+					#A lo que falta repartir le resto la cantidad del desposte anterior
+					$resta=$resta-$cantidad;
+					$i++;#siguiente desposte
 
-				#A lo que falta repartir le resto la cantidad del desposte anterior
-				$resta=$resta-$cantidad;
-				$i++;#siguiente desposte
-
-			}#cierra el while de despostes
+				}#cierra el while de despostes
+			}#Cierra el if
 		}#cierra el for de carnes
 
 	return "OK";
@@ -772,7 +815,7 @@ class ControladorFormularios{
 			$detalleInsumosOP=ModeloFormularios::mdlDetalleOpInsumos($id_OrdenProd);
 			$detalleCarnesOP=ModeloFormularios::mdlDetalleOpCarnes($id_OrdenProd);
 			
-			
+
 			$respuesta = array(	'detalleAltaOP_' 	=> $detalleAltaOP,
 								'detalleFinOP_' 	=> $detalleFinOP,
 								'detalleInsumosOP_' => $detalleInsumosOP,

@@ -632,9 +632,9 @@ static public function mdlAltaOP($datosOP){
 
 		$stmt=conexion::conectarBD()->prepare("call ins_AltaOP(:idReceta, :pesoPaston, :idUsuario);");
 
-		$stmt -> bindparam (":idReceta",$datosOP['idReceta_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":pesoPaston",$datosOP['pesoPaston_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":idUsuario",$datosOP['idUsuario'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idReceta",	$datosOP['idReceta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":pesoPaston",	$datosOP['pesoPaston_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":idUsuario",	$datosOP['idUsuario_'],PDO::PARAM_INT);
 
 
 		if ($stmt -> execute()){
