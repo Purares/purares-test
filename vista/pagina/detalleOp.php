@@ -205,7 +205,7 @@ echo '<div class="row">
 
 ?>
 <br>
-                <button type="button" class="btn btn-danger" id="FinalizarOp">Finalizar orden...</button> 
+               <a class="btn btn-danger" href="index.php?pagina=finalizarop&">Finalizar orden...</a>
                		<button type="button" class="btn btn-warning" id="Imprimirorden">Imprimir orden</button> 
       			</div>
 

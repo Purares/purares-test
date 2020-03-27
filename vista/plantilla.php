@@ -139,6 +139,7 @@
 					$_GET["pagina"]=="verMasCarnes"||
 					$_GET["pagina"]=="verDespostes"||
 					$_GET["pagina"]=="detalleDesposte"||
+					$_GET["pagina"]=="finalizarop"||
 					$_GET["pagina"]=="detalleOp"||
 					$_GET["pagina"]=="verOrdenes"||
 					$_GET["pagina"]=="pruebas"){
