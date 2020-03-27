@@ -4,17 +4,14 @@
 
 <?php
 
-$id_OrdenProd=17;
+$id_receta=117;
 
-$tabla=ModeloFormularios::mdlDetalleOpInsumos($id_OrdenProd);
+$detalleReceta=ModeloFormularios::mdlDetalleReceta($id_receta);
 
-$longitud=count($tabla);
+$porcentCarne=$detalleReceta [0]['porcent_carne'];
 
-
-var_dump($longitud);
-
-var_dump($tabla);
-
+var_dump($porcentCarne);		
+var_dump($detalleReceta);		
 
 
 ?>
