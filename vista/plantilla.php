@@ -71,7 +71,7 @@
     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ordenes</a>
     <div class="dropdown-menu">
       <a class="dropdown-item" href="index.php?pagina=agregarOrdenProd">Nueva orden</a>
-      <a class="dropdown-item" href="index.php">Ver ordenes</a>
+      <a class="dropdown-item" href="index.php?pagina=verOrdenes">Ver ordenes</a>
     </div>
 		</li>
 
@@ -139,6 +139,8 @@
 					$_GET["pagina"]=="verMasCarnes"||
 					$_GET["pagina"]=="verDespostes"||
 					$_GET["pagina"]=="detalleDesposte"||
+					$_GET["pagina"]=="detalleOp"||
+					$_GET["pagina"]=="verOrdenes"||
 					$_GET["pagina"]=="pruebas"){
 
 				   	#var_dump($_GET["pagina"]);
