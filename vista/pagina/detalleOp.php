@@ -7,8 +7,7 @@
 
 <?php
 
-$detalleOrden=ControladorFormularios::ctrDetalleReceta();
-
+$detalleOrden=ControladorFormularios::ctrDetalleOP();
 
 ?>
 
@@ -38,23 +37,23 @@ $detalleOrden=ControladorFormularios::ctrDetalleReceta();
 $detalleAltaOp=$detalleOrden['detalleAltaOP_'];
 
 ?>
-                                <span class="input-group-text nombreop" id="spannombreop"><?php echo $detalleAltaOp['nombre_receta'];?></span>
+                                <span class="input-group-text nombreop" id="spannombreop"><?php echo $detalleAltaOp[0]['nombre_receta'];?></span>
                                 </div>
 
 
                             <div class="form-group col-6">
                          <label for="spanfechaaltaop">Fecha de Alta:</label>
-                                <span class="input-group-text fechadealtaop" id="spanfechaaltaop"><?php echo $detalleAltaOp['fecha_alta'] ?></span>
+                                <span class="input-group-text fechadealtaop" id="spanfechaaltaop"><?php echo $detalleAltaOp[0]['fecha_alta'] ?></span>
                                 </div>
         				</div>
                     <div class="row">
                      <div class="form-group col-6">
                          <label for="spanpastonop">Peso Pastón:</label>
-                                <span class="input-group-text pesopastonop" id="spanpastonop"><?php echo $detalleAltaOp['peso_paston'] ?> kilos</span>
+                                <span class="input-group-text pesopastonop" id="spanpastonop"><?php echo $detalleAltaOp[0]['peso_paston'] ?> kilos</span>
                                 </div>
                             <div class="form-group col-6">
                          <label for="spanusuarioaltaop">Usuario:</label>
-                                <span class="input-group-text spanusuarioaltaop" id="spanusuarioaltaop"><?php echo $detalleAltaOp['usuario_alta'] ?></span>
+                                <span class="input-group-text spanusuarioaltaop" id="spanusuarioaltaop"><?php echo $detalleAltaOp[0]['usuario_alta'] ?></span>
                                 </div>
         				</div>
                     <br>
@@ -115,21 +114,21 @@ if ($detallesfinop['fecha_finalizacion']!=NULL){
     echo '<div class="row">
                      <div class="form-group col-6">
                          <label for="spanfechafinop">Fecha de finalización:</label>
-                                <span class="input-group-text fechafinop" id="spanfechafinop">'. $detallesfinop['fecha_finalizacion']. '</span>
+                                <span class="input-group-text fechafinop" id="spanfechafinop">'. $detallesfinop[0]['fecha_finalizacion']. '</span>
                                 </div>
                             <div class="form-group col-6">
                          <label for="mermaobtenidaop">Usuario:</label>
-                                <span class="input-group-text spanmermaobtenidaop" id="mermaobtenidaop">'.$detallesfinop['fecha_finalizacion'].' %</span>
+                                <span class="input-group-text spanmermaobtenidaop" id="mermaobtenidaop">'.$detallesfinop[0]['fecha_finalizacion'].' %</span>
                                 </div>
                 </div>
                 <div class="row">
                      <div class="form-group col-6">
                          <label for="spanproducobtenidoop">Producto obtenido:</label>
-                                <span class="input-group-text producobtenidoop" id="spanproducobtenidoop">'. $detallesfinop['producto_obtenido'].' kilos </span>
+                                <span class="input-group-text producobtenidoop" id="spanproducobtenidoop">'. $detallesfinop[0]['producto_obtenido'].' kilos </span>
                                 </div>
                             <div class="form-group col-6">
                          <label for="spanunidadesobtenidasop">Unidades obtenidas:</label>
-                                <span class="input-group-text unidadesobtenidasop" id="spanunidadesobtenidasop">'.$detallesfinop['unidades_obtenidas'].' unidades</span>
+                                <span class="input-group-text unidadesobtenidasop" id="spanunidadesobtenidasop">'.$detallesfinop[0]['unidades_obtenidas'].' unidades</span>
                                 </div>
                 </div>';
 
@@ -172,15 +171,15 @@ if ($detallesmediciones['peso']!=NULL){
 echo '<div class="row">
                      <div class="form-group col-4">
                          <label for="spanpesofinop">Peso Final:</label>
-                                <span class="input-group-text pesofinop" id="spanpesofinop">'.$detallesmediciones['peso'].'</span>
+                                <span class="input-group-text pesofinop" id="spanpesofinop">'.$detallesmediciones[0]['peso'].'</span>
                                 </div>
                             <div class="form-group col-4">
                          <label for="spanresponsable">Responsable:</label>
-                                <span class="input-group-text responsable" id="spanresponsable">'.$detallesmediciones['responsable'].'</span>
+                                <span class="input-group-text responsable" id="spanresponsable">'.$detallesmediciones[0]['responsable'].'</span>
                                 </div>
                          <div class="form-group col-4">
                          <label for="spanfechafinopresponsable">Fecha:</label>
-                                <span class="input-group-text fechafinopresponsable" id="spanfechafinopresponsable">'.$detallesmediciones['fecha'].'</span>
+                                <span class="input-group-text fechafinopresponsable" id="spanfechafinopresponsable">'.$detallesmediciones[0]['fecha'].'</span>
                                 </div>
                 </div>';
 
