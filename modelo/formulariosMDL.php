@@ -707,6 +707,16 @@ static public function mdlAltaOP($datosOP){
 		$stmt =null; 
 	}
 
+static public function mdlDetalleOpMediciones($id_OrdenProd){
+ 
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_op_mediciones where id_ordenprod_alta=$id_OrdenProd;");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
 
 #------------------------- Finalizacion de OP -------------------------#
 
