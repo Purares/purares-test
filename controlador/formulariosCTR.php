@@ -694,6 +694,13 @@ class ControladorFormularios{
 		}		
 	}
 
+#---------------------------------------------------------------------
+
+
+	static public function ctrValidarCantidadCarnesOP($carnesOP){
+
+		
+	}
  #---------------------------------------------------------------------
 
 	static public function ctrValidarStockCarnesOP($carnesOP){
@@ -809,7 +816,7 @@ class ControladorFormularios{
 
 		if (isset($_GET["idOrdenProdDetalle"])){
 
-			$id_OrdenProd=$_POST["idOrdenProdDetalle"];
+			$id_OrdenProd=$_GET["idOrdenProdDetalle"];
 			$detalleAltaOP= ModeloFormularios::mdlDetalleOpAlta($id_OrdenProd);
 			$detalleFinOP=ModeloFormularios::mdlDetalleOpFin($id_OrdenProd);
 			$detalleInsumosOP=ModeloFormularios::mdlDetalleOpInsumos($id_OrdenProd);
