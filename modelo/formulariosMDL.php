@@ -690,7 +690,7 @@ static public function mdlAltaOP($datosOP){
 
  	static public function mdlDetalleOpInsumos($id_OrdenProd){
  
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_op_insumos where id_ordenprod=$id_OrdenProd;");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_op_insumos where id_orden=$id_OrdenProd;");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
