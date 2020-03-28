@@ -90,15 +90,18 @@ foreach($depositos as $deposito){
           </div>
           <br>
           <div class="row">
-              <div class="input-group col-6"> 
-                    <input type="number" min=0 max=100 step=0.01 class="form-control text-right" id="KilosCarne" name="porcentcarneCrearReceta" placeholder="Kilos" required>
+            <div class="input-group col-6"> 
+             <div class="input-group-prepend">
+                    <span class="input-group-text">Porcentaje de carne:</span>
+                  </div>
+                    <input type="number" min=0 step=0.01 max=100 class="form-control text-right" id="KilosCarne" name="porcentcarneCrearReceta" placeholder="Ingrese el porcentaje de carne" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">kg de Carne en 100 kg de paston</span>
+                  <span class="input-group-text">%</span>
               </div>
                              <div class="invalid-feedback">
-                                    Ingrese la cantidad de kilos de carne cada 100 kg de pastón
+                                    Ingrese la el porcentaje de carne que tendrá el paston
                                     </div>
-                </div>
+              </div>
             <div class="input-group col-6"> 
                     <div class="input-group-prepend">
                     <span class="input-group-text">Merma esperada:</span>
@@ -143,27 +146,50 @@ foreach($depositos as $deposito){
               <br>
                     <div class="row">
                             <div class="form-group col-6">
-                         <label for="largouniCrearReceta">Largo por unidad de producto fresco en centímetros/unidad:</label>
+                         <label for="largouniLoteCrearReceta">Largo por unidad lote en centímetros/unidad:</label>
                      <div class="input-group">
-                                <input type="number" min=0 step=0.01 class="form-control text-right" name="largouniCrearReceta" id="cmxunidad" placeholder="centímetros por unidad" required>
+                                <input type="number" min=0 step=0.01 class="form-control text-right" name="largouniLoteCrearReceta" id="cmxunidad" placeholder="centímetros por unidad" required>
                                   <div class="input-group-append">
                   <span class="input-group-text">cm/unidad</span>
                             </div>
                              <div class="invalid-feedback">
-                                    Ingrese el largo por unidad de producto fresco en centímetros
+                                    Ingrese el largo por unidad lote
                                     </div>
                        </div>         
                       </div>
-                         <div class="form-group col-6">
-                         <label for="pesouniCrearReceta">Peso por unidad de producto fresco en gramos/unidad:</label>
+                      <div class="form-group col-6">
+                         <label for="largoUniEsperadoCrearReceta">Largo por unidad esperado en centímetros/unidad:</label>
                      <div class="input-group">
-                    <input type="number" min=0 step=0.01 class="form-control text-right" name="pesouniCrearReceta" id="gramosxunidad" placeholder="gramos por unidad" required>
+                                <input type="number" min=0 step=0.01 class="form-control text-right" name="largoUniEsperadoCrearReceta" id="cmxunidadesperado" placeholder="centímetros por unidad" required>
+                                  <div class="input-group-append">
+                  <span class="input-group-text">cm/unidad</span>
+                            </div>
+                             <div class="invalid-feedback">
+                                    Ingrese el largo por unidad esperado
+                                    </div>
+                       </div>         
+                      </div>
+                    </div>
+                    <div class="row">
+                         <div class="form-group col-6">
+                         <label for="pesouniLoteCrearReceta">Peso por unidad lote en gramos/unidad:</label>
+                     <div class="input-group">
+                    <input type="number" min=0 step=0.01 class="form-control text-right" name="pesouniLoteCrearReceta" id="gramosxunidad" placeholder="gramos por unidad" required>
                                   <div class="input-group-append">
                   <span class="input-group-text">gramos/unidad</span>
                             </div>
                                <div class="invalid-feedback">
-                                    Ingrese el peso por unidad de producto fresco en gramos 
+                                    Ingrese el peso por unidad lote en gramos 
                                     </div>
+                       </div>         
+                      </div>
+                    <div class="form-group col-6">
+                         <label for="pesoUniEsperadoCrearReceta">Peso por unidad esperado en gramos/unidad:</label>
+                     <div class="input-group">
+                    <input type="text" class="form-control text-right" name="pesoUniEsperadoCrearReceta" id="gramosxunidadesperado" placeholder="" disabled>
+                                  <div class="input-group-append">
+                  <span class="input-group-text">gramos/unidad</span>
+                            </div>
                        </div>         
                       </div>
                         </div>
@@ -202,11 +228,13 @@ foreach($depositos as $deposito){
         <div class="modal-body">
           <p>Usted está a punto de cargar la receta <a class="nombre"></a>.</p>
 
-          <p>Utilizará <a class="kilos"></a> kilos de carne cada 100 kilos de pastón, con <a class="merma"></a>% de merma esperada.</p>
+          <p>Utilizará <a class="kilos"></a> % de carne sobre el peso del pastón, con <a class="merma"></a>% de merma esperada.</p>
 
           <p>Requerirá <a class="diasprodu"></a> días de producción y <a class="diasvenc"></a> días para su vencimiento.</p>
 
-          <p>Tiene un largo por unidad de producto fresco de <a class="largo"></a> centímetros y un peso por unidad de producto fresco de <a class="peso"></a> kilos.</p>
+          <p>Tiene un largo por unidad lote de <a class="largo"></a> centímetros y un largo por unidad esperado de <a class="largoesperado"></a> centímetros.
+
+          <p>Tiene un peso por unidad lote de <a class="peso"></a> kilos y un peso por unidad esperado de  <a class="pesoesperado"></a> kilos .</p>
 
           <p>Tendrá la siguiente descripción:</p> 
 
@@ -254,6 +282,8 @@ function completarmodalrecetas(){
                                       diasvencimiento=$('#DiasVencimiento').val()
                                       gramosxunidad=$('#gramosxunidad').val()
                                       cmxunidad=$('#cmxunidad').val()
+                                      gramosxunidadesperado=$('#gramosxunidadesperado').val()
+                                      cmxunidadesperado=$('#cmxunidadesperado').val()
 
                                       var nombreingredientes = [];
                                       cantidadingredientes=[];
@@ -281,6 +311,8 @@ modal.find('.diasprodu').text('' + diasproduccion);
 modal.find('.diasvenc').text('' + diasvencimiento);
 modal.find('.largo').text('' + gramosxunidad);
 modal.find('.peso').text('' + cmxunidad);
+modal.find('.largoesperado').text('' + gramosxunidadesperado);
+modal.find('.pesoesperado').text('' + cmxunidadesperado);
 modal.find('.descripcion').text('' + descripcion);
 modal.find('.unidades finales').text('' + unidadesfinalesxunidad);
 
@@ -426,6 +458,43 @@ $(document).ready(function(){
     });
     
 });
+
+$('#gramosxunidad').keyup(function(){
+
+if ($('#MermaEsperada').val()!=""&&$('#unidadesfinalesxunidad').val()!="") {
+
+$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
+
+}else{
+
+$('#gramosxunidadesperado').val("Se calculará cuando termine de ingresar los datos")
+
+}})
+
+$('#MermaEsperada').keyup(function(){
+
+if ($('#gramosxunidad').val()!=""&&$('#unidadesfinalesxunidad').val()!="") {
+
+$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
+
+}else{
+
+$('#gramosxunidadesperado').val("Se calculará cuando termine de ingresar los datos")
+
+}})
+
+$('#unidadesfinalesxunidad').keyup(function(){
+
+if ($('#gramosxunidad').val()!=""&&$('#MermaEsperada').val()!="") {
+
+$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
+
+}else{
+
+$('#gramosxunidadesperado').val("Se calculará cuando termine de ingresar los datos")
+
+}})
+
 
 </script>
 
