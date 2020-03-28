@@ -23,7 +23,7 @@ $nueva_receta=ControladorFormularios::ctrCrearReceta();
             <br>  
                           <h6>Complete los datos de la nueva receta que desea agregar:</h6>
                           <br>
-      <form method="post" class="needs-validation">
+      <form method="post" class="needs-validation" id="formcrearreceta">
                      <div class="row">
                             <div class="form-group col-12">
                          <label for="NombreReceta">Nombre de la nueva receta:</label>
@@ -257,7 +257,7 @@ foreach($depositos as $deposito){
           <p>¿Confirma que desea CARGAR ESTA RECETA?</p>
         </div>
         <div class="modal-footer">
-          <button type="submit"  class="btn btn-success">Sí, cargar receta</button>
+          <button type="button"  class="btn btn-success" id="botonconfirmarreceta">Sí, cargar receta</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">No, volver a atrás</button>
         </div>
       </div>
@@ -265,6 +265,22 @@ foreach($depositos as $deposito){
   </div>
 
        </form>
+
+  <!-- Mensaje confirmacion -->
+  <div class="modal fade" id="MensajeConfirmacion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.reload();">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
 <script type="text/javascript">
@@ -498,6 +514,30 @@ $('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperad
 $('#gramosxunidadesperado').val("Se calculará cuando termine de ingresar los datos")
 
 }})
+
+
+$(document).ready( function() {   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
+    $("#botonconfirmarreceta").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
+                              
+       $.post("datos.php",$("#formcrearreceta").serialize(),function(respuestacod){
+                if(respuestacod == "OK"){
+                	$('#ConfirmarNuevaReceta').modal('hide')
+                    var modal=$('#MensajeConfirmacion').modal('show')
+                 	modal.find('.modal-body').empty()
+                 	modal.find('.modal-body').html(
+                 		'<div class="alert alert-success" role="alert"><h4 class="alert-heading">Receta agregada</h4><p>Usted ha agregado la nueva receta correctamente.</p><hr></div>')
+
+                } else {
+                    $('#ConfirmarNuevaReceta').modal('hide')
+                    var modal=$('#MensajeConfirmacion').modal('show')
+                 	modal.find('.modal-body').empty()
+                 	modal.find('.modal-body').html(
+                 		'<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar la receta, reintente nuevamente, de persister el error contacte con los administradores del sistema.</p><hr></div>')
+                }
+            },"json");
+  
+    });    
+});
 
 
 </script>

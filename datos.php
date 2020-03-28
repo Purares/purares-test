@@ -169,4 +169,22 @@ $calculoinsumos=ControladorFormularios::ctrCalculoInsumos();
 
     }
 
+if (isset($_POST["nombreCrearReceta"])||
+            isset($_POST["diasprodCrearReceta"])||
+            isset($_POST["diasvencCrearReceta"])||
+            isset($_POST["porcentcarneCrearReceta"])||
+            isset($_POST["largouniLoteCrearReceta"])||
+            isset($_POST["pesouniLoteCrearReceta"])||
+            isset($_POST["mermaCrearReceta"])||
+            isset($_POST["largoUniEsperadoCrearReceta"])||
+            isset($_POST["pesoUniEsperadoCrearReceta"])||
+            isset($_POST["uFinalXuCrearReceta"])|| #unidades_final_xunidadDe Lote       
+            isset($_POST["descripcionCrearReceta"])){
+
+    $nuevareceta=ControladorFormularios::ctrCrearReceta();
+
+    $respuestacod=json_encode($nuevareceta);
+    echo $respuestacod;
+}
+
 ?>
