@@ -184,9 +184,10 @@ foreach($depositos as $deposito){
                        </div>         
                       </div>
                     <div class="form-group col-6">
+                    	<input type="hidden" name="pesoUniEsperadoCrearReceta" id="gramosxunidadesperado1" value="">
                          <label for="pesoUniEsperadoCrearReceta">Peso por unidad esperado en gramos/unidad:</label>
                      <div class="input-group">
-                    <input type="text" class="form-control text-right" name="pesoUniEsperadoCrearReceta" id="gramosxunidadesperado" placeholder="" disabled>
+                    <input type="text" class="form-control text-right" id="gramosxunidadesperado" placeholder="" disabled>
                                   <div class="input-group-append">
                   <span class="input-group-text">gramos/unidad</span>
                             </div>
@@ -464,6 +465,7 @@ $('#gramosxunidad').keyup(function(){
 if ($('#MermaEsperada').val()!=""&&$('#unidadesfinalesxunidad').val()!="") {
 
 $('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
+$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
 
 }else{
 
@@ -476,6 +478,7 @@ $('#MermaEsperada').keyup(function(){
 if ($('#gramosxunidad').val()!=""&&$('#unidadesfinalesxunidad').val()!="") {
 
 $('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
+$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
 
 }else{
 
@@ -488,6 +491,7 @@ $('#unidadesfinalesxunidad').keyup(function(){
 if ($('#gramosxunidad').val()!=""&&$('#MermaEsperada').val()!="") {
 
 $('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
+$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
 
 }else{
 
