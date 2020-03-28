@@ -227,12 +227,12 @@ class ControladorFormularios{
 					$datos= array(	'nombre_' => 				$_POST["nombreCrearReceta"],
 									'diasProd_' => 				$_POST["diasprodCrearReceta"],
 									'diasVenc_' => 				$_POST["diasvencCrearReceta"],
-									'porcentCarne_'=> 			$_POST["porcentcarneCrearReceta"],
+									'porcentCarne_'=> 			round(($_POST["porcentcarneCrearReceta"]/100),3),
 									'largoUniLote_' => 			$_POST["largouniLoteCrearReceta"],
 									'pesoUniLote_' => 			$_POST["pesouniLoteCrearReceta"],
-									'merma_' => 				($_POST["mermaCrearReceta"]/100),
+									'merma_' => 				round(($_POST["mermaCrearReceta"]/100),3),
 									'largoUniEsperado_' =>		$_POST["largoUniEsperadoCrearReceta"],
-									'pesoUniEsperado_' =>		$_POST["pesoUniEsperadoCrearReceta"],
+									'pesoUniEsperado_' =>		round($_POST["pesoUniEsperadoCrearReceta"],3),
 									'unidadesFinalXunidad_' => 	$_POST["uFinalXuCrearReceta"],
 									'descripcion_' => 			$_POST["descripcionCrearReceta"]);
 
@@ -252,8 +252,8 @@ class ControladorFormularios{
 						$respuesta=ModeloFormularios::mdlAltaInsumosReceta($datos3);
 						
 					#Si no dio error sigue el loop
-						if ($respuesta != "ok") { return $respuesta2;}
-					} #exit for
+						if ($respuesta != "OK") { return $respuesta2;}
+					} #exit for OK
 
 			return $respuesta;
 		}
@@ -395,7 +395,7 @@ class ControladorFormularios{
 				$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
 				
 				#Si no dio error sigue el loop
-				if ($respuesta != "ok") { return $respuesta2;}
+				if ($respuesta != "OK") { return $respuesta2;}
 			} #exit for
 
 			return $respuesta;
@@ -429,7 +429,7 @@ class ControladorFormularios{
 			$stockActual=$respuesta1[0]['stock'];
 
 				if ($stockActual>=$_POST["cantidadMovimientoCarne"]) {
-					#$respuesta='ok';
+					#$respuesta='OK';
 					$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
 				}else{
 					$respuesta='Stock insuficiente.';

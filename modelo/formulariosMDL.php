@@ -213,7 +213,7 @@ class ModeloFormularios{
 		$stmt=conexion::conectarBD()->prepare("call act_InactivarReceta($id_receta);");
 		
 		if ($stmt -> execute()){
-			return "ok";
+			return "OK";
 		}else{ 
 			print_r(conexion::conectarBD()->errorInfo());
 		}
@@ -229,7 +229,7 @@ class ModeloFormularios{
 		$stmt=conexion::conectarBD()->prepare("call act_ActivarReceta($id_receta);");
 		
 		if ($stmt -> execute()){
-			return "ok";
+			return "OK";
 		}else{ 
 			print_r(conexion::conectarBD()->errorInfo());
 		}
@@ -243,7 +243,7 @@ class ModeloFormularios{
 
 	static public function mdlCrearReceta($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarReceta( :nombre,:diasPord,:diasVenc,:porcentCarne,:largoUniLote,:pesoUniLote,:merma, :largoUniEsperado,pesoUniEsperado,:unidadesFinalXunidad,:descripcion);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarReceta( :nombre,:diasPord,:diasVenc,:porcentCarne,:largoUniLote,:pesoUniLote,:merma, :largoUniEsperado,:pesoUniEsperado,:unidadesFinalXunidad,:descripcion);");
 		
 		$stmt -> bindparam (":nombre",				$datos['nombre_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":diasPord",			$datos['diasProd_'],PDO::PARAM_STR);
@@ -287,7 +287,7 @@ class ModeloFormularios{
 		$stmt -> bindparam (":cantidadInsumo",$datos[1],PDO::PARAM_STR);
 
 		if ($stmt -> execute()){
-			return "ok";
+			return "OK";
 		}else{ 
 			print_r(conexion::conectarBD()->errorInfo());
 		}
@@ -520,7 +520,7 @@ static public function mdlCrearDesposte($datos){
 		$stmt -> bindparam (":motivoAnulacion",$datos['motivoAnulacion_'],PDO::PARAM_STR);
 
 		if ($stmt -> execute()){
-			return "ok";
+			return "OK";
 		}else{ 
 			print_r(conexion::conectarBD()->errorInfo());
 		}
