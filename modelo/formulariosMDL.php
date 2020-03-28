@@ -243,16 +243,17 @@ class ModeloFormularios{
 
 	static public function mdlCrearReceta($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarReceta( :nombre,:diaspord,:diasvenc,:porcentcarne,:largouni,:pesouni,:merma, :largoUniEsperado,:unidadesFinalXunidad,:descripcion);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarReceta( :nombre,:diasPord,:diasVenc,:porcentCarne,:largoUniLote,:pesoUniLote,:merma, :largoUniEsperado,pesoUniEsperado,:unidadesFinalXunidad,:descripcion);");
 		
 		$stmt -> bindparam (":nombre",				$datos['nombre_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":diaspord",			$datos['diasprod_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":diasvenc",			$datos['diasvenc_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":porcentcarne",		$datos['porcentcarne_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":largouni",			$datos['largouni_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":pesouni",				$datos['pesouni_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":diasPord",			$datos['diasProd_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":diasVenc",			$datos['diasVenc_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":porcentCarne",		$datos['porcentCarne_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":largoUniLote",		$datos['largoUniLote_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":pesoUniLote",			$datos['pesoUniLote_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":merma",				$datos['merma_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":largoUniEsperado",	$datos['largoUniEsperado_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":pesoUniEsperado",		$datos['pesoUniEsperado_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":unidadesFinalXunidad",$datos['unidadesFinalXunidad_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":descripcion",			$datos['descripcion_'],PDO::PARAM_STR);
 

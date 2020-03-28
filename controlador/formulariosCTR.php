@@ -212,23 +212,27 @@ class ControladorFormularios{
 	static public function ctrCrearReceta(){
 
 		if (isset($_POST["nombreCrearReceta"])||
-			isset($_POST["mermaCrearReceta"])||
 			isset($_POST["diasprodCrearReceta"])||
 			isset($_POST["diasvencCrearReceta"])||
-			isset($_POST["largouniCrearReceta"])||
-			isset($_POST["pesouniCrearReceta"])||
-			isset($_POST["uFinalXuCrearReceta"])|| #unidades_final_xunidad
-			isset($_POST["porcentcarneCrearReceta"])){
+			isset($_POST["porcentcarneCrearReceta"])||
+			isset($_POST["largouniLoteCrearReceta"])||
+			isset($_POST["pesouniLoteCrearReceta"])||
+			isset($_POST["mermaCrearReceta"])||
+			isset($_POST["largoUniEsperadoCrearReceta"])||
+			isset($_POST["pesoUniEsperadoCrearReceta"])||
+			isset($_POST["uFinalXuCrearReceta"])|| #unidades_final_xunidadDe Lote		
+			isset($_POST["descripcionCrearReceta"])){
 
 			#COMPLETAR EN LA BD:
 					$datos= array(	'nombre_' => 				$_POST["nombreCrearReceta"],
-									'diasprod_' => 				$_POST["diasprodCrearReceta"],
-									'diasvenc_' => 				$_POST["diasvencCrearReceta"],
-									'porcentcarne_'=> 			$_POST["porcentcarneCrearReceta"],
-									'largouni_' => 				$_POST["largouniCrearReceta"],
-									'pesouni_' => 				$_POST["pesouniCrearReceta"],
+									'diasProd_' => 				$_POST["diasprodCrearReceta"],
+									'diasVenc_' => 				$_POST["diasvencCrearReceta"],
+									'porcentCarne_'=> 			$_POST["porcentcarneCrearReceta"],
+									'largoUniLote_' => 			$_POST["largouniLoteCrearReceta"],
+									'pesoUniLote_' => 			$_POST["pesouniLoteCrearReceta"],
 									'merma_' => 				($_POST["mermaCrearReceta"]/100),
-									'largoUniEsperado_' =>		$_POST["largoUniEsperado"],
+									'largoUniEsperado_' =>		$_POST["largoUniEsperadoCrearReceta"],
+									'pesoUniEsperado_' =>		$_POST["pesoUniEsperadoCrearReceta"],
 									'unidadesFinalXunidad_' => 	$_POST["uFinalXuCrearReceta"],
 									'descripcion_' => 			$_POST["descripcionCrearReceta"]);
 
