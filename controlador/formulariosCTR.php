@@ -221,15 +221,16 @@ class ControladorFormularios{
 			isset($_POST["porcentcarneCrearReceta"])){
 
 			#COMPLETAR EN LA BD:
-					$datos= array(	'nombre_' => $_POST["nombreCrearReceta"],
-									'diasprod_' => $_POST["diasprodCrearReceta"],
-									'diasvenc_' => $_POST["diasvencCrearReceta"],
-									'porcentcarne_'	 => $_POST["porcentcarneCrearReceta"],
-									'largouni_' => $_POST["largouniCrearReceta"],
-									'pesouni_' => $_POST["pesouniCrearReceta"],
-									'merma_' => ($_POST["mermaCrearReceta"]/100),
-									'unidadesFinalXunidad_' => $_POST["uFinalXuCrearReceta"],
-									'descripcion_' => $_POST["descripcionCrearReceta"]);
+					$datos= array(	'nombre_' => 				$_POST["nombreCrearReceta"],
+									'diasprod_' => 				$_POST["diasprodCrearReceta"],
+									'diasvenc_' => 				$_POST["diasvencCrearReceta"],
+									'porcentcarne_'=> 			$_POST["porcentcarneCrearReceta"],
+									'largouni_' => 				$_POST["largouniCrearReceta"],
+									'pesouni_' => 				$_POST["pesouniCrearReceta"],
+									'merma_' => 				($_POST["mermaCrearReceta"]/100),
+									'largoUniEsperado_' =>		$_POST["largoUniEsperado"],
+									'unidadesFinalXunidad_' => 	$_POST["uFinalXuCrearReceta"],
+									'descripcion_' => 			$_POST["descripcionCrearReceta"]);
 
 				#Agrega la Receta y obtiene el ID de la mism
 					$idReceta_nueva=ModeloFormularios::mdlCrearReceta($datos);
@@ -842,13 +843,14 @@ class ControladorFormularios{
 	static public function ctrFinalizarOP(){
 		
 
-			#if is set
+		#if is set
+		
 		if (isset($_POST["idOrdenProdAlta_FinOP"])||
 			isset($_POST["productoObtenido_FinOp"])||
 			isset($_POST["unidades_FinOP"])||
 			isset($_POST["MedicionesPeso_FinOP"])||
 			isset($_POST["MedicionesResponsable_FinOP"])||
-			isset($_POST["MedicionesFechaMedicion_FinOP"]));
+			isset($_POST["MedicionesFechaMedicion_FinOP"])){
 
 
 			#valida que la OP Alta no esté anulada
@@ -895,144 +897,6 @@ class ControladorFormularios{
 		return $respuesta;
 		}
 	}	
-
-
-
-
-
-
-
-/*
-	static public function prueba(){
-
-		$id_receta=111;
-		$peso_paston=150;
-
-		$datos= ModeloFormularios::mdlDetalleReceta($id_receta);
-
-		
-		$datos = array(
-			#Lote de produccion
-			'largoUnidad_Lote'		=>$datos[0]['largo_unidad'],#Dato receta #Lote de produccion
-			'pesoUnidad_Lote'		=>$datos[0]['peso_unidad'],
-			#Esperado
-			'merma_Esperado'		=>$datos[0]['merma_esperada'], #Dato Receta
-			'largoUnidad_Esperado'	=>$datos[0]['largo_unidad']/$datos[0]['unidades_final_xunidad'],#Producto final
-			'pesoUnidad_Esperado'	=>$datos[0]['peso_unidad']/$datos[0]['unidades_final_xunidad']);
-
-
-		return $datos;
-	}
-
-
-	static public function pruebab(){
-
-		
-
-		$datos= array(	'id_proveedor_'	=> 111,
-						'nro_remito_'	=>$_POST["pesoPastonAltaOP"]);
-
-		
-		$respuesta1=ModeloFormularios::mdlListaInsumosOP($datos);
-		$respuesta2=ModeloFormularios::mdlValidacionStockInsumosOP($datos);
-
-			#Valida si alcanza el stock actual de insumo
-			if (count($respuesta2)>0) {
-				$validacion="NO";
-			}else{
-				$validacion="SI";
-			}
-
-		$respuesta= array(	'tablaInsumos_' => $respuesta1,
-							'validadacion_' => $respuesta2);
-
-	}
-
-	#------------------------- ELIMINAR- SE UTILIZA PARA REALIZAR PRUEBAS -------------------------#
-
-	static public function prueba1(){
-
-
-	$idCarneAltaDesposte=[8,9,10,11];
-	$cantidadAltaDesposte=[100,12,312,97];
-	$param1='hola';
-	$param2='chau';
-
-	$datosA= array(	'id_carne_'=> $idCarneAltaDesposte,
-					'cantidad_'=> $cantidadAltaDesposte);
-
-
-	$datosB= array(	'id_cuenta_'=>'1',#[To Do] Debemos asignar la que corresponda a DESPOSTE
-					'id_desposte_'=> 33,
-					'id_ordenprod_'=>'', #El procedure es generico, por lo que espera todos
-					'descripcion_'=>'', #El procedure es generico, por lo que espera todos
-					'id_usuario_'=> '1');#[TO DO] Deberia tomar el usuario que ingreso
-
-
- $logitud=count($idCarneAltaDesposte);
-
-	$datosC = array('id_carne_'=> $idCarneAltaDesposte,
-					'cantidad_'=> $cantidadAltaDesposte,
-					'param1_'=> array_fill(0,$logitud,$param1));
-	
-
-
-	#$respuesta=array_sum(array_column($datosC,'cantidad_'));
-
-	#$respuesta=array_sum($cantidadAltaDesposte);
-
-	$respuesta= array_column($datosC,0);
-
-	$respuesta=$datosC;
-
-	#$respuesta=ControladorFormularios::ctrMovCarnesDesposte($datos2);
-	return $respuesta;
-	}
-
-	static public function ctrMovCarnePRUEBA(){
-
-		$idCarneMovimientoCarne=8;
-		$idCuentaMovimientoCarne=7;
-		$idDesposteMovimientoCarne=9;
-		$cantidadMovimientoCarne=99;
-		$descripcionMovimientoCarne="HC";
-
-			$longitud=1;
-
-			$datos2= array(	'idCarne_'		=> [$idCarneMovimientoCarne],
-							'idCuenta_'		=> [$idCuentaMovimientoCarne], #VariableFIJA!
-							'idDesposte_'	=> [$idDesposteMovimientoCarne],
-							'cantidad_'		=> [$cantidadMovimientoCarne],
-							'idOrenProd_'	=> array_fill(0,$longitud,null),
-							'idUsuario_'	=> array_fill(0,$longitud,1),#[TO DO]
-							'descripcion_'	=> [$descripcionMovimientoCarne]);
-				
-			$datos3 = array_column($datos2,0);
-
-			#VALIDACIÓN
-
-
-			#$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
-			
-			$respuesta1=ModeloFormularios::mdlValidacionMovCarne($datos3);
-		
-			$stockActual=$respuesta1[0]['stock'];
-
-			if ($stockActual>=$cantidadMovimientoCarne) {
-				$respuesta='ok';
-			}else{
-				$respuesta='no';
-			}
-			
-
-			return $respuesta;
-
-		
-	}
-*/
-
-
-
 
 
 }	#cierra la clase
