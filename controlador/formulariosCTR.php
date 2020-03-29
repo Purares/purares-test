@@ -884,12 +884,12 @@ static public function ctrValidarAnulacionCompra(){
 			#valida que la OP Alta no esté anulada
 			$detalleAltaOP=ModeloFormularios::mdlDetalleOpAlta($_POST["idOrdenProdAlta_FinOP"]);
 			$opAnulada=$detalleAltaOP[0]['anulado'];
-			if ($opAnulada=0) {
+			if ($opAnulada==0) {
 				
 				#valida que ya nose encuentre una finalización de OP que no esté anulada
 				$detalleFinOP=ModeloFormularios::mdlDetalleOpFin($_POST["idOrdenProdAlta_FinOP"]);
 				$longitud=count($detalleFinOP);
-				if ($longitud=0) {
+				if ($longitud==0) {
 
 					#Insertar los campos en la finalización de OP
 					$datosOP= array('idOrdenProdAlta_'	=> $_POST["idOrdenProdAlta_FinOP"],
@@ -903,10 +903,10 @@ static public function ctrValidarAnulacionCompra(){
 					$longitud=count($_POST["MedicionesPeso_FinOP"]);
 					
 					$datosMediciones=array(
-									'idOrdenProdFin_'			=> array_fill(0,$longitud,$id_ordenprod_fin),
-									'MedicionesPeso_'			=> $_POST["MedicionesPeso_FinOP"],
-									'MedicionesResponsable_'	=> $_POST["MedicionesResponsable_FinOP"],
-									'MedicionesFechaMedicion_'	=> strval(date("y-m-d",strtotime($_POST["MedicionesFechaMedicion_FinOP"]))));
+							'idOrdenProdFin_'			=> array_fill(0,$longitud,$id_ordenprod_fin),
+							'MedicionesPeso_'			=> $_POST["MedicionesPeso_FinOP"],
+							'MedicionesResponsable_'	=> $_POST["MedicionesResponsable_FinOP"],
+							'MedicionesFechaMedicion_'	=> array_fill(0,$longitud,"2020-01-01"));#strval(date("y-m-d",strtotime($_POST["MedicionesFechaMedicion_FinOP"]))));
 
 					for ($i=0; $i <$longitud ; $i++) {
 
