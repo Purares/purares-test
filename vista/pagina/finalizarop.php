@@ -140,7 +140,7 @@
 $(document).ready( function() {   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
     $("#botonconfirmarfinop").click( function() {    // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
-       $.post("datos.php",$("#formfinop").serialize(),function(respuestacod){
+       $.post("datos.php",$("#formfinop").serializeArray(),function(respuestacod){
                 if(respuestacod == "OK"){
                   $('#ConfirmarFinalizarOp').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
