@@ -517,16 +517,53 @@ class ControladorFormularios{
 		if (isset($_GET["idCompra"])){
 
 			$id_compra= $_GET["idCompra"];
-			$respuesta= ModeloFormularios::mdlDetallecompras($id_compra);
+			$respuesta= ModeloFormularios::mdlDetalleCompra($id_compra);
 		
 			return $respuesta;	
 		}
+	}
 
+#-------------------------  Validar anulacion de  Compra -------------------------#
+
+static public function ctrValidarAnulacionCompra(){
+
+		if (isset($_GET["idCompra"])){
+
+			$detalleCompra= ModeloFormularios::mdlDetalleCompra($_GET["idCompra"]);
+			$anulado=$detalleCompra[0]['anulado'];
+			if ($anulado==0) {
+				$respuesta="OK";
+			}else{
+				$respuesta="La Compra Mro:".$_GET["idCompra"]." ya se encuentra anulada";
+			}
+
+			return $respuesta;	
+		}
 	}
 
 
+#-------------------------  Anular Compra -------------------------#
 
+	static public function ctrAnularCompra(){
 
+		if (isset($_GET["idCompra"])||
+			isset($_POST["motivoAnulacionCompra"])) {
+
+			$validacion=ControladorFormularios::ctrValidarAnulacionCompra();
+			if ($validacion="OK") {
+
+				$datos= array(	'idCompra_'=> $_GET["idCompra"],
+								'idUsuario_'=>'1', #[TO DO]
+								'motivoAnulacion_'=> $_POST["motivoAnulacionCompra"]);
+					
+				$respuesta=ModeloFormularios::mdlAnularCompra($datos);
+			}else{
+				$respuesta=$validacion;
+			}
+			
+		return $respuesta;
+		}
+	}	
 
 	#------------------------- Compra de INSUMOS -------------------------#
 
@@ -646,13 +683,7 @@ class ControladorFormularios{
 
 	static public function ctrAgregarOP(){
 
-			
-		#0) Variables post que debe ingresar
-		#$idRecetaAgregarOP=111;
-		#$pesoPastonAgregarOP=150;
-		#$idCarnesAgregarOP=[8,9,10];
-		#$catidadCarnesAgregarOP=[100,200,300];
-
+		
 		if (isset($_POST["idRecetaAltaOP"])||
 			isset($_POST["pesoPastonAltaOP"])||
 			isset($_POST["idCarnesAgregarOP"])||
@@ -833,22 +864,15 @@ class ControladorFormularios{
 								'detalleInsumosOP_' 	=> $detalleInsumosOP,
 								'detalleCarnesOP_' 		=> $detalleCarnesOP,
 								'detalleMedicionesesOP_'=> $detalleMediciones);
-
-			
-			return $respuesta;	
-		}
-
 	
+			return $respuesta;	
+		}	
 	}
-
 
 #------------------------- Finalizar Orden de produccion -------------------------#
 
 	static public function ctrFinalizarOP(){
-		
-
-		#if is set
-		
+				
 		if (isset($_POST["idOrdenProdAlta_FinOP"])||
 			isset($_POST["productoObtenido_FinOp"])||
 			isset($_POST["unidades_FinOP"])||

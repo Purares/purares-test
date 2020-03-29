@@ -586,6 +586,28 @@ static public function mdlCrearDesposte($datos){
 	}
 
 
+#-------------------------Anular Compra -------------------------#
+
+	static public function mdlAnularCompra($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call act_AnularCompra(:idCompra,:idUsuario,:motivoAnulacion);
+");
+
+		$stmt -> bindparam (":idCompra",		$datos['idCompra_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUsuario",		$datos['idUsuario_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":motivoAnulacion",	$datos['motivoAnulacion_'],PDO::PARAM_STR);
+
+		if ($stmt -> execute()){
+			return "OK";
+		}else{ 
+			print_r(conexion::conectarBD()->errorInfo());
+		}
+
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
 
 #ORDENES DE PRODUCCION
 

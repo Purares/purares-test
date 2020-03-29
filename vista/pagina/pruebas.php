@@ -4,20 +4,21 @@
 
 <?php
 
-$id_receta=117;
-$cantidad_carne=[100,200,100];
+$id_compra=3;
+$detalleCompra= ModeloFormularios::mdlDetalleCompra($id_compra);
+$anulado=$detalleCompra[0]['anulado'];
+if ($anulado==0) {
+	$respuesta="OK";
+}else{
+	$respuesta="La Compra Mro:".$id_compra." ya se encuentra anulada";
+}
 
 
-$detalleReceta=ModeloFormularios::mdlDetalleReceta($id_receta);
+if ($respuesta="OK") {
+	$msg="Anular";
+}
 
-$porcentCarne=$detalleReceta [0]['porcent_carne'];
-
-$cantidadTotalCarne=array_sum($cantidad_carne);
-
-var_dump($cantidadTotalCarne);
-var_dump($porcentCarne);		
-var_dump($detalleReceta);		
-
+var_dump($msg);
 
 ?>
 
