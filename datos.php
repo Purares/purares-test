@@ -187,4 +187,18 @@ if (isset($_POST["nombreCrearReceta"])||
     echo $respuestacod;
 }
 
+  if (isset($_POST["idOrdenProdAlta_FinOP"])||
+            isset($_POST["productoObtenido_FinOp"])||
+            isset($_POST["unidades_FinOP"])||
+            isset($_POST["MedicionesPeso_FinOP"])||
+            isset($_POST["MedicionesResponsable_FinOP"])||
+            isset($_POST["MedicionesFechaMedicion_FinOP"])){
+
+    $finalizarop=ControladorFormularios::ctrFinalizarOP();
+
+    $respuestacod=json_encode($finalizarop);
+    echo $respuestacod;
+}
+
+
 ?>

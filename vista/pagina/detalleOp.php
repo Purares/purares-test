@@ -107,9 +107,7 @@ echo '<tr><td scope="col">' . $carneop[$j]['id_desposte'] . '</td><td scope="col
      		<br>
 <?php
 
-$detallesfinop=$detalleOrden[0]['detalleFinOP_'];
-
-if ($detallesfinop[0]['fecha_finalizacion']!=NULL){
+if($detallesfinop=$detalleOrden['detalleFinOP_']){
 
     echo '<div class="row">
                      <div class="form-group col-6">
@@ -164,9 +162,7 @@ echo '<div class="row">
 
 <?php
 
-$detallesmediciones=$detalleOrden[0]['detalleMedicionesesOP_'];
-
-if ($detallesmediciones[0]['peso']!=NULL){
+if ($detallesmediciones=$detalleOrden['detalleMedicionesesOP_']){
 
 echo '<div class="row">
                      <div class="form-group col-4">
@@ -205,7 +201,7 @@ echo '<div class="row">
 
 ?>
 <br>
-               <a class="btn btn-danger" href="index.php?pagina=finalizarop&">Finalizar orden...</a>
+               <a class="btn btn-danger" href="index.php?pagina=finalizarop&idOrdenProdAlta_FinOP=<?php echo $_GET['idOrdenProdDetalle'];?>">Finalizar orden...</a>
                		<button type="button" class="btn btn-warning" id="Imprimirorden">Imprimir orden</button> 
       			</div>
 

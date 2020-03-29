@@ -78,7 +78,7 @@
 		<li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Despostes</a>
     <div class="dropdown-menu">
-      <a class="dropdown-item" href="index.php?pagina=agregarDesposte">Nuevo desposte</a>
+      <a class="dropdown-item" href="index.php?pagina=agregarDesposte&tipoProveedor_NuevaCompra=%27Carnes%27">Nuevo desposte</a>
       <a class="dropdown-item" href="index.php?pagina=verDespostes">Ver despostes</a>
     </div>
 

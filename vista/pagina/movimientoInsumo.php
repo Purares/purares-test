@@ -140,6 +140,21 @@ modal.find('.nombremodal').text('' + nombre);
 
   }})
 
+$(document).ready(function () {
+
+$.ajax({
+                type:'POST',
+                url:'datos.php',
+                data:{funcion:"'ActualizarInsumo'"},
+                success:function(html){
+
+    //              alert(html)
+                $('#movimiento').empty()
+                $('#movimiento').append('<option value="">Seleccione el tipo de movimiento</option>'+html)
+
+                })})})
+
+
 </script>
 
 </body>

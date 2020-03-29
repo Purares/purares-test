@@ -10,6 +10,8 @@
 
 $carnes=ControladorFormularios::ctrListaCarnes();
 
+$proveedores=ControladorFormularios::ctrListaProveedores();
+
 $nuevodesposte=ControladorFormularios::ctrCrearDesposte();
 
 
@@ -31,12 +33,27 @@ $nuevodesposte=ControladorFormularios::ctrCrearDesposte();
                                     </div>
                                 </div>
                              <div class="form-group col-4">
-                           <label for="NombreProveedor">Proveedor:</label>
-                    <input type="text" class="form-control text-center" id="NombreProveedor" name="proveedorAltaDesposte" placeholder="Ingrese el nombre del proveedor" required>
-                                   <div class="invalid-feedback">
-                                   Ingrese el nombre del proveedor del desposte
-                                    </div>
+                          <label for="idProvedorCompraInsumo">Proveedor:</label>
+                        <select class="custom-select" name="proveedorAltaDesposte" id="NombreProveedor" required>
+                        <option value="">Seleccione el proveedor</option>
+    
+    <?php
 
+    if ($proveedores) {
+
+foreach($proveedores as $proveedor){
+
+  echo '<option value="' . $proveedor["id_proveedor"] . '">' . $proveedor["nombre"] . '</option>';
+}}
+else{
+
+echo $proveedores;
+
+};?>
+                               </select>
+                                   <div class="invalid-feedback">
+                                   Elija el nombre del proveedor del desposte
+                                    </div>
                                 </div>
                                     <div class="input-group col-4"> 
                   <label for="fechaDesbasteAltaDesposte">Fecha de desposte:</label>

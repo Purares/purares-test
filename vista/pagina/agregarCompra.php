@@ -51,7 +51,7 @@ echo $proveedores;
 };?>
                                </select>
                                    <div class="invalid-feedback">
-                                   Elija el nombre del proveedor del desbaste
+                                   Elija el nombre del proveedor de la compra
                                     </div>
  
                                 </div>

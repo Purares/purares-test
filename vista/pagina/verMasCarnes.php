@@ -7,7 +7,7 @@
 
   <?php
 
-  $desbastes=ControladorFormularios::ctrComposicionStockCarnes();
+  $despostes=ControladorFormularios::ctrComposicionStockCarnes();
 
 
   ?>
@@ -38,9 +38,9 @@
                 <tbody id="tablacomposicioncarne">
 <?php
 
-foreach($desbastes as $desbaste){
+foreach($despostes as $desposte){
   
-  echo '<tr><td scope="col">' . $desbaste['id_desbaste'] . '</td><td scope="col" class="text-right">' . $desbaste['stock'] . '</td><td scope="col">' . $desbaste['udm'] . '</td><td scope="col">' . $desbaste['fecha_desbaste'] . '</td></tr>';
+  echo '<tr><td scope="col">' . $desposte['id_desposte'] . '</td><td scope="col" class="text-right">' . $desposte['stock'] . '</td><td scope="col">' . $desposte['udm'] . '</td><td scope="col">' . $desposte['fecha_desposte'] . '</td></tr>';
 
 };
 
