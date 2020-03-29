@@ -746,11 +746,11 @@ static public function mdlDetalleOpMediciones($id_OrdenProd){
 
 static public function mdlFinOP($datosOP){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_Fin_OrdenProd(:idOrdenProdAlta, :productoObtenido, :unidadesObtenidas, idUsuarioAlta);");
+		$stmt=conexion::conectarBD()->prepare("call ins_Fin_OrdenProd(:idOrdenProdAlta, :productoObtenido, :unidadesObtenidas, :idUsuarioAlta);");
 
 		$stmt -> bindparam (":idOrdenProdAlta",	$datosOP['idOrdenProdAlta_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":productoObtenido",$datosOP['productoObtenido_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":unidadesObtenidas",$datosOP['unidadesObtenidas_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":unidadesObtenidas",$datosOP['unidadesObtenidas_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":idUsuarioAlta",	$datosOP['idUsuarioAlta_'],PDO::PARAM_INT);
 
 		if ($stmt -> execute()){
