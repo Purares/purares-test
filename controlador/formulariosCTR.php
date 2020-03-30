@@ -523,6 +523,22 @@ class ControladorFormularios{
 		}
 	}
 
+
+#------------------------- Detalle de CompraInsmos -------------------------#
+
+	static public function ctrDetalleCompraInsumos(){
+
+
+		if (isset($_GET["idCompra"])){
+
+			$id_compra= $_GET["idCompra"];
+			$respuesta= ModeloFormularios::mdlDetalleCompraInsumos($id_compra);
+		
+			return $respuesta;	
+		}
+	
+	}
+
 #-------------------------  Validar anulacion de  Compra -------------------------#
 
 static public function ctrValidarAnulacionCompra(){
