@@ -200,5 +200,32 @@ if (isset($_POST["nombreCrearReceta"])||
     echo $respuestacod;
 }
 
+if(isset($_POST["chequeadocompras"])){
 
+ $compras=ControladorFormularios::ctrListaCompras();
+
+    if($_POST["chequeadocompras"]==0){
+        
+    foreach($compras as $compra){
+
+        if ($compra["anulado"]==0) {
+    
+            echo '<tr><td scope="col">' . $compra["fecha_compra"] . '</td><td scope="col">' . $compra["proveedor"] . '</td><td scope="col">' . $compra["nro_remito"] . '</td><td scope="col">' . $compra["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleCompra&idCompra=&nombrereceta=&estado=' .  $compra["anulado"] . '">Ver detalles</a></td></tr>';
+        }else{
+
+            echo '<tr><td scope="col">' . $compra["fecha_compra"] . '</td><td scope="col">' . $compra["proveedor"] . '</td><td scope="col">' . $compra["nro_remito"] . '</td><td scope="col">' . $compra["descripcion"] . '</td><td scope="col">Desactivada</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleCompra&idCompra=&nombrereceta=&estado=' .  $compra["anulado"] . '">Ver detalles</a></td></tr>';
+        }
+    }
+    }else{
+       
+    foreach($compras as $compra){
+
+
+        if ($compra["anulado"]==0) {
+    
+        echo '<tr><td scope="col">' . $compra["fecha_compra"] . '</td><td scope="col">' . $compra["proveedor"] . '</td><td scope="col">' . $compra["nro_remito"] . '</td><td scope="col">' . $compra["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleCompra&idCompra=&nombrereceta=&estado=' .  $compra["anulado"] . '">Ver detalles</a></td></tr>';
+   }
+}
+}
+}
 ?>
