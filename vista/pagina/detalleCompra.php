@@ -120,6 +120,52 @@ echo '<tr><td scope="col">' . $insumo[0] . '</td><td scope="col">' . $insumo[1] 
         </div>
       </div>
     </div>
+
+<script>
+  
+function enviamotivo(){
+
+
+//alert($('#descripcionanulacion').val())
+//alert($('.iddesbaste').text())
+
+        //       $('#AnularDesbaste').modal('hide')
+
+     // $('#AnularDesbaste').modal('hide')
+     $.ajax({
+                type:'POST',
+                url:'datos.php',
+                data:{idCompraDetalle: $('.idcompra').text(), motivoAnulacionCompra:$('#descripcionanulacioncompra').val()},
+                success:function(respuesta){
+
+                  if(respuesta=="OK"){
+
+                  $('#AnularCompra').modal('show')
+                  var modal = $('#AnularCompra')
+                  modal.find('.modal-body').html(respuesta)
+                  modal.find('.anular').html('<button type="button" class="btn btn-danger" id="cerraranular">Cerrar</button>')
+
+                  $("#cerraranular").on( "click", function() {
+
+var url2=$(location).attr('href')
+var url3=url2.replace("estado=0", "estado=1")
+
+ $(location).attr('href',url3)
+$('#Mensaje').modal('hide')
+})
+
+                        
+}
+                }})
+ //     alert("ajax no falló")
+
+    //$('#descripcionanulacion').val();
+    //$('.iddesbaste').text():
+
+}
+  
+</script>
+
   </div>
 
    <div class="modal fade" id="Confirmada" tabindex="-1" role="dialog" aria-hidden="true">
@@ -186,70 +232,29 @@ $("#confirmar").on( "click", function() {
                 data:{idCompraDetalle: $('.idcompra').text(),motivoAnulacionCompra: 0},
                 success:function(anulacion){
 
-                alert(anulacion)
+              //  alert(anulacion)
                       
                       if (anulacion=="OK") {                
 
+                          $('#ConfirmarEstadoCompra').modal('hide')
                          $('#AnularCompra').modal('show')
-                          var modal = $('#AnularDesbaste')
-                          modal.find('.modal-body').html('<form method="post"><div class="form-group"><label>Describa el motivo de anulación de la compra:</label><div class="input-group"><input type="text" class="form-control text-right" name="motivoAnulacionCompra" id="descripcionanulacioncompra" placeholder="Describa" required><div class="invalid-feedback">Debe escribir un motivo de anulación del desposte.</div></div><br><button type="button" id="botonanularventana" class="btn btn-danger" onclick=enviamotivo()>Anular desposte</button></form>')
+                          var modal = $('#AnularCompra')
+                          modal.find('.modal-body').html('<form method="post"><div class="form-group"><label>Describa el motivo de anulación de la compra:</label><div class="input-group"><input type="text" class="form-control text-right" name="motivoAnulacionCompra" id="descripcionanulacioncompra" placeholder="Describa" required><div class="invalid-feedback">Debe escribir un motivo de anulación del desposte.</div></div><br><button type="button" id="botonanularventana" class="btn btn-danger" onclick=enviamotivo()>Anular compra</button></form>')
 
                   }else{
 
-
+                       $('#ConfirmarEstadoCompra').modal('hide')
                       $('#AnularDesbaste').modal('show')
-                          var modal = $('#AnularDesbaste')
+                          var modal = $('#AnularCompra')
                           modal.find('.modal-body').html(anulacion)
                           modal.find('.modal-footer').html('<button type="button" class="btn btn-danger">Cerrar</button>')
                   }
-                //alert('activo'+html);
-                //$('#AnularDesbaste').modal('show')
-               // var modal = $('#AnularDesbaste')
-               // modal.find('.modal-body').html(anulacion)
+
+
       
 }})})
 
 
-function enviamotivo(){
-
-
-//alert($('#descripcionanulacion').val())
-//alert($('.iddesbaste').text())
-
-        //       $('#AnularDesbaste').modal('hide')
-
-     // $('#AnularDesbaste').modal('hide')
-     $.ajax({
-                type:'POST',
-                url:'datos.php',
-                data:{idCompraDetalle: $('.idcompra').text(), motivoAnulacionCompra:$('#descripcionanulacioncompra').val()},
-                success:function(respuesta){
-
-                  if(respuesta=="OK"){
-
-                  $('#AnularCompra').modal('show')
-                  var modal = $('#AnularCompra')
-                  modal.find('.modal-body').html(respuesta)
-                  modal.find('.anular').html('<button type="button" class="btn btn-danger" id="cerraranular">Cerrar</button>')
-
-                  $("#cerraranular").on( "click", function() {
-
-var url2=$(location).attr('href')
-var url3=url2.replace("estado=0", "estado=1")
-
- $(location).attr('href',url3)
-$('#Mensaje').modal('hide')
-})
-
-                        
-}
-                }})
- //     alert("ajax no falló")
-
-    //$('#descripcionanulacion').val();
-    //$('.iddesbaste').text():
-
-}
 
 })
 
