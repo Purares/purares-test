@@ -543,14 +543,14 @@ class ControladorFormularios{
 
 static public function ctrValidarAnulacionCompra(){
 
-		if (isset($_GET["idCompra"])){
+		if (isset($_POST["idCompraDetalle"])){
 
-			$detalleCompra= ModeloFormularios::mdlDetalleCompra($_GET["idCompra"]);
+			$detalleCompra= ModeloFormularios::mdlDetalleCompra($_POST["idCompraDetalle"]);
 			$anulado=$detalleCompra[0]['anulado'];
 			if ($anulado==0) {
 				$respuesta="OK";
 			}else{
-				$respuesta="La Compra Mro:".$_GET["idCompra"]." ya se encuentra anulada";
+				$respuesta="La Compra Mro:".$_POST["idCompraDetalle"]." ya se encuentra anulada";
 			}
 
 			return $respuesta;	
@@ -562,13 +562,13 @@ static public function ctrValidarAnulacionCompra(){
 
 	static public function ctrAnularCompra(){
 
-		if (isset($_GET["idCompra"])||
+		if (isset($_POST["idCompraDetalle"])||
 			isset($_POST["motivoAnulacionCompra"])) {
 
 			$validacion=ControladorFormularios::ctrValidarAnulacionCompra();
 			if ($validacion="OK") {
 
-				$datos= array(	'idCompra_'=> $_GET["idCompra"],
+				$datos= array(	'idCompra_'=> $_POST["idCompraDetalle"],
 								'idUsuario_'=>'1', #[TO DO]
 								'motivoAnulacion_'=> $_POST["motivoAnulacionCompra"]);
 					
