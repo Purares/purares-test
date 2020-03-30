@@ -230,21 +230,21 @@ if(isset($_POST["chequeadocompras"])){
 }
 
 
-if (isset($_POST["idCompraDetalle"])&&$_POST["motivoAnulacionCompra"]==0){
+if (isset($_POST["idCompraDetalle"])&&empty($_POST["motivoAnulacionCompra"])){
 
-   $anulacion=ControladorFormularios::ctrValidarAnulacionCompra();
+   $validacion=ControladorFormularios::ctrValidarAnulacionCompra();
 
-   echo $anulacion;
+   echo $validacion;
 
-}
+}else{
 
 
-if (isset($_POST["idCompraDetalle"])&&$_POST["motivoAnulacionCompra"]!=0){
+if (isset($_POST["idCompraDetalle"])&&isset($_POST["motivoAnulacionCompra"])){
 
    $anulacion=ControladorFormularios::ctrAnularCompra();
 
    echo $anulacion;
 
-}
+}}
 
 ?>

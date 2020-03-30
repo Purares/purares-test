@@ -21,7 +21,7 @@ foreach ($detalleCompra as $compra) {
 	<br>
   				<div class="d-flex">
   					<div class="mr-auto">
-  					<h4>Compra ID <a class="idcompra"><?php echo $_GET['idCompra'] ?></a> "Numero de remito <a class="nro_remito"><?php echo $_GET['nroRemito'] ?></a>" <span class="medalla"><?php if ($_GET['estado']==0) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Desactivada</span>';}?>
+  					<h4>Compra ID <a class="idcompra"><?php echo $_GET['idCompra'] ?></a> "Numero de remito <a class="nro_remito"><?php echo $_GET['nroRemito'] ?></a>" <span class="medalla"><?php if ($_GET['estado']==0) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Anulada</span>';}?>
 					</span>
   				</h4>
   					</div>
@@ -78,13 +78,33 @@ echo '<tr><td scope="col">' . $insumo[0] . '</td><td scope="col">' . $insumo[1] 
   								
   							</tbody>
 					</table>
+
+
+<?php if ($compra['fecha_baja']!=NULL){
+
+      echo '<div class="row">
+                     <div class="form-group col-6">
+                         <label for="spanfechafincompra">Fecha de anulacion:</label>
+                                <span class="input-group-text fechafincompra" id="spanfechafincompra">'. $compra['fecha_baja'].'</span>
+                                </div>
+                            <div class="form-group col-6">
+                         <label for="spanusuariobajacompra">Usuario que anuló:</label>
+                                <span class="input-group-text usuariobajacompra" id="spanusuariobajacompra">'.$compra['Usuario_baja'].'</span>
+                                </div>
+                </div>
+                <div class="row">
+                     <div class="form-group col-12">
+                         <label for="spanmotivoanulacionccompra">Motivo anulación:</label>
+                                <span class="input-group-text motivoanulacionccompra" id="spanmotivoanulacionccompra">'. $compra['motivo_anulacion'].'</span>
+                                </div>
+                </div>';
+} ?>
+
                     <br>
                   
-     		<br>
-               		<button type="button" class="btn btn-warning" id="Imprimirreceta">Imprimir receta</button> 
-      			</div>
-
-
+        <br>
+                  <button type="button" class="btn btn-warning" id="Imprimirreceta">Imprimir receta</button> 
+            </div>
 
   <div class="modal fade" id="ConfirmarEstadoCompra" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -128,7 +148,7 @@ function enviamotivo(){
 
 //alert($('#descripcionanulacion').val())
 //alert($('.iddesbaste').text())
-
+//alert($('#descripcionanulacioncompra').val())
         //       $('#AnularDesbaste').modal('hide')
 
      // $('#AnularDesbaste').modal('hide')
@@ -137,6 +157,8 @@ function enviamotivo(){
                 url:'datos.php',
                 data:{idCompraDetalle: $('.idcompra').text(), motivoAnulacionCompra:$('#descripcionanulacioncompra').val()},
                 success:function(respuesta){
+
+                  //alert(respuesta)
 
                   if(respuesta=="OK"){
 
@@ -229,7 +251,7 @@ $("#confirmar").on( "click", function() {
     $.ajax({
                 type:'POST',
                 url:'datos.php',
-                data:{idCompraDetalle: $('.idcompra').text(),motivoAnulacionCompra: 0},
+                data:{idCompraDetalle: $('.idcompra').text(),motivoAnulacionCompra:""},
                 success:function(anulacion){
 
               //  alert(anulacion)
