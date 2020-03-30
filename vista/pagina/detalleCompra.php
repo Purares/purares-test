@@ -186,7 +186,7 @@ $("#confirmar").on( "click", function() {
                 data:{idCompraDetalle: $('.idcompra').text(),motivoAnulacionCompra: 0},
                 success:function(anulacion){
 
-                  alert(anduvo)
+                alert(anulacion)
                       
                       if (anulacion=="OK") {                
 
