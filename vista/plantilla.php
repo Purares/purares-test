@@ -111,6 +111,7 @@
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a>
     <div class="dropdown-menu">
       <a class="dropdown-item" href="index.php?pagina=agregarCompra&tipoProveedor_NuevaCompra=%27Insumos%27">Agregar compra</a>
+         <a class="dropdown-item" href="index.php?pagina=verCompras">Ver compras</a>
     </div>
 		</li>
 
@@ -142,6 +143,8 @@
 					$_GET["pagina"]=="finalizarop"||
 					$_GET["pagina"]=="detalleOp"||
 					$_GET["pagina"]=="verOrdenes"||
+					$_GET["pagina"]=="verCompras"||
+					$_GET["pagina"]=="detalleCompra"||
 					$_GET["pagina"]=="pruebas"){
 
 				   	#var_dump($_GET["pagina"]);

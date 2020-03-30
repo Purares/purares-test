@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ver Recetas</title>
+	<title>Ver Compras</title>
 </head>
 <body>
 
@@ -55,7 +55,7 @@ foreach($compras as $compra){
 
 if ($compra["anulado"]==0) {
 	
-	echo '<tr><td scope="col">' . $compra["fecha_compra"] . '</td><td scope="col">' . $compra["proveedor"] . '</td><td scope="col">' . $compra["nro_remito"] . '</td><td scope="col">' . $compra["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleCompra&idCompra=&nombrereceta=&estado=' .  $compra["anulado"] . '">Ver detalles</a></td></tr>';
+	echo '<tr><td scope="col">' . $compra["fecha_compra"] . '</td><td scope="col">' . $compra["proveedor"] . '</td><td scope="col">' . $compra["nro_remito"] . '</td><td scope="col">' . $compra["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleCompra&idCompra='.$compra["id_compra"].'&nroRemito='.$compra["nro_remito"].'&estado=' .  $compra["anulado"] . '">Ver detalles</a></td></tr>';
 
 }
 

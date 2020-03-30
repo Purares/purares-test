@@ -9,7 +9,7 @@
 
 $detalleCompra=ControladorFormularios::ctrDetalleCompra();
 
-$detalleinsumos=ControladorFormularios::ctrInsumosReceta();
+$detalleCompraInsumos=ControladorFormularios::ctrDetalleCompraInsumos();
 
 foreach ($detalleCompra as $compra) {
 
@@ -21,13 +21,13 @@ foreach ($detalleCompra as $compra) {
 	<br>
   				<div class="d-flex">
   					<div class="mr-auto">
-  					<h4>Compra ID <a class="idcompra"><?php echo $_GET['idCompra'] ?></a> "Numero de remito <a class="nro_remito"><?php echo $_GET['nro_remito'] ?></a>" <span class="medalla"><?php if ($_GET['estado']==1) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Desactivada</span>';}?>
+  					<h4>Compra ID <a class="idcompra"><?php echo $_GET['idCompra'] ?></a> "Numero de remito <a class="nro_remito"><?php echo $_GET['nroRemito'] ?></a>" <span class="medalla"><?php if ($_GET['estado']==0) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Desactivada</span>';}?>
 					</span>
   				</h4>
   					</div>
   					<div>
   						<div class="boton">
-  						<?php if ($_GET['estado']==1) {echo '<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoCompra" data-accion="desactivar" id="botonCambiarEstado">Anular compra</button>';}?>
+  						<?php if ($_GET['estado']==0) {echo '<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoCompra" data-accion="anular" id="botonCambiarEstado">Anular compra</button>';}?>
   						</div>
   					</div>	
   					<br>
@@ -35,11 +35,11 @@ foreach ($detalleCompra as $compra) {
                   <div class="row">
                             <div class="form-group col-6">
                          <label for="spannumeroremito">Número de remito:</label>
-                                <span class="input-group-text numeroremito" id="spannumeroremito"><?php echo $_GET['nro_remito'] ?></span>
+                                <span class="input-group-text numeroremito" id="spannumeroremito"><?php echo $_GET['nroRemito'] ?></span>
                                 </div>
-                       <div class="form-group col-4">
+                       <div class="form-group col-6">
                          <label for="spancompraproveedor">Proveedor:</label>
-                                <span class="input-group-text compraproveedor" id="spancompraproveedor"><?php echo $compra['proveedor'] ?> %</span>
+                                <span class="input-group-text compraproveedor" id="spancompraproveedor"><?php echo $compra['proveedor'] ?></span>
                                 </div>
         				</div>
                     <div class="row">
@@ -53,7 +53,7 @@ foreach ($detalleCompra as $compra) {
                                 </div>
                      <div class="form-group col-4">
                          <label for="spancomprausuarioalta">Usuario que dió de alta:</label>
-                                <span class="input-group-text comprausuarioalta" id="spancomprausuarioalta"><?php echo $compra['usuario_alta'] ?> %</span>
+                                <span class="input-group-text comprausuarioalta" id="spancomprausuarioalta"><?php echo $compra['usuario_alta'] ?></span>
                                 </div>
                     </div>
                     <br>
@@ -64,15 +64,14 @@ foreach ($detalleCompra as $compra) {
            							<th scope="col">ID</th>
                                     <th scope="col">Insumo</th>
                                     <th scope="col" class="text-right">Cantidad</th>
-           							<th scope="col">Unidad</th>
         						</tr>
       						</thead>
   							<tbody>
 <?php
 
-foreach ($detalleinsumos as $insumo) {
+foreach ($detalleCompraInsumos as $insumo) {
 
-echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] . '</td><td scope="col" class="text-right">' . $insumo[3] . '</td><td scope="col">' . $insumo[4] . '</td></tr>';
+echo '<tr><td scope="col">' . $insumo[0] . '</td><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] .' ' . $insumo[3].'</td></tr>';
 
 };
 ?>
@@ -80,43 +79,14 @@ echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] 
   							</tbody>
 					</table>
                     <br>
-                      <div class="row">
-                     <div class="form-group col-6">
-                         <label for="spanrecetadiasprodu">Días de producción:</label>
-                                <span class="input-group-text recetadiasproduccion" id="spanrecetadiasprodu"><?php echo $receta['dias_produccion'] ?> días</span>
-                                </div>
-                            <div class="form-group col-6">
-                         <label for="spanrecetadiasven">Días de vencimiento:</label>
-                                <span class="input-group-text recetadiasvencimiento" id="spanrecetadiasven"><?php echo $receta['dias_vencimiento'] ?> días</span>
-                                </div>
-        				</div>
-                           <div class="row">
-                     <div class="form-group col-6">
-                         <label for="spanrecetalargouni">Largo por unidad lote:</label>
-                                <span class="input-group-text recetalargoporunidad" id="spanrecetalargouni"><?php echo $receta['largo_unidad_lote'] ?> cm/unidad</span>
-                                </div>
-                         <div class="form-group col-6">
-                         <label for="spanrecetalargouni">Largo por unidad esperado:</label>
-                                <span class="input-group-text recetalargoporunidadesperado" id="spanrecetalargouni"><?php echo $receta['largo_unidad_esperado'] ?> cm/unidad</span>
-                                </div>
-                              </div>
-                                 <div class="row">
-                           <div class="form-group col-6">
-                         <label for="spanrecetapesouni">Peso por unidad lote:</label>
-                                <span class="input-group-text recetapesoporunidad" id="spanrecetapesouni"><?php echo $receta['peso_unidad_lote'] ?> gramos/unidad</span>
-                                </div>
-                                 <div class="form-group col-6">
-                         <label for="spanrecetapesouni">Peso por unidad esperado:</label>
-                                <span class="input-group-text recetapesoporunidadesperado" id="spanrecetapesouni"><?php echo $receta['peso_unidad_esperado'] ?> gramos/unidad</span>
-                                </div>
-        				</div>
+                  
      		<br>
                		<button type="button" class="btn btn-warning" id="Imprimirreceta">Imprimir receta</button> 
       			</div>
 
 
 
-  <div class="modal fade" id="ConfirmarEstadoReceta" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal fade" id="ConfirmarEstadoCompra" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -124,14 +94,29 @@ echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] 
         </div>
         <div class="modal-body">
 		
-		  <p>Usted está a punto de <a class="accion"></a> esta receta.</p>
+		  <p>Usted está a punto de <a class="accion"></a> esta compra.</p>
 
-          <p>¿Confirma que desea <a class="accion"></a> esta receta?</p>
+          <p>¿Confirma que desea <a class="accion"></a> esta compra?</p>
 
         </div>
         <div class="modal-footer">
    			<button type="button" class="btn btn-success btn-lg" id="confirmar">Sí</button>
           <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="AnularCompra" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Anulación Compra</h5>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer anular">
         </div>
       </div>
     </div>
@@ -144,7 +129,7 @@ echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] 
     	</div>
         <div class="modal-body">
         		<div class="alert alert-success" role="alert">
-          <h5 class="modal-title">Receta <a class="confirmacion"></a></h5>
+          <h5 class="modal-title">Compra <a class="confirmacion"></a></h5>
         </div>
         </div>
         <div class="modal-footer">
@@ -154,6 +139,18 @@ echo '<tr><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] 
     </div>
   </div>
 
+     <div class="modal fade" id="Mensaje" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"></h5>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+             <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="location.reload();">Cerrar</button>
+      </div>
+    </div>
 
 <?php
 
@@ -171,67 +168,88 @@ var url1;
 
 $("#botonCambiarEstado").on( "click", function() {
 
-$('#ConfirmarEstadoReceta').modal('show')});
+$('#ConfirmarEstadoCompra').modal('show')});
 
-$('#ConfirmarEstadoReceta').on('show.bs.modal', function (event) {
+$('#ConfirmarEstadoCompra').on('show.bs.modal', function (event) {
 var button = $('#botonCambiarEstado'); // Button that triggered the modal
 accion = button.data('accion')
 var modal = $(this)
 modal.find('.accion').text('' + accion);
 
+
+  
 $("#confirmar").on( "click", function() {
 
-	//alert (accion)
-
-if (accion=='activar') {
-
-   $.ajax({
+    $.ajax({
                 type:'POST',
                 url:'datos.php',
-                data:{idRecetaDetalle: $('.idreceta').text(), estado: 0},
-                success:function(html){
+                data:{idCompraDetalle: $('.idcompra').text(),motivoAnulacionCompra: 0},
+                success:function(anulacion){
+
+                  alert(anduvo)
+                      
+                      if (anulacion=="OK") {                
+
+                         $('#AnularCompra').modal('show')
+                          var modal = $('#AnularDesbaste')
+                          modal.find('.modal-body').html('<form method="post"><div class="form-group"><label>Describa el motivo de anulación de la compra:</label><div class="input-group"><input type="text" class="form-control text-right" name="motivoAnulacionCompra" id="descripcionanulacioncompra" placeholder="Describa" required><div class="invalid-feedback">Debe escribir un motivo de anulación del desposte.</div></div><br><button type="button" id="botonanularventana" class="btn btn-danger" onclick=enviamotivo()>Anular desposte</button></form>')
+
+                  }else{
+
+
+                      $('#AnularDesbaste').modal('show')
+                          var modal = $('#AnularDesbaste')
+                          modal.find('.modal-body').html(anulacion)
+                          modal.find('.modal-footer').html('<button type="button" class="btn btn-danger">Cerrar</button>')
+                  }
                 //alert('activo'+html);
-                $('#ConfirmarEstadoReceta').modal('hide')
-                var modalconfir = $('#Confirmada').modal('show')
-                modalconfir.find('.confirmacion').text('activada')
-                url=$(location).attr('href')
-                url1=url.replace("estado=0", "estado=1")
-               
-                //$('#botonCambiarEstado').remove();
-          		//$('.boton').html('<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoReceta" data-accion="desactivar" id="botonCambiarEstado">Desactivar Receta</button>')
-          		//$('.medal').remove()
-          		//$('.medalla').html('<span class="badge badge-success medal">Activa</span>')
-
-                }})};
+                //$('#AnularDesbaste').modal('show')
+               // var modal = $('#AnularDesbaste')
+               // modal.find('.modal-body').html(anulacion)
+      
+}})})
 
 
-if (accion=='desactivar') {
+function enviamotivo(){
 
-   $.ajax({
+
+//alert($('#descripcionanulacion').val())
+//alert($('.iddesbaste').text())
+
+        //       $('#AnularDesbaste').modal('hide')
+
+     // $('#AnularDesbaste').modal('hide')
+     $.ajax({
                 type:'POST',
                 url:'datos.php',
-                data:{idRecetaDetalle: $('.idreceta').text(), estado: 1},
-                success:function(html){
-                $(this).prop("disabled", true);
-                $('#ActivarReceta').prop("disabled", false);
-                //alert('desactivo ' + html);
-                $('#ConfirmarEstadoReceta').modal('hide')
-                var modalconfir = $('#Confirmada').modal('show')
-                modalconfir.find('.confirmacion').text('desactivada')
-                url=$(location).attr('href')
-                url1=url.replace("estado=1", "estado=0")
-               
-          		//$('#botonCambiarEstado').remove();
-          		//$('.boton').html('<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#ConfirmarEstadoReceta" data-accion="activar" id="botonCambiarEstado">Activar Receta</button>')
-          		//$('.medal').remove()
-          		//$('.medalla').html('<span class="badge badge-danger medal">Desactivada</span>')
-                }})}})});
+                data:{idCompraDetalle: $('.idcompra').text(), motivoAnulacionCompra:$('#descripcionanulacioncompra').val()},
+                success:function(respuesta){
 
+                  if(respuesta=="OK"){
 
+                  $('#AnularCompra').modal('show')
+                  var modal = $('#AnularCompra')
+                  modal.find('.modal-body').html(respuesta)
+                  modal.find('.anular').html('<button type="button" class="btn btn-danger" id="cerraranular">Cerrar</button>')
 
-$("#aceptar").on( "click", function() {
+                  $("#cerraranular").on( "click", function() {
 
- $(location).attr('href',url1)
+var url2=$(location).attr('href')
+var url3=url2.replace("estado=0", "estado=1")
+
+ $(location).attr('href',url3)
+$('#Mensaje').modal('hide')
+})
+
+                        
+}
+                }})
+ //     alert("ajax no falló")
+
+    //$('#descripcionanulacion').val();
+    //$('.iddesbaste').text():
+
+}
 
 })
 
