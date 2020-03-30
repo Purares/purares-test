@@ -555,6 +555,18 @@ static public function mdlCrearDesposte($datos){
 
 	}
 
+#------------------------- Detalle Compra Lista Insumos  -------------------------#
+
+	static public function mdlDetalleCompraInsumos($id_compra){
+
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_compra_insumos where id_compra=$id_compra");
+		$stmt -> execute();
+		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
+		$stmt -> close(); #cierra la conexion
+		$stmt =null; 
+	}
+
+
 
 #------------------------- Generar Compra de Insumo-------------------------#
 
@@ -757,8 +769,8 @@ static public function mdlFinOP($datosOP){
 			#Busca el ultimo ID insertado en la tabla
 				$campo='id_ordenprod_fin';
 				$tabla='orden_produccion_fin';
-				$idReceta_nuevaArray=ModeloFormularios::mdlUltimoId($campo,$tabla);
-				$idReceta_nueva=$idReceta_nuevaArray[0][0];
+				$nuevoCampoArray=ModeloFormularios::mdlUltimoId($campo,$tabla);
+				$nuevoID=$nuevoCampoArray[0][0];
 			return $nuevoID;
 
 		}else{ 
@@ -774,7 +786,7 @@ static public function mdlFinOP($datosOP){
 
 	static public function mdlAgregarMedicionFinOP($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_MedicionFinOP( :idOrdenProdFin,:Peso,:MedicionesResponsable, :Responsable,:FechaMedicion,);");
+		$stmt=conexion::conectarBD()->prepare("call ins_MedicionFinOP( :idOrdenProdFin,:Peso, :Responsable,:FechaMedicion);");
 		
 		$stmt -> bindparam (":idOrdenProdFin",	$datos[0],PDO::PARAM_INT);
 		$stmt -> bindparam (":Peso",			$datos[1],PDO::PARAM_STR); 
