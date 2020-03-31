@@ -714,11 +714,11 @@ static public function ctrValidarAnulacionCompra(){
 			$calculo_Insumos=ControladorFormularios::ctrCalculoInsumosBack();
 			$validacion_Insumos=$calculo_Insumos['validacion_'];
 
-				if ($validacion_Insumos="SI") {
+				if ($validacion_Insumos=="SI") {
 					
 				#2)Validacion de Carnes
 					$validacion_Carnes= ControladorFormularios::ctrValidarStockCarnesOP($carnesOP);
-					if ($validacion_Carnes='OK') {
+					if ($validacion_Carnes=='OK') {
 					
 					#3)Validación Peso de paston=Peso total de carnes
 						$PesoCarneTotal=array_sum($_POST["catidadCarnesAgregarOP"]);
