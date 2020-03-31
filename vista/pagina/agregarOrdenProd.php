@@ -219,7 +219,7 @@ $.ajax({
 
                     }}else{
 
-                             alert('no alcanza')
+                             //alert('no alcanza')
                       $('.calculo').html("no alcanzan los inusumos")
 
 
@@ -329,7 +329,42 @@ $(document).ready(function(){
 })
 
 
-    
+$('.cantcarneop').keyup(function(){
+
+
+	var valorescarnes=$('.cantcarneop').filter(":input")
+	var total1=0
+    var total=parseFloat(total1)
+    var valoresvarne
+for (var i=0; i<=valorescarnes.length-2;i++){
+	//alert("esto es lo que entra antes de convertirse"+valorescarnes[i].value)
+	if (valorescarnes[i].value!="") {
+		valoresvarne=(parseFloat(valorescarnes[i].value))
+		//alert("este es el tipo con el que lee"+typeof(valoresvarne))
+		//alert("este es lo que lee"+valoresvarne)
+	
+  	total= total+valoresvarne
+  //	alert("asi queda el total despues de suamr cada campo"+total)
+  	}else{
+      valoresvarne=0
+	total= total+valoresvarne
+  //	alert("asi queda el total despues de suamr como 0"+total)
+  	}
+
+  	}
+//console.log(valorescarnes[1]);
+ var kilosactual=kilosrequeridos-total
+ //alert(kilosactual)
+ if(kilosactual==0){
+
+ 	$('#kilosrequeridos').empty()
+$('.alertcarnes').html("La orden no necesita mas carnes")
+
+ }else{
+$('#kilosrequeridos').empty()
+$('#kilosrequeridos').html(kilosactual)
+
+}})    
 
 </script>
 
