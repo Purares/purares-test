@@ -247,4 +247,15 @@ if (isset($_POST["idCompraDetalle"])&&isset($_POST["motivoAnulacionCompra"])){
 
 }}
 
+if (isset($_GET["idReceta"])){
+
+//$_GET["idReceta"]=$_POST["idReceta"];
+
+$detalleReceta=ControladorFormularios::ctrDetalleReceta();
+
+$porcentajeReceta=$detalleReceta[0]["porcent_carne"];
+
+echo $porcentajeReceta;
+}
+
 ?>

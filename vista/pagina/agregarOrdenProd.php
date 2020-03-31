@@ -67,6 +67,10 @@ foreach($recetas as $receta){
                 </tbody>
                   </table>
                            <br>
+			<div id="alertacarnes">
+				<div class="alert alert-info alertcarnes" role="alert">
+				</div>
+			</div>
               <h6>Ingrese la cantidad de carnes que utilazará la receta:</h6>
               <br>
               <div class="container">
@@ -85,11 +89,19 @@ foreach($recetas as $receta){
 
 foreach($carnes as $carne){
 
-  echo '<tr><td scope="col" width="10%">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="50%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="25%"><div class="input-group"><input type="number" min=0 step=0.0001 max="'.$carne[2].'" name="catidadCarnesAgregarOP[]" class="form-control cantcarneop" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="15%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
+	if ($carne[0]==8) {
 
-}
+	  echo '<tr><td scope="col" width="10%">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="40%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="30%"><div class="input-group"><input type="number" min=0 step=0.0001 max="'.$carne[2].'" name="catidadCarnesAgregarOP[]" class="form-control text-right cantcarneop" id="kilostocino" placeholder="Cantidad" disabled><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="20%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
+
+	
+	}else{
+
+  echo '<tr><td scope="col" width="10%">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="40%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="30%"><div class="input-group"><input type="number" min=0 step=0.0001 max="'.$carne[2].'" name="catidadCarnesAgregarOP[]" class="form-control text-right cantcarneop" placeholder="Seleccione receta y peso"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="20%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
+
+}}
 
 ?>
+		
                 </tbody>
             </table>
           </div>
@@ -147,6 +159,9 @@ foreach($carnes as $carne){
 </form>
 
 <script>
+
+	var kilosrequeridos;
+	var total=0;
 
   // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function() {
@@ -212,7 +227,30 @@ $.ajax({
                       
                     
 
-}})}) 
+}})
+$.ajax({
+                type:'GET',
+                url:'datos.php',
+                data:{idReceta: $('#idReceta').val()},
+                success:function(respuestacod){
+
+                	//alert(respuestacod)
+console.log(respuestacod);
+
+                		var kilostocino=($('#PesoPaston').val()*(1-(respuestacod)/100)).toFixed(5)
+                		 kilosrequeridos=($('#PesoPaston').val()*(respuestacod/100)).toFixed(5)
+                		$('#kilostocino').val(kilostocino)
+                		$('#alertacarnes').show()
+                		$('.alertcarnes').empty()
+                		$('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el paston")
+                		$('#kilosrequeridos').text(kilosrequeridos)
+
+
+
+}})
+
+
+}) 
 
  $('#idReceta').on('change',function(){
 
@@ -284,8 +322,14 @@ for (var i=0; i<=nombrecarnes.length-1;i++){
 
 }})
 
+$(document).ready(function(){
+
+	$('#alertacarnes').hide()
+
+})
 
 
+    
 
 </script>
 
