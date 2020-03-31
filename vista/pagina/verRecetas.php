@@ -19,7 +19,7 @@
 
 <div class="mr-auto p-2">
 
-	<h4>Listado de recetas actual</h4>
+	<h2>Listado de recetas</h2>  
 
 </div>
 <div class="p-2">
@@ -35,15 +35,16 @@
   </label>
 </div>
 </div>
+<hr>
 	<br>
              
                         <table class="table table-hover">
     						<thead class="thead-light">
         						<tr>
            							<th scope="col">ID</th>
+                                    <th scope="col">Estado</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Descripción</th>
-                                    <th scope="col">Estado</th>
            							<th scope="col">Detalle</th>
         						</tr>
       						</thead>
@@ -54,7 +55,7 @@ foreach($recetas as $receta){
 
 if ($receta["activo"]==1) {
 	
-	echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleReceta&idReceta=' . $receta["id_receta"] . '&nombrereceta=' .  $receta["nombre"]  . '&estado=' .  $receta["activo"] . '">Ver detalles</a></td></tr>';
+	echo '<tr><td scope="col">' . $receta["id_receta"] . '</td><td scope="col"><span class="badge badge-pill badge-success">Activa</span></td><td scope="col">' . $receta["nombre"] . '</td><td scope="col">' . $receta["descripcion"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleReceta&idReceta=' . $receta["id_receta"] . '&nombrereceta=' .  $receta["nombre"]  . '&estado=' .  $receta["activo"] . '">Ver detalles</a></td></tr>';
 
 }
 

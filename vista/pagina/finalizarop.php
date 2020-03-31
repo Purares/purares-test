@@ -8,10 +8,11 @@
 
 	<div class="container">
 <br>
-  					<h4>Finalizar Orden de produccion ID <?php echo $_GET['idOrdenProdAlta_FinOP']; ?></h4>
+  					<h2>Finalizar Orden de produccion ID <?php echo $_GET['idOrdenProdAlta_FinOP']; ?></h2>
     <br>          		
         		
-        			<h6>Complete los datos para finalizar</h6>
+        			<h5>Complete los datos para finalizar</h5>
+              <hr>
         			<br>
        	<form method="post" class="needs-validation" id="formfinop">
   <input type="hidden" name="idOrdenProdAlta_FinOP" id="idopfin" value="<?php echo $_GET['idOrdenProdAlta_FinOP']; ?>">
@@ -20,36 +21,53 @@
           					<div class="input-group-prepend">
          						<span class="input-group-text">Producto obtenido:</span>
          					</div>
-        						<input type="number" min=0 step=0.0001 class="form-control text-center" name="productoObtenido_FinOp" id="productoobtenido" placeholder="Ingrese la cantidad de producto obtenido" required>
+        						<input type="number" min=0 step=0.0001 class="form-control text-center" name="productoObtenido_FinOp" id="productoobtenido" placeholder="Ingrese la cantidad" required>
+                     <div class="input-group-append">
+                  <span class="input-group-text">Kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese el peso total en kilogramos de produto obtenido">
+  ?
+</button>
+              </div>
                                     <div class="invalid-feedback">
-                                    Ingrese la cantidad de producto obtenido
+                                    Ingrese la cantidad
                                     </div>
-        				</div>
+                  </div>
 	<div class="input-group col-md-6">  
                     <div class="input-group-prepend">
                     <span class="input-group-text">Unidades obtenidas:</span>
                   </div>
-                    <input type="number" min=0 step=1 class="form-control text-right" name="unidades_FinOP" id="unidadesobtenidas" placeholder="Ingrese la cantidad de unidades obtenidas" required>
+                    <input type="number" min=0 step=1 class="form-control text-center" name="unidades_FinOP" id="unidadesobtenidas" placeholder="Ingrese la cantidad" required>
+                      <div class="input-group-append">
+                  <span class="input-group-text">Unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese las unidades totales obtenidas">
+  ?
+</button>
+              </div>
                        <div class="invalid-feedback">
                                     Ingrese la cantidad de unidades obtenidas
                                     </div>
                 </div>
         			</div>
 <br>
-        
-              <h6>Complete los datos de medición:</h6>
+        <br>
+              <h5>Complete los datos correspondientes a la medición y seguimiento:</h5>
+              <hr>
               <br>
  
  <table class="table table-hover">
   <thead>
-   <tr><th scope="col">#</th><th scope="col">PESO</th><th scope="col">RESPONSABLE</th><th scope="col">FECHA</th></tr>
+   <tr><th scope="col" class="text-white text-center bg-dark">#</th><th scope="col" class="text-white text-center bg-dark">PESO</th><th scope="col" class="text-white text-center bg-dark">RESPONSABLE</th><th scope="col" class="text-white text-center bg-dark">FECHA</th></tr>
  </thead>
  <tbody>
-   <tr><td scope=col>1</td><td scope=col><input type="number" min=0 step=0.0001 class="form-control text-right pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td><td scope=col><input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]" required></td></tr>
-  <tr><td scope=col>2</td><td scope=col><input type="number" min=0 step=0.0001 class="form-control text-right pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td><td scope=col><input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]" required></td></tr>
-   <tr><td scope=col>3</td><td scope=col><input type="number" min=0 step=0.0001 class="form-control text-right pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td><td scope=col><input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]" required></td></tr>
-    <tr><td scope=col>4</td><td scope=col><input type="number" min=0 step=0.0001 class="form-control text-right pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td><td scope=col><input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]" required></td></tr>
-     <tr><td scope=col>5</td><td scope=col><input type="number" min=0 step=0.0001 class="form-control text-right pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso"></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable"></td><td scope=col><input type="date"  class="fechas" name="MedicionesFechaMedicion_FinOP[]"></td></tr>
+
+<?php
+
+for ($i=1; $i <5 ; $i++) { 
+
+echo '<td scope=col>'.$i.'</td><td scope=col><div class="input-group"><div class="input-group-prepend"><input type="number" min=0 step=0.0001 class="form-control input text-center pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></div><div class="input-group-append "> <span class="input-group-text">Unidades</span></div></div></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td> <td scope=col> <input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]" required></td> </tr>';
+
+ };
+ 
+?>  
+    
  </tbody>
  </table>
   
@@ -166,6 +184,10 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
             },"json");
   
     });    
+  
+ $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})   
 });
 
 

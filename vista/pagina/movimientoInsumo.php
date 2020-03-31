@@ -17,10 +17,10 @@ $movimientoInsumo=ControladorFormularios::ctrActualizarInsumo();
 
 <div class="container">
 	<br>
-            <h4>Movimiento de insumo ID <a class="id"><?php echo $_GET["idInsumoActI"];?></a> <a class="nombre"><?php echo $_GET["nombreinsumo"];?></a></h4>
+            <h2>Movimiento de insumo <a class="nombre"><?php echo $_GET["nombreinsumo"];?></a></h2>
 
             <br>
-      
+<hr>
  <form method="post" class="needs-validation">
 
               <div class="input-group">
@@ -29,15 +29,6 @@ $movimientoInsumo=ControladorFormularios::ctrActualizarInsumo();
                 </div>
                     <select class="custom-select" id="movimiento" name="idCuentaActI" required>
                     <option value="">Seleccione el tipo de movimiento</option>
-<?php
-
-foreach($cuentas as $cuenta){
-
-  echo '<option value="' . $cuenta["id_cuenta"] . '">' . $cuenta["nombre"] . '</option>';
-
-};
-
-?>
                     </select>
                      <div class="invalid-feedback">
                                     Seleccione el tipo de movimiento
@@ -152,7 +143,7 @@ $.ajax({
                 $('#movimiento').empty()
                 $('#movimiento').append('<option value="">Seleccione el tipo de movimiento</option>'+html)
 
-                })})})
+                }})})
 
 
 </script>

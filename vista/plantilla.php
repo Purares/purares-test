@@ -86,7 +86,6 @@
 		<li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Carnes</a>
     <div class="dropdown-menu">
-      <a class="dropdown-item" href="index.php?pagina=agregarCorte">Nueva carne</a>
       <a class="dropdown-item" href="index.php?pagina=verCarnes">Ver carnes</a>
     </div>
 		</li>
@@ -94,7 +93,6 @@
 		<li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Insumos</a>
     <div class="dropdown-menu">
-      <a class="dropdown-item" href="index.php?pagina=agregarInsumo">Nuevo insumo</a>
       <a class="dropdown-item" href="index.php?pagina=verInsumos">Ver insumos</a>
     </div>
 		</li>
@@ -108,10 +106,19 @@
 		</li>
 
      <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuracion</a>
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Compras</a>
     <div class="dropdown-menu">
       <a class="dropdown-item" href="index.php?pagina=agregarCompra&tipoProveedor_NuevaCompra=%27Insumos%27">Agregar compra</a>
          <a class="dropdown-item" href="index.php?pagina=verCompras">Ver compras</a>
+    </div>
+		</li>
+
+ 	 <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Configuraciones</a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="index.php?pagina=agregarInsumo">Agregar insumo</a>
+      <a class="dropdown-item" href="index.php?pagina=agregarCorte">Agregar carne</a>
+      <a class="dropdown-item" href="#">Agregar proveedores</a>
     </div>
 		</li>
 

@@ -19,31 +19,35 @@ $nueva_receta=ControladorFormularios::ctrCrearReceta();
 
 <div class="container">
            <br>
-            <h4>Nueva Receta</h4>
-            <br>  
-                          <h6>Complete los datos de la nueva receta que desea agregar:</h6>
+            <h2>Agregar nueva receta</h2>
+            <hr> 
                           <br>
       <form method="post" class="needs-validation" id="formcrearreceta">
-                     <div class="row">
-                            <div class="form-group col-12">
-                         <label for="NombreReceta">Nombre de la nueva receta:</label>
-                    <input type="text" class="form-control text-center" id="NombreReceta" name="nombreCrearReceta" placeholder="Ingrese el nombre de la nueva receta" required>
-                                   <div class="invalid-feedback">
-                                   Ingrese el nombre de la nueva receta
-                                    </div>
-                                </div>
+                     
+                     <div class="row ">
+     <div class="input-group col-6"> 
+             <div class="input-group-prepend">
+                    <span class="input-group-text">Nombre de la nueva receta:</span>
                   </div>
-              <p>Complete los insumos necesarios para fabricar 100 kg de producto fresco:</p>
+                    <input type="text" class="form-control" id="NombreReceta" name="nombreCrearReceta" placeholder="Ingrese el nombre de la nueva receta" required>
+                             <div class="invalid-feedback">
+                                    Ingrese un nombre para la nueva receta
+                                    </div>
+              </div>
+        
+                  </div>
+                  <br>
+              <h5>Complete los insumos necesarios para fabricar 100 kilos de pastón:</h5>
+              <br>
               <div class="container">
                   <table class="table table-sm">
                 <thead>
                     <tr>
-                      <th scope="col">Deposito</th>
-                                <th scope="col">ID</th>
-                      <th scope="col">Insumo</th>
-                      <th scope="col">Cantidad</th>
-                                <th scope="col">Unidad</th>
-                      <th scope="col">Borrar</th>
+                      <td scope="col" class="text-center text-white bg-dark">Deposito</td>
+                      <td scope="col" class="text-center text-white bg-dark">ID</td>
+                      <td scope="col" class="text-center text-white bg-dark">Insumo</td>
+                      <td scope="col" class="text-center text-white bg-dark">Cantidad</td>
+                      <td scope="col" class="text-center text-white bg-dark"></td>
                     </tr> 
                   </thead>
                 <tbody id="TablaReceta">
@@ -72,7 +76,7 @@ foreach($depositos as $deposito){
                                          <option value="1">Insumo1</option>
                           </select>
                         </td>
-                        <td scope="col" colspan="2">
+                        <td scope="col">
                           <div class="input-group"> 
                           <input type="number" min=0 step=0.0001 name="cantidadinsumoCrearReceta[]" class="form-control text-right cantingre" placeholder="Cantidad">
                               <div class="input-group-append">
@@ -86,8 +90,9 @@ foreach($depositos as $deposito){
                     </tr> 
                 </tbody>
             </table>
-            <button type="button" id="BotonAgregarInsumoReceta" class="btn btn-secondary btn-sm">Agregar Insumo</button>
+            <button type="button" id="BotonAgregarInsumoReceta" class="btn btn-success btn-sm">Agregar Insumo</button>
           </div>
+          <br>
           <br>
           <div class="row">
             <div class="input-group col-6"> 
@@ -108,7 +113,9 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 step=0.01 max=99.99 class="form-control text-right" id="MermaEsperada" name="mermaCrearReceta" placeholder="Porcentaje esperado" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">%</span>
+                  <span class="input-group-text">%</span><button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Ingrese el porcentaje de merma esperada con respecto al producto fresco, luego de finalizar el proceso de secado">
+  ?
+</button>
               </div>
                                <div class="invalid-feedback">
                                     Ingresa el porcentaje de merma esperado
@@ -123,7 +130,9 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 class="form-control text-right" id="DiasProduccion" name="diasprodCrearReceta" placeholder="días" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">días</span>
+                  <span class="input-group-text">días</span><button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de días desde que comienza el proceso productivo (amasado) hasta que el producto es envasado.">
+  ?
+</button>
               </div>
                              <div class="invalid-feedback">
                                     Ingresa la cantidad de dias que se requieren para producir
@@ -132,11 +141,13 @@ foreach($depositos as $deposito){
               <br>
                 <div class="input-group col-6"> 
                             <div class="input-group-prepend">
-                    <span class="input-group-text">Días para vencimiento:</span>
+                    <span class="input-group-text">Vencimiento:</span>
                   </div>
                     <input type="number" min=0 class="form-control text-right" id="DiasVencimiento" name="diasvencCrearReceta" placeholder="días" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">días</span>
+                  <span class="input-group-text">días</span><button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de días, desde que el producto es envasado,  hasta que se vence.">
+  ?
+</button>
               </div>
                            <div class="invalid-feedback">
                                     Ingrese la cantidad de dias que el producto es consumible.
@@ -144,78 +155,98 @@ foreach($depositos as $deposito){
                </div>
               </div>
               <br>
+              <div class="row">
+
+            <div class="input-group col-6"> 
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Unidades finales por unidad producida:</span>
+                  </div>
+                    <input type="number" min=0 step=1 class="form-control text-right" id="unidadesfinalesxunidad" name="uFinalXuCrearReceta" placeholder="Cantidad" required>
+                  <div class="input-group-append">
+                  <span class="input-group-text">Unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades finales que se obtienen por cada unidad fresca que entra al secadero. Es decir, en cuantas unidades se corta el producto fresco.">
+  ?
+          </button>
+              </div>
+                             <div class="invalid-feedback">
+                                  Ingrese la cantidad de unidades finales por unidad producida 
+                                    </div>
+                </div> 
+                  </div>
+              <hr>
+              <br>
+              <h5>Producto fresco</h5>
+              <hr>
                     <div class="row">
-                            <div class="form-group col-6">
-                         <label for="largouniLoteCrearReceta">Largo por unidad lote en centímetros/unidad:</label>
-                     <div class="input-group">
-                                <input type="number" min=0 step=0.01 class="form-control text-right" name="largouniLoteCrearReceta" id="cmxunidad" placeholder="centímetros por unidad" required>
-                                  <div class="input-group-append">
-                  <span class="input-group-text">cm/unidad</span>
-                            </div>
+               <div class="input-group col-6"> 
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Largo por unidad:</span>
+                  </div>
+                    <input type="number" min=0 step=0.01 class="form-control text-right" id="cmxunidad" name="largouniLoteCrearReceta" placeholder="Ingrese la medida" required>
+                  <div class="input-group-append">
+                  <span class="input-group-text">metros/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el largo de la unidad fresca, antes de que ingrese al secadero.">
+  ?
+</button>
+              </div>
                              <div class="invalid-feedback">
-                                    Ingrese el largo por unidad lote
+                                   Ingrese el largo por unidad en metros
                                     </div>
-                       </div>         
-                      </div>
-                      <div class="form-group col-6">
-                         <label for="largoUniEsperadoCrearReceta">Largo por unidad esperado en centímetros/unidad:</label>
-                     <div class="input-group">
-                                <input type="number" min=0 step=0.01 class="form-control text-right" name="largoUniEsperadoCrearReceta" id="cmxunidadesperado" placeholder="centímetros por unidad" required>
-                                  <div class="input-group-append">
-                  <span class="input-group-text">cm/unidad</span>
-                            </div>
+                </div>  
+                <div class="input-group col-6"> 
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Peso por unidad:</span>
+                  </div>
+                    <input type="number" min=0 step=0.01 class="form-control text-right" id="gramosxunidad" name="pesouniLoteCrearReceta" placeholder="Ingrese la medida" required>
+                  <div class="input-group-append">
+                  <span class="input-group-text">kilos/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el peso de la unidad fresca, antes de que ingrese al secadero.">
+  ?
+</button>
+              </div>
                              <div class="invalid-feedback">
-                                    Ingrese el largo por unidad esperado
+                                   Ingrese el peso por unidad en kilos 
                                     </div>
-                       </div>         
-                      </div>
+                </div>     
                     </div>
+                      <br>
+                      <br>
+              <h5>Producto terminado</h5>
+              <hr>
                     <div class="row">
-                         <div class="form-group col-6">
-                         <label for="pesouniLoteCrearReceta">Peso por unidad lote en gramos/unidad:</label>
-                     <div class="input-group">
-                    <input type="number" min=0 step=0.01 class="form-control text-right" name="pesouniLoteCrearReceta" id="gramosxunidad" placeholder="gramos por unidad" required>
-                                  <div class="input-group-append">
-                  <span class="input-group-text">gramos/unidad</span>
-                            </div>
-                               <div class="invalid-feedback">
-                                    Ingrese el peso por unidad lote en gramos 
+                  
+                       <div class="input-group col-6"> 
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Largo por unidad esperado:</span>
+                  </div>
+                    <input type="number" min=0 step=0.01 class="form-control text-right" id="cmxunidadesperado" name="largoUniEsperadoCrearReceta" placeholder="Ingrese la medida" required>
+                  <div class="input-group-append">
+                  <span class="input-group-text">metros/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el largo del producto final que será envasado.">
+  ?
+</button>
+              </div>
+                             <div class="invalid-feedback">
+                                   Ingrese el largo por unidad esperado en metros
                                     </div>
-                       </div>         
-                      </div>
-                    <div class="form-group col-6">
-                    	<input type="hidden" name="pesoUniEsperadoCrearReceta" id="gramosxunidadesperado1" value="">
-                         <label for="pesoUniEsperadoCrearReceta">Peso por unidad esperado en gramos/unidad:</label>
-                     <div class="input-group">
-                    <input type="text" class="form-control text-right" id="gramosxunidadesperado" placeholder="" disabled>
-                                  <div class="input-group-append">
-                  <span class="input-group-text">gramos/unidad</span>
-                            </div>
-                       </div>         
-                      </div>
-                        </div>
-                          <div class="row">
-                                <div class="form-group col-6">
-                         <label for="uFinalXuCrearReceta">Unidades finales por unidad producida:</label>
-                     <div class="input-group">
-                    <input type="number" min=0 step=1 class="form-control text-right" name="uFinalXuCrearReceta" id="unidadesfinalesxunidad" placeholder="Unidades finales" required>
-                                  <div class="input-group-append">
-                  <span class="input-group-text">Unidades</span>
-                            </div>
-                               <div class="invalid-feedback">
-                                    Ingrese la cantidad de unidades finales por unidad producida 
-                                    </div>
-                       </div>         
-                      </div>
-                           <div class="input-group col-6"> 
-                     <label for="descripcionCrearReceta">Descripción:</label>
-                     <div class="input-group">
-                    <input type="text" class="form-control text-right" name="descripcionCrearReceta" id="descripcionreceta" placeholder="Describa">
-                       </div>  
+                </div> 
+
+                               <div class="input-group col-6"> 
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Peso por unidad esperado:</span>
+                  </div>
+                    <input type="number" min=0 step=0.01 class="form-control text-right" id="gramosxunidadesperado" placeholder="" disabled>
+                    <input type="hidden" name="pesoUniEsperadoCrearReceta" id="gramosxunidadesperado1" value="">
+                  <div class="input-group-append">
+                  <span class="input-group-text">kilos/unidad</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="El valor de este campo se calcula automáticamente.">
+  ?
+</button>
+              </div>
                 </div>
               </div>
+              <hr>
+                <br>
+              <h5>Descripción</h5>
+              <hr>
+              <textarea class="form-control" style="min-width: 100%" name="descripcionCrearReceta" id="descripcionreceta" placeholder="..."></textarea>
   
-                     <br>
+                <br>
                   <button type="button" class="btn btn-success" id="BotonAgregarReceta" data-toggle="modal" data-target="#ConfirmarNuevaReceta">Agregar receta</button>
             </div>
 
@@ -233,9 +264,9 @@ foreach($depositos as $deposito){
 
           <p>Requerirá <a class="diasprodu"></a> días de producción y <a class="diasvenc"></a> días para su vencimiento.</p>
 
-          <p>Tiene un largo por unidad lote de <a class="largo"></a> centímetros y un largo por unidad esperado de <a class="largoesperado"></a> centímetros.
+          <p>Tiene un largo por unidad fresca de <a class="largo"></a> metros y un largo por unidad esperado de <a class="largoesperado"></a> metros.
 
-          <p>Tiene un peso por unidad lote de <a class="peso"></a> kilos y un peso por unidad esperado de  <a class="pesoesperado"></a> kilos .</p>
+          <p>Tiene un peso por unidad fresca de <a class="peso"></a> kilos y un peso por unidad esperado de  <a class="pesoesperado"></a> kilos .</p>
 
           <p>Tendrá la siguiente descripción:</p> 
 
@@ -473,15 +504,18 @@ $(document).ready(function(){
             $(insu).closest('tr').find('.unitingre').html(""); 
         }
     });
-    
+  
+ $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})   
 });
 
 $('#gramosxunidad').keyup(function(){
 
 if ($('#MermaEsperada').val()!=""&&$('#unidadesfinalesxunidad').val()!="") {
 
-$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
-$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
+$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()).toFixed(3))
+$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()).toFixed(3))
 
 }else{
 
@@ -493,8 +527,8 @@ $('#MermaEsperada').keyup(function(){
 
 if ($('#gramosxunidad').val()!=""&&$('#unidadesfinalesxunidad').val()!="") {
 
-$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
-$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
+$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()).toFixed(3))
+$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()).toFixed(3))
 
 }else{
 
@@ -506,8 +540,8 @@ $('#unidadesfinalesxunidad').keyup(function(){
 
 if ($('#gramosxunidad').val()!=""&&$('#MermaEsperada').val()!="") {
 
-$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
-$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()))
+$('#gramosxunidadesperado').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()).toFixed(3))
+$('#gramosxunidadesperado1').val(($('#gramosxunidad').val()*(1-($('#MermaEsperada').val()/100))/$('#unidadesfinalesxunidad').val()).toFixed(3))
 
 }else{
 

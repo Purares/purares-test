@@ -21,9 +21,9 @@ foreach ($detalleReceta as $receta) {
 	<br>
   				<div class="d-flex">
   					<div class="mr-auto">
-  					<h4>Receta ID <a class="idreceta"><?php echo $_GET['idReceta'] ?></a> "<a class="nombrereceta"><?php echo $_GET['nombrereceta'] ?></a>" <span class="medalla"><?php if ($_GET['estado']==1) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Desactivada</span>';}?>
+  					<h2>Receta: <a class="nombrereceta"><?php echo $_GET['nombrereceta'] ?></a> <span class="medalla"><?php if ($_GET['estado']==1) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Desactivada</span>';}?>
 					</span>
-  				</h4>
+  				</h2>
   					</div>
   					<div>
   						<div class="boton">
@@ -32,10 +32,11 @@ foreach ($detalleReceta as $receta) {
   					</div>	
   					<br>
               </div>
+              <hr>
                   <div class="row">
                             <div class="form-group col-6">
-                         <label for="spanrecetanombre">Nombre de la receta:</label>
-                                <span class="input-group-text nombrereceta" id="spanrecetanombre"><?php echo $_GET['nombrereceta'] ?></span>
+                         <label for="spanrecetaid">ID Receta:</label>
+                                <span class="input-group-text recetaid" id="spanrecetaid"><?php echo $_GET['idReceta'] ?></span>
                                 </div>
                             <div class="form-group col-6">
                          <label for="spanrecetafechaalta">Fecha de Alta:</label>

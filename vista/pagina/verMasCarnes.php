@@ -19,13 +19,14 @@
 
 <div class="mr-auto">
 
-  <h4>Composicion por desbastes de la carne ID <a class="id"><?php echo $_GET["idCarneVerComposicion"];?></a>  "<a class="nombre"><?php echo $_GET["nombrecarne"];?></a>":</h4>
+  <h2>Composicion por desposte de la carne <a class="nombre"><?php echo $_GET["nombrecarne"];?></a></h2>
 
 </div>
 
 </div>
+<hr>
   <br>
-             
+        <div class="col-6">     
                         <table class="table table-hover">
                 <thead class="thead-light">
                     <tr>
@@ -47,7 +48,7 @@ foreach($despostes as $desposte){
 ?>
                 </tbody>
           </table>
- 
+ </div>
         </div>
 
 <script>

@@ -99,6 +99,7 @@ echo $proveedores;
                 
               <p>Complete la cantidad de carnes despostadas:</p>
               <div class="container">
+                 <div class="col-6">          
                   <table class="table table-sm">
                 <thead>
                     <tr>
@@ -121,6 +122,7 @@ foreach($carnes as $carne){
                 </tbody>
             </table>
           </div>
+          </div>
           <br>
               <div class="row">
                  <div class="form-group col-12">
@@ -136,6 +138,7 @@ foreach($carnes as $carne){
             
               <br>
                   <button type="button" class="btn btn-success" id="BotonAgregarDesposte" data-toggle="modal" data-target="#ConfirmarNuevoDesposte">Agregar desposte</button>
+
             </div>
 
 

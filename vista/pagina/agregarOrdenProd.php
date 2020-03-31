@@ -91,12 +91,12 @@ foreach($carnes as $carne){
 
 	if ($carne[0]==8) {
 
-	  echo '<tr><td scope="col" width="10%">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="40%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="30%"><div class="input-group"><input type="number" min=0 step=0.0001 class="form-control text-right cantcarneop" id="kilostocino" placeholder="Cantidad" disabled><input type="hidden" name="catidadCarnesAgregarOP[]" id=kilostocinooculto value=""><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="20%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
+	  echo '<tr><td scope="col" width="10%">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="40%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="30%"><div class="input-group"><input type="number" min=0 step=0.001 class="form-control text-right cantcarneop" id="kilostocino" placeholder="Cantidad" disabled><input type="hidden" name="catidadCarnesAgregarOP[]" id=kilostocinooculto value=""><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="20%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
 
 	
 	}else{
 
-  echo '<tr><td scope="col" width="10%">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="40%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="30%"><div class="input-group"><input type="number" min=0 step=0.0001 max="'.$carne[2].'" name="catidadCarnesAgregarOP[]" class="form-control text-right cantcarneop" placeholder="Seleccione receta y peso"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="20%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
+  echo '<tr><td scope="col" width="10%">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="40%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="30%"><div class="input-group"><input type="number" min=0 step=0.001 max="'.$carne[2].'" name="catidadCarnesAgregarOP[]" class="form-control text-right cantcarneop" placeholder="Seleccione receta y peso"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="20%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
 
 }}
 
@@ -200,14 +200,14 @@ $.ajax({
                         //alert('alcanza')
                          $('.infoinsumos').html("Se requeriran estas cantidades de insumos:")
 
-                        $('.headinsumosop').html('<tr><th scope="col">ID Insumo</th><th scope="col">Insumo</th><th scope="col">Cantidad</th><th scope="col">Stock</th><th scope="col">Cantidad OP</th><th scope="col">Diferencia</th></tr>')
+                        $('.headinsumosop').html('<tr><th scope="col"  class="text-center">ID Insumo</th><th scope="col">Insumo</th><th scope="col"  class="text-center">Stock Actual</th><th scope="col"  class="text-center">Cantidad para orden</th><th scope="col"  class="text-center">Cantidad después de orden</th></tr>')
 
                                $('.bodyinsumosop').find('tr').remove()
                     for (var i = 0; i < respuestacod.tablaInsumos_.length; i++) {
 
 
                         
-                        $('.bodyinsumosop').append('<tr><td scope="col">'+respuestacod.tablaInsumos_[i][1]+'</td><td scope="col" class="nominsu">'+respuestacod.tablaInsumos_[i][2]+'</td><td scope="col">'+respuestacod.tablaInsumos_[i][3]+' '+respuestacod.tablaInsumos_[i][4]+'</td><td scope="col" class="stockinsu">'+respuestacod.tablaInsumos_[i][5]+' '+respuestacod.tablaInsumos_[i][4]+'</td><td scope="col" class="cantinsuop">'+respuestacod.tablaInsumos_[i][6]+' '+respuestacod.tablaInsumos_[i][4]+'</td><td scope="col"  class="stockinsufuturo">'+respuestacod.tablaInsumos_[i][7]+' '+respuestacod.tablaInsumos_[i][4]+'</td></tr>')
+                        $('.bodyinsumosop').append('<tr><td scope="col" class="text-center">'+respuestacod.tablaInsumos_[i][1]+'</td><td scope="col" class="nominsu">'+respuestacod.tablaInsumos_[i][2]+'</td><td scope="col" class="stockinsu text-center">'+respuestacod.tablaInsumos_[i][5]+' '+respuestacod.tablaInsumos_[i][4]+'</td><td scope="col" class="cantinsuop text-center">'+respuestacod.tablaInsumos_[i][6]+' '+respuestacod.tablaInsumos_[i][4]+'</td><td scope="col"  class="stockinsufuturo text-center">'+respuestacod.tablaInsumos_[i][7]+' '+respuestacod.tablaInsumos_[i][4]+'</td></tr>')
 
 
                        //   alert()
@@ -237,8 +237,8 @@ $.ajax({
                 	//alert(respuestacod)
 console.log(respuestacod);
 
-                		var kilostocino=($('#PesoPaston').val()*(1-(respuestacod)/100)).toFixed(5)
-                		 kilosrequeridos=($('#PesoPaston').val()*(respuestacod/100)).toFixed(5)
+                		var kilostocino=($('#PesoPaston').val()*(1-(respuestacod)/100)).toFixed(3)
+                		 kilosrequeridos=($('#PesoPaston').val()*(respuestacod/100)).toFixed(3)
                 		$('#kilostocino').val(kilostocino)
                 		$('#kilostocinooculto').val(kilostocino)
                 		$('#alertacarnes').show()
@@ -330,7 +330,7 @@ $(document).ready(function(){
 })
 
 
-$('.cantcarneop').keyup(function(){
+$('.cantcarneop').bind("keyup change", function(e) {
 
 
 	var valorescarnes=$('.cantcarneop').filter(":input")
