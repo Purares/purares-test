@@ -636,7 +636,7 @@ static public function ctrValidarAnulacionCompra(){
 			isset($_POST["pesoPastonAltaOP"])){
 
 		$datos= array(	'idRecetaAltaOP_'	=> $_POST["idRecetaAltaOP"],
-						'pesoPastonAltaOP_'	=>$_POST["pesoPastonAltaOP"]);
+						'pesoPastonAltaOP_'	=> $_POST["pesoPastonAltaOP"]);
 		
 		$tablaInsumosOP=ModeloFormularios::mdlListaInsumosOP($datos);
 		$respuesta2=ModeloFormularios::mdlValidacionStockInsumosOP($datos);
@@ -719,23 +719,30 @@ static public function ctrValidarAnulacionCompra(){
 				#2)Validacion de Carnes
 					$validacion_Carnes= ControladorFormularios::ctrValidarStockCarnesOP($carnesOP);
 					if ($validacion_Carnes='OK') {
-						
-						#Crear Alta de OP
-						$datosOP = array(	'idReceta_' 	=> $_POST["idRecetaAltaOP"],
-											'pesoPaston_' 	=> $_POST["pesoPastonAltaOP"], 
-											'idUsuario_' 	=> 1 ); #[TO DO]
+					
+					#3)Validación Peso de paston=Peso total de carnes
+						$PesoCarneTotal=array_sum($_POST["catidadCarnesAgregarOP"]);
+						if ($PesoCarneTotal==$_POST["pesoPastonAltaOP"]) {
+							# code...
+							#Crear Alta de OP
+							$datosOP = array(	'idReceta_' 	=> $_POST["idRecetaAltaOP"],
+												'pesoPaston_' 	=> $_POST["pesoPastonAltaOP"], 
+												'idUsuario_' 	=> 1 ); #[TO DO]
 
-						$idOrdenProd=ModeloFormularios::mdlAltaOP($datosOP);
+							$idOrdenProd=ModeloFormularios::mdlAltaOP($datosOP);
 
-						#3)Movimiento de Insumos
+							#4)Movimiento de Insumos
 
-							$respuesta=ControladorFormularios::ctrMovInsumoAltaOP($calculo_Insumos,$idOrdenProd);
-							if ($respuesta != "OK") { return $respuesta;}
+								$respuesta=ControladorFormularios::ctrMovInsumoAltaOP($calculo_Insumos,$idOrdenProd);
+								if ($respuesta != "OK") { return $respuesta;}
 
-						#4)Movimiento de Carne
-							$respuesta=ControladorFormularios::ctrMovCarneAltaOP($carnesOP,$idOrdenProd);
-							if ($respuesta != "OK") { return $respuesta;}
+							#5)Movimiento de Carne
+								$respuesta=ControladorFormularios::ctrMovCarneAltaOP($carnesOP,$idOrdenProd);
+								if ($respuesta != "OK") { return $respuesta;}
 
+						}else{#Mandar abajo
+							$respuesta="La cantidad de carne seleccionada no coincide con el peso del paston";
+						}
 					}else{
 						$respuesta=$validacion_Carnes;
 					}
@@ -917,12 +924,20 @@ static public function ctrValidarAnulacionCompra(){
 
 					#insertar Datos de Mediciones
 					$longitud=count($_POST["MedicionesPeso_FinOP"]);
-					
+						
+						#Formatear Array de Fechas
+						$fechasMediciones=array();
+						foreach ($_POST["MedicionesFechaMedicion_FinOP"] as $fecha) {
+							if ($fecha>0) {
+								$fechasMediciones[]=strval(date("y-m-d",strtotime($fecha)));
+							}
+						}
+
 					$datosMediciones=array(
 							'idOrdenProdFin_'			=> array_fill(0,$longitud,$id_ordenprod_fin),
 							'MedicionesPeso_'			=> $_POST["MedicionesPeso_FinOP"],
 							'MedicionesResponsable_'	=> $_POST["MedicionesResponsable_FinOP"],
-							'MedicionesFechaMedicion_'	=> array_fill(0,$longitud,"2020-01-01"));#strval(date("y-m-d",strtotime($_POST["MedicionesFechaMedicion_FinOP"]))));
+							'MedicionesFechaMedicion_'	=> $fechasMediciones);
 
 					for ($i=0; $i <$longitud ; $i++) {
 

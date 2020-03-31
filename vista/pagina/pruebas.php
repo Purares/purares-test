@@ -4,21 +4,17 @@
 
 <?php
 
-$id_compra=3;
-$detalleCompra= ModeloFormularios::mdlDetalleCompra($id_compra);
-$anulado=$detalleCompra[0]['anulado'];
-if ($anulado==0) {
-	$respuesta="OK";
-}else{
-	$respuesta="La Compra Mro:".$id_compra." ya se encuentra anulada";
-}
+
+$fechas=[2,3,4,5,6,7,8];
+$fechasC=array();
+
+	#foreach ($_GET as $clave=>$valor)
+	foreach ($fechas as $f) {
+		$fechasC[]= $f+1;
+	}
 
 
-if ($respuesta="OK") {
-	$msg="Anular";
-}
-
-var_dump($msg);
+var_dump($fechasC);
 
 ?>
 
