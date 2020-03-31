@@ -91,7 +91,7 @@ foreach($carnes as $carne){
 
 	if ($carne[0]==8) {
 
-	  echo '<tr><td scope="col" width="10%">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="40%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="30%"><div class="input-group"><input type="number" min=0 step=0.0001 max="'.$carne[2].'" name="catidadCarnesAgregarOP[]" class="form-control text-right cantcarneop" id="kilostocino" placeholder="Cantidad" disabled><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="20%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
+	  echo '<tr><td scope="col" width="10%">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="40%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="30%"><div class="input-group"><input type="number" min=0 step=0.0001 class="form-control text-right cantcarneop" id="kilostocino" placeholder="Cantidad" disabled><input type="hidden" name="catidadCarnesAgregarOP[]" id=kilostocinooculto value=""><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="20%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
 
 	
 	}else{
@@ -240,6 +240,7 @@ console.log(respuestacod);
                 		var kilostocino=($('#PesoPaston').val()*(1-(respuestacod)/100)).toFixed(5)
                 		 kilosrequeridos=($('#PesoPaston').val()*(respuestacod/100)).toFixed(5)
                 		$('#kilostocino').val(kilostocino)
+                		$('#kilostocinooculto').val(kilostocino)
                 		$('#alertacarnes').show()
                 		$('.alertcarnes').empty()
                 		$('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el paston")
