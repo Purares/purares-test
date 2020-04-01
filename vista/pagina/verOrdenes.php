@@ -55,7 +55,7 @@ foreach($ordenes as $orden){
 
 if ($orden["anulado"]==0) {
 	
-	echo '<tr><td scope="col">' . $orden["id_ordenprod"] . '</td><td scope="col">' . $orden["nombre_receta"] . '</td><td scope="col">' . $orden["peso_paston"] . '</td><td scope="col">' . $orden["fecha_alta"] .'</td><td scope="col">' . $orden["usuario_alta"].'</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleOp&idOrdenProdDetalle=' . $orden["id_ordenprod"] . '&nombreop=' .  $orden["nombre_receta"]  . '&estado=' .  $orden["anulado"] . '">Ver detalles</a></td></tr>';
+	echo '<tr><td scope="col">' . $orden["id_ordenprod"] . '</td><td scope="col">' . $orden["nombre_receta"] . '</td><td scope="col">' . $orden["peso_paston"] . '</td><td scope="col">' . $orden["fecha_alta"] .'</td><td scope="col">' . $orden["usuario_alta"].'</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleOp&idOrdenProdDetalle=' . $orden["id_ordenprod"].'&estado=' .  $orden["anulado"] . '">Ver detalles</a></td></tr>';
 
 }
 

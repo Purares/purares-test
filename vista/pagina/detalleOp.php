@@ -9,6 +9,10 @@
 
 $detalleOrden=ControladorFormularios::ctrDetalleOP();
 
+
+$detalleAltaOp=$detalleOrden['detalleAltaOP_'];
+
+
 ?>
 
 
@@ -16,7 +20,7 @@ $detalleOrden=ControladorFormularios::ctrDetalleOP();
 	<br>
   				<div class="d-flex">
   					<div class="mr-auto">
-  					<h4>Orden ID <a class="idorden"><?php echo $_GET['idOrdenProdDetalle']; ?></a> "<a class="nombrereceta"><?php echo $_GET['nombreop']; ?></a>" <span class="medalla"><?php if ($_GET['estado']==0) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Desactivada</span>';};?>
+  					<h4>Orden ID <a class="idorden"><?php echo $_GET['idOrdenProdDetalle']; ?></a> "<a class="nombrereceta"><?php echo $detalleAltaOp[0]['nombre_receta']; ?></a>" <span class="medalla"><?php if ($_GET['estado']==0) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Desactivada</span>';};?>
 					</span>
   				</h4>
   					</div>
@@ -32,11 +36,7 @@ $detalleOrden=ControladorFormularios::ctrDetalleOP();
                             <div class="form-group col-6">
                          <label for="spannombreop">Nombre de la receta:</label>
 
-                         <?php
-
-$detalleAltaOp=$detalleOrden['detalleAltaOP_'];
-
-?>
+  
                                 <span class="input-group-text nombreop" id="spannombreop"><?php echo $detalleAltaOp[0]['nombre_receta'];?></span>
                                 </div>
 

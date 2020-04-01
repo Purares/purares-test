@@ -168,7 +168,7 @@ foreach($carnes as $carne){
         <div class="modal-body">
         </div>
         <div class="modal-footer">
-          <a type="button" class="btn btn-info" data-dismiss="modal" id="botonaceptarnuevaorden" onclick="location.reload();">Aceptar</a>
+          <a type="button" class="btn btn-info" id="botonaceptarnuevaorden" onclick="location.reload();">Aceptar</a>
         </div>
       </div>
     </div>
@@ -365,7 +365,8 @@ $(document).ready(function(){
                   modal.find('.modal-body').html(
                     '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Orden agregada</h4><p>Usted ha agregado la nueva orden de produccion correctamente. El id de la orden es <a id="id_nuevaorden"></a></p><hr></div>')
                   modal.find("#id_nuevaorden").text(respuestacod1.idOrdenProd_)
-                 var link='index.php?pagina=detalleReceta&idReceta='+respuestacod1.idOrdenProd_+'&estado=1'
+                 var link="index.php?pagina=detalleOp&idOrdenProdDetalle="+respuestacod1.idOrdenProd_+"&estado=0"
+                  modal.find('#botonaceptarnuevaorden').unbind('click');
                   modal.find('#botonaceptarnuevaorden').attr("href", link)
 
                 } else {
