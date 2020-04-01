@@ -266,8 +266,6 @@ if (isset($_POST["idRecetaAltaOP"])&&
 
 
     $nuevaorden=ControladorFormularios::ctrAgregarOP();
-
- echo $nuevaorden;
 }
 
 

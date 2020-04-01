@@ -356,12 +356,13 @@ $(document).ready(function(){
                               
        $.post("datos.php",$("#formorden").serialize(),function(respuestacod1){
        // alert(respuestacod1)
-                if(respuestacod1 == "OK"){
+                if(respuestacod1.validacion_ == "OK"){
                   $('#ConfirmarOrden').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
                   modal.find('.modal-body').html(
-                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Orden agregada</h4><p>Usted ha agregado la nueva orden de produccion correctamente.</p><hr></div>')
+                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Orden agregada</h4><p>Usted ha agregado la nueva orden de produccion correctamente. El id de la orden es <a id="id_nuevaorden"></a></p><hr></div>')
+                  modal.find("#id_nuevaorden").text(respuestacod1.idOrdenProd_)
 
                 } else {
                     $('#ConfirmarOrden').modal('hide')
