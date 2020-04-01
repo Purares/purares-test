@@ -8,14 +8,62 @@
 
 	<div class="container">
 <br>
-  					<h2>Finalizar Orden de produccion ID <?php echo $_GET['idOrdenProdAlta_FinOP']; ?></h2>
-    <br>          		
-        		
-        			<h5>Complete los datos para finalizar</h5>
+
+  					<h2>Finalizar Orden de producción N° <?php echo $_GET['idOrdenProdAlta_FinOP']; ?></h2>
+
+            <hr>
+    <br> 
+      <form method="post" class="needs-validation" id="formfinop">   
+       <input type="hidden" name="idOrdenProdAlta_FinOP" id="idopfin" value="<?php echo $_GET['idOrdenProdAlta_FinOP']; ?>">      		
+        		   <h5>1 Empastado, amasado y embutido:</h5>
+               <hr>
+           <div class="row">
+                  <div class="input-group col-md-6">  
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Unidades obtenidas:</span>
+                  </div>
+                    <input type="number" min=0 step=0.0001 class="form-control text-center" name="unidadesFrescas_FinOP" id="unidadesfrescas" placeholder="Ingrese la cantidad" required>
+                     <div class="input-group-append">
+                  <span class="input-group-text">Unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese la cantidad de unidades frescas obtenidas tras el embutido">
+  ?
+</button>
+              </div>
+                                    <div class="invalid-feedback">
+                                    Ingrese la cantidad de unidades obtenidas tras el embutido
+                                    </div>
+                  </div>
+              </div>
+
+        <br>
+              <h5>2 Medición del secado y goteo:</h5>
+              <hr>
+              <br>
+ 
+ <table class="table table-hover">
+  <thead>
+   <tr><th scope="col" class="text-white text-center bg-dark">ORDEN</th><th scope="col" class="text-white text-center bg-dark">PESO</th><th scope="col" class="text-white text-center bg-dark">MERMA</th><th scope="col" class="text-white text-center bg-dark">RESPONSABLE</th><th scope="col" class="text-white text-center bg-dark">FECHA</th></tr>
+ </thead>
+ <tbody>
+
+<?php
+
+for ($i=1; $i <5 ; $i++) { 
+
+echo '<td scope=col>'.$i.'<input type="hidden" name="MedicionesSort_FinOP[]" value="'.$i.'"></td><td scope=col><div class="input-group"><div class="input-group-prepend"><input type="number" min=0 step=0.0001 class="form-control input text-center pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></div><div class="input-group-append"><span class="input-group-text">Kilos</span></div></div></td><td scope="col" class="mermaentrepesos"><input type="hidden" name="MedicionesMerma_FinOP[]" id="mermahidden" value=""></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td> <td scope=col> <input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]" required></td> </tr>';
+
+ };
+ 
+?>  
+    
+ </tbody>
+ </table>
+  
+           		<br>               
+        			<h5>3 Envasado</h5>
               <hr>
         			<br>
-       	<form method="post" class="needs-validation" id="formfinop">
-  <input type="hidden" name="idOrdenProdAlta_FinOP" id="idopfin" value="<?php echo $_GET['idOrdenProdAlta_FinOP']; ?>">
+      
+ 
             <div class="row">
           				<div class="input-group col-md-6">	
           					<div class="input-group-prepend">
@@ -46,32 +94,12 @@
                                     </div>
                 </div>
         			</div>
-<br>
-        <br>
-              <h5>Complete los datos correspondientes a la medición y seguimiento:</h5>
+                     <br>
+              <h5>Descripción</h5>
               <hr>
-              <br>
- 
- <table class="table table-hover">
-  <thead>
-   <tr><th scope="col" class="text-white text-center bg-dark">ORDEN</th><th scope="col" class="text-white text-center bg-dark">PESO</th><th scope="col" class="text-white text-center bg-dark">MERMA</th><th scope="col" class="text-white text-center bg-dark">RESPONSABLE</th><th scope="col" class="text-white text-center bg-dark">FECHA</th></tr>
- </thead>
- <tbody>
+                <textarea class="form-control" style="min-width: 100%" name="descripcion_FinOP" id="descripcionfinop" placeholder="..."></textarea>
 
-<?php
-
-for ($i=1; $i <5 ; $i++) { 
-
-echo '<td scope=col>'.$i.'</td><td scope=col><div class="input-group"><div class="input-group-prepend"><input type="number" min=0 step=0.0001 class="form-control input text-center pesos pesos'.$i.'" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></div><div class="input-group-append"><span class="input-group-text">Unidades</span></div></div></td><td scope="col" id="merma'.$i.'"></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td> <td scope=col> <input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]" required></td> </tr>';
-
- };
- 
-?>  
-    
- </tbody>
- </table>
-  
-           		<br>               
+<br>
                		<button type="button" class="btn btn-danger" id="botonmodalfinalizarop"  data-toggle="modal" data-target="#ConfirmarFinalizarOp">Finalizar orden</button>
        	 	  </div> 
 
@@ -85,22 +113,30 @@ echo '<td scope=col>'.$i.'</td><td scope=col><div class="input-group"><div class
           <h5 class="modal-title">Confirmar Finalización orden</h5>
         </div>
         <div class="modal-body">
-          <p>Usted está a punto de finalizar la orden de producción ID <a class="idopfin"></a>.</p>
+          <p>Usted está a punto de finalizar la orden de producción N° <a class="idopfin"></a>.</p>
 
-          <p>El producto obtenido es de <a class="productoobtenido"></a>, y se obtuvieron <a class="unidadesobtenidas"></a> unidades.</p>
+          <p>Las unidades obtenidas luego del embutido son <a class="unidadesfrescas"></a> unidades.
 
-          <p>Los datos de medición son los siguientes:</p>
+          <p>Los datos de medición de secado y goteo son los siguientes:</p>
 
           <div class="container">
           <table class="table table-hover">
             <thead>
-            <tr><th scope="col">#</th><th scope="col">Peso</th><th scope="col">Responsable</th><th scope="col">Fecha</th></tr>
+            <tr><th scope="col">#</th><th scope="col">Peso</th><th scope="col">Merma</th><th scope="col">Responsable</th><th scope="col">Fecha</th></tr>
             </thead>
             <tbody id="tablaconfirmarop">
               
             </tbody>
           </table>
           </div>
+          <br>
+            
+          <p>Luego del envasado se obtuvieron <a class="productoobtenido"></a> kilos y <a class="unidadesobtenidas"></a> unidades.</p>
+
+          <p>La descripción de la finalización es:</p>
+
+          <p class="descripcion"></p>  
+
             <br>
           <p>¿Confirma que desea cargar estos datos y FINALIZAR la ordeen?</p>
         </div>
@@ -137,9 +173,10 @@ echo '<td scope=col>'.$i.'</td><td scope=col><div class="input-group"><div class
   
 
 
+
   </script>
 
-       </form>
+   </form>
 
   <!-- Mensaje confirmacion -->
   <div class="modal fade" id="MensajeConfirmacion" tabindex="-1" role="dialog" aria-hidden="true">
@@ -166,7 +203,7 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
     $("#botonconfirmarfinop").click( function() {    // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
        $.post("datos.php",$("#formfinop").serializeArray(),function(respuestacod){
-                if(respuestacod == "OK"){
+                  if(respuestacod == "OK"){
                   $('#ConfirmarFinalizarOp').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
@@ -200,10 +237,13 @@ function completarmodalfinalizarop(){
                                   var idop=$('#idopfin').val()
                                         producto=$('#productoobtenido').val()
                                       unidadesobtenidas=$('#unidadesobtenidas').val()
+                                      unidadesfrescas=$('#unidadesfrescas').val()
+                                      descripcion=$('#descripcionfinop').val()
                                     
                                       var pesos = [];
                                       responsables=[];
                                       fechas=[];
+                                      mermas=[]
 
                                       $('.mediciones').remove();
 
@@ -216,6 +256,9 @@ function completarmodalfinalizarop(){
                                          $('.fechas').each(function(){
                                         fechas.push($(this).val());
                                       })
+                                          $('.mermaentrepesos').each(function(){
+                                        mermas.push($(this).text());
+                                      })
 
 
 
@@ -223,14 +266,32 @@ function completarmodalfinalizarop(){
 modal.find('.idopfin').text('' + idop);                                      
 modal.find('.productoobtenido').text('' + producto);
 modal.find('.unidadesobtenidas').text('' + unidadesobtenidas);
+modal.find('.unidadesfrescas').text('' + unidadesfrescas);
+modal.find('.descripcion').text('' + descripcion);
 
 
 for (var i=0; i<=pesos.length-1;i++){
   
-  modal.find('#tablaconfirmarop').append($('<tr class="mediciones"><td scope="col">' + [i+1] +'</td><td scope="col">' + pesos[i] +'</td><td scope="col" class="text-right">'+ responsables[i] + '</td><td scope="col">' + fechas[i]+ '</tr>'))
+  modal.find('#tablaconfirmarop').append($('<tr class="mediciones"><td scope="col">' + [i+1] +'</td><td scope="col">' + pesos[i] +'</td><td scope="col">' + mermas[i] +'</td><td scope="col" class="text-right">'+ responsables[i] + '</td><td scope="col">' + fechas[i]+ '</tr>'))
 
   }}})
 
+
+
+$('.pesos').bind("keyup change", function(e) {
+
+  //alert("esto anda")
+
+
+  //alert($(this).val())
+  //alert($(this).closest('tr').prev().find('.pesos').val())
+  var valor=((1-(parseFloat($(this).val())/parseFloat($(this).closest('tr').prev().find('.pesos').val())))*100).toFixed(1)
+  //alert(valor)
+  if(valor!="NaN"){
+  $(this).closest('tr').find('.mermaentrepesos').html(""+valor+"%")
+  $(this).closest('tr').find('#mermahidden').val(valor)
+}
+})
 
 
 </script>
