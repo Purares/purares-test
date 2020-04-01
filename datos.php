@@ -267,8 +267,8 @@ if (isset($_POST["idRecetaAltaOP"])&&
 
     $nuevaorden=ControladorFormularios::ctrAgregarOP();
 
-    $respuestacod=json_encode($nuevaorden);
-    echo $respuestacod;
+    $respuestacod1=json_encode($nuevaorden);
+    echo $respuestacod1;
 }
 
 

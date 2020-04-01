@@ -354,9 +354,9 @@ $(document).ready(function(){
   $("#botonconfirmarorden").click( function() {  
   // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
-       $.post("datos.php",$("#formorden").serialize(),function(respuestacod){
+       $.post("datos.php",$("#formorden").serialize(),function(respuestacod1){
         alert("la llamada anduvo")
-                if(respuestacod == "OK"){
+                if(respuestacod1 == "OK"){
                   $('#ConfirmarOrden').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
@@ -372,7 +372,7 @@ $(document).ready(function(){
                   modal.find('#erroragregarorden').empty()
                   modal.find('#erroragregarorden').html(respuestacod)
                 }
-            },"json",alert("la llamada NO anduvo"));
+            },"json",);
   
     });    
 });
