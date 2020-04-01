@@ -211,8 +211,6 @@ $.ajax({
                 dataType: "json",
                 success:function(respuestacod){
 
-                 // alert(respuestacod)
- console.log(respuestacod);
 
                     if (respuestacod.validacion_=="SI") {
 
@@ -355,7 +353,11 @@ $(document).ready(function(){
   $("#botonconfirmarorden").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
        $.post("datos.php",$("#formorden").serialize(),function(respuestacod1){
-       // alert(respuestacod1)
+ //      alert(respuestacod1)
+
+                 // alert(respuestacod)
+// console.log(respuestacod1);
+
                 if(respuestacod1.validacion_ == "OK"){
                   $('#ConfirmarOrden').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
@@ -373,7 +375,7 @@ $(document).ready(function(){
                    modal.find('#erroragregarorden').empty()
                   modal.find('#erroragregarorden').html(respuestacod1)
                 }
-            });
+   },"json");
   
     })});  
 
