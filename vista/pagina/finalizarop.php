@@ -15,7 +15,7 @@
     <br> 
       <form method="post" class="needs-validation" id="formfinop">   
        <input type="hidden" name="idOrdenProdAlta_FinOP" id="idopfin" value="<?php echo $_GET['idOrdenProdAlta_FinOP']; ?>">      		
-        		   <h5>1 Empastado, amasado y embutido:</h5>
+        		   <h5>1 - Empastado, amasado y embutido:</h5>
                <hr>
            <div class="row">
                   <div class="input-group col-md-6">  
@@ -35,7 +35,7 @@
               </div>
 
         <br>
-              <h5>2 Medición del secado y goteo:</h5>
+              <h5>2 - Medición del secado y goteo:</h5>
               <hr>
               <br>
  
@@ -59,7 +59,7 @@ echo '<td scope=col>'.$i.'<input type="hidden" name="MedicionesSort_FinOP[]" val
  </table>
   
            		<br>               
-        			<h5>3 Envasado</h5>
+        			<h5>3 - Envasado</h5>
               <hr>
         			<br>
       
@@ -187,7 +187,7 @@ echo '<td scope=col>'.$i.'<input type="hidden" name="MedicionesSort_FinOP[]" val
         <div class="modal-body">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.reload();">Aceptar</button>
+          <a type="button" class="btn btn-info" id="botonaceptarfinalizarorden" onclick="location.reload();">Aceptar</a>
         </div>
       </div>
     </div>
@@ -197,7 +197,7 @@ echo '<td scope=col>'.$i.'<input type="hidden" name="MedicionesSort_FinOP[]" val
 
 <script>
 
-
+var idop
 
 $(document).ready( function() {   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
     $("#botonconfirmarfinop").click( function() {    // Con esto establecemos la acción por defecto de nuestro botón de enviar.
@@ -209,6 +209,10 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
                   modal.find('.modal-body').empty()
                   modal.find('.modal-body').html(
                     '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Orden Finalizada</h4><p>Usted ha finalizado la orden de produccion correctamente.</p><hr></div>')
+
+                  var link="index.php?pagina=detalleOp&idOrdenProdDetalle="+idop+"&estado=1"
+                  modal.find('#botonaceptarfinalizarorden').unbind('click');
+                  modal.find('#botonaceptarfinalizarorden').attr("href", link)
 
                 } else {
                     $('#ConfirmarFinalizarOp').modal('hide')
@@ -234,8 +238,8 @@ var button = $(event.relatedTarget);
 var modal = $(this)
 completarmodalfinalizarop()
 function completarmodalfinalizarop(){             
-                                  var idop=$('#idopfin').val()
-                                        producto=$('#productoobtenido').val()
+                                   idop=$('#idopfin').val()
+                                    var    producto=$('#productoobtenido').val()
                                       unidadesobtenidas=$('#unidadesobtenidas').val()
                                       unidadesfrescas=$('#unidadesfrescas').val()
                                       descripcion=$('#descripcionfinop').val()
@@ -285,14 +289,31 @@ $('.pesos').bind("keyup change", function(e) {
 
   //alert($(this).val())
   //alert($(this).closest('tr').prev().find('.pesos').val())
-var valor=((1-(parseFloat($(this).val())/parseFloat($(this).closest('tr').prev().find('.pesos').val())))*100).toFixed(1);
-var valoraenviar=(1-(parseFloat($(this).val())/parseFloat($(this).closest('tr').prev().find('.pesos').val()))).toFixed(3);
+var valorprevio=((1-(parseFloat($(this).val())/parseFloat($(this).closest('tr').prev().find('.pesos').val())))*100).toFixed(1);
+var valoraenviarprevio=(1-(parseFloat($(this).val())/parseFloat($(this).closest('tr').prev().find('.pesos').val()))).toFixed(3);
 //alert("este es el valor a enviar" + valoraenviar)
+var valordespues=((1-(parseFloat($(this).closest('tr').next().find('.pesos').val())/parseFloat($(this).val())))*100).toFixed(1);
+var valorenviardespues=(1-(parseFloat($(this).closest('tr').next().find('.pesos').val())/parseFloat($(this).val()))).toFixed(1);
   //alert(valor)
-  if(valor!="NaN"){
-  $(this).closest('tr').find('.mermaentrepesos').html(""+valor+"%")
-  $(this).closest('tr').find('.mermahidden').val(valoraenviar)
+  if(valorprevio!="NaN"||valordespues!="NaN"){
+
+    if(valorprevio=="NaN"){
+        valorprevio=""
+        valoraenviarprevio=""
+    }else{
+      valorprevio=valorprevio+" %"
+    }
+    if(valordespues=="NaN"){
+      valordespues=""
+      valorenviardespues=""
+    }else{
+      valordespues=valordespues+" %"
+    }
+  $(this).closest('tr').find('.mermaentrepesos').html(""+valorprevio)
+  $(this).closest('tr').find('.mermahidden').val(valoraenviarprevio)
   //alert("esto es lo que esta en el hidden"+ ($(this).closest('tr').find('.mermahidden').val()))
+  $(this).closest('tr').next().find('.mermaentrepesos').html(""+valordespues)
+  $(this).closest('tr').next().find('.mermahidden').val(valorenviardespues)
 }
 })
 
