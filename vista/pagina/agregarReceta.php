@@ -12,9 +12,6 @@ $depositos=ControladorFormularios::ctrListaDepositos();
 
 $recetas=ControladorFormularios::ctrListaRecetas();
 
-$nueva_receta=ControladorFormularios::ctrCrearReceta();
-
-
 ?>
 
 <div class="container">

@@ -10,7 +10,6 @@ $recetas=ControladorFormularios::ctrListaRecetas();
 
 $carnes=ControladorFormularios::ctrStockCarnes();
 
-$nuevaorden=ControladorFormularios::ctrAgregarOP();
 
 ?>
 
@@ -21,7 +20,7 @@ $nuevaorden=ControladorFormularios::ctrAgregarOP();
               <br>
             	<h6>Complete los datos de la nueva orden de producción:</h6>
           			<br>
-<form method="post" class="needs-validation">
+<form method="post" class="needs-validation" id="formorden">
                       <div class="row">
           				<div class="input-group col-6">
   							<div class="input-group-prepend">
@@ -149,7 +148,7 @@ foreach($carnes as $carne){
           <p>¿Confirma que desea cargar esta orden de producción?</p>
         </div>
         <div class="modal-footer">
-           <button type="submit"  class="btn btn-success">Sí, establecer orden</button>
+           <button type="button" id="botonconfirmarorden"  class="btn btn-success">Sí, establecer orden</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">No, descartar orden</button>
         </div>
       </div>
@@ -157,6 +156,22 @@ foreach($carnes as $carne){
   </div>
 
 </form>
+
+
+  <!-- Mensaje confirmacion -->
+  <div class="modal fade" id="MensajeConfirmacion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.reload();">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
 
@@ -195,6 +210,9 @@ $.ajax({
                 dataType: "json",
                 success:function(respuestacod){
 
+                 // alert(respuestacod)
+ console.log(respuestacod);
+
                     if (respuestacod.validacion_=="SI") {
 
                         //alert('alcanza')
@@ -210,48 +228,54 @@ $.ajax({
                         $('.bodyinsumosop').append('<tr><td scope="col" class="text-center">'+respuestacod.tablaInsumos_[i][1]+'</td><td scope="col" class="nominsu">'+respuestacod.tablaInsumos_[i][2]+'</td><td scope="col" class="stockinsu text-center">'+respuestacod.tablaInsumos_[i][5]+' '+respuestacod.tablaInsumos_[i][4]+'</td><td scope="col" class="cantinsuop text-center">'+respuestacod.tablaInsumos_[i][6]+' '+respuestacod.tablaInsumos_[i][4]+'</td><td scope="col"  class="stockinsufuturo text-center">'+respuestacod.tablaInsumos_[i][7]+' '+respuestacod.tablaInsumos_[i][4]+'</td></tr>')
 
 
-                       //   alert()
-                       // alert(respuestacod.tablaInsumos_[i][2])
-                       //   alert(respuestacod.tablaInsumos_[i][3])
-                        //   alert(respuestacod.tablaInsumos_[i][4])
-                          //  alert(respuestacod.tablaInsumos_[i][5])
-                        console.log(respuestacod);
-
-                    }}else{
-
-                             //alert('no alcanza')
-                      $('.calculo').html("no alcanzan los inusumos")
-
-
-                    }
-                      
-                    
-
-}})
-$.ajax({
+              $.ajax({
                 type:'GET',
                 url:'datos.php',
                 data:{idReceta: $('#idReceta').val()},
                 success:function(respuestacod){
 
-                	//alert(respuestacod)
+                  //alert(respuestacod)
 console.log(respuestacod);
 
-                		var kilostocino=($('#PesoPaston').val()*(1-(respuestacod)/100)).toFixed(3)
-                		 kilosrequeridos=($('#PesoPaston').val()*(respuestacod/100)).toFixed(3)
-                		$('#kilostocino').val(kilostocino)
-                		$('#kilostocinooculto').val(kilostocino)
-                		$('#alertacarnes').show()
-                		$('.alertcarnes').empty()
-                		$('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el paston")
-                		$('#kilosrequeridos').text(kilosrequeridos)
+                    var kilostocino=($('#PesoPaston').val()*(1-(respuestacod)/100)).toFixed(3)
+                     kilosrequeridos=($('#PesoPaston').val()*(respuestacod/100)).toFixed(3)
+                    $('#kilostocino').val(kilostocino)
+                    $('#kilostocinooculto').val(kilostocino)
+                    $('#alertacarnes').show()
+                    $('.alertcarnes').empty()
+                    $('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el paston")
+                    $('#kilosrequeridos').text(kilosrequeridos)
 
 
 
 }})
 
+                    }}else{
 
-}) 
+                      if (respuestacod.validacion_=="NO") {
+
+                             //alert('no alcanza')
+                      $('.infoinsumos').html('<p class="text-danger">No hay insumos suficientes</p>')
+
+                    $('.headinsumosop').html('<tr><th scope="col"  class="text-center">ID Insumo</th><th scope="col">Insumo</th><th scope="col"  class="text-center">Stock Actual</th><th scope="col"  class="text-center">Cantidad para orden</th><th scope="col"  class="text-center">Cantidad después de orden</th></tr>')
+
+                               $('.bodyinsumosop').find('tr').remove()
+                    for (var i = 0; i < respuestacod.tablaInsumos_.length; i++) {
+
+
+                        
+                        $('.bodyinsumosop').append('<tr><td scope="col" class="text-center">'+respuestacod.tablaInsumos_[i][1]+'</td><td scope="col" class="nominsu">'+respuestacod.tablaInsumos_[i][2]+'</td><td scope="col" class="stockinsu text-center">'+respuestacod.tablaInsumos_[i][5]+' '+respuestacod.tablaInsumos_[i][4]+'</td><td scope="col" class="cantinsuop text-center">'+respuestacod.tablaInsumos_[i][6]+' '+respuestacod.tablaInsumos_[i][4]+'</td><td scope="col"  class="stockinsufuturo text-center">'+respuestacod.tablaInsumos_[i][7]+' '+respuestacod.tablaInsumos_[i][4]+'</td></tr>')
+
+
+                    }}
+                      
+                    
+
+}}
+
+
+
+})}) 
 
  $('#idReceta').on('change',function(){
 
@@ -327,7 +351,30 @@ $(document).ready(function(){
 
 	$('#alertacarnes').hide()
 
-})
+  $("#botonconfirmarorden").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
+                              
+       $.post("datos.php",$("#formorden").serializeArray(),function(respuestacod){
+                if(respuestacod == "OK"){
+                  $('#ConfirmarOrden').modal('hide')
+                    var modal=$('#MensajeConfirmacion').modal('show')
+                  modal.find('.modal-body').empty()
+                  modal.find('.modal-body').html(
+                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Orden de producción agregada</h4><p>Usted ha agregado la nueva orden correctamente.</p><hr></div>')
+
+                } else {
+                    $('#ConfirmarOrden').modal('hide')
+                    var modal=$('#MensajeConfirmacion').modal('show')
+                  modal.find('.modal-body').empty()
+                  modal.find('.modal-body').html(
+                    '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar la orden, reintente nuevamente</p><hr><a id="erroragregarorden"></a></div>')
+                  modal.find('#erroragregarorden').empty()
+                  modal.find('#erroragregarorden').html(respuestacod)
+                }
+            },"json");
+  
+    });    
+});
+
 
 
 $('.cantcarneop').bind("keyup change", function(e) {
@@ -366,6 +413,11 @@ $('#kilosrequeridos').empty()
 $('#kilosrequeridos').html(kilosactual)
 
 }})    
+
+
+
+
+
 
 </script>
 

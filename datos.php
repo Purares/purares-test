@@ -20,7 +20,7 @@ if(isset($_POST["idDepositoFiltroInsumo"]) && !empty($_POST["idDepositoFiltroIns
         	 echo '<option value="'.$insumo[0].'">'.$insumo[1].'</option>';
         }
     }else{
-        echo '<option value="">iNSUMO not available</option>';
+        echo '<option value="">Insumo no disponible</option>';
     }
 };
 
@@ -257,5 +257,20 @@ $porcentajeReceta=$detalleReceta[0]["porcent_carne"];
 
 echo $porcentajeReceta;
 }
+
+
+if (isset($_POST["idRecetaAltaOP"])||
+            isset($_POST["pesoPastonAltaOP"])||
+            isset($_POST["idCarnesAgregarOP"])||
+            isset($_POST["catidadCarnesAgregarOP"])){
+
+
+    $nuevaorden=ControladorFormularios::ctrAgregarOP();
+
+    $respuestacod=json_encode($nuevaorden);
+    echo $respuestacod;
+}
+
+
 
 ?>

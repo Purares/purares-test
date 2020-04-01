@@ -54,7 +54,7 @@
  
  <table class="table table-hover">
   <thead>
-   <tr><th scope="col" class="text-white text-center bg-dark">#</th><th scope="col" class="text-white text-center bg-dark">PESO</th><th scope="col" class="text-white text-center bg-dark">RESPONSABLE</th><th scope="col" class="text-white text-center bg-dark">FECHA</th></tr>
+   <tr><th scope="col" class="text-white text-center bg-dark">ORDEN</th><th scope="col" class="text-white text-center bg-dark">PESO</th><th scope="col" class="text-white text-center bg-dark">MERMA</th><th scope="col" class="text-white text-center bg-dark">RESPONSABLE</th><th scope="col" class="text-white text-center bg-dark">FECHA</th></tr>
  </thead>
  <tbody>
 
@@ -62,7 +62,7 @@
 
 for ($i=1; $i <5 ; $i++) { 
 
-echo '<td scope=col>'.$i.'</td><td scope=col><div class="input-group"><div class="input-group-prepend"><input type="number" min=0 step=0.0001 class="form-control input text-center pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></div><div class="input-group-append "> <span class="input-group-text">Unidades</span></div></div></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td> <td scope=col> <input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]" required></td> </tr>';
+echo '<td scope=col>'.$i.'</td><td scope=col><div class="input-group"><div class="input-group-prepend"><input type="number" min=0 step=0.0001 class="form-control input text-center pesos pesos'.$i.'" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></div><div class="input-group-append"><span class="input-group-text">Unidades</span></div></div></td><td scope="col" id="merma'.$i.'"></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td> <td scope=col> <input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]" required></td> </tr>';
 
  };
  
