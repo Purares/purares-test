@@ -632,7 +632,7 @@ static public function ctrValidarAnulacionCompra(){
 
 	#Al seleccionar una Receta, e introducir una Q deberia de ejecutarse esta función
 		
-		if (isset($_POST["idRecetaAltaOP"])||
+		if (isset($_POST["idRecetaAltaOP"])&&
 			isset($_POST["pesoPastonAltaOP"])){
 
 		$datos= array(	'idRecetaAltaOP_'	=> $_POST["idRecetaAltaOP"],
@@ -672,7 +672,7 @@ static public function ctrValidarAnulacionCompra(){
 
 	#Al seleccionar una Receta, e introducir una Q deberia de ejecutarse esta función
 		
-		if (isset($_POST["idRecetaAltaOP"])||
+		if (isset($_POST["idRecetaAltaOP"])&&
 			isset($_POST["pesoPastonAltaOP"])){
 
 			$datos= array(	'idRecetaAltaOP_'	=> $_POST["idRecetaAltaOP"],
@@ -700,9 +700,9 @@ static public function ctrValidarAnulacionCompra(){
 	static public function ctrAgregarOP(){
 
 		
-		if (isset($_POST["idRecetaAltaOP"])||
-			isset($_POST["pesoPastonAltaOP"])||
-			isset($_POST["idCarnesAgregarOP"])||
+		if (isset($_POST["idRecetaAltaOP"])&&
+			isset($_POST["pesoPastonAltaOP"])&&
+			isset($_POST["idCarnesAgregarOP"])&&
 			isset($_POST["catidadCarnesAgregarOP"])){
 
 
@@ -899,10 +899,12 @@ static public function ctrValidarAnulacionCompra(){
 		if (isset($_POST["idOrdenProdAlta_FinOP"])||
 			isset($_POST["productoObtenido_FinOp"])||
 			isset($_POST["unidades_FinOP"])||
+			isset($_POST["MedicionesSort_FinOP"])||#NEW
 			isset($_POST["MedicionesPeso_FinOP"])||
+			isset($_POST["MedicionesMerma_FinOP"])||#NEW
 			isset($_POST["MedicionesResponsable_FinOP"])||
 			isset($_POST["MedicionesFechaMedicion_FinOP"])){
-
+			#$_POST["descripcion_FinOP"]
 
 			#valida que la OP Alta no esté anulada
 			$detalleAltaOP=ModeloFormularios::mdlDetalleOpAlta($_POST["idOrdenProdAlta_FinOP"]);
@@ -918,6 +920,7 @@ static public function ctrValidarAnulacionCompra(){
 					$datosOP= array('idOrdenProdAlta_'	=> $_POST["idOrdenProdAlta_FinOP"],
 									'productoObtenido_'	=> $_POST["productoObtenido_FinOp"],
 									'unidadesObtenidas_'=> $_POST["unidades_FinOP"],
+									'descripcion_'		=> $_POST["descripcion_FinOP"],
 									'idUsuarioAlta_'	=> 1); #[TO DO]
 
 						$id_ordenprod_fin=ModeloFormularios::mdlFinOP($datosOP);
@@ -935,7 +938,9 @@ static public function ctrValidarAnulacionCompra(){
 
 					$datosMediciones=array(
 							'idOrdenProdFin_'			=> array_fill(0,$longitud,$id_ordenprod_fin),
+							'MedicionesSort_'			=> $_POST["MedicionesSort_FinOP"],
 							'MedicionesPeso_'			=> $_POST["MedicionesPeso_FinOP"],
+							'MedicionesMerma_'			=> $_POST["MedicionesMerma_FinOP"],
 							'MedicionesResponsable_'	=> $_POST["MedicionesResponsable_FinOP"],
 							'MedicionesFechaMedicion_'	=> $fechasMediciones);
 

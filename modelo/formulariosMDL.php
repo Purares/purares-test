@@ -758,12 +758,13 @@ static public function mdlDetalleOpMediciones($id_OrdenProd){
 
 static public function mdlFinOP($datosOP){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_Fin_OrdenProd(:idOrdenProdAlta, :productoObtenido, :unidadesObtenidas, :idUsuarioAlta);");
+		$stmt=conexion::conectarBD()->prepare("call ins_Fin_OrdenProd(:idOrdenProdAlta, :productoObtenido, :unidadesObtenidas, :descripcion, :idUsuarioAlta);");
 
-		$stmt -> bindparam (":idOrdenProdAlta",	$datosOP['idOrdenProdAlta_'],PDO::PARAM_INT);
-		$stmt -> bindparam (":productoObtenido",$datosOP['productoObtenido_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":unidadesObtenidas",$datosOP['unidadesObtenidas_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":idUsuarioAlta",	$datosOP['idUsuarioAlta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idOrdenProdAlta",		$datosOP['idOrdenProdAlta_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":productoObtenido",	$datosOP['productoObtenido_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":unidadesObtenidas",	$datosOP['unidadesObtenidas_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":descripcion",			$datosOP['descripcion_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":idUsuarioAlta",		$datosOP['idUsuarioAlta_'],PDO::PARAM_INT);
 
 		if ($stmt -> execute()){
 			#Busca el ultimo ID insertado en la tabla
@@ -786,12 +787,14 @@ static public function mdlFinOP($datosOP){
 
 	static public function mdlAgregarMedicionFinOP($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_MedicionFinOP( :idOrdenProdFin,:Peso, :Responsable,:FechaMedicion);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarMedicionFinOP( :idOrdenProdFin,:sort,:peso,:merma, :responsable,:fechaMedicion);");
 		
 		$stmt -> bindparam (":idOrdenProdFin",	$datos[0],PDO::PARAM_INT);
-		$stmt -> bindparam (":Peso",			$datos[1],PDO::PARAM_STR); 
-		$stmt -> bindparam (":Responsable",		$datos[2],PDO::PARAM_STR);
-		$stmt -> bindparam (":FechaMedicion",	$datos[3],PDO::PARAM_STR);
+		$stmt -> bindparam (":sort",			$datos[1],PDO::PARAM_INT);
+		$stmt -> bindparam (":peso",			$datos[2],PDO::PARAM_STR);
+		$stmt -> bindparam (":merma",			$datos[3],PDO::PARAM_STR);  
+		$stmt -> bindparam (":responsable",		$datos[4],PDO::PARAM_STR);
+		$stmt -> bindparam (":fechaMedicion",	$datos[5],PDO::PARAM_STR);
 		
 		if ($stmt -> execute()){
 			return "OK"; #si se ejecutó correctamente le envío un OK
