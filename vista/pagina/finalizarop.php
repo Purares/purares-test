@@ -49,7 +49,7 @@
 
 for ($i=1; $i <5 ; $i++) { 
 
-echo '<td scope=col>'.$i.'<input type="hidden" name="MedicionesSort_FinOP[]" value="'.$i.'"></td><td scope=col><div class="input-group"><div class="input-group-prepend"><input type="number" min=0 step=0.0001 class="form-control input text-center pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></div><div class="input-group-append"><span class="input-group-text">Kilos</span></div></div></td><td scope="col" class="mermaentrepesos"><input type="hidden" name="MedicionesMerma_FinOP[]" class="mermahidden" value=""></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td> <td scope=col> <input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]" required></td> </tr>';
+echo '<td scope=col>'.$i.'<input type="hidden" name="MedicionesSort_FinOP[]" value="'.$i.'"></td><td scope=col><div class="input-group"><div class="input-group-prepend"><input type="number" min=0 step=0.0001 class="form-control input text-center pesos" name="MedicionesPeso_FinOP[]" placeholder="Ingrese el peso" required></div><div class="input-group-append"><span class="input-group-text">Kilos</span></div></div></td><td scope="col"><input type="hidden" name="MedicionesMerma_FinOP[]" class="mermahidden" value=""><a class="mermaentrepesos"></a></td><td scope=col><input type="text" class="form-control text-right responsables" name="MedicionesResponsable_FinOP[]" placeholder="Ingrese el responsable" required></td> <td scope=col> <input type="date" class="fechas" name="MedicionesFechaMedicion_FinOP[]" required></td> </tr>';
 
  };
  
@@ -285,11 +285,14 @@ $('.pesos').bind("keyup change", function(e) {
 
   //alert($(this).val())
   //alert($(this).closest('tr').prev().find('.pesos').val())
-  var valor=((1-(parseFloat($(this).val())/parseFloat($(this).closest('tr').prev().find('.pesos').val())))*100).toFixed(1)
+  var valor=((1-(parseFloat($(this).val())/parseFloat($(this).closest('tr').prev().find('.pesos').val())))*100).toFixed(1);
+var valoraenviar=(1-(parseFloat($(this).val())/parseFloat($(this).closest('tr').prev().find('.pesos').val()))).toFixed(3);
+alert("este es el valor a enviar" + valoraenviar)
   //alert(valor)
   if(valor!="NaN"){
   $(this).closest('tr').find('.mermaentrepesos').html(""+valor+"%")
-  $(this).closest('tr').find('.mermahidden').val(valor)
+  $(this).closest('tr').find('.mermahidden').val(valoraenviar)
+  alert("esto es lo que esta en el hidden"+ ($(this).closest('tr').find('.mermahidden').val()))
 }
 })
 
