@@ -259,9 +259,9 @@ echo $porcentajeReceta;
 }
 
 
-if (isset($_POST["idRecetaAltaOP"])||
-            isset($_POST["pesoPastonAltaOP"])||
-            isset($_POST["idCarnesAgregarOP"])||
+if (isset($_POST["idRecetaAltaOP"])&&
+            isset($_POST["pesoPastonAltaOP"])&&
+            isset($_POST["idCarnesAgregarOP"])&&
             isset($_POST["catidadCarnesAgregarOP"])){
 
 

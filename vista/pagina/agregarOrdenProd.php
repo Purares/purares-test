@@ -351,9 +351,11 @@ $(document).ready(function(){
 
 	$('#alertacarnes').hide()
 
-  $("#botonconfirmarorden").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
+  $("#botonconfirmarorden").click( function() {  
+  // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
-       $.post("datos.php",$("#formorden").serializeArray(),function(respuestacod){
+       $.post("datos.php",$("#formorden").serialize(),function(respuestacod){
+        alert("la llamada anduvo")
                 if(respuestacod == "OK"){
                   $('#ConfirmarOrden').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
@@ -370,7 +372,7 @@ $(document).ready(function(){
                   modal.find('#erroragregarorden').empty()
                   modal.find('#erroragregarorden').html(respuestacod)
                 }
-            },"json");
+            },"json",alert("la llamada NO anduvo"));
   
     });    
 });
