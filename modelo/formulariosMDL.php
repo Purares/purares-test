@@ -402,12 +402,13 @@ class ModeloFormularios{
 static public function mdlCrearDesposte($datos){
 
 		
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesposte( :nroRemito, :proveedor, :unidades , :pesoTotal, :fechaDesposte , :usuarioAlta ,:descripcion);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesposte( :nroRemito, :proveedor, :unidades , :pesoTotal, :mermaInicial, :fechaDesposte , :usuarioAlta ,:descripcion);");
 
 		$stmt -> bindparam (":nroRemito",$datos['nroRemito_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":proveedor",$datos['proveedor_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":unidades",$datos['unidades_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":pesoTotal",$datos['pesoTotal_'],PDO::PARAM_STR); 
+		$stmt -> bindparam (":pesoTotal",$datos['pesoTotal_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":mermaInicial",$datos['mermaInicial_'],PDO::PARAM_STR); 
 		$stmt -> bindparam (":fechaDesposte",$datos['fechaDesposte_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":usuarioAlta",$datos['usuarioAlta_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":descripcion",$datos['descripcion_'],PDO::PARAM_STR);
@@ -807,7 +808,50 @@ static public function mdlFinOP($datosOP){
 		$stmt =null;
 	}
 
+#------------------------- Anular FIn OP -------------------------#
 
+	static public function mdlAnularOP($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call act_Anular_OP(:idOrdenProd, :idUsuario, :motivo);");
+		
+		$stmt -> bindparam (":idOrdenProd",	$datos['idOrdenProd_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUsuario",	$datos['idUsuario_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":motivo",		$datos['motivo_'],PDO::PARAM_STR);
+
+		
+		if ($stmt -> execute()){
+			return "OK"; #si se ejecutó correctamente le envío un OK
+
+		}else{
+			print_r(conexion::conectarBD());#Si se ejecutó con error le envío el error}
+		}
+		
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
+	}
+
+
+#------------------------- Anular FIn OP -------------------------#
+
+	static public function mdlAnularFinOP($datos){
+
+		$stmt=conexion::conectarBD()->prepare("call act_Anular_FinOP(:idOrdenProdFin, :idUsuario, :motivo);");
+		
+		$stmt -> bindparam (":idOrdenProdFin",	$datos['idOrdenProdFin_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":idUsuario",		$datos['idUsuario_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":motivo",			$datos['motivo_'],PDO::PARAM_STR);
+
+		
+		if ($stmt -> execute()){
+			return "OK"; #si se ejecutó correctamente le envío un OK
+
+		}else{
+			print_r(conexion::conectarBD());#Si se ejecutó con error le envío el error}
+		}
+		
+		$stmt -> close(); #cierra la conexion
+		$stmt =null;
+	}
 
 
 

@@ -90,23 +90,23 @@ class ControladorFormularios{
 
 	static public function ctrActualizarInsumo(){
 
-		if (isset($_POST["idInsumoActI"])||
-			isset($_POST["cantidadActI"])||
+		if (isset($_GET["idInsumoActI"])&&
+			isset($_POST["cantidadActI"])&&
 			isset($_POST["idCuentaActI"])) {
 	
 	$longitud=1;
 
-			$datos= array(	'idInsumo_'		=>$_POST["idInsumoActI"],
-							'cantidad_'		=>$_POST["cantidadActI"],
-							'idCuenta_'		=>$_POST["idCuentaActI"], #Número fijo para la cuenta compra
-							'idOrdenProd_'	=>$array_fill(0,$logitud,null),
-							'idCompra_'		=>$array_fill(0,$logitud,null),
-							'idUsuario_'	=>$array_fill(0,$logitud,'1'),
-							'descripcion_'	=>$_POST["descripcionActI"],
+			$datos= array(	'idInsumo_'		=>[$_GET["idInsumoActI"]],
+							'cantidad_'		=>[$_POST["cantidadActI"]],
+							'idCuenta_'		=>[$_POST["idCuentaActI"]], #Número fijo para la cuenta compra
+							'idOrdenProd_'	=>array_fill(0,$longitud,null),
+							'idCompra_'		=>array_fill(0,$longitud,null),
+							'idUsuario_'	=>array_fill(0,$longitud,'1'),
+							'comentario_'	=>[$_POST["comentarioActI"]],
 							'funcion_'		=>array_fill(0,$longitud,'ActualizarInsumo'));
 
 		$datos2=array_column($datos,0);
-		$respuesta=ModeloFormularios::mdlMovimientoInsumo($datos);
+		$respuesta=ModeloFormularios::mdlMovimientoInsumo($datos2);
 
 		return $respuesta;
 		}
@@ -362,16 +362,18 @@ class ControladorFormularios{
 			isset($_POST["proveedorAltaDesposte"])||
 			isset($_POST["unidadesAltaDesposte"])||
 			isset($_POST["pesoTotalAltaDesposte"])||
+			isset($_POST["mermaInicialAltaDesposte"])|| #NEW
 			isset($_POST["fechaDesposteAltaDesposte"])) {
 
 			#COMPLETAR LA BD
-			$datos= array(	'nroRemito_' => $_POST["nroRemitoAltaDesposte"],
-							'proveedor_' => $_POST["proveedorAltaDesposte"],
-							'unidades_' => $_POST["unidadesAltaDesposte"],
-							'pesoTotal_' => $_POST["pesoTotalAltaDesposte"],
-							'fechaDesposte_' => strval(date("y-m-d",strtotime($_POST["fechaDesposteAltaDesposte"]))),
-							'usuarioAlta_'	 => 1, #[TO DO]
-							'descripcion_' => $_POST["descripcionAltaDesposte"]);
+			$datos= array(	'nroRemito_' 		=> $_POST["nroRemitoAltaDesposte"],
+							'proveedor_' 		=> $_POST["proveedorAltaDesposte"],
+							'unidades_' 		=> $_POST["unidadesAltaDesposte"],
+							'pesoTotal_' 		=> $_POST["pesoTotalAltaDesposte"],
+							'mermaInicial_' 	=> $_POST["mermaInicialAltaDesposte"],
+							'fechaDesposte_' 	=> strval(date("y-m-d",strtotime($_POST["fechaDesposteAltaDesposte"]))),
+							'usuarioAlta_'	 	=> 1, #[TO DO]
+							'descripcion_' 		=> $_POST["descripcionAltaDesposte"]);
 
 			#Introduce el registro en la BD y recupera el ID
 			$idDesposte_nuevo=ModeloFormularios::mdlCrearDesposte($datos); 
@@ -419,7 +421,8 @@ class ControladorFormularios{
 							'cantidad_'		=> [$_POST["cantidadMovimientoCarne"]],
 							'idOrenProd_'	=> array_fill(0,$longitud,null),
 							'idUsuario_'	=> array_fill(0,$longitud,1),#[TO DO]
-							'descripcion_'	=> [$_POST["descripcionMovimientoCarne"]]);
+							'descripcion_'	=> [$_POST["descripcionMovimientoCarne"]],
+							'funcion_'	=> array_fill(0,$longitud,"ActualizarCarne"));
 				
 			$datos3 = array_column($datos2,0);
 			
@@ -761,13 +764,6 @@ static public function ctrValidarAnulacionCompra(){
 		}		
 	}
 
-#---------------------------------------------------------------------
-
-
-	static public function ctrValidarCantidadCarnesOP($carnesOP){
-
-		
-	}
  #---------------------------------------------------------------------
 
 	static public function ctrValidarStockCarnesOP($carnesOP){
@@ -793,7 +789,7 @@ static public function ctrValidarAnulacionCompra(){
 
 	}
 
-#--------------------------MOVIMIENTO DE INSUMO PARA ALTA DE OP-------------------------------------------
+#-------------------MOVIMIENTO DE INSUMO PARA ALTA DE OP---------------------
 
 	static public function ctrMovInsumoAltaOP($calculo_Insumos,$idOrdenProd){
 
@@ -822,7 +818,7 @@ static public function ctrValidarAnulacionCompra(){
 	}
 
 
-#--------------------------MOVIMIENTO DE CARNE PARA ALTA DE OP-------------------------------------------
+#---------------MOVIMIENTO DE CARNE PARA ALTA DE OP-----------------
 
 	static public function ctrMovCarneAltaOP($carnesOP,$idOrdenProd){
 
@@ -969,6 +965,50 @@ static public function ctrValidarAnulacionCompra(){
 		return $respuesta;
 		}
 	}	
+
+
+#------------------------- ANULAR Orden de produccion -------------------------#
+
+	static public function ctrAnularOP(){
+				
+		if (isset($_POST["idOrdenProd_AnularOP"])||
+			isset($_POST["motivo_AnularOP"])){
+
+			#Validar que no tenga una FIN OP asociada
+			$detalleOP= ModeloFormularios::mdlDetalleOpFin($id_ordenprod_alta);
+			if (empty($detalleOP)) {
+				#Validar que tenga un motivo
+				if (isset($_POST["motivo_AnularOP"])) {			
+				$respuesta=ModeloFormularios::mdlAnularOP($datos);
+					/*--- Al actualizar el campo anulado a 1, se disparan los trigger para 
+					realizar el contrasiento de Insumos y Carnes  ---*/
+				}else{
+					$respuesta="ingrese el motivo de la anulación";
+				}
+			}else{
+				$respuesta="Primero debe anular la finalización de la orden";
+			}		
+		}
+	}
+
+#------------------------- ANULAR Finalizacion Orden de produccion -------------------------#
+
+	static public function ctrAnularFinOP(){
+				
+		if (isset($_POST["idOrdenProd_AnularOP"])||
+			isset($_POST["motivo_AnularOP"])){
+
+			$datos = array(	'idOrdenProdFin_' 	=>$_POST["idOrdenProd_AnularOP"],
+							'idUsuario_' 		=> 1,#[TO DO]
+							'motivo_' 			=>$_POST["motivo_AnularOP"] );
+
+			$respuesta=ModeloFormularios::mdlAnularFinOP($datos);
+
+			return $respuesta;
+
+		}
+	}
+
 
 
 }	#cierra la clase
