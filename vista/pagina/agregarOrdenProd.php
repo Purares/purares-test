@@ -65,6 +65,7 @@ foreach($recetas as $receta){
                 <tbody class="bodyinsumosop">
                 </tbody>
                   </table>
+                  <input type="hidden" name="establecerorden" value="1">
                            <br>
 			<div id="alertacarnes">
 				<div class="alert alert-info alertcarnes" role="alert">
@@ -206,7 +207,7 @@ $('#PesoPaston').keyup(function(){
 $.ajax({
                 type:'POST',
                 url:'datos.php',
-                data:{idRecetaAltaOP: $('#idReceta').val(),pesoPastonAltaOP:$('#PesoPaston').val()},
+                data:{idRecetaAltaOP: $('#idReceta').val(),pesoPastonAltaOP:$('#PesoPaston').val(),establecerorden:0},
                 dataType: "json",
                 success:function(respuestacod){
 
@@ -354,7 +355,7 @@ $(document).ready(function(){
   $("#botonconfirmarorden").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
        $.post("datos.php",$("#formorden").serialize(),function(respuestacod1){
-        alert(respuesta)
+        alert(respuestacod1)
                 if(respuestacod1 == "OK"){
                   $('#ConfirmarOrden').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
