@@ -168,7 +168,7 @@ foreach($carnes as $carne){
         <div class="modal-body">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.reload();">Aceptar</button>
+          <a type="button" class="btn btn-info" data-dismiss="modal" id="botonaceptarnuevaorden" onclick="location.reload();">Aceptar</a>
         </div>
       </div>
     </div>
@@ -365,6 +365,8 @@ $(document).ready(function(){
                   modal.find('.modal-body').html(
                     '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Orden agregada</h4><p>Usted ha agregado la nueva orden de produccion correctamente. El id de la orden es <a id="id_nuevaorden"></a></p><hr></div>')
                   modal.find("#id_nuevaorden").text(respuestacod1.idOrdenProd_)
+                 var link='index.php?pagina=detalleReceta&idReceta='+respuestacod1.idOrdenProd_+'&estado=1'
+                  modal.find('#botonaceptarnuevaorden').attr("href", link)
 
                 } else {
                     $('#ConfirmarOrden').modal('hide')
@@ -374,6 +376,7 @@ $(document).ready(function(){
                     '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar la orden de produccion. <a id="erroragregarorden"></a></p><hr></div>')
                    modal.find('#erroragregarorden').empty()
                   modal.find('#erroragregarorden').html(respuestacod1)
+
                 }
    },"json");
   

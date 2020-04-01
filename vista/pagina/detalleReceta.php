@@ -21,7 +21,7 @@ foreach ($detalleReceta as $receta) {
 	<br>
   				<div class="d-flex">
   					<div class="mr-auto">
-  					<h2>Receta: <a class="nombrereceta"><?php echo $_GET['nombrereceta'] ?></a> <span class="medalla"><?php if ($_GET['estado']==1) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Desactivada</span>';}?>
+  					<h2>Receta: <a class="nombrereceta"><?php echo $receta['nombre'] ?></a> <span class="medalla"><?php if ($_GET['estado']==1) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Desactivada</span>';}?>
 					</span>
   				</h2>
   					</div>
