@@ -661,6 +661,7 @@ static public function ctrValidarAnulacionCompra(){
 		$respuestacod=json_encode($respuesta);
 		echo $respuestacod;
 
+		#return $respuesta;
 
 		}
 	}
@@ -749,7 +750,14 @@ static public function ctrValidarAnulacionCompra(){
 								
 				}else{$respuesta="Stock de Insumos insuficientes";}#cierre de la validación de insumos
 			
-			return $respuesta;
+
+			$respuesta2 = array('validacion_' => $respuesta,
+								'idOrdenProd_' => $idOrdenProd);
+
+			$respuestaOrden=json_encode($respuesta2);
+   			 echo $respuestaOrden;
+
+			#return $respuesta2;
 		}		
 	}
 
