@@ -901,6 +901,7 @@ static public function ctrValidarAnulacionCompra(){
 	static public function ctrFinalizarOP(){
 				
 		if (isset($_POST["idOrdenProdAlta_FinOP"])||
+			isset($_POST["unidadesFrescas_FinOP"])||#NEW
 			isset($_POST["productoObtenido_FinOp"])||
 			isset($_POST["unidades_FinOP"])||
 			isset($_POST["MedicionesSort_FinOP"])||#NEW
@@ -922,6 +923,7 @@ static public function ctrValidarAnulacionCompra(){
 
 					#Insertar los campos en la finalización de OP
 					$datosOP= array('idOrdenProdAlta_'	=> $_POST["idOrdenProdAlta_FinOP"],
+									'unidadesFrescas_'	=> $_POST["unidadesFrescas_FinOP"],
 									'productoObtenido_'	=> $_POST["productoObtenido_FinOp"],
 									'unidadesObtenidas_'=> $_POST["unidades_FinOP"],
 									'descripcion_'		=> $_POST["descripcion_FinOP"],
