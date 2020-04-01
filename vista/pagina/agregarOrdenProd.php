@@ -351,31 +351,28 @@ $(document).ready(function(){
 
 	$('#alertacarnes').hide()
 
-  $("#botonconfirmarorden").click( function() {  
-  // Con esto establecemos la acción por defecto de nuestro botón de enviar.
+  $("#botonconfirmarorden").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
        $.post("datos.php",$("#formorden").serialize(),function(respuestacod1){
-        alert("la llamada anduvo")
                 if(respuestacod1 == "OK"){
                   $('#ConfirmarOrden').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
                   modal.find('.modal-body').html(
-                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Orden de producción agregada</h4><p>Usted ha agregado la nueva orden correctamente.</p><hr></div>')
+                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Orden agregada</h4><p>Usted ha agregado la nueva orden de produccion correctamente.</p><hr></div>')
 
                 } else {
                     $('#ConfirmarOrden').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
                   modal.find('.modal-body').html(
-                    '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar la orden, reintente nuevamente</p><hr><a id="erroragregarorden"></a></div>')
-                  modal.find('#erroragregarorden').empty()
-                  modal.find('#erroragregarorden').html(respuestacod)
+                    '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar la orden de produccion. <a id="erroragregarorden"></a></p><hr></div>')
+                   modal.find('#erroragregarorden').empty()
+                  modal.find('#erroragregarorden').html(respuestacod1)
                 }
-            },"json",);
+            });
   
-    });    
-});
+    })});  
 
 
 
