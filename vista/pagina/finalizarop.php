@@ -285,14 +285,14 @@ $('.pesos').bind("keyup change", function(e) {
 
   //alert($(this).val())
   //alert($(this).closest('tr').prev().find('.pesos').val())
-  var valor=((1-(parseFloat($(this).val())/parseFloat($(this).closest('tr').prev().find('.pesos').val())))*100).toFixed(1);
+var valor=((1-(parseFloat($(this).val())/parseFloat($(this).closest('tr').prev().find('.pesos').val())))*100).toFixed(1);
 var valoraenviar=(1-(parseFloat($(this).val())/parseFloat($(this).closest('tr').prev().find('.pesos').val()))).toFixed(3);
-alert("este es el valor a enviar" + valoraenviar)
+//alert("este es el valor a enviar" + valoraenviar)
   //alert(valor)
   if(valor!="NaN"){
   $(this).closest('tr').find('.mermaentrepesos').html(""+valor+"%")
   $(this).closest('tr').find('.mermahidden').val(valoraenviar)
-  alert("esto es lo que esta en el hidden"+ ($(this).closest('tr').find('.mermahidden').val()))
+  //alert("esto es lo que esta en el hidden"+ ($(this).closest('tr').find('.mermahidden').val()))
 }
 })
 
