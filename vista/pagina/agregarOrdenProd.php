@@ -355,7 +355,7 @@ $(document).ready(function(){
   $("#botonconfirmarorden").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
        $.post("datos.php",$("#formorden").serialize(),function(respuestacod1){
-        alert(respuestacod1)
+       // alert(respuestacod1)
                 if(respuestacod1 == "OK"){
                   $('#ConfirmarOrden').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
@@ -406,11 +406,12 @@ for (var i=0; i<=valorescarnes.length-2;i++){
  //alert(kilosactual)
  if(kilosactual==0){
 
- 	$('#kilosrequeridos').empty()
+ 	$('.alertcarnes').empty()
 $('.alertcarnes').html("La orden no necesita mas carnes")
 
  }else{
-$('#kilosrequeridos').empty()
+$('.alertcarnes').empty()
+$('.alertcarnes').html("Se requieren <a id='kilosrequeridos'></a> kilos de carne para completar el paston")
 $('#kilosrequeridos').html(kilosactual)
 
 }})    
