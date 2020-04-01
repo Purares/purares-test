@@ -231,7 +231,7 @@ $.ajax({
               $.ajax({
                 type:'GET',
                 url:'datos.php',
-                data:{idReceta: $('#idReceta').val()},
+                data:{idReceta: $('#idReceta').val(), idCarnesAgregarOP: null, catidadCarnesAgregarOP: null},
                 success:function(respuestacod){
 
                   //alert(respuestacod)
@@ -354,6 +354,7 @@ $(document).ready(function(){
   $("#botonconfirmarorden").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
        $.post("datos.php",$("#formorden").serialize(),function(respuestacod1){
+        alert(respuestacod1)
                 if(respuestacod1 == "OK"){
                   $('#ConfirmarOrden').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')

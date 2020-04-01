@@ -163,7 +163,7 @@ echo $respuesta;
 
 }
 
-if(isset($_POST["idRecetaAltaOP"])&&isset($_POST["pesoPastonAltaOP"])){
+if(isset($_POST["idRecetaAltaOP"])&&isset($_POST["pesoPastonAltaOP"])&&is_null($_GET["idCarnesAgregarOP"])&&is_null($_GET["catidadCarnesAgregarOP"]){
 
 $calculoinsumos=ControladorFormularios::ctrCalculoInsumos();
 
