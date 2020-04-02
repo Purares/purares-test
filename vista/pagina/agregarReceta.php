@@ -110,7 +110,7 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 step=0.01 max=99.99 class="form-control text-right" id="MermaEsperada" name="mermaCrearReceta" placeholder="Porcentaje esperado" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">%</span><button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Ingrese el porcentaje de merma esperada con respecto al producto fresco, luego de finalizar el proceso de secado">
+                  <span class="input-group-text">%</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese el porcentaje de merma esperada con respecto al producto fresco, luego de finalizar el proceso de secado">
   ?
 </button>
               </div>
@@ -127,7 +127,7 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 class="form-control text-right" id="DiasProduccion" name="diasprodCrearReceta" placeholder="días" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">días</span><button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de días desde que comienza el proceso productivo (amasado) hasta que el producto es envasado.">
+                  <span class="input-group-text">días</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de días desde que comienza el proceso productivo (amasado) hasta que el producto es envasado.">
   ?
 </button>
               </div>
@@ -142,7 +142,7 @@ foreach($depositos as $deposito){
                   </div>
                     <input type="number" min=0 class="form-control text-right" id="DiasVencimiento" name="diasvencCrearReceta" placeholder="días" required>
                   <div class="input-group-append">
-                  <span class="input-group-text">días</span><button type="button" class="btn btn-warning" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de días, desde que el producto es envasado,  hasta que se vence.">
+                  <span class="input-group-text">días</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de días, desde que el producto es envasado,  hasta que se vence.">
   ?
 </button>
               </div>
@@ -414,7 +414,7 @@ foreach($depositos as $deposito){
 
             ),
 
-           $('<td>').attr('scope','col').attr('colspan','2')
+           $('<td>').attr('scope','col')
           .append
           (
             
