@@ -400,7 +400,9 @@ class ControladorFormularios{
 				if ($respuesta != "OK") { return $respuesta2;}
 			} #exit for
 
-			return $respuesta;
+			$respuesta2 = array('validacion_' => $respuesta,
+								'idDesposte_' => $idDesposte_nuevo);
+			return $respuesta2;
 		}
 	}
 
