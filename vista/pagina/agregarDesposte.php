@@ -309,16 +309,20 @@ $(document).ready(function(){
 
 $(document).ready( function() {   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
     $("#botonconfirmaragregardesposte").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
-                              
+                           
        $.post("datos.php",$("#formnuevodesposte").serialize(),function(respuestacod1){
+       // alert(respuestacod1)
+                          //alert(respuestacod)
+//console.log(respuestacod1);
+
                 if(respuestacod1.validacion_ == "OK"){
                   $('#ConfirmarNuevoDesposte').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
                   modal.find('.modal-body').html(
                     '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Desposte agregado</h4><p>Usted ha agregado el nuevo desposte correctamente. El id del nuevo desposte es <a id="id_nuevodesposte"></a></p><hr></div>')
-                  modal.find("#id_nuevodesposte").text(respuestacod1.idDesposte)
-                 var link="index.php?pagina=detalleDesposte&idDesposteVerDetalles="+respuestacod1.idDesposte+"&estado=0"
+                  modal.find("#id_nuevodesposte").text(respuestacod1.idDesposte_)
+                 var link="index.php?pagina=detalleDesposte&idDesposteVerDetalles="+respuestacod1.idDesposte_+"&estado=0"
                  modal.find('#botonaceptarnuevodesposte').unbind('click');
                   modal.find('#botonaceptarnuevodesposte').attr("href", link)
 
