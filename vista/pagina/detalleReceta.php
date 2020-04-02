@@ -34,15 +34,19 @@ foreach ($detalleReceta as $receta) {
               </div>
               <hr>
                   <div class="row">
-                            <div class="form-group col-3">
-                         <label for="spanrecetaid" class="font-weight-bold" >ID Receta:</label>
-                                <span class="input-group-text recetaid" id="spanrecetaid"><?php echo $_GET['idReceta'] ?></span>
+                            <div class="input-group col-6">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">ID Receta:</span>
                                 </div>
-                            <div class="form-group col-3">
-                         <label for="spanrecetafechaalta" class="font-weight-bold">Fecha de Alta:</label>
-                                <span class="input-group-text fechadealta" id="spanrecetafechaalta"><?php echo $receta['fecha_alta'] ?></span>
+                                <input type="text" class="form-control text-center recetaid" id="spanrecetaid" value="<?php echo $_GET['idReceta'] ?>" readonly>
+                              </div>
+                            <div class="input-group col-6">
+                                <div class="input-group-prepend">
+                         <span class="input-group-text">Fecha de Alta:</span>
                                 </div>
-        				</div>
+                                <input type="text" class="form-control text-center fechadealta" id="spanrecetafechaalta" value="<?php echo $receta['fecha_alta'] ?>" readonly>
+        				            </div>
+                    </div>
                     <br>
                     <h5>Insumos de la receta</h5>
                     <hr>
@@ -72,57 +76,117 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
         </div>
         <hr>
                     <br>
-                        <div class="row">
-                        <div class="form-group col-6">
-                         <label for="spanrecetaporcenpaston" class="font-weight-bold">Unidades finales por unidad producida:</label>
-                                <span class="input-group-text unidadesfinales" id="unidadesfinales"><?php echo $receta['unidades_final_xunidad'] ?> unidades</span>
-                                </div>
-                        </div>
                     <div class="row">
-                     <div class="form-group col-3">
-                         <label for="spanrecetaporcenpaston" class="font-weight-bold">Porcentaje de carne:</label>
-                                <span class="input-group-text recetaporcentajecarne" id="spanrecetaporcenpaston"><?php echo $receta['porcent_carne'] ?> %</span>
+                     <div class="input-group col-6">
+                      <div class="input-group-prepend">
+                         <span class="input-group-text">Porcentaje de carne:</span>
+                       </div>
+                                <input type="text" class="form-control text-center recetaporcentajecarne" id="spanrecetaporcenpaston" value="<?php echo $receta['porcent_carne'] ?> %" readonly>
                                 </div>
-                            <div class="form-group col-3">
-                         <label for="spanrecetamermaesp" class="font-weight-bold">Merma esperada:</label>
-                                <span class="input-group-text recetamermaesperada" id="spanrecetamermaesp"><?php echo $receta['merma_esperada'] ?> %</span>
-                                </div>
-                        </div>
+                            <div class="input-group col-6">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Merma esperada:</span>
+                       </div>
+                                <input type="text" class="form-control text-center recetamermaesperada" id="spanrecetamermaesp" value="<?php echo $receta['merma_esperada'] ?> %" readonly>
+                              <div class="input-group-append">
+                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Porcentaje de merma esperada con respecto al producto fresco, luego de finalizar el proceso de secado">
+                                ?
+                                </button>
+                              </div>
+                            </div>
+                            </div>
+                            <br>
                           <div class="row">
-                     <div class="form-group col-3">
-                         <label for="spanrecetadiasprodu" class="font-weight-bold">Días de producción:</label>
-                                <span class="input-group-text recetadiasproduccion" id="spanrecetadiasprodu"><?php echo $receta['dias_produccion'] ?> días</span>
+                        <div class="input-group col-6">
+                      <div class="input-group-prepend">
+                         <span class="input-group-text">Dias de producción:</span>
+                       </div>
+                                <input type="text" class="form-control text-center recetadiasproduccion" id="spanrecetadiasprodu" value="<?php echo $receta['dias_produccion'] ?> días" readonly>
+                           <div class="input-group-append">
+                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de días desde que comienza el proceso productivo (amasado) hasta que el producto es envasado.">
+                                ?
+                                </button>
+                              </div>
                                 </div>
-                            <div class="form-group col-3">
-                         <label for="spanrecetadiasven" class="font-weight-bold">Vencimiento:</label>
-                                <span class="input-group-text recetadiasvencimiento" id="spanrecetadiasven"><?php echo $receta['dias_vencimiento'] ?> días</span>
-                                </div>
+                            <div class="input-group col-6">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Vencimiento:</span>
+                       </div>
+                                <input type="text" class="form-control text-center recetadiasvencimiento" id="spanrecetadiasven" value="<?php echo $receta['dias_vencimiento'] ?> días" readonly>
+                              <div class="input-group-append">
+                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de días desde que el producto es envasado,  hasta que se vence.">
+                                ?
+                                </button>
+                              </div>
+                            </div>
         				</div>
+                <br>
+                        <div class="row">
+                            <div class="input-group col-6">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Unidades finales por unidad producida:</span>
+                                </div>
+                                <input type="text" class="form-control text-center unidadesfinales" id="unidadesfinales" value="<?php echo $receta['unidades_final_xunidad'] ?> unidades" readonly>
+                                   <div class="input-group-append">
+                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de unidades finales que se obtienen por cada unidad fresca que entra al secadero. Es decir, en cuantas unidades se corta el producto fresco.">
+                                ?
+                                </button>
+                              </div>
+                              </div>
+                        </div>
                       <br>
               <h5>Producto fresco</h5>
               <hr>
                            <div class="row">
-                     <div class="form-group col-3">
-                         <label for="spanrecetalargouni" class="font-weight-bold">Largo por unidad lote:</label>
-                                <span class="input-group-text recetalargoporunidad" id="spanrecetalargouni"><?php echo $receta['largo_unidad_lote'] ?> metros/unidad</span>
-                                </div>
-                         <div class="form-group col-3">
-                         <label for="spanrecetalargouni" class="font-weight-bold">Largo por unidad esperado:</label>
-                                <span class="input-group-text recetalargoporunidadesperado" id="spanrecetalargouni"><?php echo $receta['largo_unidad_esperado'] ?> metros/unidad</span>
-                                </div>
+        <div class="input-group col-6">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Largo por unidad:</span>
+                       </div>
+                                <input type="text" class="form-control text-center recetalargoporunidad" id="spanrecetalargouni" value="<?php echo $receta['largo_unidad_lote'] ?> metros/unidad" readonly>
+                              <div class="input-group-append">
+                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Largo de la unidad fresca, antes de que ingrese al secadero.">
+                                ?
+                                </button>
+                              </div>
+                            </div>
+                            <div class="input-group col-6">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Peso por unidad:</span>
+                       </div>
+                                <input type="text" class="form-control text-center recetalargoporunidadesperado" id="spanrecetalargouni" value="<?php echo $receta['peso_unidad_lote'] ?> kilos/unidad" readonly>
+                              <div class="input-group-append">
+                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Peso de la unidad fresca, antes de que ingrese al secadero.">
+                                ?
+                                </button>
+                              </div>
+                            </div>
                               </div>
                       <br>
               <h5>Producto terminado</h5>
               <hr>
                                  <div class="row">
-                           <div class="form-group col-3">
-                         <label for="spanrecetapesouni" class="font-weight-bold">Peso por unidad lote:</label>
-                                <span class="input-group-text recetapesoporunidad" id="spanrecetapesouni"><?php echo $receta['peso_unidad_lote'] ?> kilos/unidad</span>
-                                </div>
-                                 <div class="form-group col-3">
-                         <label for="spanrecetapesouni" class="font-weight-bold">Peso por unidad esperado:</label>
-                                <span class="input-group-text recetapesoporunidadesperado" id="spanrecetapesouni"><?php echo $receta['peso_unidad_esperado'] ?> kilos/unidad</span>
-                                </div>
+                   <div class="input-group col-6">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Largo por unidad esperado:</span>
+                       </div>
+                                <input type="text" class="form-control text-center spanrecetalargouniesperado" id="spanrecetalargouniesperado" value="<?php echo $receta['largo_unidad_esperado'] ?> metros/unidad" readonly>
+                              <div class="input-group-append">
+                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Largo del producto final que será envasado.">
+                                ?
+                                </button>
+                              </div>
+                            </div>
+                            <div class="input-group col-6">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Peso por unidad esperado:</span>
+                       </div>
+                                <input type="text" class="form-control text-center recetapesoporunidadesperado" id="spanrecetapesouniesperado" value="<?php echo $receta['peso_unidad_esperado'] ?> kilos/unidad" readonly>
+                              <div class="input-group-append">
+                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Peso del producto final que será envasado.">
+                                ?
+                                </button>
+                              </div>
+                            </div>
         				</div>
      		<br>
                		<button type="button" class="btn btn-warning" id="Imprimirreceta">Imprimir receta</button> 
@@ -248,6 +312,10 @@ $("#aceptar").on( "click", function() {
  $(location).attr('href',url1)
 
 })
+  
+ $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
 
 </script>
 

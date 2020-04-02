@@ -23,9 +23,9 @@ foreach ($detalleDesbastes as $detalleDesbaste) {
 	<br>
   				<div class="d-flex">
   					<div class="mr-auto">
-  					<h4>Desposte ID <a class="iddesbaste"><?php echo $_GET['idDesposteVerDetalles'] ?></a> <span class="medalla"><?php if ($_GET['estado']==0) {echo '     <span class="badge badge-success medal">Activo</span>';}else{echo '<span class="badge badge-danger medal">Anulado</span>';}?>
+  					<h2>Desposte N° <a class="iddesbaste"><?php echo $_GET['idDesposteVerDetalles'] ?></a> <span class="medalla"><?php if ($_GET['estado']==0) {echo '     <span class="badge badge-success medal">Activo</span>';}else{echo '<span class="badge badge-danger medal">Anulado</span>';}?>
 					</span>
-  				</h4>
+  				</h2>
   					</div>
   					<div>
   						<div class="boton">
@@ -34,34 +34,48 @@ foreach ($detalleDesbastes as $detalleDesbaste) {
   					</div>	
   					<br>
               </div>
+              <hr>
+              <br>
                   <div class="row">
-                            <div class="form-group col-6">
-                         <label for="spanrecetafechaalta">Proveedor:</label>
-                                <span class="input-group-text fechadealta" id="spanrecetafechaalta"><?php echo $detalleDesbaste['proveedor'] ?></span>
+                            <div class="input-group col-6">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Proveedor:</span>
+                              </div>
+                                <input class="form-control text-center fechadealta" value="<?php echo $detalleDesbaste['proveedor'] ?>" readonly>
                                 </div>
-                            <div class="form-group col-6">
-                         <label for="spanrecetanombre">Número de remito:</label>
-                                <span class="input-group-text nombrereceta" id="spanrecetanombre"><?php echo $detalleDesbaste['nro_remito'] ?></span>
+                            <div class="input-group col-6">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Número de remito:</span>
+                            </div>
+                                <input class="form-control text-center nombrereceta" value="<?php echo $detalleDesbaste['nro_remito'] ?>" readonly>
                                 </div>
         				</div>
+                <br>
                     <div class="row">
-                     <div class="form-group col-4">
-                         <label for="spanrecetaporcenpaston">Unidades:</label>
-                                <span class="input-group-text recetaporcentajecarne" id="spanrecetaporcenpaston"><?php echo $detalleDesbaste['unidades'] ?> medias reses</span>
+                     <div class="input-group col-4">
+                         <div class="input-group-prepend">                                   
+                         <span class="input-group-text">Unidades:</span>
+                        </div>
+                                <input class="form-control text-center recetaporcentajecarne" id="spanrecetaporcenpaston" value="<?php echo $detalleDesbaste['unidades'] ?> medias reses" readonly>
                                 </div>
-                            <div class="form-group col-4">
-                         <label for="spanrecetamermaesp">Peso total:</label>
-                                <span class="input-group-text recetamermaesperada" id="spanrecetamermaesp"><?php echo $detalleDesbaste['peso_total'] ?> kilos</span>
+                            <div class="input-group col-4">
+                           <div class="input-group-prepend">
+                         <span class="input-group-text">Peso total:</span>
+                            </div>
+                                <input class="form-control text-center recetamermaesperada" value="<?php echo $detalleDesbaste['peso_total'] ?> kilos" readonly>
                                 </div>
-                            <div class="form-group col-4">
-                         <label for="spanrecetamermaesp">Merma inicial:</label>
-                                <span class="input-group-text despostemermainicial" id="spandespostemermainicial"><?php echo $detalleDesbaste['merma_inicial'] ?> %</span>
+                            <div class="input-group col-4">
+                         <div class="input-group-prepend">
+                         <span class="input-group-text">Merma inicial:</span>
+                       </div>
+                                <input class="form-control text-center despostemermainicial" id="spandespostemermainicial" value="<?php echo $detalleDesbaste['merma_inicial'] ?> %" readonly>
                                 </div>
         				</div>
-                <hr>
+                <br>
                     <br>
                     <h5>Carnes obtenidas en el desposte:</h5>
                     <hr>
+                    <br>
                         <table class="table table-hover table-sm">
     						<thead class="thead-light">
         						<tr>
