@@ -370,7 +370,7 @@ class ControladorFormularios{
 							'proveedor_' 		=> $_POST["proveedorAltaDesposte"],
 							'unidades_' 		=> $_POST["unidadesAltaDesposte"],
 							'pesoTotal_' 		=> $_POST["pesoTotalAltaDesposte"],
-							'mermaInicial_' 	=> $_POST["mermaInicialAltaDesposte"],
+							'mermaInicial_' 	=> ($_POST["mermaInicialAltaDesposte"]/100),
 							'fechaDesposte_' 	=> strval(date("y-m-d",strtotime($_POST["fechaDesposteAltaDesposte"]))),
 							'usuarioAlta_'	 	=> 1, #[TO DO]
 							'descripcion_' 		=> $_POST["descripcionAltaDesposte"]);
@@ -392,12 +392,15 @@ class ControladorFormularios{
 
 			#Recorre el Array de insumos agregandolos en la BD
 			for ($i=0; $i <$longitud ; $i++) { 
-			
-				$datos3= array_column($datos2,$i);
-				$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
 				
-				#Si no dio error sigue el loop
-				if ($respuesta != "OK") { return $respuesta2;}
+			
+				if ($datos2['cantidad_'][$i]>0) {
+					$datos3= array_column($datos2,$i);
+					$respuesta=ModeloFormularios::mdlMovimientoCarne($datos3);
+					
+					#Si no dio error sigue el loop
+					if ($respuesta != "OK") { return $respuesta2;}
+				}
 			} #exit for
 
 			$respuesta2 = array('validacion_' => $respuesta,
