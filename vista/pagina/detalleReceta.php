@@ -33,6 +33,7 @@ foreach ($detalleReceta as $receta) {
   					<br>
               </div>
               <hr>
+              <br>
                   <div class="row">
                             <div class="input-group col-6">
                               <div class="input-group-prepend">
@@ -47,6 +48,7 @@ foreach ($detalleReceta as $receta) {
                                 <input type="text" class="form-control text-center fechadealta" id="spanrecetafechaalta" value="<?php echo $receta['fecha_alta'] ?>" readonly>
         				            </div>
                     </div>
+                    <br>
                     <br>
                     <h5>Insumos de la receta</h5>
                     <hr>
@@ -75,6 +77,7 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
         </div>
         </div>
         <hr>
+                    <br>
                     <br>
                     <div class="row">
                      <div class="input-group col-6">
@@ -134,6 +137,7 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                               </div>
                               </div>
                         </div>
+                      <br>
                       <br>
               <h5>Producto fresco</h5>
               <hr>
