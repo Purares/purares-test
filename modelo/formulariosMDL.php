@@ -405,7 +405,7 @@ static public function mdlCrearDesposte($datos){
 		$stmt=conexion::conectarBD()->prepare("call ins_AgregarDesposte( :nroRemito, :proveedor, :unidades , :pesoTotal, :mermaInicial, :fechaDesposte , :usuarioAlta ,:descripcion);");
 
 		$stmt -> bindparam (":nroRemito",$datos['nroRemito_'],PDO::PARAM_STR);
-		$stmt -> bindparam (":proveedor",$datos['proveedor_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":proveedor",$datos['proveedor_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":unidades",$datos['unidades_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":pesoTotal",$datos['pesoTotal_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":mermaInicial",$datos['mermaInicial_'],PDO::PARAM_STR); 
