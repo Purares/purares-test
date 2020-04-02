@@ -21,7 +21,7 @@ foreach ($detalleCompra as $compra) {
 	<br>
   				<div class="d-flex">
   					<div class="mr-auto">
-  					<h4>Compra ID <a class="idcompra"><?php echo $_GET['idCompra'] ?></a> "Numero de remito <a class="nro_remito"><?php echo $_GET['nroRemito'] ?></a>" <span class="medalla"><?php if ($_GET['estado']==0) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Anulada</span>';}?>
+  					<h4>Compra ID <a class="idcompra"><?php echo $_GET['idCompra'] ?></a> "Numero de remito <a class="nro_remito"><?php echo $compra['nro_remito'] ?></a>" <span class="medalla"><?php if ($_GET['estado']==0) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Anulada</span>';}?>
 					</span>
   				</h4>
   					</div>
@@ -35,7 +35,7 @@ foreach ($detalleCompra as $compra) {
                   <div class="row">
                             <div class="form-group col-6">
                          <label for="spannumeroremito">Número de remito:</label>
-                                <span class="input-group-text numeroremito" id="spannumeroremito"><?php echo $_GET['nroRemito'] ?></span>
+                                <span class="input-group-text numeroremito" id="spannumeroremito"><?php echo $compra['nro_remito'] ?></span>
                                 </div>
                        <div class="form-group col-6">
                          <label for="spancompraproveedor">Proveedor:</label>

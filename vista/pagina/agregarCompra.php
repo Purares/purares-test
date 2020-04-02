@@ -196,7 +196,7 @@ foreach($depositos as $deposito){
         <div class="modal-body">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.reload();">Aceptar</button>
+          <a type="button" class="btn btn-info" id="botonaceptarnuevacompra" onclick="location.reload();">Aceptar</a>
         </div>
       </div>
     </div>
@@ -388,16 +388,16 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
     $("#botonconfirmaragregarcompra").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
        $.post("datos.php",$("#formagregarcompra").serialize(),function(respuestacodcompra){
-                if(respuestacodcompra == "OK"){
+                if(respuestacodcompra.validacion_ == "OK"){
                   $('#ConfirmarNuevaCompra').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
                   modal.find('.modal-body').html(
                     '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Compra agregada</h4><p>Usted ha agregado la nueva compra correctamente. El número de la compra es <a id="id_nuevacompra"></a></p><hr></div>')
-                  //modal.find("#id_nuevacompra").text(respuestacod1.idCompra_)
-                 //var link="index.php?pagina=detalleOp&idOrdenProdDetalle="+respuestacod1.idOrdenProd_+"&estado=0"
-                 // modal.find('#botonaceptarnuevaorden').unbind('click');
-                 // modal.find('#botonaceptarnuevaorden').attr("href", link)
+                  modal.find("#id_nuevacompra").text(respuestacodcompra.idCompra_)
+                  var link="index.php?pagina=detalleCompra&idCompra="+respuestacodcompra.idCompra_+"&estado=0"
+                  modal.find('#botonaceptarnuevacompra').unbind('click');
+                  modal.find('#botonaceptarnuevacompra').attr("href", link)
 
                 } else {
                     $('#ConfirmarNuevaCompra').modal('hide')
@@ -406,7 +406,7 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
                   modal.find('.modal-body').html(
                     '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar la nueva compra. <a id="erroragregarcompra"></a></p><hr></div>')
                    modal.find('#erroragregarcompra').empty()
-                  modal.find('#erroragregarcompra').html(respuestacodcompra)
+                  modal.find('#erroragregarcompra').html(respuestacodcompra.validacion_)
                 }
             },"json");
   
