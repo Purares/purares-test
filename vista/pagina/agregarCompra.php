@@ -12,27 +12,25 @@ $depositos=ControladorFormularios::ctrListaDepositos();
 
 $proveedores=ControladorFormularios::ctrListaProveedores();
 
-$compra_insumo=ControladorFormularios::ctrCompraInsumo();
+//$compra_insumo=ControladorFormularios::ctrCompraInsumo();
 
 ?>
 
 <div class="container">
            <br>
-            <h4>Nueva Compra</h4>
+            <h2>Nueva Compra</h2>
+            <hr> 
             <br>  
-                          <h6>Complete los datos del remito de la nueva compra:</h6>
-                          <br>
-      <form method="post" class="needs-validation">
-                    <div class="row">
-                            <div class="form-group col-4">
-                         <label for="NumeroRemitoCompra">Número de remito:</label>
-                    <input type="text" class="form-control text-center" id="NumeroRemitoCompra" name="nroRemitoCompraInsumo" placeholder="Ingrese el número de remito" required>
-                                   <div class="invalid-feedback">
-                                   Ingrese el número de remito
-                                    </div>
-                                </div>
-                             <div class="form-group col-4">
-                           <label for="idProvedorCompraInsumo">Proveedor:</label>
+          <h5>Datos de la compra</h5>
+          <hr>
+          <br>
+          <form method="post" class="needs-validation" id="formagregarcompra">
+            <div class="row">
+                             <div class="input-group col-4">
+                                 <div class="input-group-prepend">
+                    <span class="input-group-text">Proveedor:</span>
+                  </div>
+                 <div class="input-group-append">
                         <select class="custom-select" name="idProvedorCompraInsumo" id="proveedorcompra" required>
                         <option value="">Seleccione el proveedor</option>
     
@@ -50,38 +48,53 @@ echo $proveedores;
 
 };?>
                                </select>
+                             </div>
                                    <div class="invalid-feedback">
                                    Elija el nombre del proveedor de la compra
                                     </div>
  
                                 </div>
-                                    <div class="input-group col-4"> 
-                  <label for="fechaCompraInsumo">Fecha de compra:</label>
-                          <div class="input-group">
-                <input type="date" id="fechaCompraInsumo" name="fechaCompraInsumo" required>
-                             <div class="invalid-feedback">
+                <div class="input-group col-4">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">N° de Remito:</span>
+                  </div>
+                  <div class="input-group-append">
+                    <input type="text" class="form-control text-center" id="NumeroRemitoCompra" name="nroRemitoCompraInsumo" placeholder="Ingrese el número de remito" required>
+                  </div>
+                                   <div class="invalid-feedback">
+                                   Ingrese el número de remito
+                                    </div>
+                                </div>
+                                    <div class="input-group col-4">
+                                <div class="input-group-prepend"> 
+                                      <span class="input-group-text">Fecha de compra:</span>
+                                </div>
+                          <div class="input-group-append">
+                <input type="date" id="fechaCompraInsumo" name="fechaCompraInsumo" required>            
+                <div class="invalid-feedback">
                                     Ingresa la fecha de debaste
                                     </div>
                 </div>
                  </div>
                 </div>
-              <p>Complete la cantidad de insumos que se compraron:</p>
+                <br>
+<br>
+              <h5>Detalle de la compra</h5>
+              <hr>
               <div class="container">
                   <table class="table table-sm">
                 <thead>
                     <tr>
-                      <th scope="col">Deposito</th>
-                      <th scope="col">ID</th>
-                      <th scope="col">Insumo</th>
-                      <th scope="col">Cantidad</th>
-                      <th scope="col">Unidad</th>
-                      <th scope="col">Fecha de Vencimiento</th>
-                      <th scope="col">Borrar</th>
+                      <th scope="col" class="text-center text-white bg-dark">Depósito</th>
+                      <th scope="col" class="text-center text-white bg-dark">ID</th>
+                      <th scope="col" class="text-center text-white bg-dark">Insumo</th>
+                      <th scope="col" class="text-center text-white bg-dark">Cantidad</th>
+                      <th scope="col" class="text-center text-white bg-dark"></th>
                     </tr> 
                   </thead>
                 <tbody id="TablaCompraInsumos">
                             <tr id="seleccioninsumoscompra">
-                        <td scope="col">
+                        <td scope="col" width="25%">
                           <select class="custom-select depo" name="depositoInsumoCompra">
                         <option value="">Seleccione el depósito</option>
 
@@ -104,7 +117,7 @@ foreach($depositos as $deposito){
                                         <option value="0">Seleccione el insumo</option>
                           </select>
                         </td>
-                        <td scope="col" colspan="2">
+                        <td scope="col" width="25%">
                           <div class="input-group"> 
                           <input type="number" min=0 step=0.0001 name="cantidadCompraInsumo[]" class="form-control text-right cantingre" placeholder="Cantidad">
                               <div class="input-group-append">
@@ -112,11 +125,7 @@ foreach($depositos as $deposito){
               </div>
                   </div>
                         </td>
-                    <td scope="col">
-                         <div class="input-group">
-                <input type="date" id="fechaDesbaste" name="fechaDesbasteAltaDesbaste" required>
-                 </td>
-                                    <td scope="col">
+                                    <td scope="col" class="text-center">
                                     <button type="button" class="btn btn-danger btn-sm borrar">Borrar</button>
                                     
                                       </td>
@@ -124,18 +133,16 @@ foreach($depositos as $deposito){
                 </tbody>
             </table>
 
-            <button type="button" id="BotonAgregarInsumoReceta" class="btn btn-secondary btn-sm">Agregar Insumo</button>
+            <button type="button" id="BotonAgregarInsumoReceta" class="btn btn-info btn-sm">Agregar Insumo</button>
              </div>
-             <br>
-                           <div class="input-group"> 
-                     <label for="descripcionCrearReceta">Descripción:</label>
-                     <div class="input-group">
-                    <input type="text" class="form-control text-right" name="descripcionCompraInsumo" id="descripcionCompraInsumo" placeholder="Describa" required>
-                               <div class="invalid-feedback">
+         <br>
+              <h5>Descripción</h5>
+              <hr>
+              <textarea class="form-control" style="min-width: 100%" name="descripcionCompraInsumo" id="descripcionCompraInsumo" placeholder="..."></textarea>
+               <div class="invalid-feedback">
                                     Ingrese una descripción
                                     </div>
-                       </div>  
-                </div>
+         
                      <br>
                   <button type="button" class="btn btn-success" id="BotonAgregarCompra" data-toggle="modal" data-target="#ConfirmarNuevaCompra">Agregar compra</button>
             </div>
@@ -150,9 +157,6 @@ foreach($depositos as $deposito){
         <div class="modal-body">
           <p>Usted está a punto de cargar la compra del remito numero <a class="numero_remito"></a>, del proveedor <a class="proveedor_compra"></a>, con fecha <a class="fechacompra"></a></p>
 
-          <p>Tendrá la siguiente descripción:</p> 
-
-          <p><a class="descripcion"></a>.</p>
 
           <p>La compra es por las siguientes cantidades de insumos:</p>
 
@@ -166,11 +170,15 @@ foreach($depositos as $deposito){
             </tbody>
           </table>
           </div>
+          <br>
+          <p>Tendrá la siguiente descripción:</p> 
+
+          <p><a class="descripcion"></a>.</p>
             <br>
           <p>¿Confirma que desea CARGAR ESTA COMPRA?</p>
         </div>
         <div class="modal-footer">
-          <button type="submit"  class="btn btn-success">Sí, cargar compra</button>
+          <button type="button" id="botonconfirmaragregarcompra" class="btn btn-success">Sí, cargar compra</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">No, volver a atrás</button>
         </div>
       </div>
@@ -178,6 +186,21 @@ foreach($depositos as $deposito){
   </div>
 
        </form>
+
+     <!-- Mensaje confirmacion -->
+  <div class="modal fade" id="MensajeConfirmacion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.reload();">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 <script type="text/javascript">
@@ -188,7 +211,7 @@ var modal = $(this)
 completarmodalcomprainsumos()
 function completarmodalcomprainsumos(){             
                                   var numeroremitocompra=$('#NumeroRemitoCompra').val()
-                                      proveedor=$('#proveedorcompra option:selected').val()
+                                      proveedor=$('#proveedorcompra option:selected').text()
                                       fechacompra=$('#fechaCompraInsumo').val()
                                       descripcion=$('#descripcionCompraInsumo').val()
                                      
@@ -235,7 +258,7 @@ function agregarinsumoscompra() {
       $('<tr>')
         .append
           (
-           $('<td>').attr('scope','col')
+           $('<td>').attr('scope','col').attr('width','25%')
           .append
           (
             $("<select class='custom-select'><option value=''>Seleccione el depósito</option>")
@@ -270,20 +293,15 @@ foreach($depositos as $deposito){
 
             ),
 
-           $('<td>').attr('scope','col').attr('colspan','2')
+           $('<td>').attr('scope','col').attr('width','25%')
           .append
           (
             
-              $("<div class='input-group'><input type='number' min=0 step=0.0001 name='cantidadCompraInsumo[]' class='form-control text-right cantingre'><div class='input-group-append'><span class='input-group-text'><a class='unitingre'>Unidad</a></span></div></div>")
+              $("<div class='input-group'><input type='number' min=0 step=0.0001 name='cantidadCompraInsumo[]' class='form-control text-right cantingre' placeholder='Cantidad'><div class='input-group-append'><span class='input-group-text'><a class='unitingre'>Unidad</a></span></div></div>")
 
             ),
 
-             $('<td>').attr('scope','col')
-          .append
-          ($('<div class="input-group"><input type="date" id="fechaVencimientoinsumo" name="fecha_compraI[]" required>'
-
-            )),
-            $('<td>').attr('scope','col')
+            $('<td>').attr('scope','col').attr('class','text-center')
           .append
           (
             $('<button type="button" class="btn btn-danger btn-sm borrar">Borrar</button>')
@@ -364,6 +382,37 @@ $(document).ready(function(){
     });
     
 });
+
+
+$(document).ready( function() {   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
+    $("#botonconfirmaragregarcompra").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
+                              
+       $.post("datos.php",$("#formagregarcompra").serialize(),function(respuestacodcompra){
+                if(respuestacodcompra == "OK"){
+                  $('#ConfirmarNuevaCompra').modal('hide')
+                    var modal=$('#MensajeConfirmacion').modal('show')
+                  modal.find('.modal-body').empty()
+                  modal.find('.modal-body').html(
+                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Compra agregada</h4><p>Usted ha agregado la nueva compra correctamente. El número de la compra es <a id="id_nuevacompra"></a></p><hr></div>')
+                  //modal.find("#id_nuevacompra").text(respuestacod1.idCompra_)
+                 //var link="index.php?pagina=detalleOp&idOrdenProdDetalle="+respuestacod1.idOrdenProd_+"&estado=0"
+                 // modal.find('#botonaceptarnuevaorden').unbind('click');
+                 // modal.find('#botonaceptarnuevaorden').attr("href", link)
+
+                } else {
+                    $('#ConfirmarNuevaCompra').modal('hide')
+                    var modal=$('#MensajeConfirmacion').modal('show')
+                  modal.find('.modal-body').empty()
+                  modal.find('.modal-body').html(
+                    '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar la nueva compra. <a id="erroragregarcompra"></a></p><hr></div>')
+                   modal.find('#erroragregarcompra').empty()
+                  modal.find('#erroragregarcompra').html(respuestacodcompra)
+                }
+            },"json");
+  
+    });    
+});
+
 
 </script>
 

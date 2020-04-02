@@ -284,6 +284,18 @@ $nuevadesposte=ControladorFormularios::ctrCrearDesposte();
 
 }
 
+if (isset($_POST["idInsumoCompraInsumo"])||
+            isset($_POST["cantidadCompraInsumo"])||
+            isset($_POST["idProvedorCompraInsumo"])||
+            isset($_POST["fechaCompraInsumo"])){
 
+
+$nuevacompra=ControladorFormularios::ctrCompraInsumo();
+
+
+    $respuestacodcompra=json_encode($nuevacompra);
+    echo $respuestacodcompra;
+
+}
 
 ?>
