@@ -68,11 +68,6 @@ echo $proveedores;
                     <span class="input-group-text">Cantidad de medias reses:</span>
                   </div>
                     <input type="number" min=0 step=1 class="form-control text-right" name="unidadesAltaDesposte" id="unidadesDesposte" placeholder="Ingrese la cantidad" required>
-                         <div class="input-group-append">
-                  <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Descripcion">
-  ?
-</button>
-                            </div>
                              <div class="invalid-feedback">
                             Ingrese la cantidad de medias reses
                                     </div>
@@ -85,7 +80,7 @@ echo $proveedores;
                   </div>
                     <input type="number" min=0 step=0.01  class="form-control text-right" name="pesoTotalAltaDesposte" id="pesoTotalDesposte" placeholder="Peso total" required>
                               <div class="input-group-append">
-                  <span class="input-group-text">Kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Descripcion">
+                  <span class="input-group-text">Kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese el peso total que figura en el remito">
   ?
 </button>
                             </div>
@@ -105,7 +100,7 @@ echo $proveedores;
                   </div>
                     <input type="number" min=0 step=0.01 max=100  class="form-control text-right" name="mermaInicialAltaDesposte" id="mermainicialdesposte" placeholder="Merma" required>
                               <div class="input-group-append">
-                  <span class="input-group-text">%</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Descripcion">
+                  <span class="input-group-text">%</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Ingrese la merma obtenida antes del desposte">
   ?
 </button>
                             </div>
@@ -316,16 +311,16 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
     $("#botonconfirmaragregardesposte").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
        $.post("datos.php",$("#formnuevodesposte").serialize(),function(respuestacod1){
-                if(respuestacod1 == "OK"){
+                if(respuestacod1.validacion_ == "OK"){
                   $('#ConfirmarNuevoDesposte').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                   modal.find('.modal-body').empty()
                   modal.find('.modal-body').html(
                     '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Desposte agregado</h4><p>Usted ha agregado el nuevo desposte correctamente. El id del nuevo desposte es <a id="id_nuevodesposte"></a></p><hr></div>')
-                  //modal.find("#id_nuevodesposte").text(respuestacod1.idOrdenDesposte)
-                 //var link="index.php?pagina=detalleDesposte&idDesposteVerDetalles="+respuestacod1.idDesposte+"&estado=0"
-                 // modal.find('#botonaceptarnuevodesposte').unbind('click');
-                 // modal.find('#botonaceptarnuevodesposte').attr("href", link)
+                  modal.find("#id_nuevodesposte").text(respuestacod1.idDesposte)
+                 var link="index.php?pagina=detalleDesposte&idDesposteVerDetalles="+respuestacod1.idDesposte+"&estado=0"
+                 modal.find('#botonaceptarnuevodesposte').unbind('click');
+                  modal.find('#botonaceptarnuevodesposte').attr("href", link)
 
                 } else {
                     $('#ConfirmarNuevoDesposte').modal('hide')
@@ -334,7 +329,7 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
                   modal.find('.modal-body').html(
                     '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar el desposte. <a id="erroragregardesposte"></a></p><hr></div>')
                    modal.find('#erroragregardesposte').empty()
-                  modal.find('#erroragregardesposte').html(respuestacod1)
+                  modal.find('#erroragregardesposte').html(respuestacod1.validacion_)
 
                 }
             },"json");
