@@ -97,11 +97,12 @@ if(isset($_POST["chequeadoDesposte"])){
 
         if ($desposte["anulado"]==0) {
     
-    echo '<tr><td scope="col">' . $desposte["id_desposte"] . '</td><td scope="col">' . $desposte["nro_remito"] . '</td><td scope="col">' . $desposte["proveedor"] . '</td><td scope="col">' . $desposte["unidades"] . '</td><td scope="col">' . $desposte["peso_total"] . '</td><td scope="col">' . $desposte["fecha_desposte"] . '</td><td scope="col">Activo</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleDesposte&idDesposteVerDetalles=' . $desposte["id_desposte"] . '&estado=' .  $desposte["anulado"] . '">Inspeccionar Desposte</a></td></tr>';
+    echo '<tr><td scope="col" class="text-center">' . $desposte["id_desposte"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-success">Activo</span></td><td scope="col">' . $desposte["proveedor"] . '</td><td scope="col">' . $desposte["nro_remito"] . '</td><td scope="col">' . $desposte["unidades"] . ' medias reses</td><td scope="col">' . $desposte["peso_total"] . ' kg.</td><td scope="col">' . $desposte["fecha_desposte"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleDesposte&idDesposteVerDetalles=' . $desposte["id_desposte"] . '&estado=' .  $desposte["anulado"] . '">Inspeccionar</a></td></tr>';
+
 
 }          else{
     
-         echo '<tr><td scope="col">' . $desposte["id_desposte"] . '</td><td scope="col">' . $desposte["nro_remito"] . '</td><td scope="col">' . $desposte["proveedor"] . '</td><td scope="col">' . $desposte["unidades"] . '</td><td scope="col">' . $desposte["peso_total"] . '</td><td scope="col">' . $desposte["fecha_desposte"] . '</td><td scope="col">Anulado</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleDesposte&idDesposteVerDetalles=' . $desposte["id_desposte"] . '&estado=' .  $desposte["anulado"] . '">Inspeccionar Desposte</a></td></tr>';
+    echo '<tr><td scope="col" class="text-center">' . $desposte["id_desposte"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-danger">Anulado</span></td><td scope="col">' . $desposte["proveedor"] . '</td><td scope="col">' . $desposte["nro_remito"] . '</td><td scope="col">' . $desposte["unidades"] . ' medias reses</td><td scope="col">' . $desposte["peso_total"] . ' kg.</td><td scope="col">' . $desposte["fecha_desposte"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleDesposte&idDesposteVerDetalles=' . $desposte["id_desposte"] . '&estado=' .  $desposte["anulado"] . '">Inspeccionar</a></td></tr>';
 
 
         }
@@ -113,7 +114,7 @@ if(isset($_POST["chequeadoDesposte"])){
 
      if ($desposte["anulado"]==0) {
     
-    echo '<tr><td scope="col">' . $desposte["id_desposte"] . '</td><td scope="col">' . $desposte["nro_remito"] . '</td><td scope="col">' . $desposte["proveedor"] . '</td><td scope="col">' . $desposte["unidades"] . '</td><td scope="col">' . $desposte["peso_total"] . '</td><td scope="col">' . $desposte["fecha_desposte"] . '</td><td scope="col">Activo</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleDesposte&idDesposteVerDetalles=' . $desposte["id_desposte"] . '&estado=' .  $desposte["anulado"] . '">Inspeccionar Desposte</a></td></tr>';
+     echo '<tr><td scope="col" class="text-center">' . $desposte["id_desposte"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-success">Activo</span></td><td scope="col">' . $desposte["proveedor"] . '</td><td scope="col">' . $desposte["nro_remito"] . '</td><td scope="col">' . $desposte["unidades"] . ' medias reses</td><td scope="col">' . $desposte["peso_total"] . ' kg.</td><td scope="col">' . $desposte["fecha_desposte"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleDesposte&idDesposteVerDetalles=' . $desposte["id_desposte"] . '&estado=' .  $desposte["anulado"] . '">Inspeccionar</a></td></tr>';
 
 }
 }

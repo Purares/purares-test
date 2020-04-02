@@ -19,7 +19,7 @@
 
 <div class="mr-auto p-2">
 
-	<h4>Listado de despostes actual:</h4>
+	<h2>Listado de despostes:</h2>
 
 </div>
 <div class="p-2">
@@ -41,19 +41,20 @@
   </label>
 </div>
 </div>
+<hr>
 	<br>
              
                         <table class="table table-hover">
     						<thead class="thead-light">
         						<tr>
-           							<th scope="col">ID Desposte</th>
-                                    <th scope="col">Número de remito</th>
-                                    <th scope="col">Proveedor</th>
-                                    <th scope="col">Unidades</th>
-           							<th scope="col">Peso Total</th>
-           							<th scope="col">Fecha Desposte</th>
-           							<th scope="col">Estado</th>
-           							<th scope="col">Inspeccionar</th>
+           							<th scope="col"  class="text-center text-white bg-dark">N° Desposte</th>
+           							<th scope="col"  class="text-white bg-dark">Estado</th>
+                        <th scope="col"  class="text-white bg-dark">Proveedor</th>
+                        <th scope="col"  class="text-white bg-dark">Número de remito</th>
+                        <th scope="col"  class="text-white bg-dark">Unidades</th>
+           							<th scope="col"  class="text-white bg-dark">Peso Total</th>
+           							<th scope="col"  class="text-white bg-dark">Fecha Desposte</th>
+           							<th scope="col"  class="text-white bg-dark">Inspeccionar</th>
         						</tr>
       						</thead>
   							<tbody id="tabladespostes">
@@ -63,7 +64,7 @@ foreach($despostes as $desposte){
 
 if ($desposte["anulado"]==0) {
 	
-	echo '<tr><td scope="col">' . $desposte["id_desposte"] . '</td><td scope="col">' . $desposte["nro_remito"] . '</td><td scope="col">' . $desposte["proveedor"] . '</td><td scope="col">' . $desposte["unidades"] . '</td><td scope="col">' . $desposte["peso_total"] . '</td><td scope="col">' . $desposte["fecha_desposte"] . '</td><td scope="col">Activo</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleDesposte&idDesposteVerDetalles=' . $desposte["id_desposte"] . '&estado=' .  $desposte["anulado"] . '">Inspeccionar Desposte</a></td></tr>';
+	echo '<tr><td scope="col" class="text-center">' . $desposte["id_desposte"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-success">Activo</span></td><td scope="col">' . $desposte["proveedor"] . '</td><td scope="col">' . $desposte["nro_remito"] . '</td><td scope="col">' . $desposte["unidades"] . ' medias reses</td><td scope="col">' . $desposte["peso_total"] . ' kg.</td><td scope="col">' . $desposte["fecha_desposte"] . '</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleDesposte&idDesposteVerDetalles=' . $desposte["id_desposte"] . '&estado=' .  $desposte["anulado"] . '">Inspeccionar</a></td></tr>';
 
 }
 

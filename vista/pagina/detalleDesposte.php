@@ -36,36 +36,40 @@ foreach ($detalleDesbastes as $detalleDesbaste) {
               </div>
                   <div class="row">
                             <div class="form-group col-6">
-                         <label for="spanrecetanombre">Número de remito:</label>
-                                <span class="input-group-text nombrereceta" id="spanrecetanombre"><?php echo $detalleDesbaste['nro_remito'] ?></span>
-                                </div>
-                            <div class="form-group col-6">
                          <label for="spanrecetafechaalta">Proveedor:</label>
                                 <span class="input-group-text fechadealta" id="spanrecetafechaalta"><?php echo $detalleDesbaste['proveedor'] ?></span>
                                 </div>
+                            <div class="form-group col-6">
+                         <label for="spanrecetanombre">Número de remito:</label>
+                                <span class="input-group-text nombrereceta" id="spanrecetanombre"><?php echo $detalleDesbaste['nro_remito'] ?></span>
+                                </div>
         				</div>
                     <div class="row">
-                     <div class="form-group col-6">
+                     <div class="form-group col-4">
                          <label for="spanrecetaporcenpaston">Unidades:</label>
                                 <span class="input-group-text recetaporcentajecarne" id="spanrecetaporcenpaston"><?php echo $detalleDesbaste['unidades'] ?> medias reses</span>
                                 </div>
-                            <div class="form-group col-6">
+                            <div class="form-group col-4">
                          <label for="spanrecetamermaesp">Peso total:</label>
                                 <span class="input-group-text recetamermaesperada" id="spanrecetamermaesp"><?php echo $detalleDesbaste['peso_total'] ?> kilos</span>
                                 </div>
+                            <div class="form-group col-4">
+                         <label for="spanrecetamermaesp">Merma inicial:</label>
+                                <span class="input-group-text despostemermainicial" id="spandespostemermainicial"><?php echo $detalleDesbaste['merma_inicial'] ?> %</span>
+                                </div>
         				</div>
+                <hr>
                     <br>
-                    <p>Carnes obtenidas en el desposte:</p>
-                        <table class="table table-hover table-bordered table-sm">
+                    <h5>Carnes obtenidas en el desposte:</h5>
+                    <hr>
+                        <table class="table table-hover table-sm">
     						<thead class="thead-light">
         						<tr>
-           							<th scope="col">ID Carne</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col" class="text-right">Cantidad Obtenida</th>
-           							<th scope="col">Unidad</th>
-                        <th scope="col" class="text-right">Stock Actual</th>
-                        <th scope="col">Unidad</th>
-                         <th scope="col">Movimiento</th>
+           							<th scope="col" class="text-center text-white bg-dark">ID Carne</th>
+                        <th scope="col" class="text-white bg-dark">Nombre</th>
+                        <th scope="col" class="text-right text-white bg-dark">Cantidad Obtenida</th>
+                        <th scope="col" class="text-right text-white bg-dark">Stock Actual</th>
+                         <th scope="col" class="text-center text-white bg-dark">Movimiento</th>
         						</tr>
       						</thead>
   							<tbody>
@@ -75,7 +79,7 @@ foreach ($detalleDesbastes as $detalleDesbaste) {
 
 foreach ($detallecarnesdesbaste as $detallecarnedesbaste) {
 
-echo '<tr><td scope="col">' . $detallecarnedesbaste["id_carne"] . '</td><td scope="col">' . $detallecarnedesbaste["carne"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["qObtenido"] . '</td><td scope="col">' . $detallecarnedesbaste["udm"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["stockactual"] . '</td><td scope="col">' . $detallecarnedesbaste["udm"] . '</td><td scope="col"><button class="btn btn-secondary btn-sm botonmovimiento" data-toggle="modal" data-target="#NuevoMovimientoCarne" data-idcarne="'. $detallecarnedesbaste["id_carne"] .'" data-nombrecarne="'.$detallecarnedesbaste["carne"].'" data-unidadcarne="'.$detallecarnedesbaste["udm"] .'" data-iddesposteventana="'. $_GET["idDesposteVerDetalles"]. '">Nuevo movimiento</button></td></tr>';
+echo '<tr><td scope="col" class="text-center">' . $detallecarnedesbaste["id_carne"] . '</td><td scope="col">' . $detallecarnedesbaste["carne"] . '</td><td scope="col" class="text-right">' . $detallecarnedesbaste["qObtenido"] .' '. $detallecarnedesbaste["udm"] .'</td><td scope="col" class="text-right">' . $detallecarnedesbaste["stockactual"] . ' ' . $detallecarnedesbaste["udm"] . '</td><td scope="col" class="text-center"><button class="btn btn-info btn-sm botonmovimiento" data-toggle="modal" data-target="#NuevoMovimientoCarne" data-idcarne="'. $detallecarnedesbaste["id_carne"] .'" data-nombrecarne="'.$detallecarnedesbaste["carne"].'" data-unidadcarne="'.$detallecarnedesbaste["udm"] .'" data-iddesposteventana="'. $_GET["idDesposteVerDetalles"]. '">Nuevo movimiento</button></td></tr>';
 
 }
 ?>
