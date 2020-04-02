@@ -12,29 +12,21 @@ $carnes=ControladorFormularios::ctrListaCarnes();
 
 $proveedores=ControladorFormularios::ctrListaProveedores();
 
-$nuevodesposte=ControladorFormularios::ctrCrearDesposte();
-
 
 ?>
 
 <div class="container">
            <br>
-            <h4>Nuevo Desposte</h4>
-            <br>  
-                          <h6>Complete los datos del nuevo desposte que desea agregar:</h6>
+            <h2>Agregar desposte</h2>
+            <hr>
                           <br>
-      <form method="post" class="needs-validation">
+      <form method="post" class="needs-validation" id="formnuevodesposte">
                      <div class="row">
-                            <div class="form-group col-4">
-                         <label for="NumeroRemito">Número de remito:</label>
-                    <input type="text" class="form-control text-center" id="NumeroRemito" name="nroRemitoAltaDesposte" placeholder="Ingrese el número de remito" required>
-                                   <div class="invalid-feedback">
-                                   Ingrese el número de remito
-                                    </div>
-                                </div>
-                             <div class="form-group col-4">
-                          <label for="idProvedorCompraInsumo">Proveedor:</label>
-                        <select class="custom-select" name="proveedorAltaDesposte" id="NombreProveedor" required>
+    <div class="input-group col-6"> 
+             <div class="input-group-prepend">
+                    <span class="input-group-text">Proveedor:</span>
+                  </div>
+              <select class="custom-select" name="proveedorAltaDesposte" id="NombreProveedor" required>
                         <option value="">Seleccione el proveedor</option>
     
     <?php
@@ -51,61 +43,101 @@ echo $proveedores;
 
 };?>
                                </select>
-                                   <div class="invalid-feedback">
-                                   Elija el nombre del proveedor del desposte
+                             <div class="invalid-feedback">
+                                    Seleccione el proveedor
                                     </div>
-                                </div>
-                                    <div class="input-group col-4"> 
-                  <label for="fechaDesbasteAltaDesposte">Fecha de desposte:</label>
-                          <div class="input-group">
+              </div>
+                            <div class="input-group col-6"> 
+             <div class="input-group-prepend">
+                    <span class="input-group-text">N° de Remito:</span>
+                  </div>
+                    <input type="text" class="form-control text-center" id="NumeroRemito" name="nroRemitoAltaDesposte" placeholder="Ingrese el número de remito" required>
+                             <div class="invalid-feedback">
+                                    Ingrese un número de remito
+                                    </div>
+              </div>
+               </div>
+               <br>
+               <hr>
+               <br>
+
+         <div class="row">
+              
+                     <div class="input-group col-6"> 
+             <div class="input-group-prepend">
+                    <span class="input-group-text">Cantidad de medias reses:</span>
+                  </div>
+                    <input type="number" min=0 step=1 class="form-control text-right" name="unidadesAltaDesposte" id="unidadesDesposte" placeholder="Ingrese la cantidad" required>
+                         <div class="input-group-append">
+                  <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Descripcion">
+  ?
+</button>
+                            </div>
+                             <div class="invalid-feedback">
+                            Ingrese la cantidad de medias reses
+                                    </div>
+              </div>
+
+
+             <div class="input-group col-6"> 
+             <div class="input-group-prepend">
+                    <span class="input-group-text">Peso total:</span>
+                  </div>
+                    <input type="number" min=0 step=0.01  class="form-control text-right" name="pesoTotalAltaDesposte" id="pesoTotalDesposte" placeholder="Peso total" required>
+                              <div class="input-group-append">
+                  <span class="input-group-text">Kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Descripcion">
+  ?
+</button>
+                            </div>
+                             <div class="invalid-feedback">
+                                     Ingresa el peso total
+                                    </div>
+                       </div>
+
+          </div>
+          <br>
+          <div class="row">
+
+
+              <div class="input-group col-6"> 
+             <div class="input-group-prepend">
+                    <span class="input-group-text">Merma inicial:</span>
+                  </div>
+                    <input type="number" min=0 step=0.01 max=100  class="form-control text-right" name="mermaInicialAltaDesposte" id="mermainicialdesposte" placeholder="Merma" required>
+                              <div class="input-group-append">
+                  <span class="input-group-text">%</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Descripcion">
+  ?
+</button>
+                            </div>
+                             <div class="invalid-feedback">
+                                     Ingresa el porcentaje de merma inicial
+                                    </div>
+                       </div>  
+                                    <div class="input-group col-6">
+                   <div class="input-group-prepend">
+                    <span class="input-group-text">Fecha de desposte:</span>
+                  </div>
+                          <div class="input-group-append">
                 <input type="date" id="fechaDesposte" name="fechaDesposteAltaDesposte" required>
                              <div class="invalid-feedback">
                                     Ingresa la fecha de deposte
                                     </div>
                 </div>
                  </div>
-                </div>
-         <div class="row">
-              <div class="input-group col-6"> 
 
-                  <label for="unidadesAltaDesposte">Cantidad de medias reses:</label>
-                     <div class="input-group">
-                                <input type="number" min=0 step=1 class="form-control text-right" name="unidadesAltaDesposte" id="unidadesDesposte" placeholder="Ingrese la cantidad" required>
-                                  <div class="input-group-append">
-                  <span class="input-group-text">Medias reses</span>
-                            </div>
-                             <div class="invalid-feedback">
-                                    Ingrese la cantidad de medias reses
-                                    </div>
-                       </div>        
-
-      
-                </div>
-            <div class="input-group col-6"> 
-
-               <label for="pesoTotalAltaDesposte">Peso total:</label>
-                     <div class="input-group">
-                                <input type="number" min=0 step=0.01  class="form-control text-right" name="pesoTotalAltaDesposte" id="pesoTotalDesposte" placeholder="Peso total" required>
-                                  <div class="input-group-append">
-                  <span class="input-group-text">Kilos</span>
-                            </div>
-                             <div class="invalid-feedback">
-                                     Ingresa el peso total
-                                    </div>
-                       </div>        
-            </div>
-          </div>
+              </div>
               <br>
-                
-              <p>Complete la cantidad de carnes despostadas:</p>
+                <br>
+              <h5>Complete la cantidad de carnes despostadas:</h5>
+              <hr>
               <div class="container">
                  <div class="col-6">          
-                  <table class="table table-sm">
+                  <table class="table table-sm table-hover">
                 <thead>
                     <tr>
-                      <th scope="col">ID</th>
-                                <th scope="col">Carne</th>
-                      <th scope="col">Cantidad</th>
+                      <th scope="col" class="text-center text-white bg-dark">ID</th>
+                                <th scope="col" class="text-white bg-dark">Carne</th>
+                      <th scope="col" class="text-center text-white bg-dark">Cantidad</th>
                     </tr> 
                   </thead>
                 <tbody id="TablaCarnesDesposte">
@@ -114,7 +146,7 @@ echo $proveedores;
 
 foreach($carnes as $carne){
 
-  echo '<tr><td scope="col">' . $carne[0] . '<input type="hidden" name="idCarneAltaDesposte[]" value="' . $carne[0] . '"></td><td scope="col">' . $carne[1] . '<input type="hidden" class="nomcarne" value="' . $carne[1] . '"></td><td scope="col"><div class="input-group"><input type="number" min=0 step=0.0001 name="cantidadAltaDesposte[]" class="form-control cantcarne" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[2] . '</a></span></div></div></td></tr>';
+  echo '<tr><td scope="col" class="text-center" width="15%">' . $carne[0] . '<input type="hidden" name="idCarneAltaDesposte[]" value="' . $carne[0] . '"></td><td scope="col"  width="45%">' . $carne[1] . '<input type="hidden" class="nomcarne" value="' . $carne[1] . '"></td><td scope="col"  width="40%"><div class="input-group"><input type="number" min=0 step=0.0001 name="cantidadAltaDesposte[]" class="form-control text-right cantcarne" placeholder="Cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[2] . '</a></span></div></div></td></tr>';
 
 }
 
@@ -123,18 +155,13 @@ foreach($carnes as $carne){
             </table>
           </div>
           </div>
-          <br>
-              <div class="row">
-                 <div class="form-group col-12">
-                     <label for="descripcionAltaDesposte">Descripción:</label>
-                     <div class="input-group">
-                                <input type="text" class="form-control text-right" name="descripcionAltaDesposte" id="descripcionDesposte" placeholder="Describa" required>
+                        <h5>Descripción</h5>
+              <hr>
+              <textarea class="form-control" style="min-width: 100%" name="descripcionAltaDesposte" id="descripcionDesposte" placeholder="..." required></textarea>
                              <div class="invalid-feedback">
                                     Ingrese una descripción
                                     </div>
-                       </div>      
-               </div>
-             </div>
+              
             
               <br>
                   <button type="button" class="btn btn-success" id="BotonAgregarDesposte" data-toggle="modal" data-target="#ConfirmarNuevoDesposte">Agregar desposte</button>
@@ -152,16 +179,13 @@ foreach($carnes as $carne){
         <div class="modal-body">
           <p>Usted está a punto de cargar el desposte con numero de remito <a class="numero"></a> del proveedor <a class="proveedor"></a>, con fecha <a class="fecha"></a>.</p>
 
-          <p>Son <a class="mediasreses"></a> medias reses con un peso total de <a class="pesototal"></a> kilos.</p>
-
-          <p>Tiene la siguiente descripcion:</p>
-
-          <p><a class="descripcion"></a>.</p>
+          <p>Son <a class="mediasreses"></a> medias reses con un peso total de <a class="pesototal"></a> kilos y una merma inicial de <a class="mermainicial"></a>%</p>
 
           <p>La cantidad de carne del desposte será:</p>
 
            <div class="container">
           <table class="table table-hover">
+            <br>
             <thead>
             <tr><th scope="col">Carnes</th><th scope="col">Cantidad</th><th scope="col">Unidad</th></tr>
             </thead>
@@ -169,12 +193,16 @@ foreach($carnes as $carne){
               
             </tbody>
           </table>
+          <br>
+          <p>Tiene la siguiente descripcion:</p>
+
+          <p><a class="descripcion"></a>.</p>
         </div>
             <br>
           <p>¿Confirma que desea CARGAR ESTE DESPOSTE?</p>
         </div>
         <div class="modal-footer">
-          <button type="submit"  class="btn btn-success">Sí, cargar desposte</button>
+          <button type="button"  class="btn btn-success" id="botonconfirmaragregardesposte">Sí, cargar desposte</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">No, volver a atrás</button>
         </div>
       </div>
@@ -183,6 +211,21 @@ foreach($carnes as $carne){
 
 </form>
 
+
+  <!-- Mensaje confirmacion -->
+  <div class="modal fade" id="MensajeConfirmacion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-info" id="botonaceptarnuevodesposte" onclick="location.reload();">Aceptar</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 <script>
@@ -197,6 +240,7 @@ function completarmodaldesposte(){
                                       fechadesbaste=$('#fechaDesposte').val()
                                       unidades=$('#unidadesDesposte').val()
                                       pesototal=$('#pesoTotalDesposte').val()
+                                      mermainicial=$('#mermainicialdesposte').val()
                                       descripcion=$('#descripcionDesposte').val()
 
                                       var nombrecarnes = [];
@@ -228,6 +272,8 @@ modal.find('.mediasreses').text('' + unidades);
 
 modal.find('.pesototal').text('' + pesototal);
 
+modal.find('.mermainicial').text('' + mermainicial);
+
 modal.find('.descripcion').text('' + descripcion);
 
 for (var i=0; i<=nombrecarnes.length-1;i++){
@@ -256,6 +302,45 @@ for (var i=0; i<=nombrecarnes.length-1;i++){
     });
   }, false);
 })();
+
+$(document).ready(function(){
+
+ $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})   
+
+
+})
+
+$(document).ready( function() {   // Esta parte del código se ejecutará automáticamente cuando la página esté lista.
+    $("#botonconfirmaragregardesposte").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
+                              
+       $.post("datos.php",$("#formnuevodesposte").serialize(),function(respuestacod1){
+                if(respuestacod1 == "OK"){
+                  $('#ConfirmarNuevoDesposte').modal('hide')
+                    var modal=$('#MensajeConfirmacion').modal('show')
+                  modal.find('.modal-body').empty()
+                  modal.find('.modal-body').html(
+                    '<div class="alert alert-success" role="alert"><h4 class="alert-heading">Desposte agregado</h4><p>Usted ha agregado el nuevo desposte correctamente. El id del nuevo desposte es <a id="id_nuevodesposte"></a></p><hr></div>')
+                  //modal.find("#id_nuevodesposte").text(respuestacod1.idOrdenDesposte)
+                 //var link="index.php?pagina=detalleDesposte&idDesposteVerDetalles="+respuestacod1.idDesposte+"&estado=0"
+                 // modal.find('#botonaceptarnuevodesposte').unbind('click');
+                 // modal.find('#botonaceptarnuevodesposte').attr("href", link)
+
+                } else {
+                    $('#ConfirmarNuevoDesposte').modal('hide')
+                    var modal=$('#MensajeConfirmacion').modal('show')
+           modal.find('.modal-body').empty()
+                  modal.find('.modal-body').html(
+                    '<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar el desposte. <a id="erroragregardesposte"></a></p><hr></div>')
+                   modal.find('#erroragregardesposte').empty()
+                  modal.find('#erroragregardesposte').html(respuestacod1)
+
+                }
+            },"json");
+  
+    });    
+});
 
 
 </script>

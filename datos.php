@@ -268,6 +268,21 @@ if (isset($_POST["idRecetaAltaOP"])&&
     $nuevaorden=ControladorFormularios::ctrAgregarOP();
 }
 
+if (isset($_POST["nroRemitoAltaDesposte"])||
+            isset($_POST["proveedorAltaDesposte"])||
+            isset($_POST["unidadesAltaDesposte"])||
+            isset($_POST["pesoTotalAltaDesposte"])||
+            isset($_POST["mermaInicialAltaDesposte"])|| #NEW
+            isset($_POST["fechaDesposteAltaDesposte"])) {
+
+$nuevadesposte=ControladorFormularios::ctrCrearDesposte();
+
+
+    $respuestacod1=json_encode($nuevadesposte);
+    echo $respuestacod1;
+
+}
+
 
 
 ?>

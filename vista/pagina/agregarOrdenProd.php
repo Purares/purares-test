@@ -1,5 +1,5 @@
 <head>
-  <title>Nueva Orden Purares</title>
+  <title>Nueva Orden</title>
 </head>
 <body>
 
@@ -16,9 +16,11 @@ $carnes=ControladorFormularios::ctrStockCarnes();
 
   <div class="container">  
     <br>
-    <h4>Nueva orden</h4>
+    <h2>Agregar orden</h2>
+    <hr>
               <br>
-            	<h6>Complete los datos de la nueva orden de producción:</h6>
+            	<h5>1 - Seleccion de receta y peso del pastón</h5>
+              <hr>
           			<br>
 <form method="post" class="needs-validation" id="formorden">
                       <div class="row">
@@ -50,7 +52,9 @@ foreach($recetas as $receta){
            					</div>
           						<input type="number" min=0 step=0.01 class="form-control text-right" id="PesoPaston" name="pesoPastonAltaOP" placeholder="Ingrese el peso" required>
                               <div class="input-group-append">
-      							<span class="input-group-text">kilos</span>
+      							<span class="input-group-text">kilos</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese el peso total del pastón sin contar los insumos.">
+  ?
+          </button>
    							</div>
                                  <div class="invalid-feedback">
                                       Ingrese un numero mayor a cero
@@ -58,7 +62,8 @@ foreach($recetas as $receta){
           				</div>
                           </div>
                           <br>
-                           <p class="infoinsumos">Seleccione una receta y luego ingrese el peso del pastón para calcular los insumos que se requeriran</p>
+                           <h6 class="infoinsumos"></h6>
+                           <br>
                          <table class="table table-hover table-bordered table-sm">
                 <thead class="thead-light headinsumosop">
                 </thead>
@@ -67,20 +72,20 @@ foreach($recetas as $receta){
                   </table>
                   <input type="hidden" name="establecerorden" value="1">
                            <br>
+              <h5>2 - Ingrese la cantidad de carnes que utilazará la orden:</h5>
+              <hr>
 			<div id="alertacarnes">
 				<div class="alert alert-info alertcarnes" role="alert">
 				</div>
 			</div>
-              <h6>Ingrese la cantidad de carnes que utilazará la receta:</h6>
-              <br>
-              <div class="container">
-                  <table class="table table-sm">
+              <div class="container col-11 row justify-content-start">
+                  <table class="table table-sm table-hover ">
                 <thead>
                     <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">Carne</th>
-                      <th scope="col">Cantidad</th>
-                       <th scope="col" class="text-right">Stock Actual</th>
+                      <th scope="col" class="text-center text-white bg-dark">ID</th>
+                      <th scope="col" class="text-center text-white bg-dark">Carne</th>
+                      <th scope="col" class="text-center text-white bg-dark">Cantidad</th>
+                       <th scope="col" class="text-center text-white bg-dark">Stock Actual</th>
                     </tr> 
                   </thead>
                 <tbody id="TablaCarnesDesposte">
@@ -91,12 +96,12 @@ foreach($carnes as $carne){
 
 	if ($carne[0]==8) {
 
-	  echo '<tr><td scope="col" width="10%">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="40%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="30%"><div class="input-group"><input type="number" min=0 step=0.001 class="form-control text-right cantcarneop" id="kilostocino" placeholder="Cantidad" disabled><input type="hidden" name="catidadCarnesAgregarOP[]" id=kilostocinooculto value=""><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="20%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
+	  echo '<tr><td scope="col" width="13%" class="text-center">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="30%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="25%"><div class="input-group"><input type="number" min=0 step=0.001 class="form-control text-right cantcarneop" id="kilostocino" placeholder="" disabled><input type="hidden" name="catidadCarnesAgregarOP[]" id=kilostocinooculto value=""><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="22%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
 
 	
 	}else{
 
-  echo '<tr><td scope="col" width="10%">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="40%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="30%"><div class="input-group"><input type="number" min=0 step=0.001 max="'.$carne[2].'" name="catidadCarnesAgregarOP[]" class="form-control text-right cantcarneop" placeholder="Seleccione receta y peso"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="20%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
+  echo '<tr><td scope="col" width="13%" class="text-center">' . $carne[0] . '<input type="hidden" name="idCarnesAgregarOP[]" value="' . $carne[0] . '"></td><td scope="col" width="30%" class="nomcarne">' . $carne[1] . '<input type="hidden" value="' . $carne[1] . '"></td><td scope="col" width="25%"><div class="input-group"><input type="number" min=0 step=0.001 max="'.$carne[2].'" name="catidadCarnesAgregarOP[]" class="form-control text-right cantcarneop" placeholder="Ingrese la cantidad"><div class="input-group-append"><span class="input-group-text"><a class="unitcarne">'. $carne[3] . '</a></span></div></div></td><td scope="col" width="22%" class="text-right">' . $carne[2] .' '. $carne[3] .'</td></tr>';
 
 }}
 
@@ -347,6 +352,10 @@ for (var i=0; i<=nombrecarnes.length-1;i++){
 }})
 
 $(document).ready(function(){
+
+   $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})   
 
 	$('#alertacarnes').hide()
 

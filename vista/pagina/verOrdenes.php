@@ -19,7 +19,7 @@
 
 <div class="mr-auto p-2">
 
-	<h4>Listado de ordenes actual</h4>
+	<h2>Listado de ordenes</h2>
 
 </div>
 <div class="p-2">
@@ -34,18 +34,20 @@
   </label>-->
 </div>
 </div>
+<hr>
 	<br>
              
                         <table class="table table-hover">
-    						<thead class="thead-light">
+    						<thead>
         						<tr>
-           							<th scope="col">ID Orden</th>
-                                    <th scope="col">Nombre Receta</th>
-                                    <th scope="col">Peso Pastón</th>
-                                    <th scope="col">Fecha de alta</th>
-           							<th scope="col">Ordenante</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Ver Detalles</th>
+           							<th scope="col" class="text-center text-white bg-dark">N° Orden</th>
+                                         <th scope="col" class="text-center text-white bg-dark" >Estado</th>
+                                    <th scope="col" class="text-white bg-dark">Nombre Receta</th>
+                                    <th scope="col" class="text-white bg-dark">Peso Pastón</th>
+                                    <th scope="col" class="text-white bg-dark">Fecha de alta</th>
+           							<th scope="col" class="text-white bg-dark">Ordenante</th>
+       
+                        <th scope="col" class="text-white bg-dark">Ver Detalles</th>
         						</tr>
       						</thead>
   							<tbody id="tablaordenes">
@@ -53,9 +55,19 @@
 
 foreach($ordenes as $orden){
 
-if ($orden["anulado"]==0) {
+if ($orden["estado"]=="a") {
 	
-	echo '<tr><td scope="col">' . $orden["id_ordenprod"] . '</td><td scope="col">' . $orden["nombre_receta"] . '</td><td scope="col">' . $orden["peso_paston"] . '</td><td scope="col">' . $orden["fecha_alta"] .'</td><td scope="col">' . $orden["usuario_alta"].'</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleOp&idOrdenProdDetalle=' . $orden["id_ordenprod"].'&estado=' .  $orden["anulado"] . '">Ver detalles</a></td></tr>';
+	echo '<tr><td scope="col" class="text-center">' . $orden["id_ordenprod"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-danger">Anulada</span></td><td scope="col">' . $orden["nombre_receta"] . '</td><td scope="col">' . $orden["peso_paston"] . '</td><td scope="col">' . $orden["fecha_alta"] .'</td><td scope="col">' . $orden["usuario_alta"].'</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleOp&idOrdenProdDetalle=' . $orden["id_ordenprod"].'&estado=' .  $orden["anulado"] . '">Ver detalles</a></td></tr>';
+
+}
+if ($orden["estado"]=="p") {
+  
+  echo '<tr><td scope="col" class="text-center">' . $orden["id_ordenprod"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-warning">En producción</span></td><td scope="col">' . $orden["nombre_receta"] . '</td><td scope="col">' . $orden["peso_paston"] . '</td><td scope="col">' . $orden["fecha_alta"] .'</td><td scope="col">' . $orden["usuario_alta"].'</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleOp&idOrdenProdDetalle=' . $orden["id_ordenprod"].'&estado=' .  $orden["anulado"] . '">Ver detalles</a></td></tr>';
+
+}
+if ($orden["estado"]=="f") {
+  
+  echo '<tr><td scope="col" class="text-center">' . $orden["id_ordenprod"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-success">Finalizada</span></td><td scope="col">' . $orden["nombre_receta"] . '</td><td scope="col">' . $orden["peso_paston"] . '</td><td scope="col">' . $orden["fecha_alta"] .'</td><td scope="col">' . $orden["usuario_alta"].'</td><td scope="col"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleOp&idOrdenProdDetalle=' . $orden["id_ordenprod"].'&estado=' .  $orden["anulado"] . '">Ver detalles</a></td></tr>';
 
 }
 
