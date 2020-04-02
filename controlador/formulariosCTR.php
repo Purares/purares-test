@@ -589,7 +589,7 @@ static public function ctrValidarAnulacionCompra(){
 		}
 	}	
 
-	#------------------------- Compra de INSUMOS -------------------------#
+	#------------------------- Agregar Compra de INSUMOS -------------------------#
 
 	static public function ctrCompraInsumo(){
 	
@@ -627,7 +627,9 @@ static public function ctrValidarAnulacionCompra(){
 				if ($respuesta != "OK") { return $respuesta;}
 			}
 			
-			return $respuesta;
+			$respuesta2 = array('validacion_' => $respuesta,
+								'idCompra_' => $id_compra_nueva);
+			return $respuesta2;
 		}	
 	}
 
