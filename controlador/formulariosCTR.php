@@ -254,10 +254,13 @@ class ControladorFormularios{
 						$respuesta=ModeloFormularios::mdlAltaInsumosReceta($datos3);
 						
 					#Si no dio error sigue el loop
-						if ($respuesta != "OK") { return $respuesta2;}
+						if ($respuesta != "OK") { return $respuesta;}
 					} #exit for OK
 
-			return $respuesta;
+			$respuesta2 = array('validacion_' => $respuesta,
+								'idReceta_' => $idReceta_nueva);
+
+			return $respuesta2;
 		}
 
 	}
