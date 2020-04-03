@@ -184,7 +184,7 @@ class ModeloFormularios{
 
 	static public function mdlDetalleReceta($id_receta){
 
-		$stmt=conexion::conectarBD()->prepare("SELECT * FROM recetas_n where id_receta=$id_receta");
+		$stmt=conexion::conectarBD()->prepare("SELECT * FROM v_detalle_receta where id_receta=$id_receta");
 		$stmt -> execute();
 		return $stmt -> fetchAll(); #fetchAll devuelvo todos los registros
 		$stmt -> close(); #cierra la conexion
@@ -243,7 +243,7 @@ class ModeloFormularios{
 
 	static public function mdlCrearReceta($datos){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AgregarReceta( :nombre,:diasPord,:diasVenc,:porcentCarne,:largoUniLote,:pesoUniLote,:merma, :largoUniEsperado,:pesoUniEsperado,:unidadesFinalXunidad,:descripcion);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AgregarReceta( :nombre,:diasPord,:diasVenc,:porcentCarne,:largoUniLote,:pesoUniLote,:unidadesXpaston,:merma, :largoUniEsperado,:pesoUniEsperado,:unidadesFinalXunidad,:descripcion);");
 		
 		$stmt -> bindparam (":nombre",				$datos['nombre_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":diasPord",			$datos['diasProd_'],PDO::PARAM_STR);
@@ -251,6 +251,7 @@ class ModeloFormularios{
 		$stmt -> bindparam (":porcentCarne",		$datos['porcentCarne_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":largoUniLote",		$datos['largoUniLote_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":pesoUniLote",			$datos['pesoUniLote_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":unidadesXpaston",		$datos['unidadesXpaston_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":merma",				$datos['merma_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":largoUniEsperado",	$datos['largoUniEsperado_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":pesoUniEsperado",		$datos['pesoUniEsperado_'],PDO::PARAM_STR);
