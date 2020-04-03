@@ -898,11 +898,16 @@ static public function ctrValidarAnulacionCompra(){
 			$detalleCarnesOP=ModeloFormularios::mdlDetalleOpCarnes($id_OrdenProd);
 			$detalleMediciones=ModeloFormularios::mdlDetalleOpMediciones($id_OrdenProd);
 
+			$id_Receta=$detalleAltaOP[0]['id_receta'];
+
+			$detalleReceta=ModeloFormularios::mdlDetalleReceta($id_Receta);
+
 			$respuesta = array(	'detalleAltaOP_' 		=> $detalleAltaOP,
 								'detalleFinOP_' 		=> $detalleFinOP,
 								'detalleInsumosOP_' 	=> $detalleInsumosOP,
 								'detalleCarnesOP_' 		=> $detalleCarnesOP,
-								'detalleMedicionesesOP_'=> $detalleMediciones);
+								'detalleMedicionesesOP_'=> $detalleMediciones,
+								'detalleReceta_'		=> $detalleReceta);
 	
 			return $respuesta;	
 		}	

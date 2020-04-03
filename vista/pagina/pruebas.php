@@ -5,10 +5,15 @@
 <?php
 require_once"modelo/formulariosMDL.php";
 
-$id_receta=1;
-$respuesta= ModeloFormularios::mdlDetalleReceta($id_receta);
+$id_OrdenProd=10;
 
-var_dump($respuesta);
+$detalleAltaOP= ModeloFormularios::mdlDetalleOpAlta($id_OrdenProd);
+
+$id_Receta=$detalleAltaOP[0]['id_receta'];
+
+var_dump($id_Receta);
+var_dump($detalleAltaOP);
+
 ?>
 
 <h1>pruebas</h1>
