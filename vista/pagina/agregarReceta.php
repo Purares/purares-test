@@ -322,7 +322,7 @@ foreach($depositos as $deposito){
         <div class="modal-body">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-dismiss="modal" onclick="location.reload();">Aceptar</button>
+          <a type="button" class="btn btn-info" id="botonaceptarnuevareceta" onclick="location.reload();">Aceptar</a>
         </div>
       </div>
     </div>
@@ -572,19 +572,28 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
     $("#botonconfirmarreceta").click( function() {     // Con esto establecemos la acción por defecto de nuestro botón de enviar.
                               
        $.post("datos.php",$("#formcrearreceta").serialize(),function(respuestacod){
-                if(respuestacod == "OK"){
+                if(respuestacod.validacion_ == "OK"){
                 	$('#ConfirmarNuevaReceta').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                  	modal.find('.modal-body').empty()
                  	modal.find('.modal-body').html(
-                 		'<div class="alert alert-success" role="alert"><h4 class="alert-heading">Receta agregada</h4><p>Usted ha agregado la nueva receta correctamente.</p><hr></div>')
+                 		'<div class="alert alert-success" role="alert"><h4 class="alert-heading">Receta agregada</h4><p>Usted ha agregado la nueva receta correctamente. El id de la orden es <a id="id_nuevareceta"></a></p><hr></div>')
+                  modal.find("#id_nuevareceta").text(respuestacod.idReceta_)
+                 var link="index.php?pagina=detalleReceta&idReceta="+respuestacod.idReceta_+"&estado=1"
+                  modal.find('#botonaceptarnuevareceta').unbind('click');
+                  modal.find('#botonaceptarnuevareceta').attr("href", link)
+
 
                 } else {
                     $('#ConfirmarNuevaReceta').modal('hide')
                     var modal=$('#MensajeConfirmacion').modal('show')
                  	modal.find('.modal-body').empty()
                  	modal.find('.modal-body').html(
-                 		'<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar la receta.</p><hr></div>')
+                 		'<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar la receta.  <a id="erroragregarreceta"></a></p><hr></div>')
+                  modal.find('#erroragregarreceta').empty()
+                  modal.find('#erroragregarreceta').html(respuestacod.validacion_)
+
+
                 }
             },"json");
   
