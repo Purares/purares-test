@@ -21,9 +21,9 @@ foreach ($detalleCompra as $compra) {
 	<br>
   				<div class="d-flex">
   					<div class="mr-auto">
-  					<h4>Compra ID <a class="idcompra"><?php echo $_GET['idCompra'] ?></a> "Numero de remito <a class="nro_remito"><?php echo $compra['nro_remito'] ?></a>" <span class="medalla"><?php if ($_GET['estado']==0) {echo '     <span class="badge badge-success medal">Activa</span>';}else{echo '<span class="badge badge-danger medal">Anulada</span>';}?>
+  					<h2>Detalle de compra<a class="idcompra"  style="display:none" ><?php echo $_GET['idCompra'] ?></a><a class="nro_remito" style="display:none"><?php echo $compra['nro_remito'] ?></a> <span class="medalla"><?php if ($_GET['estado']==1) {echo '     <span class="badge badge-danger medal">Anulada</span>';};?>
 					</span>
-  				</h4>
+  				</h2>
   					</div>
   					<div>
   						<div class="boton">
@@ -32,38 +32,54 @@ foreach ($detalleCompra as $compra) {
   					</div>	
   					<br>
               </div>
+              <hr>
+              <br>
                   <div class="row">
-                            <div class="form-group col-6">
-                         <label for="spannumeroremito">Número de remito:</label>
-                                <span class="input-group-text numeroremito" id="spannumeroremito"><?php echo $compra['nro_remito'] ?></span>
-                                </div>
-                       <div class="form-group col-6">
-                         <label for="spancompraproveedor">Proveedor:</label>
-                                <span class="input-group-text compraproveedor" id="spancompraproveedor"><?php echo $compra['proveedor'] ?></span>
-                                </div>
-        				</div>
+                       <div class="input-group col-6">
+                          <div class="input-group-prepend">
+                         <span class="input-group-text">Proveedor:</span>
+                            </div>
+                                <input class="form-control text-center input-group-text compraproveedor" id="spancompraproveedor" value="<?php echo $compra['proveedor'] ?>" readonly>
+                            </div>                           
+                            <div class="input-group col-6">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Número de remito:</span>
+                            </div>
+                                <input class="form-control text-center input-group-text numeroremito" id="spannumeroremito" value="<?php echo $compra['nro_remito'] ?>" readonly>
+                            </div>
+        				    </div>
+                    <br>
                     <div class="row">
-                            <div class="form-group col-4">
-                         <label for="spanfechacompra">Fecha de compra:</label>
-                                <span class="input-group-text fechacompra" id="spanfechacompra"><?php echo $compra['fecha_compra'] ?></span>
+                            <div class="input-group col-4">
+                              <div class="input-group-prepend">
+                          <span class="input-group-text">Fecha de compra:</span>
+                            </div>
+                                <input class="form-control text-center input-group-text fechacompra" id="spanfechacompra" value="<?php echo $compra['fecha_compra'] ?>" readonly>
                                 </div>
-                            <div class="form-group col-4">
-                         <label for="spanfechadealta">Fecha de alta:</label>
-                                <span class="input-group-text fechaalta" id="spanfechadealta"><?php echo $compra['fecha_alta'] ?></span>
+                            <div class="input-group col-4">
+                              <div class="input-group-prepend">
+                         <apan class="input-group-text">Fecha de alta:</span>
+                              </div>
+                                <input class="form-control text-center input-group-text fechaalta" id="spanfechadealta" value="<?php echo $compra['fecha_alta'] ?>" readonly>
                                 </div>
-                     <div class="form-group col-4">
-                         <label for="spancomprausuarioalta">Usuario que dió de alta:</label>
-                                <span class="input-group-text comprausuarioalta" id="spancomprausuarioalta"><?php echo $compra['usuario_alta'] ?></span>
+                     <div class="input-group col-4">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Usuario que dió de alta:</span>
+                              </div>
+                                <input class="form-control text-center input-group-text comprausuarioalta" id="spancomprausuarioalta" value="<?php echo $compra['usuario_alta'] ?>" readonly>
                                 </div>
                     </div>
                     <br>
-                    <p>Insumos de la compra</p>
-                        <table class="table table-hover table-bordered table-sm">
+                    <br>
+                    <h5>Insumos de la compra</h5>
+                    <hr>
+                    <div class="col-6">
+                        <table class="table table-hover table-sm">
     						<thead class="thead-light">
         						<tr>
-           							<th scope="col">ID</th>
-                                    <th scope="col">Insumo</th>
-                                    <th scope="col" class="text-right">Cantidad</th>
+           							<th scope="col"  class="text-center text-white bg-dark">ID</th>
+                        <th scope="col"  class="text-white bg-dark">Insumo</th>
+                        <th scope="col"  class="text-center text-white bg-dark">Cantidad</th>
         						</tr>
       						</thead>
   							<tbody>
@@ -71,31 +87,43 @@ foreach ($detalleCompra as $compra) {
 
 foreach ($detalleCompraInsumos as $insumo) {
 
-echo '<tr><td scope="col">' . $insumo[0] . '</td><td scope="col">' . $insumo[1] . '</td><td scope="col">' . $insumo[2] .' ' . $insumo[3].'</td></tr>';
+echo '<tr><td scope="col" class="text-center">' . $insumo[0] . '</td><td scope="col">' . $insumo[1] . '</td><td scope="col" class="text-center">' . $insumo[2] .' ' . $insumo[3].'</td></tr>';
 
 };
 ?>
   								
   							</tbody>
 					</table>
+        </div>
+
+
 
 
 <?php if ($compra['fecha_baja']!=NULL){
 
-      echo '<div class="row">
-                     <div class="form-group col-6">
-                         <label for="spanfechafincompra">Fecha de anulacion:</label>
-                                <span class="input-group-text fechafincompra" id="spanfechafincompra">'. $compra['fecha_baja'].'</span>
+      echo '<br>
+      <hr>
+      <div class="row">
+                     <div class="input-group col-6">
+                      <div class="input-group-prepend">
+                         <span class="input-group-text">Fecha de anulacion:</span>
+                         </div>
+                                <input class="form-control text-center input-group-text fechafincompra" id="spanfechafincompra" value="'. $compra['fecha_baja'].'" readonly>
                                 </div>
-                            <div class="form-group col-6">
-                         <label for="spanusuariobajacompra">Usuario que anuló:</label>
-                                <span class="input-group-text usuariobajacompra" id="spanusuariobajacompra">'.$compra['Usuario_baja'].'</span>
+                            <div class="input-group col-6">
+                        <div class="input-group-prepend"> 
+                         <span class="input-group-text">Usuario que anuló:</span>
+                         </div>
+                                <input class="form-control text-center input-group-text usuariobajacompra" id="spanusuariobajacompra" value="'.$compra['Usuario_baja'].'" readonly>
                                 </div>
                 </div>
+                <br>
                 <div class="row">
-                     <div class="form-group col-12">
-                         <label for="spanmotivoanulacionccompra">Motivo anulación:</label>
-                                <span class="input-group-text motivoanulacionccompra" id="spanmotivoanulacionccompra">'. $compra['motivo_anulacion'].'</span>
+                     <div class="input-group col-12">
+                         <div class="input-group-prepend">
+                         <span class="input-group-text">Motivo anulación:</span>
+                          </div>
+                                <input class="form-control input-group-text motivoanulacionccompra" id="spanmotivoanulacionccompra" value='. $compra['motivo_anulacion'].'" readonly>
                                 </div>
                 </div>';
 } ?>
@@ -103,7 +131,7 @@ echo '<tr><td scope="col">' . $insumo[0] . '</td><td scope="col">' . $insumo[1] 
                     <br>
                   
         <br>
-                  <button type="button" class="btn btn-warning" id="Imprimirreceta">Imprimir receta</button> 
+                  <button type="button" class="btn btn-warning" id="Imprimirreceta">Imprimir compra</button> 
             </div>
 
   <div class="modal fade" id="ConfirmarEstadoCompra" tabindex="-1" role="dialog" aria-hidden="true">

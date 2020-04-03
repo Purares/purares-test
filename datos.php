@@ -210,11 +210,10 @@ if(isset($_POST["chequeadocompras"])){
     foreach($compras as $compra){
 
         if ($compra["anulado"]==0) {
-    
-            echo '<tr><td scope="col">' . $compra["fecha_compra"] . '</td><td scope="col">' . $compra["proveedor"] . '</td><td scope="col">' . $compra["nro_remito"] . '</td><td scope="col">' . $compra["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleCompra&idCompra='.$compra["id_compra"].'&nroRemito='.$compra["nro_remito"].'&estado=' .  $compra["anulado"] . '">Ver detalles</a></td></tr>';
+        echo '<tr><td scope="col" class="text-center">' . $compra["fecha_compra"] . '</td><td scope="col" class="text-center"></td><td scope="col" class="text-center">' . $compra["proveedor"] . '</td><td scope="col" class="text-center">' . $compra["nro_remito"] . '</td><td scope="col" class="text-center">' . $compra["descripcion"] . '</td><td scope="col" class="text-center"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleCompra&idCompra='.$compra["id_compra"].'&estado=' .  $compra["anulado"] . '">Ver detalles</a></td></tr>';
         }else{
 
-            echo '<tr><td scope="col">' . $compra["fecha_compra"] . '</td><td scope="col">' . $compra["proveedor"] . '</td><td scope="col">' . $compra["nro_remito"] . '</td><td scope="col">' . $compra["descripcion"] . '</td><td scope="col">Desactivada</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleCompra&idCompra='.$compra["id_compra"].'&nroRemito='.$compra["nro_remito"].'&estado=' .  $compra["anulado"] . '">Ver detalles</a></td></tr>';
+        echo '<tr><td scope="col" class="text-center">' . $compra["fecha_compra"] . '</td><td scope="col" class="text-center"><span class="badge badge-pill badge-danger">Anulada</span></td><td scope="col" class="text-center">' . $compra["proveedor"] . '</td><td scope="col" class="text-center">' . $compra["nro_remito"] . '</td><td scope="col" class="text-center">' . $compra["descripcion"] . '</td><td scope="col" class="text-center"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleCompra&idCompra='.$compra["id_compra"].'&estado=' .  $compra["anulado"] . '">Ver detalles</a></td></tr>';
         }
     }
     }else{
@@ -224,7 +223,7 @@ if(isset($_POST["chequeadocompras"])){
 
         if ($compra["anulado"]==0) {
     
-        echo '<tr><td scope="col">' . $compra["fecha_compra"] . '</td><td scope="col">' . $compra["proveedor"] . '</td><td scope="col">' . $compra["nro_remito"] . '</td><td scope="col">' . $compra["descripcion"] . '</td><td scope="col">Activa</td><td scope="col"><a class="btn btn-secondary btn-sm" href="index.php?pagina=detalleCompra&idCompra='.$compra["id_compra"].'&nroRemito='.$compra["nro_remito"].'&estado=' .  $compra["anulado"] . '">Ver detalles</a></td></tr>';
+    echo '<tr><td scope="col" class="text-center">' . $compra["fecha_compra"] . '</td><td scope="col" class="text-center"></td><td scope="col" class="text-center">' . $compra["proveedor"] . '</td><td scope="col" class="text-center">' . $compra["nro_remito"] . '</td><td scope="col" class="text-center">' . $compra["descripcion"] . '</td><td scope="col" class="text-center"><a class="btn btn-info btn-sm" href="index.php?pagina=detalleCompra&idCompra='.$compra["id_compra"].'&estado=' .  $compra["anulado"] . '">Ver detalles</a></td></tr>';
    }
 }
 }

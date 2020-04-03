@@ -41,12 +41,11 @@
     						<thead>
         						<tr>
            							<th scope="col" class="text-center text-white bg-dark">N° Orden</th>
-                                         <th scope="col" class="text-center text-white bg-dark" >Estado</th>
-                                    <th scope="col" class="text-white bg-dark">Nombre Receta</th>
-                                    <th scope="col" class="text-white bg-dark">Peso Pastón</th>
-                                    <th scope="col" class="text-white bg-dark">Fecha de alta</th>
+                        <th scope="col" class="text-center text-white bg-dark" >Estado</th>
+                        <th scope="col" class="text-white bg-dark">Nombre Receta</th>
+                        <th scope="col" class="text-white bg-dark">Fecha de alta</th>
+                        <th scope="col" class="text-white bg-dark">Peso Pastón</th>
            							<th scope="col" class="text-white bg-dark">Ordenante</th>
-       
                         <th scope="col" class="text-white bg-dark">Ver Detalles</th>
         						</tr>
       						</thead>

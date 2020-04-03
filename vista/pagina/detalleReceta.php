@@ -37,7 +37,7 @@ foreach ($detalleReceta as $receta) {
                   <div class="row">
                             <div class="input-group col-6">
                               <div class="input-group-prepend">
-                         <span class="input-group-text">ID Receta:</span>
+                         <span class="input-group-text">N° Receta:</span>
                                 </div>
                                 <input type="text" class="form-control text-center recetaid" id="spanrecetaid" value="<?php echo $_GET['idReceta'] ?>" readonly>
                               </div>
