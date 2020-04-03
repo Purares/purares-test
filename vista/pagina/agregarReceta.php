@@ -201,8 +201,25 @@ foreach($depositos as $deposito){
                              <div class="invalid-feedback">
                                    Ingrese el peso por unidad en kilos 
                                     </div>
-                </div>     
+              </div>
                     </div>
+                    <br>
+            <div class="row">
+              <div class="input-group col-6"> 
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Cantidad de unidades:</span>
+                  </div>
+                    <input type="number" min=0 step=0.01 class="form-control text-right" id="cantunisfrescas" name="unidadesXpastonCrearReceta" placeholder="Ingrese la cantidad" required>
+                  <div class="input-group-append">
+                  <span class="input-group-text">unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades frescas obtenidas con un pastón de 100 kilos.">
+  ?
+</button>
+              </div>
+                             <div class="invalid-feedback">
+                                   Ingrese el peso por unidad en kilos 
+                                    </div>
+                </div> 
+                </div>    
                       <br>
                       <br>
               <h5>Producto terminado</h5>
@@ -264,6 +281,8 @@ foreach($depositos as $deposito){
           <p>Tiene un largo por unidad fresca de <a class="largo"></a> metros y un largo por unidad esperado de <a class="largoesperado"></a> metros.
 
           <p>Tiene un peso por unidad fresca de <a class="peso"></a> kilos y un peso por unidad esperado de  <a class="pesoesperado"></a> kilos .</p>
+
+          <p>Se esperan producir <a class="unidesdesfrescas"></a> unidades frescas cada 100 kilos.</p>
 
           <p>Tendrá la siguiente descripción:</p> 
 
@@ -327,6 +346,7 @@ function completarmodalrecetas(){
                                       diasvencimiento=$('#DiasVencimiento').val()
                                       gramosxunidad=$('#gramosxunidad').val()
                                       cmxunidad=$('#cmxunidad').val()
+                                      unidadesfrescas=$('#unidadesfrescas').val()
                                       gramosxunidadesperado=$('#gramosxunidadesperado').val()
                                       cmxunidadesperado=$('#cmxunidadesperado').val()
 
@@ -356,6 +376,7 @@ modal.find('.diasprodu').text('' + diasproduccion);
 modal.find('.diasvenc').text('' + diasvencimiento);
 modal.find('.largo').text('' + gramosxunidad);
 modal.find('.peso').text('' + cmxunidad);
+modal.find('.unidadesfrescas').text('' + unidadesfrescas);
 modal.find('.largoesperado').text('' + gramosxunidadesperado);
 modal.find('.pesoesperado').text('' + cmxunidadesperado);
 modal.find('.descripcion').text('' + descripcion);

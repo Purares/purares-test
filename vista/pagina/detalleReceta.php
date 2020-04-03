@@ -165,6 +165,21 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                               </div>
                             </div>
                               </div>
+                              <br>
+                              <div class="row">
+                <div class="input-group col-6"> 
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Cantidad de unidades:</span>
+                  </div>
+                    <input type="number" min=0 step=0.01 class="form-control text-right" id="cantunisfrescas" name="cantidad_unidades_lote" value="<?php echo $receta['cantidad_unidades_lote'] ?>" readonly>
+                  <div class="input-group-append">
+                  <span class="input-group-text">unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Cantidad de unidades frescas obtenidas con un pastón de 100 kilos.">
+  ?
+</button>
+              </div>
+                </div>
+
+                              </div>
                       <br>
               <h5>Producto terminado</h5>
               <hr>

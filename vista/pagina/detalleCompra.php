@@ -123,7 +123,7 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[0] . '</td><td scope="
                          <div class="input-group-prepend">
                          <span class="input-group-text">Motivo anulación:</span>
                           </div>
-                                <input class="form-control input-group-text motivoanulacionccompra" id="spanmotivoanulacionccompra" value='. $compra['motivo_anulacion'].'" readonly>
+                                <input class="form-control input-group-text motivoanulacionccompra" id="spanmotivoanulacionccompra" value="'. $compra['motivo_anulacion'] .'" readonly>
                                 </div>
                 </div>';
 } ?>

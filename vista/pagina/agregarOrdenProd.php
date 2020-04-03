@@ -83,7 +83,7 @@ foreach($recetas as $receta){
                 <thead>
                     <tr>
                       <th scope="col" class="text-center text-white bg-dark">ID</th>
-                      <th scope="col" class="text-center text-white bg-dark">Carne</th>
+                      <th scope="col" class="text-white bg-dark">Carne</th>
                       <th scope="col" class="text-center text-white bg-dark">Cantidad</th>
                        <th scope="col" class="text-center text-white bg-dark">Stock Actual</th>
                     </tr> 
