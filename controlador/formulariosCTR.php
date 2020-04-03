@@ -257,7 +257,10 @@ class ControladorFormularios{
 						if ($respuesta != "OK") { return $respuesta;}
 					} #exit for OK
 
-			return $respuesta;
+			$respuesta2 = array('validacion_' => $respuesta,
+								'idReceta_' => $idReceta_nueva);
+
+			return $respuesta2;
 		}
 
 	}
