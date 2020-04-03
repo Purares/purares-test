@@ -217,6 +217,7 @@ class ControladorFormularios{
 			isset($_POST["porcentcarneCrearReceta"])||
 			isset($_POST["largouniLoteCrearReceta"])||
 			isset($_POST["pesouniLoteCrearReceta"])||
+			isset($_POST["unidadesXpastonCrearReceta"])||
 			isset($_POST["mermaCrearReceta"])||
 			isset($_POST["largoUniEsperadoCrearReceta"])||
 			isset($_POST["pesoUniEsperadoCrearReceta"])||
@@ -230,6 +231,7 @@ class ControladorFormularios{
 									'porcentCarne_'=> 			round(($_POST["porcentcarneCrearReceta"]/100),3),
 									'largoUniLote_' => 			$_POST["largouniLoteCrearReceta"],
 									'pesoUniLote_' => 			$_POST["pesouniLoteCrearReceta"],
+									'unidadesXpaston_'=>		$_POST["unidadesXpastonCrearReceta"],
 									'merma_' => 				round(($_POST["mermaCrearReceta"]/100),3),
 									'largoUniEsperado_' =>		$_POST["largoUniEsperadoCrearReceta"],
 									'pesoUniEsperado_' =>		round($_POST["pesoUniEsperadoCrearReceta"],3),
