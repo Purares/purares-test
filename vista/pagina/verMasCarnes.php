@@ -30,10 +30,9 @@
                         <table class="table table-hover">
                 <thead class="thead-light">
                     <tr>
-                                    <th scope="col">ID Desbaste</th>
-                                    <th scope="col">Stock</th>
-                                     <th scope="col">Unidad</th>
-                                    <th scope="col">Fecha de desbaste</th>
+                      <th scope="col" class="text-center text-white bg-dark">ID Desbaste</th>
+                      <th scope="col" class="text-center text-white bg-dark">Stock</th> 
+                      <th scope="col" class="text-center text-white bg-dark">Fecha de desbaste</th>
                     </tr>
                   </thead>
                 <tbody id="tablacomposicioncarne">
@@ -41,7 +40,7 @@
 
 foreach($despostes as $desposte){
   
-  echo '<tr><td scope="col">' . $desposte['id_desposte'] . '</td><td scope="col" class="text-right">' . $desposte['stock'] . '</td><td scope="col">' . $desposte['udm'] . '</td><td scope="col">' . $desposte['fecha_desposte'] . '</td></tr>';
+  echo '<tr><td scope="col" class="text-center">' . $desposte['id_desposte'] . '</td><td scope="col" class="text-right">' . $desposte['stock'] . ' ' . $desposte['udm'] . '</td><td scope="col" class="text-center">' . $desposte['fecha_desposte'] . '</td></tr>';
 
 };
 

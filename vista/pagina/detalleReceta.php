@@ -123,20 +123,6 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                               </div>
                             </div>
         				</div>
-                <br>
-                        <div class="row">
-                            <div class="input-group col-6">
-                              <div class="input-group-prepend">
-                         <span class="input-group-text">Unidades finales por unidad producida:</span>
-                                </div>
-                                <input type="text" class="form-control text-center unidadesfinales" id="unidadesfinales" value="<?php echo $receta['unidades_final_xunidad'] ?> unidades" readonly>
-                                   <div class="input-group-append">
-                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de unidades finales que se obtienen por cada unidad fresca que entra al secadero. Es decir, en cuantas unidades se corta el producto fresco.">
-                                ?
-                                </button>
-                              </div>
-                              </div>
-                        </div>
                       <br>
                       <br>
               <h5>Producto fresco</h5>
@@ -207,6 +193,20 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                               </div>
                             </div>
         				</div>
+                <br>
+                        <div class="row">
+                            <div class="input-group col-6">
+                              <div class="input-group-prepend">
+                         <span class="input-group-text">Unidades finales por unidad producida:</span>
+                                </div>
+                                <input type="text" class="form-control text-center unidadesfinales" id="unidadesfinales" value="<?php echo $receta['unidades_final_xunidad'] ?> unidades" readonly>
+                                   <div class="input-group-append">
+                                <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="top" title="Cantidad de unidades finales que se obtienen por cada unidad fresca que entra al secadero. Es decir, en cuantas unidades se corta el producto fresco.">
+                                ?
+                                </button>
+                              </div>
+                              </div>
+                        </div>
      		<br>
                		<button type="button" class="btn btn-warning" id="Imprimirreceta">Imprimir receta</button> 
       			</div>

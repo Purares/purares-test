@@ -70,7 +70,6 @@ foreach($depositos as $deposito){
                         <td scope="col">
                           <select class="custom-select nomingre" name="idinsumoCrearReceta[]">
                                         <option value="0">Seleccione el insumo</option>
-                                         <option value="1">Insumo1</option>
                           </select>
                         </td>
                         <td scope="col">
@@ -152,23 +151,6 @@ foreach($depositos as $deposito){
                </div>
               </div>
               <br>
-              <div class="row">
-
-            <div class="input-group col-6"> 
-                    <div class="input-group-prepend">
-                    <span class="input-group-text">Unidades finales por unidad producida:</span>
-                  </div>
-                    <input type="number" min=0 step=1 class="form-control text-right" id="unidadesfinalesxunidad" name="uFinalXuCrearReceta" placeholder="Cantidad" required>
-                  <div class="input-group-append">
-                  <span class="input-group-text">Unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades finales que se obtienen por cada unidad fresca que entra al secadero. Es decir, en cuantas unidades se corta el producto fresco.">
-  ?
-          </button>
-              </div>
-                             <div class="invalid-feedback">
-                                  Ingrese la cantidad de unidades finales por unidad producida 
-                                    </div>
-                </div> 
-                  </div>
               <hr>
               <br>
               <h5>Producto fresco</h5>
@@ -254,6 +236,24 @@ foreach($depositos as $deposito){
               </div>
                 </div>
               </div>
+              <br>
+              <div class="row">
+
+            <div class="input-group col-6"> 
+                    <div class="input-group-prepend">
+                    <span class="input-group-text">Unidades finales por unidad producida:</span>
+                  </div>
+                    <input type="number" min=0 step=1 class="form-control text-right" id="unidadesfinalesxunidad" name="uFinalXuCrearReceta" placeholder="Cantidad" required>
+                  <div class="input-group-append">
+                  <span class="input-group-text">Unidades</span><button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="tooltip" data-placement="right" title="Ingrese la cantidad de unidades finales que se obtienen por cada unidad fresca que entra al secadero. Es decir, en cuantas unidades se corta el producto fresco.">
+  ?
+          </button>
+              </div>
+                             <div class="invalid-feedback">
+                                  Ingrese la cantidad de unidades finales por unidad producida 
+                                    </div>
+                </div> 
+                  </div>
               <hr>
                 <br>
               <h5>Descripción</h5>
@@ -584,7 +584,7 @@ $(document).ready( function() {   // Esta parte del código se ejecutará autom�
                     var modal=$('#MensajeConfirmacion').modal('show')
                  	modal.find('.modal-body').empty()
                  	modal.find('.modal-body').html(
-                 		'<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar la receta, reintente nuevamente, de persister el error contacte con los administradores del sistema.</p><hr></div>')
+                 		'<div class="alert alert-danger" role="alert"><h4 class="alert-heading">Error</h4><p>Ha ocurrido un error al intentar agregar la receta.</p><hr></div>')
                 }
             },"json");
   
