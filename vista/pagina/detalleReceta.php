@@ -208,7 +208,7 @@ echo '<tr><td scope="col" class="text-center">' . $insumo[1] . '</td><td scope="
                               </div>
                         </div>
      		<br>
-               		<a type="button" class="btn btn-warning" id="Imprimirreceta" href="pruebaimprimir.php" target="_blanck">Imprimir receta</a> 
+               		<a type="button" class="btn btn-warning" id="Imprimirreceta" href="pruebaotropdf.php" target="_blanck">Imprimir receta</a> 
       			</div>
 
 

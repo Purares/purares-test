@@ -668,10 +668,11 @@ static public function mdlCrearDesposte($datos){
 
 static public function mdlAltaOP($datosOP){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_AltaOP(:idReceta, :pesoPaston, :idUsuario);");
+		$stmt=conexion::conectarBD()->prepare("call ins_AltaOP(:idReceta, :pesoPaston,:qUniFrescas, :idUsuario);");
 
 		$stmt -> bindparam (":idReceta",	$datosOP['idReceta_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":pesoPaston",	$datosOP['pesoPaston_'],PDO::PARAM_STR);
+		$stmt -> bindparam (":qUniFrescas",	$datosOP['qUniFrescas_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":idUsuario",	$datosOP['idUsuario_'],PDO::PARAM_INT);
 
 
@@ -760,10 +761,11 @@ static public function mdlDetalleOpMediciones($id_OrdenProd){
 
 static public function mdlFinOP($datosOP){
 
-		$stmt=conexion::conectarBD()->prepare("call ins_Fin_OrdenProd(:idOrdenProdAlta,:unidadesFrescas, :productoObtenido, :unidadesObtenidas, :descripcion, :idUsuarioAlta);");
+		$stmt=conexion::conectarBD()->prepare("call ins_Fin_OrdenProd(:idOrdenProdAlta,:unidadesFrescas,:pesoFresco, :productoObtenido, :unidadesObtenidas, :descripcion, :idUsuarioAlta);");
 
 		$stmt -> bindparam (":idOrdenProdAlta",		$datosOP['idOrdenProdAlta_'],PDO::PARAM_INT);
 		$stmt -> bindparam (":unidadesFrescas",		$datosOP['unidadesFrescas_'],PDO::PARAM_INT);
+		$stmt -> bindparam (":pesoFresco",			$datosOP['pesoFresco_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":productoObtenido",	$datosOP['productoObtenido_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":unidadesObtenidas",	$datosOP['unidadesObtenidas_'],PDO::PARAM_STR);
 		$stmt -> bindparam (":descripcion",			$datosOP['descripcion_'],PDO::PARAM_STR);

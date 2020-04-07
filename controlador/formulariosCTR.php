@@ -718,6 +718,7 @@ static public function ctrValidarAnulacionCompra(){
 		
 		if (isset($_POST["idRecetaAltaOP"])&&
 			isset($_POST["pesoPastonAltaOP"])&&
+			isset($_POST["qUniFrescasAltaOP"])&& #Cantidad de Unidades Frescas= [Peso_Paston * cantidad_unidad_lote(TablaReceta_n)]/100  
 			isset($_POST["idCarnesAgregarOP"])&&
 			isset($_POST["catidadCarnesAgregarOP"])){
 
@@ -742,7 +743,8 @@ static public function ctrValidarAnulacionCompra(){
 							# code...
 							#Crear Alta de OP
 							$datosOP = array(	'idReceta_' 	=> $_POST["idRecetaAltaOP"],
-												'pesoPaston_' 	=> $_POST["pesoPastonAltaOP"], 
+												'pesoPaston_' 	=> $_POST["pesoPastonAltaOP"],
+												'qUniFrescas_' 	=> $_POST["qUniFrescasAltaOP"], 
 												'idUsuario_' 	=> 1 ); #[TO DO]
 
 							$idOrdenProd=ModeloFormularios::mdlAltaOP($datosOP);
@@ -919,6 +921,7 @@ static public function ctrValidarAnulacionCompra(){
 				
 		if (isset($_POST["idOrdenProdAlta_FinOP"])||
 			isset($_POST["unidadesFrescas_FinOP"])||#NEW
+			isset($_POST["pesoFresco_FinOP"])||#NEW
 			isset($_POST["productoObtenido_FinOp"])||
 			isset($_POST["unidades_FinOP"])||
 			isset($_POST["MedicionesSort_FinOP"])||#NEW
@@ -941,6 +944,7 @@ static public function ctrValidarAnulacionCompra(){
 					#Insertar los campos en la finalización de OP
 					$datosOP= array('idOrdenProdAlta_'	=> $_POST["idOrdenProdAlta_FinOP"],
 									'unidadesFrescas_'	=> $_POST["unidadesFrescas_FinOP"],
+									'pesoFresco_'		=> $_POST["pesoFresco_FinOP"],
 									'productoObtenido_'	=> $_POST["productoObtenido_FinOp"],
 									'unidadesObtenidas_'=> $_POST["unidades_FinOP"],
 									'descripcion_'		=> $_POST["descripcion_FinOP"],
