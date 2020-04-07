@@ -718,7 +718,10 @@ static public function ctrValidarAnulacionCompra(){
 		
 		if (isset($_POST["idRecetaAltaOP"])&&
 			isset($_POST["pesoPastonAltaOP"])&&
-			isset($_POST["qUniFrescasAltaOP"])&& #Cantidad de Unidades Frescas= [Peso_Paston * cantidad_unidad_lote(TablaReceta_n)]/100  
+			isset($_POST["qUniFrescasAltaOP"])&& 
+				#Cantidad de Unidades Frescas= [Peso_Paston * cantidad_unidad_lote(TablaReceta_n)]/100 #REDONDEAR CON CERO DECIMALES!
+				#$detalleReceta= ModeloFormularios::ctrDetalleReceta();
+				#$qUniLote=$detalleReceta[0]['cantidad_unidades_lote'];
 			isset($_POST["idCarnesAgregarOP"])&&
 			isset($_POST["catidadCarnesAgregarOP"])){
 
